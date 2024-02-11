@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { BtnSubmit, TextDt, DropdownEn } from "@/components/Form";
-import Add from "@/components/mobile/Add";
-import Edit from "@/components/mobile/Edit";
-import Delete from "@/components/mobile/Delete";
+import Add from "@/components/mobilebill/Add";
+import Edit from "@/components/mobilebill/Edit";
+import Delete from "@/components/mobilebill/Delete";
 import { getItems } from "@/lib/LocalDatabase";
 import { fetchAll } from "@/lib/DexieDatabase";
 
@@ -17,20 +17,12 @@ require("@/lib/fonts/SUTOM_MJ-normal");
 const MobileBillCreation = ({ doc }, data) => {
 
     const projects = data.projects;
-    const project = data.project;
+    const project_id = data.project_id;
     const dt = data.dt;
-    const mobile = data.mobile;
-const p_name = projects.find(p=>parseInt(p.id)===parseInt(project));
+    const mobilebills = data.mobilebills;
+    const p_name = projects.find(p => parseInt(p.id) === parseInt(project_id));
 
-console.log(p_name)
-    /* {
-     "id": 1707370105575,
-     "mobile_id": "1707022847742",
-     "taka": "5000",
-     "m_name": "KA -Jerina Jahan-1",
-     "m_num": "01713068285"
- } 
- */
+
     doc.addImage("/images/formats/mobilebill.png", "PNG", 0, 0, 210, 297);
     doc.setFont("times", "italic");
     doc.setFontSize(14);
@@ -59,11 +51,11 @@ console.log(p_name)
     //----------------------------------------------------
 
     let total = 0;
-    for (let i = 0; i < mobile.length; i++) {
+    for (let i = 0; i < mobilebills.length; i++) {
         doc.text(`${i + 1}`, 20, y + 12, null, null, "center");
-        doc.text(`${mobile[i].m_name}`, 27, y + 12, null, null, "left");
-        doc.text(`${mobile[i].m_num}`, 140, y + 12, null, null, "center");
-        doc.text(`${mobile[i].taka}`, 182, y + 12, null, null, "center");
+        doc.text(`${mobilebills[i].m_name}`, 27, y + 12, null, null, "left");
+        doc.text(`${mobilebills[i].m_num}`, 140, y + 12, null, null, "center");
+        doc.text(`${mobilebills[i].taka}`, 182, y + 12, null, null, "center");
 
         doc.line(15, y + 14, 195, y + 14) // horizontal line
 
@@ -73,7 +65,7 @@ console.log(p_name)
         doc.line(168, y + 7, 168, y + 14) // vertical line
         doc.line(195, y + 7, 195, y + 14) // vertical line
 
-        total = total + parseFloat(mobile[i].taka);
+        total = total + parseFloat(mobilebills[i].taka);
         y = y + 7;
     }
 
@@ -100,19 +92,20 @@ console.log(p_name)
 
 
 
-const Mobile = () => {
+const Mobilebill = () => {
     const [msg, setMsg] = useState("Data ready");
-
-    const [total, setTotal] = useState(0);
-    const [project, setProject] = useState("");
-    const [dt, setDt] = useState("");
-
     const [mobilebills, setMobilebills] = useState([]);
     const [projects, setProjects] = useState([]);
+
+    const [dt, setDt] = useState("");
+    const [project_id, setProject_id] = useState("");
+
+    const [total, setTotal] = useState(0);
 
 
     const fetchData = async (callback) => {
         try {
+
             const [mobile, project] = await Promise.all([
                 fetchAll("mobile"),
                 fetchAll("project")
@@ -138,7 +131,7 @@ const Mobile = () => {
 
                 await fetchData(data => {
                     const joinData = mobilebillData.map(d => {
-                        const matchMobile = data.mobile.find(m => parseInt(m.id) === parseInt(d.mobile_id));
+                        const matchMobile = data.mobile.find(mobile => parseInt(mobile.id) === parseInt(d.mobile_id));
                         return {
                             ...d,
                             m_name: matchMobile.name,
@@ -151,6 +144,7 @@ const Mobile = () => {
 
                     const totalTaka = joinData.reduce((t, c) => t + parseInt(c.taka), 0);
                     setTotal(totalTaka);
+                    setDt(Lib.util.dateFormat(new Date(), "-"));
                 });
 
             } catch (error) {
@@ -169,14 +163,14 @@ const Mobile = () => {
     const createObject = () => {
         return {
             projects: projects,
-            project: project,
             dt: dt,
-            mobile: mobilebills
+            project_id: project_id,
+            mobilebills: mobilebills // localStorage mobile
         }
     }
 
 
-    const handleCreate = async (e) => {
+    const handleCreate = (e) => {
         e.preventDefault();
         if (mobilebills.length < 0) {
             setMsg("No data to creating mobile.");
@@ -210,7 +204,7 @@ const Mobile = () => {
     return (
         <>
             <div className="w-full my-6 lg:my-10">
-                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Mobile</h1>
+                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Mobile Bill</h1>
             </div>
 
             <div className="px-4 lg:px-6">
@@ -219,7 +213,7 @@ const Mobile = () => {
                         <form onSubmit={handleCreate}>
                             <div className="grid grid-cols-1 gap-2 my-2">
                                 <TextDt Title="Date" Id="dt" Change={(e) => { setDt(e.target.value) }} Value={dt} />
-                                <DropdownEn Title="Project" Id="project" Change={e => setProject(e.target.value)} Value={project}>
+                                <DropdownEn Title="Project" Id="project_id" Change={e => setProject_id(e.target.value)} Value={project_id}>
                                     {projects.length ? projects.map(project => <option value={project.id} key={project.id}>{project.name}</option>) : null}
                                 </DropdownEn>
                             </div>
@@ -279,7 +273,7 @@ const Mobile = () => {
     );
 };
 
-export default Mobile;
+export default Mobilebill;
 
 
 
