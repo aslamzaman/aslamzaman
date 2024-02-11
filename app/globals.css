@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "my-bangla-font-bold";
+  src: url("../lib/fonts/SutonnyMJ\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "my-bangla-font-normal";
+  src: url("../lib/fonts/SutonnyMJ\ Regular.ttf");
+}
