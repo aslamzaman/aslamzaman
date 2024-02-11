@@ -11,7 +11,7 @@ const Edit = ({ message, id }) => {
     const [show, setShow] = useState(false);
 
     const [mobiles, setMobiles] = useState([]);
-    const [mobile, setMobile] = useState("");
+
 
 
     const showEditForm = async () => {
@@ -80,7 +80,7 @@ const Edit = ({ message, id }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <DropdownEn Title="Mobile" Id="mobile" Change={e => setMobile_id(e.target.value)} Value={mobile_id}>
+                                    <DropdownEn Title="Mobile" Id="mobile_id" Change={e => setMobile_id(e.target.value)} Value={mobile_id}>
                                         {mobiles.length ? mobiles.map(mobile => <option value={mobile.id} key={mobile.id}>{mobile.name}</option>) : null}
                                     </DropdownEn>
                                     <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />

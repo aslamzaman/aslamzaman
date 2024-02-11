@@ -135,7 +135,7 @@ const Code = () => {
 
     const PromiseGenerate = () => {
         const tbls = prompt("Tables name");
-        if (tbls === null  || tbls==='') return false;
+        if (tbls === null || tbls === '') return false;
         const sp = tbls.split(',');
 
         const tbName = sp.map(t => t.trim()).toString();
@@ -228,7 +228,7 @@ const Code = () => {
 
     const FetchOneGenerate = () => {
         const tbl = prompt("Table name");
-        if (tbl === null || tbl==='') return false;
+        if (tbl === null || tbl === '') return false;
 
         let str = 'import {fetchAll} from "@/lib/DexieDatabase";\n';
         str = str + `    const [${tbl}s, set${titleCase(tbl)}s] = useState([]);\n`;
@@ -255,6 +255,51 @@ const Code = () => {
 
         setResult(str);
 
+    }
+
+    const DropdownById = () => {
+        const tblName = prompt("Dropdown Id. (say: customer_id)");
+        if (tblName === null || tblName === '') return false;
+
+        const tbl = tblName.split("_");
+        if (tbl.length < 1) return false;
+        console.log(tbl.length);
+     
+        
+                let str = '    import {fetchAll} from "@/lib/DexieDatabase";\n';
+                str = str + '    import { BtnSubmit, BtnEn, DropdownEn, TextNum } from "@/components/Form";\n';
+                str = str + "\n";
+                str = str + "\n";
+                str = str + `    const [${tbl[0]}s, set${titleCase(tbl[0])}s] = useState([]);\n`;
+                str = str + `    const [${tblName}, set${titleCase(tblName)}] = useState("");\n`;
+        
+                str = str + "\n";
+                str = str + "\n";
+       
+                str = str + "    const fetchData = async () => {\n";
+                str = str + "        try {\n";
+                str = str + "            const " + tbl[0] + "Response = await fetchAll('" + tbl[0] + "');\n";
+                str = str + "            const " + tbl[0] + "Data = " + tbl[0] + "Response.data;\n";
+                str = str + `            set${titleCase(tbl[0])}s(${tbl[0]}Data);\n`;
+                str = str + "        } catch (error) {\n";
+                str = str + '            console.error("Error fetching data:", error);\n';
+                str = str + "        }\n";
+        
+                str = str + "    };\n";
+                str = str + "\n";
+                str = str + "\n";
+                
+                
+                
+                
+                
+                str = str + `                                    <DropdownEn Title="${titleCase(tbl[0])}" Id="${tblName}" Change={e => set${titleCase(tblName)}(e.target.value)} Value={${tblName}}>\n`;
+                str = str + `                                        {${tbl[0]}s.length?${tbl[0]}s.map(${tbl[0]}=><option value={${tbl[0]}.id} key={${tbl[0]}.id}>{${tbl[0]}.name}</option>):null}\n`;
+               
+                str = str + `                                    </DropdownEn>\n`;
+        
+                
+                setResult(str);
     }
 
 
@@ -302,6 +347,7 @@ const Code = () => {
                         <BtnEn Title="Unique Id" Click={UnitqueIdGenerator} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Fetch One" Click={FetchOneGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
