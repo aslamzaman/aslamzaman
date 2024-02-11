@@ -152,7 +152,7 @@ const Code = () => {
 
         let s6 = "";
         for (let i = 0; i < sp.length; i++) {
-            s6 = s6 + `    const [${sp[i].trim()}, set${titleCase(sp[i].trim())}] = useState("");\n`;
+            s6 = s6 + `    const [${sp[i].trim()}_id, set${titleCase(sp[i].trim())}_id] = useState("");\n`;
         }
         str = str + s6;
 
@@ -215,7 +215,7 @@ const Code = () => {
 
         let s7 = "";
         for (let i = 0; i < sp.length; i++) {
-            s7 = s7 + `                                    <DropdownEn Title="${titleCase(sp[i].trim())}" Id="${sp[i].trim()}" Change={e => set${titleCase(sp[i].trim())}(e.target.value)} Value={${sp[i].trim()}}>\n`;
+            s7 = s7 + `                                    <DropdownEn Title="${titleCase(sp[i].trim())}" Id="${sp[i].trim()}_id" Change={e => set${titleCase(sp[i].trim())}_id(e.target.value)} Value={${sp[i].trim()}_id}>\n`;
             s7 = s7 + `                                        {${sp[i].trim()}s.length?${sp[i].trim()}s.map(${sp[i].trim()}=><option value={${sp[i].trim()}.id} key={${sp[i].trim()}.id}>{${sp[i].trim()}.name}</option>):null}\n`;
             s7 = s7 + `                                    </DropdownEn>\n`;
         }
@@ -226,36 +226,6 @@ const Code = () => {
 
     }
 
-    const FetchOneGenerate = () => {
-        const tbl = prompt("Table name");
-        if (tbl === null || tbl === '') return false;
-
-        let str = 'import {fetchAll} from "@/lib/DexieDatabase";\n';
-        str = str + `    const [${tbl}s, set${titleCase(tbl)}s] = useState([]);\n`;
-        str = str + `    const [${tbl}, set${titleCase(tbl)}] = useState("");\n`;
-
-        str = str + "\n";
-
-        str = str + "    const fetchData = async () => {\n";
-        str = str + "        try {\n";
-        str = str + "            const " + tbl + "Response = await fetchAll('" + tbl + "');\n";
-        str = str + "            const " + tbl + "Data = " + tbl + "Response.data;\n";
-        str = str + `            set${titleCase(tbl)}s(${tbl}Data);\n`;
-        str = str + "        } catch (error) {\n";
-        str = str + '            console.error("Error fetching data:", error);\n';
-        str = str + "        }\n";
-
-        str = str + "    };\n";
-
-        str = str + "\n";
-
-        str = str + `                                    <DropdownEn Title="${titleCase(tbl)}" Id="${tbl}" Change={e => set${titleCase(tbl)}(e.target.value)} Value={${tbl}}>\n`;
-        str = str + `                                        {${tbl}s.length?${tbl}s.map(${tbl}=><option value={${tbl}.id} key={${tbl}.id}>{${tbl}.name}</option>):null}\n`;
-        str = str + `                                    </DropdownEn>\n`;
-
-        setResult(str);
-
-    }
 
     const DropdownById = () => {
         const tblName = prompt("Dropdown Id. (say: customer_id)");
@@ -345,8 +315,7 @@ const Code = () => {
                         <BtnEn Title="LocalDatabase" Click={LocalDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DexieDatabase" Click={DexieDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Unique Id" Click={UnitqueIdGenerator} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Fetch One" Click={FetchOneGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />                       
                         <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
