@@ -121,8 +121,8 @@ const TwoPart = (tbl, datas,opt) => {
             const load = () => {
                 try {
                     const response = getItems("${tbl}");
-                    const data = response.data;
-                    const result = data.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+                    const data = response.data;                    
+                    const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
                     set${titleCase(tbl)}s(result);
                 } catch (error) {
                     console.log(error);
@@ -166,7 +166,7 @@ const TwoPart = (tbl, datas,opt) => {
                 });
                 const newObject = createObject();
                 console.log(newObject);
-               // doc.save(new Date().toISOString() + "-Invoice.pdf");               
+               // doc.save(new Date().toISOString() + "-${titleCase(tbl)}.pdf");               
             } catch (error) {
                 console.log(error);
             }

@@ -17,22 +17,22 @@ export const Format = ({ doc }, data) => {
     doc.addImage("/images/formats/bayprostab1.png", "PNG", 0, 0, 210, 297);
   
     doc.setFont("SutonnyMJ", "normal");
-  
+
   
     doc.setFont("times", "normal");
     doc.text(` ${data.project}`, 167, 26, null, null, "left");
-  
     doc.setFont("SutonnyMJ", "normal");
     doc.setFontSize(14);
-  
-    doc.text(`${data.name}`, 50, 40.5, null, null, "left");
+    
+    doc.text(`${data.staff}`, 50, 40.5, null, null, "left");
     doc.setFont("times", "normal");
     doc.text(` ${hd1}`, 22, 47, null, null, "left");
-  
+    
     doc.setFont("SutonnyMJ", "normal");
     doc.text(`${data.subject}`, 25, 53.5, null, null, "left");
-  
+    
     doc.text(`${Lib.util.dateFormat(data.dt, ".")}`, 150, 34, null, null, "left");
+
   
     let x1 = data.db;
     let y = 100;
@@ -54,14 +54,16 @@ export const Format = ({ doc }, data) => {
       }
       y = y + 6;
     }
-  
-    doc.text(data.note, 174.347, 100, { maxWidth: 45, align: 'center' });
+    doc.setFont("SutonnyMJ", "normal");
+    doc.text(data.notes, 174.347, 100, { maxWidth: 45, align: 'center' });
     doc.text(`${Lib.util.numberWithCommas(dbTotal)}/-`, 122.844, 218, null, null, "center");
     let inwordTak = Lib.util.inword.bn(parseInt(dbTotal));
     doc.text(`${inwordTak} UvKv gvÎ`, 60, 226.144, null, null, "left");
   
-  
+
     /* ** ************************************************************************** */
+
+  
     doc.addPage("a4", "p");
   
     doc.addImage("/images/formats/bayprostab3.png", "PNG", 0, 0, 210, 297);
@@ -71,7 +73,7 @@ export const Format = ({ doc }, data) => {
     doc.setFont("SutonnyMJ", "normal");
   
     doc.setFontSize(14);
-    doc.text(`${data.name}`, 42, 35.173, null, null, "left");
+    doc.text(`${data.staff}`, 42, 35.173, null, null, "left");
     doc.text(`${Lib.util.dateFormat(data.dt, ".")}`, 175, 35.173, null, null, "left");
   
     doc.setFont("times", "normal");
@@ -101,13 +103,14 @@ export const Format = ({ doc }, data) => {
       y = y + 6;
     }
   
-  
-    doc.text(data.note, 167, 107, { maxWidth: 60, align: 'center' });
+    doc.setFont("SutonnyMJ", "normal");
+    doc.text(data.notes, 167, 107, { maxWidth: 60, align: 'center' });
     doc.text(`${Lib.util.numberWithCommas(dbTotal)}/-`, 122.844, 226.803, null, null, "center");
     doc.text(`${inwordTak} UvKv gvÎ`, 38, 239.429, null, null, "left");
-  
+
   
     /*************************** GO format ************************************************** */
+
     doc.addPage("a4", "p");
     doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
   
@@ -133,12 +136,13 @@ export const Format = ({ doc }, data) => {
   
     doc.text(`${Lib.util.numberWithCommas(dbTotal)}/-`, 122, 187, null, null, "center");
     doc.setFont("times", "normal");
-    doc.text(`${hd2}`, 145, 68, null, null, "center");
+    doc.text(`${hd2}`, 146, 68, null, null, "center");
     doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${data.dpt}`, 180, 68, null, null, "center");
-  
+    doc.text(`${data.dept}`, 180, 68, null, null, "center");
+
   
     /**************************** Bearer check ************************************************* */
+
     doc.addPage("a4", "p");
     doc.addImage("/images/formats/bearer.png", "PNG", 0, 0, 210, 297);
   

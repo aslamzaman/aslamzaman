@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { TextEn, TextBn , BtnSubmit, BtnEn, TextNum } from "@/components/Form";
+import { TextEn, BtnSubmit, BtnEn, TextBn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { fetchOne, updateOne } from "@/lib/DexieDatabase";
+import { getOne, updateItem } from "@/lib/LocalDatabase";
 
 
 const Edit = ({ message, id }) => {
@@ -13,18 +13,20 @@ const Edit = ({ message, id }) => {
     const [check, setCheck] = useState(false);
 
 
-    const showEditForm = async () => {
+    const showEditForm = () => {
         setShow(true);
         message("Ready to edit");
         try {
-            const response = await fetchOne("bayprostab", id);
+            const response = getOne("bayprostab", id);
             if (response) {
                 setItem(response.data.item);
                 setNos(response.data.nos);
                 setTaka(response.data.taka);
-
-                parseInt(taka) === 0?setCheck(true):setCheck(false);
-
+                if (parseFloat(response.data.taka) === 0) {
+                    setCheck(true);
+                } else {
+                    setCheck(false);
+                };
             } else {
                 setItem('');
                 setNos('');
@@ -47,16 +49,16 @@ const Edit = ({ message, id }) => {
             id: id,
             item: item,
             nos: nos,
-            taka: eval(taka)
+            taka: taka
         }
     }
 
 
-    const saveHandler = async (e) => {
+    const saveHandler = (e) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const response = await updateOne("bayprostab", newObject);
+            const response = updateItem("bayprostab", id, newObject);
             message(response.message);
         } catch (error) {
             console.log(error);
@@ -71,7 +73,6 @@ const Edit = ({ message, id }) => {
     }
 
 
-
     return (
         <>
             {show && (
@@ -83,7 +84,9 @@ const Edit = ({ message, id }) => {
                         </div>
 
                         <div className="px-6 pb-6 text-black">
-                            <input onChange={checkBoxHandler} type="checkbox" checked={check} /> English
+                            <div className="w-full flex justify-start space-x-2">
+                                <input onChange={checkBoxHandler} type="checkbox" checked={check} /> <label>English</label>
+                            </div>
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     {check ?
@@ -91,10 +94,8 @@ const Edit = ({ message, id }) => {
                                         :
                                         <TextBn Title="Item (Bangla)" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="50" />
                                     }
-
-
-                                    <TextNum Title="Nos" Id="nos" Change={(e) => setNos(e.target.value)} Value={nos} />
-                                    <TextNum Title="Taka" Id="taka" Change={(e) => setTaka(e.target.value)} Value={taka} />
+                                    <TextEn Title="Nos" Id="nos" Change={e => setNos(e.target.value)} Value={nos} Chr="50" />
+                                    <TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr="50" />
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <BtnEn Title="Close" Click={closeEditForm} Class="bg-pink-600 hover:bg-pink-800 text-white" />
