@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
-import { Close } from "@/components/Icons";  
-import {fetchOne, deleteOne} from "@/lib/DexieDatabase";	
-
+import { Close } from "@/components/Icons";
+import { getOne, deleteItem } from "@/lib/LocalDatabase";
 
 const Delete = ({ message, id }) => {
     const [data, setData] = useState({});
     const [show, setShow] = useState(false);
 
 
-    const showDeleteForm = async () => {
+    const showDeleteForm = () => {
         setShow(true);
         try {
-            const response = await fetchOne("bayprostab", id);
-          console.log(response.data.taka);
+            const response = getOne("bayprostab", id);
+
             setData(response.data);
             message("Ready to delete");
         }
@@ -23,17 +22,15 @@ const Delete = ({ message, id }) => {
     }
 
 
-
     const closeDeleteForm = () => {
         setShow(false);
         message("Data ready");
     }
 
-    
 
-    const deleteYesClick = async () => {
+    const deleteYesClick = () => {
         try {
-            const response = await deleteOne("bayprostab", id);
+            const response = deleteItem("bayprostab", id);
             message(response.message);
         } catch (error) {
             console.log(error);
@@ -41,7 +38,6 @@ const Delete = ({ message, id }) => {
         }
         setShow(false);
     }
-
 
 
     return (
@@ -55,10 +51,10 @@ const Delete = ({ message, id }) => {
                         </div>
                         <div className="p-4 lg:p-6 flex flex-col space-y-4">
                             <div className="w-full">
-                                <img className="w-10 h-10 mx-auto mb-5" src="/images/warning/warning-sign-icon.png" alt="warning" />   
+                                <img className="w-10 h-10 mx-auto mb-5" src="/images/warning/warning-sign-icon.png" alt="warning" />
                                 <h1 className="text-sm text-center text-gray-600">
                                     Are you sure to proceed with the deletion?</h1>
-                                <h1 className={`text-center text-gray-600 font-bold ${parseInt(data.taka)===0?'sans':'font-sutonny-n'}`}>{data.item}</h1>
+                                <h1 className="text-center text-gray-600 font-bold">{data.item}</h1>
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />

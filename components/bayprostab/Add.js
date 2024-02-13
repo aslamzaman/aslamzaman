@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { TextEn, TextBn, BtnSubmit, BtnEn, TextNum } from "@/components/Form";
+import { TextEn, BtnSubmit, BtnEn, TextBn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { insertOne } from "@/lib/DexieDatabase";
+import { addItem } from "@/lib/LocalDatabase";
 
 const Add = ({ message }) => {
     const [item, setItem] = useState('');
@@ -10,6 +10,7 @@ const Add = ({ message }) => {
     const [show, setShow] = useState(false);
 
     const [check, setCheck] = useState(false);
+
 
     const resetVariables = () => {
         message("Ready to add new");
@@ -41,17 +42,16 @@ const Add = ({ message }) => {
     }
 
 
-    const saveHandler = async (e) => {
+    const saveHandler = (e) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const response = await insertOne("bayprostab", newObject);
+            const response = addItem("bayprostab", newObject);
             message(response.message);
         } catch (error) {
             console.log(error);
             message("Error saving bayprostab data.");
         }
-        setCheck(false);
         setShow(false);
     }
 
@@ -71,22 +71,19 @@ const Add = ({ message }) => {
                             <Close Click={closeAddForm} Size="w-8 h-8" />
                         </div>
                         <div className="px-6 pb-6 text-black">
-                          
-                                <input onChange={checkBoxHandler} type="checkbox" checked={check} /> English
-                           
+                            <div className="w-full flex justify-start space-x-2">
+                                <input onChange={checkBoxHandler} type="checkbox" checked={check} /> <label>English</label> 
+                            </div>
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
-
                                     {check ?
                                         <TextEn Title="Item (English)" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="50" />
                                         :
                                         <TextBn Title="Item (Bangla)" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="50" />
                                     }
 
-
-
-                                    <TextNum Title="Nos" Id="nos" Change={(e) => setNos(e.target.value)} Value={nos} />
-                                    <TextNum Title="Taka" Id="taka" Change={(e) => setTaka(e.target.value)} Value={taka} />
+                                    <TextEn Title="Nos" Id="nos" Change={e => setNos(e.target.value)} Value={nos} Chr="50" />
+                                    <TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr="50" />
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <BtnEn Title="Close" Click={closeAddForm} Class="bg-pink-600 hover:bg-pink-800 text-white" />
@@ -102,7 +99,7 @@ const Add = ({ message }) => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-5 h-5 stroke-blue-900 group-hover:stroke-blue-500">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    <span className="scale-y-125">Add New</span>
+                    <span className="scale-y-125">AddNew</span>
                 </div>
             </button>
         </>
