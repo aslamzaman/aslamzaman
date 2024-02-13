@@ -138,7 +138,7 @@ const Code = () => {
         if (tbls === null || tbls === '') return false;
         const sp = tbls.split(',');
 
-        const tbName = sp.map(t => t.trim()).toString();
+        const tbName = sp.map(t => ' '+ t.trim()+'Response').toString();
 
         let str = "";
 
@@ -162,7 +162,7 @@ const Code = () => {
 
         str = str + "    const fetchData = async (callback) => {\n";
         str = str + "        try {\n";
-        str = str + "            const [" + tbName + "] = await Promise.all([\n";
+        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
         let s1 = "";
         for (let i = 0; i < sp.length - 1; i++) {
             s1 = s1 + '                fetchAll("' + sp[i].trim() + '"),\n';
@@ -177,10 +177,10 @@ const Code = () => {
 
         let s3 = "";
         for (let i = 0; i < sp.length - 1; i++) {
-            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim()}.data,\n`;
+            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim()+'Response'}.data,\n`;
         }
 
-        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim()}.data\n`;
+        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim()+'Response'}.data\n`;
         str = str + s3;
 
 
