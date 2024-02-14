@@ -138,7 +138,7 @@ const Code = () => {
         if (tbls === null || tbls === '') return false;
         const sp = tbls.split(',');
 
-        const tbName = sp.map(t => ' '+ t.trim()+'Response').toString();
+        const tbName = sp.map(t => ' ' + t.trim() + 'Response').toString();
 
         let str = "";
 
@@ -177,10 +177,10 @@ const Code = () => {
 
         let s3 = "";
         for (let i = 0; i < sp.length - 1; i++) {
-            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim()+'Response'}.data,\n`;
+            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim() + 'Response'}.data,\n`;
         }
 
-        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim()+'Response'}.data\n`;
+        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim() + 'Response'}.data\n`;
         str = str + s3;
 
 
@@ -234,43 +234,128 @@ const Code = () => {
         const tbl = tblName.split("_");
         if (tbl.length < 1) return false;
         console.log(tbl.length);
-     
-        
-                let str = '    import {fetchAll} from "@/lib/DexieDatabase";\n';
-                str = str + '    import { BtnSubmit, BtnEn, DropdownEn, TextNum } from "@/components/Form";\n';
-                str = str + "\n";
-                str = str + "\n";
-                str = str + `    const [${tbl[0]}s, set${titleCase(tbl[0])}s] = useState([]);\n`;
-                str = str + `    const [${tblName}, set${titleCase(tblName)}] = useState("");\n`;
-        
-                str = str + "\n";
-                str = str + "\n";
-       
-                str = str + "    const fetchData = async () => {\n";
-                str = str + "        try {\n";
-                str = str + "            const " + tbl[0] + "Response = await fetchAll('" + tbl[0] + "');\n";
-                str = str + "            const " + tbl[0] + "Data = " + tbl[0] + "Response.data;\n";
-                str = str + `            set${titleCase(tbl[0])}s(${tbl[0]}Data);\n`;
-                str = str + "        } catch (error) {\n";
-                str = str + '            console.error("Error fetching data:", error);\n';
-                str = str + "        }\n";
-        
-                str = str + "    };\n";
-                str = str + "\n";
-                str = str + "\n";
-                
-                
-                
-                
-                
-                str = str + `                                    <DropdownEn Title="${titleCase(tbl[0])}" Id="${tblName}" Change={e => set${titleCase(tblName)}(e.target.value)} Value={${tblName}}>\n`;
-                str = str + `                                        {${tbl[0]}s.length?${tbl[0]}s.map(${tbl[0]}=><option value={${tbl[0]}.id} key={${tbl[0]}.id}>{${tbl[0]}.name}</option>):null}\n`;
-               
-                str = str + `                                    </DropdownEn>\n`;
-        
-                
-                setResult(str);
+
+
+        let str = '    import {fetchAll} from "@/lib/DexieDatabase";\n';
+        str = str + '    import { BtnSubmit, BtnEn, DropdownEn, TextNum } from "@/components/Form";\n';
+        str = str + "\n";
+        str = str + "\n";
+        str = str + `    const [${tbl[0]}s, set${titleCase(tbl[0])}s] = useState([]);\n`;
+        str = str + `    const [${tblName}, set${titleCase(tblName)}] = useState("");\n`;
+
+        str = str + "\n";
+        str = str + "\n";
+
+        str = str + "    const fetchData = async () => {\n";
+        str = str + "        try {\n";
+        str = str + "            const " + tbl[0] + "Response = await fetchAll('" + tbl[0] + "');\n";
+        str = str + "            const " + tbl[0] + "Data = " + tbl[0] + "Response.data;\n";
+        str = str + `            set${titleCase(tbl[0])}s(${tbl[0]}Data);\n`;
+        str = str + "        } catch (error) {\n";
+        str = str + '            console.error("Error fetching data:", error);\n';
+        str = str + "        }\n";
+
+        str = str + "    };\n";
+        str = str + "\n";
+        str = str + "\n";
+
+
+
+
+
+        str = str + `                                    <DropdownEn Title="${titleCase(tbl[0])}" Id="${tblName}" Change={e => set${titleCase(tblName)}(e.target.value)} Value={${tblName}}>\n`;
+        str = str + `                                        {${tbl[0]}s.length?${tbl[0]}s.map(${tbl[0]}=><option value={${tbl[0]}.id} key={${tbl[0]}.id}>{${tbl[0]}.name}</option>):null}\n`;
+
+        str = str + `                                    </DropdownEn>\n`;
+
+
+        setResult(str);
     }
+
+
+    const JonGenerate = () => {
+        const tbls = prompt("Tables name");
+        if (tbls === null || tbls === '') return false;
+        const sp = tbls.split(',');
+
+        const tbName = sp.map(t => ' ' + t.trim() + 'Response').toString();
+
+        let str = "";
+        str = str +'import React, { useState, useEffect } from "react";\n';
+        str = str +'import {fetchAll} from "@/lib/DexieDatabase";\n';
+        str = str + "\n";
+
+        str = str + `    const [${sp[0].trim()}s, set${titleCase(sp[0].trim())}s] = useState([]);\n`;
+
+        str = str + "\n";
+
+
+        str = str + "    const fetchData = async () => {\n";
+        str = str + "        try {\n";
+        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
+        let s1 = "";
+        for (let i = 0; i < sp.length - 1; i++) {
+            s1 = s1 + '                fetchAll("' + sp[i].trim() + '"),\n';
+        }
+
+        s1 = s1 + '                fetchAll("' + sp[sp.length - 1].trim() + '")\n';
+        str = str + s1;
+        str = str + "            ]);\n\n"
+
+
+        let s3 = "";
+        for (let i = 0; i < sp.length; i++) {
+            s3 = s3 + `            const ${sp[i].trim()}Data = ${sp[i].trim() + 'Response'}.data;\n`;
+        }
+        str = str + s3;
+        str = str + "\n";
+        str = str + `            const jointData = ${sp[0].trim()}Data.map(${sp[0].trim()}=>{\n`;
+
+        let m1 = "";
+        for (let i = 1; i < sp.length; i++) {
+            m1 = m1 + '                const match' + titleCase(sp[i].trim()) + ' = ' + sp[i].trim() + 'Data.find(' + sp[i].trim() + ' => parseInt(' + sp[i].trim() + '.id) === parseInt(' + sp[0].trim() + '.' + sp[i].trim() + '_id));\n';
+        }
+        str = str + m1;
+
+
+        str = str + `                return {\n`;
+        str = str + '                   ...' + sp[0].trim() + ',\n';
+
+        let m3 = "";
+        for (let i = 1; i < sp.length - 1; i++) {
+            m3 = m3 + '                   ' + sp[i].trim() + ' : match' + titleCase(sp[i].trim()) + '? match' + titleCase(sp[i].trim()) + ".name : 'Error!',\n";
+        }
+
+        m3 = m3 + '                   ' + sp[sp.length - 1].trim() + ' : match' + titleCase(sp[sp.length - 1].trim()) + '? match' + titleCase(sp[sp.length - 1].trim()) + ".name : 'Error!'\n";
+
+
+
+        str = str + m3;
+
+
+        str = str + `                }\n`;
+
+
+        str = str + `            });\n`;
+        str = str + "\n";
+
+        str = str + "            const result = jointData.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);\n";
+        str = str + "            set" + titleCase(sp[0]) + "s(result);\n";
+
+
+        str = str + "        } catch (error) {\n";
+        str = str + '            console.error("Error fetching data:", error);\n';
+        str = str + "        }\n";
+
+        str = str + "    };\n";
+
+        str = str + "\n";
+        str = str + "    fetchData();\n";
+        setResult(str);
+
+    }
+
+
 
 
     return (
@@ -315,8 +400,9 @@ const Code = () => {
                         <BtnEn Title="LocalDatabase" Click={LocalDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DexieDatabase" Click={DexieDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Unique Id" Click={UnitqueIdGenerator} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />                       
+                        <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Joint Table" Click={JonGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>

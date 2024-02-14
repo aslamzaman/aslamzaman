@@ -5,10 +5,7 @@ import {fetchOne, updateOne} from "@/lib/DexieDatabase";
 
 
 const Edit = ({ message, id }) => {        
-    const [cat_id, setCat_id] = useState('');
-    const [dt, setDt] = useState('');
-    const [unit, setUnit] = useState('');
-    const [picurl, setPicurl] = useState('');        
+    const [name, setName] = useState('');        
     const [show, setShow] = useState(false);
 
 
@@ -16,17 +13,11 @@ const Edit = ({ message, id }) => {
         setShow(true);
         message("Ready to edit");
         try {
-            const response = await fetchOne("doc", id);
+            const response = await fetchOne("doc_cat", id);
             if (response) {
-                setCat_id(response.data.cat_id);
-                setDt(response.data.dt);
-                setUnit(response.data.unit);
-                setPicurl(response.data.picurl);                    
+                setName(response.data.name);                    
             } else {
-                setCat_id('');
-                setDt('');
-                setUnit('');
-                setPicurl('');                    
+                setName('');                    
             }
         } catch (err) {
             console.log(err);
@@ -43,10 +34,7 @@ const Edit = ({ message, id }) => {
     const createObject = () => {
         return {
             id: id,
-            cat_id: cat_id,
-            dt: dt,
-            unit: unit,
-            picurl: picurl                
+            name: name                
         }
     }
 
@@ -55,7 +43,7 @@ const Edit = ({ message, id }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const response = await updateOne("doc", newObject);
+            const response = await updateOne("doc_cat", newObject);
             message(response.message);
         } catch (error) {
             console.log(error);
@@ -78,10 +66,7 @@ const Edit = ({ message, id }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextEn Title="Cat_id" Id="cat_id" Change={(e) => setCat_id(e.target.value)} Value={cat_id} Chr="50" />
-                                    <TextEn Title="Dt" Id="dt" Change={(e) => setDt(e.target.value)} Value={dt} Chr="50" />
-                                    <TextEn Title="Unit" Id="unit" Change={(e) => setUnit(e.target.value)} Value={unit} Chr="50" />
-                                    <TextEn Title="Picurl" Id="picurl" Change={(e) => setPicurl(e.target.value)} Value={picurl} Chr="50" />                                        
+                                    <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr="50" />                                        
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <BtnEn Title="Close" Click={closeEditForm} Class="bg-pink-600 hover:bg-pink-800 text-white" />
