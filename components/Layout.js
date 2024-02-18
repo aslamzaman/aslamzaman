@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { fetchAll, backup, recover } from '@/lib/DexieDatabase';
 import { saveAs } from "file-saver";
 import { Data } from "@/lib/Data";
+import { MenuData } from '@/lib/MenuData';
+
+
 
 
 const MenuWraper = ({ Title, children }) => {
@@ -102,107 +105,80 @@ const Layout = ({ children }) => {
 
 
     return (
-        <div className="relative w-screen h-screen">
-            <div className="w-full h-[60px] px-4 lg:p-6 bg-gray-50 border-b-2 border-gray-200 flex justify-between items-center shadow-lg">
+        <>
+            {/* nav bar fixed menu, aslam, bar, close */}
+            <header className="fixed w-full h-[60px] top-0 px-4 lg:px-6 bg-gray-50 border-b-2 border-gray-200 flex justify-between items-center shadow-lg z-20">
                 <div className="text-lg font-bold">
                     {menu ? (<h1>Menu</h1>) : (<Link href="/">Aslam</Link>)}
                 </div>
-                <div className="flex items-center space-x-3">
-                    {menu
-                        ? (<button onClick={() => setMenu(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>)
-                        : (<button onClick={() => setMenu(true)}>
+                <button onClick={() => menu ? setMenu(false) : setMenu(true)}>
+                    {menu ?
+                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>)
+
+                        : (
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
-                        </button>)}
-                </div>
-            </div>
+                        )}
+                </button>
+            </header>
 
-            <div className="w-full h-[calc(100vh-110px)] bg-white overflow-auto">
-                <div className="w-full h-full">
-                    {children}
-                    <div className='h-20'></div>
-                </div>
-            </div>
 
-            <footer className="w-full h-[50px] px-4 lg:px-6 flex justify-center items-center text-sm bg-gray-50 border-t-2 border-gray-200">
+            {/* content */}
+            <main className="w-full mt-[60px] bg-white overflow-auto">
+                {children}
+            </main>
+
+
+            {/* footer */}
+            <footer className="w-full py-10 text-center text-sm bg-gray-50 border-t-2 border-gray-200">
                 <p className='text-center'>Copyright @ 2023 Aslam Zaman. Email: aslamcmes@gmail.com</p>
             </footer>
 
-            {menu && (
-                <div id="menuGroup" className="absolute w-full top-[60px] p-4 grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-2 md:gap-3 bg-gray-400 shadow-lg transition duration-300">
+            {
+                menu && (
+                    <>
+                        <nav className="fixed w-full max-h-[calc(100vh-60px)] top-[60px] overflow-auto z-20">
+                            <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 bg-gray-400 shadow-lg transition duration-500'>
 
-                    <MenuWraper Title="Settings">
-                        <MenuItem Click={() => setMenu(false)} Href="/project" Title="Project" />
-                        <MenuItem Click={() => setMenu(false)} Href="/post" Title="Post" />
-                        <MenuItem Click={() => setMenu(false)} Href="/staff" Title="Staff" />
-                        <MenuItem Click={() => setMenu(false)} Href="/gender" Title="Gender" />
-                        <MenuItem Click={() => setMenu(false)} Href="/place" Title="Place" />
-                        <MenuItem Click={() => setMenu(false)} Href="/unit" Title="Unit" />
-                        <MenuItem Click={() => setMenu(false)} Href="/author" Title="Author" />
-                    </MenuWraper>
-
-                    <MenuWraper Title="Calculation">
-                        <MenuItem Click={() => setMenu(false)} Href="/octen" Title="Octen" />
-                        <MenuItem Click={() => setMenu(false)} Href="/code" Title="Code" />
-                        <MenuItem Click={() => setMenu(false)} Href="/construction" Title="Construction Works" />
-                        <MenuItem Click={() => setMenu(false)} Href="/vattax" Title="VAT & TAX" />
-                        <MenuItem Click={() => setMenu(false)} Href="/benefit" Title="Staff Benefit" />
-                        <MenuItem Click={() => setMenu(false)} Href="/landareaconverter" Title="Land Area Converter" />
-                    </MenuWraper>
-
-
-                    <MenuWraper Title="Backup/Restore">
-                        {dataExists ? (
-                            <>
-                                <MenuItem Click={() => setMenu(false)} Href="/restore" Title="Database Restore" />
-                                <button onClick={backupHandler} className="px-1 mb-2 hover:border-l-2 border-indigo-400 underline-offset-4 decoration-4 decoration-indigo-300 hover:text-indigo-400">Backup</button>
-                            </>
-                        ) : (
-
-                            <input type="button" onClick={initDBHandler} className="px-1 mb-2 hover:border-l-2 border-indigo-400 underline-offset-4 decoration-4 decoration-indigo-300 hover:text-indigo-800 cursor-pointer" value="Database Initialize" />
-
-                        )}
-                    </MenuWraper>
+                                {
+                                    MenuData.map((m, i) => {
+                                        const btn = m.group;
+                                        return (
+                                            <MenuWraper Title={m.title} key={i}>
+                                                {btn.map((b, j) => <MenuItem Click={() => setMenu(false)} Href={b.url} Title={b.label} key={j} />)}
+                                            </MenuWraper>
+                                        )
+                                    })
+                                }
 
 
 
+                                <MenuWraper Title="Backup/Restore">
+                                    {dataExists ? (
+                                        <>
+                                            <MenuItem Click={() => setMenu(false)} Href="/restore" Title="Database Restore" />
+                                            <button onClick={backupHandler} className="px-1 mb-2 hover:border-l-2 border-indigo-400 underline-offset-4 decoration-4 decoration-indigo-300 hover:text-indigo-400">Backup</button>
+                                        </>
+                                    ) : (
 
-                    <MenuWraper Title="Bayprostab">
-                        <MenuItem Click={() => setMenu(false)} Href="/bayprostab" Title="Bayprostab" />
-                        <MenuItem Click={() => setMenu(false)} Href="/bayprostabexecution" Title="Bayprostab Execution" />
-                        <MenuItem Click={() => setMenu(false)} Href="/unitsalary" Title="Unitsalary" />
-                        <MenuItem Click={() => setMenu(false)} Href="/rent" Title="House Rent" />
-                        <MenuItem Click={() => setMenu(false)} Href="/sewerage" Title="Sewerage" />
-                    </MenuWraper>
+                                        <input type="button" onClick={initDBHandler} className="px-1 mb-2 hover:border-l-2 border-indigo-400 underline-offset-4 decoration-4 decoration-indigo-300 hover:text-indigo-800 cursor-pointer" value="Database Initialize" />
 
-
-                    <MenuWraper Title="Documents">
-                        <MenuItem Click={() => setMenu(false)} Href="/doc" Title="Doc" />
-                        <MenuItem Click={() => setMenu(false)} Href="/mobile" Title="Mobile" />
-                        <MenuItem Click={() => setMenu(false)} Href="/ta" Title="Ta" />
-                        <MenuItem Click={() => setMenu(false)} Href="/da" Title="Da" />
-                        <MenuItem Click={() => setMenu(false)} Href="/price" Title="Price" />
-                    </MenuWraper>
-
-                    <MenuWraper Title="Bills">
-                        <MenuItem Click={() => setMenu(false)} Href="/bkash" Title="Bkash" />
-                        <MenuItem Click={() => setMenu(false)} Href="/electrickbill" Title="Electrick Bill" />
-                        <MenuItem Click={() => setMenu(false)} Href="/tabill" Title="TA Bill" />
-                        <MenuItem Click={() => setMenu(false)} Href="/localta" Title="Local TA" />
-                        <MenuItem Click={() => setMenu(false)} Href="/mobilebill" Title="Mobile Bill" />
-                    </MenuWraper>
+                                    )}
+                                </MenuWraper>
 
 
+                            </div>
 
-                </div>
-            )}
+                        </nav>
+                    </>
+                )
+            }
 
-        </div >
+
+        </>
     )
 }
 
