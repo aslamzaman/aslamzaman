@@ -86,7 +86,7 @@ const LayoutPage = (tbl, datas) => {
     }
     
     export default function ${titleCase(tbl)}Layout({ children }) {
-      return <Layout>{children} </Layout> 
+      return <>{children} </> 
     }
   
     `;

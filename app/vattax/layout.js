@@ -5,7 +5,6 @@ export const metadata = {
 }
 
 export default function VatTaxLayout({ children }) {
-
-  return <Layout>{children} </Layout> 
+  return <>{children} </> 
 }
 

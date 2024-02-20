@@ -6,6 +6,6 @@ export const metadata = {
 
 export default function ElectrickbillLayout({ children }) {
 
-    return <Layout>{children} </Layout>
+    return <>{children} </>
 }
 

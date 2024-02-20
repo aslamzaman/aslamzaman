@@ -5,6 +5,6 @@ export const metadata = {
 }
 
 export default function MobilebillLayout({ children }) {
-  return <Layout>{children} </Layout> 
+  return <>{children} </> 
 }
 

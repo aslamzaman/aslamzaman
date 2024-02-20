@@ -6,6 +6,6 @@ export const metadata = {
 
 export default function SewerageLayout({ children }) {
 
-  return <Layout>{children} </Layout> 
+  return <>{children} </> 
 }
 
