@@ -45,7 +45,7 @@ const Unitsalary = () => {
     return (
         <>
             <div className="w-full mb-3 mt-8">
-                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Unitsalary</h1>
+                <h1 className="w-full text-xl lg:text-4xl font-bold text-center text-blue-700">Unitsalary</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>    
             <div className="px-4 lg:px-6">
