@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "66117bf53d86d9033e026ca6"
+  },
+  "description": "a. January- April of utilities bill will be payee from IDCOL",
+  "createdAt": {
+    "$date": "2024-04-06T16:44:37.458Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-06T16:48:26.330Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66117bff3d86d9033e026caa"
+  },
+  "description": "b. May- June of utilities bill will be payee from GO and COL",
+  "createdAt": {
+    "$date": "2024-04-06T16:44:47.787Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-06T16:48:37.894Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66117c083d86d9033e026cae"
+  },
+  "description": "c. July- October of utilities bill will be payee from Microcredit",
+  "createdAt": {
+    "$date": "2024-04-06T16:44:56.730Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-06T16:48:48.688Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66117c123d86d9033e026cb2"
+  },
+  "description": "d. November- December of utilities bill will be payee from GO and COL",
+  "createdAt": {
+    "$date": "2024-04-06T16:45:06.863Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-06T16:49:12.132Z"
+  },
+  "__v": 0
+}]

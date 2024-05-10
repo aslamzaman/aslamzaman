@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "66123816841944a356a581ca"
+  },
+  "registeredUser": "Muhammad Ibrahim",
+  "presentUser": "Chairman-GP",
+  "mobileNo": "01711564665",
+  "createdAt": {
+    "$date": "2024-04-07T06:07:18.584Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T15:02:35.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6612384b841944a356a581ce"
+  },
+  "registeredUser": "Md. Abdul Mazed",
+  "presentUser": "IDCOL",
+  "mobileNo": "01714133014",
+  "createdAt": {
+    "$date": "2024-04-07T06:08:11.519Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T06:08:11.519Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661238c8841944a356a581d2"
+  },
+  "registeredUser": "Jerin Jahan Bhuian",
+  "presentUser": "Closed-Jerin-2",
+  "mobileNo": "01713068285",
+  "createdAt": {
+    "$date": "2024-04-07T06:10:16.434Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T15:01:52.363Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661238d4841944a356a581d6"
+  },
+  "registeredUser": "Jerin Jahan Bhuian",
+  "presentUser": "Closed-Jerin-1",
+  "mobileNo": "01713068286",
+  "createdAt": {
+    "$date": "2024-04-07T06:10:28.391Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T15:01:42.737Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6612392a841944a356a581da"
+  },
+  "registeredUser": "Md. Syful Alam",
+  "presentUser": "AC Depertment",
+  "mobileNo": "01766667350",
+  "createdAt": {
+    "$date": "2024-04-07T06:11:54.874Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T15:02:06.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66123965841944a356a581de"
+  },
+  "registeredUser": "Sowkat Md. Anwar Uddin",
+  "presentUser": "Establishment",
+  "mobileNo": "01730051229",
+  "createdAt": {
+    "$date": "2024-04-07T06:12:53.899Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T06:12:53.899Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6612399b841944a356a581e2"
+  },
+  "registeredUser": "Md. Liton Patwari",
+  "presentUser": "CMES Office",
+  "mobileNo": "01711439324",
+  "createdAt": {
+    "$date": "2024-04-07T06:13:47.409Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T06:13:47.409Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66123a39841944a356a581e6"
+  },
+  "registeredUser": "Md. Omar Faruque Haider",
+  "presentUser": "Chairman (Teletalk)",
+  "mobileNo": "01540186935",
+  "createdAt": {
+    "$date": "2024-04-07T06:16:25.159Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-07T06:16:25.159Z"
+  },
+  "__v": 0
+}]

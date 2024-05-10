@@ -1,0 +1,1100 @@
+[{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54b"
+  },
+  "school": "Kuriadi",
+  "qty": "21.00",
+  "reg_dt": "1998-11-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a534"
+  },
+  "school": "Brojnathpur",
+  "qty": "10.00",
+  "reg_dt": "1999-02-04",
+  "donors": "",
+  "remarks": "",
+  "unit": "Alinagar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54a"
+  },
+  "school": "Vitipara (Rajabari)",
+  "qty": "13.00",
+  "reg_dt": "2002-01-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a557"
+  },
+  "school": "Nagdah",
+  "qty": "10.00",
+  "reg_dt": "1997-08-20",
+  "donors": "",
+  "remarks": "",
+  "unit": "Deuty"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a558"
+  },
+  "school": "Sayedpur",
+  "qty": "10.00",
+  "reg_dt": "1999-03-11",
+  "donors": "",
+  "remarks": "",
+  "unit": "Deuty"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a567"
+  },
+  "school": "Chaknimpara",
+  "qty": "10.00",
+  "reg_dt": "1999-01-10",
+  "donors": "",
+  "remarks": "",
+  "unit": "Vatpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a585"
+  },
+  "school": "Mojaidanga",
+  "qty": "15.00",
+  "reg_dt": "2008-08-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ulipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55e"
+  },
+  "school": "Nashratpur",
+  "qty": "10.00",
+  "reg_dt": "1999-11-22",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55f"
+  },
+  "school": "Gochahar",
+  "qty": "10.00",
+  "reg_dt": "1999-03-11",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a571"
+  },
+  "school": "Raoga",
+  "qty": "24.00",
+  "reg_dt": "1999-08-31",
+  "donors": "",
+  "remarks": "Mouja: Uttarb Baria",
+  "unit": "Amtoli"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a579"
+  },
+  "school": "Morichbunia ",
+  "qty": "15.00",
+  "reg_dt": "2001-01-24",
+  "donors": "",
+  "remarks": "(Construction is not done)",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56d"
+  },
+  "school": "Patakata",
+  "qty": "8.00",
+  "reg_dt": "1998-03-18",
+  "donors": "",
+  "remarks": "Mouja: Patakata",
+  "unit": "Amtoli"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a536"
+  },
+  "school": "RTC",
+  "qty": "66.00",
+  "reg_dt": "1994-02-01",
+  "donors": "Batasu Mandal",
+  "remarks": "",
+  "unit": "Elaipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57f"
+  },
+  "school": "Charshimulbari",
+  "qty": "27.00",
+  "reg_dt": "2008-04-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Fulbari"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a537"
+  },
+  "school": "Mundikhoir",
+  "qty": "10.00",
+  "reg_dt": "1998-11-15",
+  "donors": "",
+  "remarks": "",
+  "unit": "Elaipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a590"
+  },
+  "school": "RTC",
+  "qty": "30.00",
+  "reg_dt": "2000-11-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ghontaghar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a562"
+  },
+  "school": "RTC",
+  "qty": "85.00",
+  "reg_dt": "1991-10-19",
+  "donors": "Md. Moslem Uddin",
+  "remarks": "Land: Damkkura hat bohumukhi high school",
+  "unit": "Damkura"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58e"
+  },
+  "school": "RTC",
+  "qty": "65.00",
+  "reg_dt": "2002-02-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Jaldhaka"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a561"
+  },
+  "school": "Fulbari",
+  "qty": "12.00",
+  "reg_dt": "1999-01-31",
+  "donors": "",
+  "remarks": "",
+  "unit": "Damkura"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57c"
+  },
+  "school": "Bazarghona",
+  "qty": "22.50",
+  "reg_dt": "1999-02-07",
+  "donors": "",
+  "remarks": "Mouja: Bazarghona",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a591"
+  },
+  "school": "Kushalpur",
+  "qty": "30.00",
+  "reg_dt": "2001-11-18",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ghontaghar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54f"
+  },
+  "school": "Palaid",
+  "qty": "15.00",
+  "reg_dt": "1999-06-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a554"
+  },
+  "school": "Mohisamura",
+  "qty": "10.00",
+  "reg_dt": "1998-09-15",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57d"
+  },
+  "school": "Gochkhali",
+  "qty": "18.00",
+  "reg_dt": "1997-06-19",
+  "donors": "",
+  "remarks": "Mouja: Kolagachia",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a570"
+  },
+  "school": "Chandra",
+  "qty": "10.00",
+  "reg_dt": "1998-11-23",
+  "donors": "",
+  "remarks": "Mouja: Chandra",
+  "unit": "Amtoli"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a548"
+  },
+  "school": "RTC",
+  "qty": "85.00",
+  "reg_dt": "1990-01-08",
+  "donors": "1. Md. Usuf Ali, 2. Abdul Jalil Miah, 3. Md. Khalilur Rahman, 4. Md. Eshak Ali, 5. Md. Ejmot Ali, 6. Md. Ashmot Ali, 7. Md. Jobed Ali.",
+  "remarks": "",
+  "unit": "Shokhipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a549"
+  },
+  "school": "Vitipara",
+  "qty": "14.00",
+  "reg_dt": "1997-08-31",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a572"
+  },
+  "school": "RTC",
+  "qty": "100.00",
+  "reg_dt": "1992-03-25",
+  "donors": "Md. Ayub Ali Mallik",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a574"
+  },
+  "school": "Motherkhal",
+  "qty": "20.00",
+  "reg_dt": "1999-03-22",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a566"
+  },
+  "school": "Nimpara",
+  "qty": "10.00",
+  "reg_dt": "1998-05-15",
+  "donors": "",
+  "remarks": "",
+  "unit": "Vatpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a569"
+  },
+  "school": "Amua",
+  "qty": "16.00",
+  "reg_dt": "1999-03-09",
+  "donors": "",
+  "remarks": "",
+  "unit": "Amua"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53c"
+  },
+  "school": "RTC",
+  "qty": "94.00",
+  "reg_dt": "1991-04-24",
+  "donors": "Md. Ansar Ali",
+  "remarks": "",
+  "unit": "Gobratola"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a577"
+  },
+  "school": "Purbaghutabacha",
+  "qty": "15.00",
+  "reg_dt": "1998-02-15",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58d"
+  },
+  "school": "Noljhuri",
+  "qty": "20.00",
+  "reg_dt": "2000-10-19",
+  "donors": "",
+  "remarks": "",
+  "unit": "Jaldhaka"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a532"
+  },
+  "school": "Bangabari",
+  "qty": "8.00",
+  "reg_dt": "2012-01-03",
+  "donors": "nill",
+  "remarks": "nill",
+  "unit": "Alinagar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a541"
+  },
+  "school": "Atapara",
+  "qty": "24.00",
+  "reg_dt": "1998-10-21",
+  "donors": "",
+  "remarks": "",
+  "unit": "Suruj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a546"
+  },
+  "school": "Gorgobindipur",
+  "qty": "12.00",
+  "reg_dt": "1997-12-08",
+  "donors": "",
+  "remarks": "",
+  "unit": "Shokhipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58f"
+  },
+  "school": "Laldighi",
+  "qty": "20.00",
+  "reg_dt": "2000-11-02",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ghontaghar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54c"
+  },
+  "school": "RTC",
+  "qty": "50.00",
+  "reg_dt": "1984-02-13",
+  "donors": "Mohammad Chan Mia",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a547"
+  },
+  "school": "Baromousha ",
+  "qty": "12.00",
+  "reg_dt": "1999-11-11",
+  "donors": "",
+  "remarks": "No infrastructure",
+  "unit": "Shokhipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a595"
+  },
+  "school": "SAC",
+  "qty": "150.00",
+  "reg_dt": "2006-05-14",
+  "donors": "Owned property purchased by CMES",
+  "remarks": "Forestry Land",
+  "unit": "SAC"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53f"
+  },
+  "school": "Boiltoli",
+  "qty": "16.00",
+  "reg_dt": "1998-09-19",
+  "donors": "",
+  "remarks": "",
+  "unit": "Satbaria"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a538"
+  },
+  "school": "Ranibari",
+  "qty": "10.00",
+  "reg_dt": "1999-03-24",
+  "donors": "",
+  "remarks": "Conditional",
+  "unit": "Noyadiary"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a560"
+  },
+  "school": "Hasimpur",
+  "qty": "6.00",
+  "reg_dt": "1997-07-28",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a576"
+  },
+  "school": "Haritana",
+  "qty": "23.00",
+  "reg_dt": "1999-01-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a543"
+  },
+  "school": "Joshihati",
+  "qty": "10.00",
+  "reg_dt": "1998-01-04",
+  "donors": "",
+  "remarks": "",
+  "unit": "Suruj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58c"
+  },
+  "school": "Rotherbazar",
+  "qty": "24.00",
+  "reg_dt": "2000-11-08",
+  "donors": "",
+  "remarks": "",
+  "unit": "Jaldhaka"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54d"
+  },
+  "school": "Rajabari (Noagaon)",
+  "qty": "35.00",
+  "reg_dt": "2001-01-29",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a550"
+  },
+  "school": "Kalikapur",
+  "qty": "10.00",
+  "reg_dt": "1998-11-30",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a556"
+  },
+  "school": "RTC",
+  "qty": "50.00",
+  "reg_dt": "1988-04-24",
+  "donors": "1. Md. Mozammel Hossen, 2. Md. Mahfuzar Rahman, 3. Mostafizar Rahman, 4. Mokhlesar Rahman",
+  "remarks": "",
+  "unit": "Deuty"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57e"
+  },
+  "school": "RTC",
+  "qty": "85.00",
+  "reg_dt": "1990-09-16",
+  "donors": "1. Abdul Sottar Pada, 2. Abdul Zabbar Pada, 3. Abdul Kasem Haoladar, 4. Md. Nazes Haoladar, 5. Md. Azimuddin Haoladar.",
+  "remarks": "",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58b"
+  },
+  "school": "RTC",
+  "qty": "70.00",
+  "reg_dt": "2006-02-06",
+  "donors": "A. K. M. Sirazul Islam",
+  "remarks": "",
+  "unit": "Malgara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a553"
+  },
+  "school": "Kuralia",
+  "qty": "10.00",
+  "reg_dt": "2001-01-28",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a565"
+  },
+  "school": "RTC",
+  "qty": "144.00",
+  "reg_dt": "1991-11-10",
+  "donors": "Md. Mofiz Uddin Sarkar, Md. Mohsin Ali",
+  "remarks": "Land: Vatpara Masjid, Madrasa and Eidghah. Donors are the member of that committee.",
+  "unit": "Vatpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a582"
+  },
+  "school": "Chandrakhana",
+  "qty": "20.00",
+  "reg_dt": "2008-07-25",
+  "donors": "",
+  "remarks": "",
+  "unit": "Fulbari"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a589"
+  },
+  "school": "Paikartary",
+  "qty": "18.00",
+  "reg_dt": "2006-06-04",
+  "donors": "",
+  "remarks": "",
+  "unit": "Malgara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a563"
+  },
+  "school": "Horisardying",
+  "qty": "8.00",
+  "reg_dt": "1997-08-10",
+  "donors": "",
+  "remarks": "",
+  "unit": "Damkura"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a58a"
+  },
+  "school": "Harikhoa",
+  "qty": "20.00",
+  "reg_dt": "2006-04-09",
+  "donors": "",
+  "remarks": "",
+  "unit": "Malgara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a540"
+  },
+  "school": "PSP (2nd Campus)",
+  "qty": "30.00",
+  "reg_dt": "1994-07-14",
+  "donors": "Sreemoti Jotsna Rani",
+  "remarks": "CMES own property",
+  "unit": "Suruj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a555"
+  },
+  "school": "RTC",
+  "qty": "89.00",
+  "reg_dt": "1990-01-15",
+  "donors": "Mis. Jamila Khatun Beoa, Golam Abu Abedin,",
+  "remarks": "Buy: by CMES 39 decimal and donation 50 decimal, Total 89 decimal",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a544"
+  },
+  "school": "RTC",
+  "qty": "55.00",
+  "reg_dt": "1981-02-12",
+  "donors": "Syed Ahammad Hossen.",
+  "remarks": "",
+  "unit": "Suruj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56f"
+  },
+  "school": "RTC",
+  "qty": "76.00",
+  "reg_dt": "1992-11-08",
+  "donors": "Md Abdul Mazid Miah",
+  "remarks": "Mouja: Ghotkhali",
+  "unit": "Amtoli"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a588"
+  },
+  "school": "Chandrapur",
+  "qty": "25.00",
+  "reg_dt": "2009-04-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Malgara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a551"
+  },
+  "school": "Charbetgari",
+  "qty": "10.00",
+  "reg_dt": "1999-03-25",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a564"
+  },
+  "school": "Solua",
+  "qty": "10.00",
+  "reg_dt": "1999-01-05",
+  "donors": "",
+  "remarks": "",
+  "unit": "Vatpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56a"
+  },
+  "school": "Jhorkhali",
+  "qty": "15.00",
+  "reg_dt": "1998-08-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Amua"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a552"
+  },
+  "school": "Beripotol",
+  "qty": "10.00",
+  "reg_dt": "1999-05-13",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kuripara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a533"
+  },
+  "school": "RTC",
+  "qty": "65.00",
+  "reg_dt": "1994-02-01",
+  "donors": "Hazi Jillur (50=01.02.1994, 15= 13.02.1994)",
+  "remarks": "",
+  "unit": "Alinagar"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a581"
+  },
+  "school": "RTC",
+  "qty": "98.00",
+  "reg_dt": "2007-12-02",
+  "donors": "Mis. Nurzahan Beoa",
+  "remarks": "",
+  "unit": "Fulbari"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53b"
+  },
+  "school": "Diardhainagar",
+  "qty": "9.00",
+  "reg_dt": "1991-04-24",
+  "donors": "",
+  "remarks": "Contract based",
+  "unit": "Gobratola"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53d"
+  },
+  "school": "RTC",
+  "qty": "50.00",
+  "reg_dt": "1985-08-07",
+  "donors": "1. Choudhury Md. Nurul Haque, 2. Advocate- Sirajul Haque,  3. Maolana Ahmod, Ullah, 4. Joynal Abedin, 5. Ashab Uddin,",
+  "remarks": "",
+  "unit": "Satbaria"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55d"
+  },
+  "school": "Goaldihi",
+  "qty": "15.00",
+  "reg_dt": "1998-12-07",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a575"
+  },
+  "school": "Gohorpur",
+  "qty": "25.00",
+  "reg_dt": "1999-03-16",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a584"
+  },
+  "school": "Gunaigach",
+  "qty": "20.00",
+  "reg_dt": "2008-06-05",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ulipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a592"
+  },
+  "school": "RTC",
+  "qty": "39.00",
+  "reg_dt": "2012-02-23",
+  "donors": "Md. Abdul Hamid",
+  "remarks": "",
+  "unit": "Nalitabari"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a586"
+  },
+  "school": "RTC",
+  "qty": "90.00",
+  "reg_dt": "2008-04-24",
+  "donors": "Alhaz Md. Abdul Hai Sarkar, Doctor Md. Maudud Hossen, Md. Khairul Islam ",
+  "remarks": "",
+  "unit": "Ulipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53e"
+  },
+  "school": "Hasondandi",
+  "qty": "12.00",
+  "reg_dt": "1998-11-02",
+  "donors": "",
+  "remarks": "",
+  "unit": "Satbaria"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a545"
+  },
+  "school": "Solaprotima",
+  "qty": "10.00",
+  "reg_dt": "1998-11-18",
+  "donors": "",
+  "remarks": "",
+  "unit": "Shokhipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a54e"
+  },
+  "school": "Proholadpur (Rajabari)",
+  "qty": "20.00",
+  "reg_dt": "2000-12-03",
+  "donors": "",
+  "remarks": "",
+  "unit": "Kayetpara"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55a"
+  },
+  "school": "Parul",
+  "qty": "10.00",
+  "reg_dt": "1998-11-05",
+  "donors": "",
+  "remarks": "",
+  "unit": "Deuty"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56b"
+  },
+  "school": "Lakshipur",
+  "qty": "8.50",
+  "reg_dt": "1997-07-31",
+  "donors": "",
+  "remarks": "",
+  "unit": "Amua"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a573"
+  },
+  "school": "Ruhita",
+  "qty": "25.00",
+  "reg_dt": "1999-04-04",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a559"
+  },
+  "school": "Sharifsadar",
+  "qty": "10.00",
+  "reg_dt": "1999-03-24",
+  "donors": "",
+  "remarks": "",
+  "unit": "Deuty"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a583"
+  },
+  "school": "Bazra",
+  "qty": "15.00",
+  "reg_dt": "2011-07-17",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ulipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a53a"
+  },
+  "school": "RTC",
+  "qty": "66.00",
+  "reg_dt": "1991-12-24",
+  "donors": "1. Md. Kasem Udditn, 2. Md Aaesh Uddin , 3.Md. Abdul Kalam Azad, 4.Md.  Humayun Reja, 5. Md. Ala Uddin, 6. Md. Jalal Uddin, 7. Md. Jamal Uddin, 8. Md.",
+  "remarks": "",
+  "unit": "Noyadiary"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a578"
+  },
+  "school": "Macherkhal",
+  "qty": "10.00",
+  "reg_dt": "1997-12-28",
+  "donors": "",
+  "remarks": "",
+  "unit": "Patharghata"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57b"
+  },
+  "school": "Bashtola",
+  "qty": "18.00",
+  "reg_dt": "1998-11-30",
+  "donors": "",
+  "remarks": "Mouja: Hortokibaria",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a593"
+  },
+  "school": "RTC",
+  "qty": "43.55",
+  "reg_dt": "2013-03-14",
+  "donors": "Md. Rahel Ahmed,Md. Ebadur Rahman, Md. Joynal Uddin",
+  "remarks": "",
+  "unit": "Jointiapur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a580"
+  },
+  "school": "Grokmondol",
+  "qty": "20.00",
+  "reg_dt": "2008-06-29",
+  "donors": "",
+  "remarks": "",
+  "unit": "Fulbari"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a594"
+  },
+  "school": "RTC",
+  "qty": "30.00",
+  "reg_dt": "2014-03-31",
+  "donors": "Faruque Ahmed",
+  "remarks": "",
+  "unit": "Haluaghat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a542"
+  },
+  "school": "Vukta",
+  "qty": "20.00",
+  "reg_dt": "1999-03-26",
+  "donors": "",
+  "remarks": "",
+  "unit": "Suruj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56c"
+  },
+  "school": "Morichbunia",
+  "qty": "20.00",
+  "reg_dt": "1999-03-01",
+  "donors": "",
+  "remarks": "",
+  "unit": "Amua"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a57a"
+  },
+  "school": "Keoabunia",
+  "qty": "20.00",
+  "reg_dt": "1998-09-20",
+  "donors": "",
+  "remarks": "Mouja: Poschim Keoabunia",
+  "unit": "Khasherhat"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a539"
+  },
+  "school": "Salalpur",
+  "qty": "10.00",
+  "reg_dt": "1999-03-24",
+  "donors": "",
+  "remarks": "",
+  "unit": "Noyadiary"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55b"
+  },
+  "school": "RTC",
+  "qty": "52.00",
+  "reg_dt": "1990-08-16",
+  "donors": "1. Md Wali Ullah, 2. Md. Sohidullah, 3. Md. Ahsan Ullah",
+  "remarks": "CMES buy 2 decimal and donation 50 decimal",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a55c"
+  },
+  "school": "Alokdihi",
+  "qty": "10.00",
+  "reg_dt": "1999-10-14",
+  "donors": "",
+  "remarks": "",
+  "unit": "Ranirbandor"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a587"
+  },
+  "school": "RTC",
+  "qty": "45.00",
+  "reg_dt": "2011-07-10",
+  "donors": "Md. Yakub Ali, Zarina Begum",
+  "remarks": "",
+  "unit": "Bakshiganj"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a535"
+  },
+  "school": "Kendobona",
+  "qty": "10.00",
+  "reg_dt": "1998-01-12",
+  "donors": "",
+  "remarks": "Contact",
+  "unit": "Elaipur"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a568"
+  },
+  "school": "RTC",
+  "qty": "76.00",
+  "reg_dt": "1991-09-16",
+  "donors": "1. Abdul Mazed Mollah, 2. Md. Fazlul Haque Mollah, 3. Md. Abdul Sattar Mollah",
+  "remarks": "CMES buy 7 decimal, Donation 69 decimal",
+  "unit": "Amua"
+},
+{
+  "_id": {
+    "$oid": "63dbf74e14bf8910fb88a56e"
+  },
+  "school": "Krishnanagar",
+  "qty": "15.00",
+  "reg_dt": "1999-03-01",
+  "donors": "",
+  "remarks": "Mouja: Krishnonagar",
+  "unit": "Amtoli"
+}]

@@ -1,0 +1,154 @@
+[{
+  "_id": {
+    "$oid": "660d0383b8a2f9f9b8bb9bb9"
+  },
+  "name": "Brick",
+  "tk": 12,
+  "createdAt": {
+    "$date": "2024-04-03T07:21:39.597Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:21:39.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d038fb8a2f9f9b8bb9bbd"
+  },
+  "name": "Cement",
+  "tk": 550,
+  "createdAt": {
+    "$date": "2024-04-03T07:21:51.060Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:21:51.060Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d0398b8a2f9f9b8bb9bc1"
+  },
+  "name": "Sand",
+  "tk": 20,
+  "createdAt": {
+    "$date": "2024-04-03T07:22:00.661Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:22:00.661Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03a4b8a2f9f9b8bb9bc5"
+  },
+  "name": "Khoa",
+  "tk": 80,
+  "createdAt": {
+    "$date": "2024-04-03T07:22:12.933Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-05T15:21:37.755Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03b3b8a2f9f9b8bb9bc9"
+  },
+  "name": "Rod",
+  "tk": 120,
+  "createdAt": {
+    "$date": "2024-04-03T07:22:27.633Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:22:27.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03bfb8a2f9f9b8bb9bcd"
+  },
+  "name": "Paint",
+  "tk": 1500,
+  "createdAt": {
+    "$date": "2024-04-03T07:22:39.666Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:22:39.666Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03ccb8a2f9f9b8bb9bd1"
+  },
+  "name": "Tiles",
+  "tk": 80,
+  "createdAt": {
+    "$date": "2024-04-03T07:22:52.461Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:22:52.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03d6b8a2f9f9b8bb9bd5"
+  },
+  "name": "Flatbar",
+  "tk": 120,
+  "createdAt": {
+    "$date": "2024-04-03T07:23:02.740Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:23:02.740Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03e9b8a2f9f9b8bb9bd9"
+  },
+  "name": "Angel Bar",
+  "tk": 125,
+  "createdAt": {
+    "$date": "2024-04-03T07:23:21.603Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:23:21.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d03f9b8a2f9f9b8bb9bdd"
+  },
+  "name": "Mason",
+  "tk": 600,
+  "createdAt": {
+    "$date": "2024-04-03T07:23:37.731Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:23:37.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660d0403b8a2f9f9b8bb9be1"
+  },
+  "name": "Labor",
+  "tk": 400,
+  "createdAt": {
+    "$date": "2024-04-03T07:23:47.380Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:23:47.380Z"
+  },
+  "__v": 0
+}]

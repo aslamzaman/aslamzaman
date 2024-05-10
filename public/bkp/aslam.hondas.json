@@ -1,0 +1,598 @@
+[{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecff9"
+  },
+  "regNo": "DHAKA METRO-HA-29-6340",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47554",
+  "engineNo": "HA10EA89E66781",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf93825d0610471e2707"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecffa"
+  },
+  "regNo": "DHAKA METRO-HA-29-6334",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47539",
+  "engineNo": "HA10EA89E67432",
+  "condition": "-",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adea4825d0610471e26bf"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecffb"
+  },
+  "regNo": "DHAKA METRO-HA-29-6333",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47632",
+  "engineNo": "HA10EA89E47632",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adfd3825d0610471e271b"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecffc"
+  },
+  "regNo": "DHAKA METRO-HA-41-1638",
+  "regDt": "2011-10-20",
+  "chassisNo": "MBLAHA10EYB9G00161",
+  "engineNo": "HA10EFB9G00698",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adecd825d0610471e26cb"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecffd"
+  },
+  "regNo": "DHAKA METRO-HA-29-6336",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47596",
+  "engineNo": "HA10EA89E66555",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adfc6825d0610471e2717"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecffe"
+  },
+  "regNo": "DHAKA METRO-HA-29-6328",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47511",
+  "engineNo": "HA10EA89E67311",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adebf825d0610471e26c7"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ecfff"
+  },
+  "regNo": "DHAKA METRO-HA-29-6341",
+  "regDt": "2008-06-29",
+  "chassisNo": "MLHA10EE89E47535",
+  "engineNo": "HA10EAB9E67418",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf44825d0610471e26ef"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed000"
+  },
+  "regNo": "DHAKA METRO-HA-29-6342",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47578",
+  "engineNo": "HA10EA89E66601",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf37825d0610471e26eb"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed001"
+  },
+  "regNo": "DHAKA METRO-HA-33-9090",
+  "regDt": "2010-01-10",
+  "chassisNo": "MBLHA10EE99L01834",
+  "engineNo": "HA10EA99L16493",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad9b658b6de779c05d145"
+  },
+  "unitId": {
+    "$oid": "660adfe0825d0610471e271f"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed002"
+  },
+  "regNo": "DHAKA METRO-HA-29-6338",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47503",
+  "engineNo": "HA10EA89E67105",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf5f825d0610471e26f7"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed003"
+  },
+  "regNo": "MYMENSINGH-HA-12-7798",
+  "regDt": "2014-06-02",
+  "chassisNo": "MBLHA10EZC9F00538",
+  "engineNo": "HA10EFC9F00536",
+  "condition": "GOOD",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adeb2825d0610471e26c3"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed004"
+  },
+  "regNo": "DHAKA METRO-HA-33-9091",
+  "regDt": "2010-01-10",
+  "chassisNo": "MBLHA10EE99L06093",
+  "engineNo": "HA10EA99L15247",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad99058b6de779c05d131"
+  },
+  "unitId": {
+    "$oid": "660adf52825d0610471e26f3"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed005"
+  },
+  "regNo": "SYLHET-HA-13-6511",
+  "regDt": "2013-09-05",
+  "chassisNo": "MBLHA10EYD9B00196",
+  "engineNo": "HA10EFD9B00449",
+  "condition": "GOOD",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660ade96825d0610471e26bb"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed006"
+  },
+  "regNo": "DHAKA METRO HA-29-6326",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE59F02120",
+  "engineNo": "HA10EA89F05072",
+  "condition": "GOOD",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adfb9825d0610471e2713"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed007"
+  },
+  "regNo": "DHAKA METRO-HA-29-6332",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47502",
+  "engineNo": "HA10EA89E66628",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf87825d0610471e2703"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed008"
+  },
+  "regNo": "DHAKA METRO-HA-29-6331",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47547",
+  "engineNo": "HA10EA89E67638",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adfa0825d0610471e270b"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed009"
+  },
+  "regNo": "DHAKA METRO-HA-33-9089",
+  "regDt": "2010-01-10",
+  "chassisNo": "MBLHA10EE99L06105",
+  "engineNo": "HA10EA99L15164",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad99058b6de779c05d131"
+  },
+  "unitId": {
+    "$oid": "660adfac825d0610471e270f"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00a"
+  },
+  "regNo": "SHERPUR-HA-11-2628",
+  "regDt": "2012-05-22",
+  "chassisNo": "MBLHA10EYB9G-00547",
+  "engineNo": "HA10EFB9G-02901",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf2a825d0610471e26e7"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00b"
+  },
+  "regNo": "DHAKA METRO-HA-29-6339",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47588",
+  "engineNo": "HA10EA89E67442",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adedc825d0610471e26cf"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00c"
+  },
+  "regNo": "DHAKA METRO-HA-29-6335",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47608",
+  "engineNo": "HA10EA89E67454",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adef5825d0610471e26d7"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00d"
+  },
+  "regNo": "DHAKA METRO-HA-29-6330",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47518",
+  "engineNo": "HA10EA89E67393",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf1e825d0610471e26e3"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00e"
+  },
+  "regNo": "DHAKA METRO-HA-29-6327",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47514",
+  "engineNo": "HA10EA89E66976",
+  "condition": "Diary",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660ade89825d0610471e26b7"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed00f"
+  },
+  "regNo": "DHAKA METRO-HA-29-6329",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47525",
+  "engineNo": "HA10EA89E67374",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660ade2b825d0610471e26ab"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed010"
+  },
+  "regNo": "DHAKA METRO-HA-29-6325",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89F02111",
+  "engineNo": "HA10EA89F05962",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf78825d0610471e26ff"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed011"
+  },
+  "regNo": "DHAKA METRO-HA-29-6343",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE59E47611",
+  "engineNo": "HA10EA99E67303",
+  "condition": "Loss",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660adf11825d0610471e26df"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "661e40f59a7eb1dabf9ed012"
+  },
+  "regNo": "DHAKA METRO-HA-29-6337",
+  "regDt": "2008-06-29",
+  "chassisNo": "MBLHA10EE89E47594",
+  "engineNo": "HA10EA89E66815",
+  "condition": "Original",
+  "projectId": {
+    "$oid": "660ad95658b6de779c05d119"
+  },
+  "unitId": {
+    "$oid": "660ade7a825d0610471e26b3"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-16T09:12:21.131Z"
+  }
+}]

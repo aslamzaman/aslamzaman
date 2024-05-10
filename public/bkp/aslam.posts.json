@@ -1,0 +1,294 @@
+[{
+  "_id": {
+    "$oid": "660a583834373d5d40c503d0"
+  },
+  "nmEn": "Unit Incharge",
+  "nmBn": "BDwbU BbPvR©",
+  "createdAt": {
+    "$date": "2024-04-01T06:46:16.043Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:40:42.394Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a585e34373d5d40c503d4"
+  },
+  "nmEn": "Agro based T.& Facilitator",
+  "nmBn": "GM‡iv †emW d¨vwmwj‡UUi",
+  "createdAt": {
+    "$date": "2024-04-01T06:46:54.013Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:40:30.792Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a589334373d5d40c503d8"
+  },
+  "nmEn": "Garments Trainer",
+  "nmBn": "Mv‡g©›Um †UÖBbvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:47:47.757Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:40:17.831Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58a434373d5d40c503dc"
+  },
+  "nmEn": "Computer Trainer",
+  "nmBn": "Kw¤úDUvi †UÖBbvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:48:04.651Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:40:05.657Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58b634373d5d40c503e0"
+  },
+  "nmEn": "Assistant Credit Manager",
+  "nmBn": "Gwm÷¨v›U †µwWU g¨v‡bRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:48:22.577Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:39:53.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58c734373d5d40c503e4"
+  },
+  "nmEn": "Caretaker Cum Night Guard",
+  "nmBn": "wmwU GÛ wR",
+  "createdAt": {
+    "$date": "2024-04-01T06:48:39.800Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:39:41.748Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58d834373d5d40c503e8"
+  },
+  "nmEn": "Credit Manager",
+  "nmBn": "†µwWU g¨v‡bRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:48:56.832Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:39:29.662Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58e634373d5d40c503ec"
+  },
+  "nmEn": "Loan Worker",
+  "nmBn": "†jvb IqvK©vi",
+  "createdAt": {
+    "$date": "2024-04-01T06:49:10.002Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:39:16.571Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a58f434373d5d40c503f0"
+  },
+  "nmEn": "CLEANER",
+  "nmBn": "cwi”QbœZv Kg©x",
+  "createdAt": {
+    "$date": "2024-04-01T06:49:24.679Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:39:01.824Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a590534373d5d40c503f4"
+  },
+  "nmEn": "DRIVER",
+  "nmBn": "Mvox PvjK",
+  "createdAt": {
+    "$date": "2024-04-01T06:49:41.319Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:38:30.426Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a591334373d5d40c503f8"
+  },
+  "nmEn": "General Assistant",
+  "nmBn": "mvavib mnKvix",
+  "createdAt": {
+    "$date": "2024-04-01T06:49:55.854Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:38:18.516Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a592534373d5d40c503fc"
+  },
+  "nmEn": "Program Assistant",
+  "nmBn": "†cÖvMÖvg G¨vwm÷¨v›U",
+  "createdAt": {
+    "$date": "2024-04-01T06:50:13.921Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:38:06.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a593534373d5d40c50400"
+  },
+  "nmEn": "Senior Program Assistant",
+  "nmBn": "wmwbqi †cÖvMÖvg G¨vwm÷¨v›U",
+  "createdAt": {
+    "$date": "2024-04-01T06:50:29.402Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:37:52.555Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a594534373d5d40c50404"
+  },
+  "nmEn": "Program Organizer(Inc)",
+  "nmBn": "wcI (BbPvR©)",
+  "createdAt": {
+    "$date": "2024-04-01T06:50:45.424Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:37:39.226Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a595434373d5d40c50408"
+  },
+  "nmEn": "Program Organizer",
+  "nmBn": "†cÖvMÖvg AM©vbvBRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:51:00.673Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:37:24.332Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a596334373d5d40c5040c"
+  },
+  "nmEn": "Senior Program Organizer",
+  "nmBn": "wmwbqi †cÖvMÖvg AM©vbvBRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:51:15.962Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:37:10.632Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a597434373d5d40c50410"
+  },
+  "nmEn": "Program Manager",
+  "nmBn": "†cÖvMÖvg g¨v‡bRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:51:32.408Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:36:55.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a598434373d5d40c50414"
+  },
+  "nmEn": "Senior Program Manager",
+  "nmBn": "wmwbqi †cÖvMÖvg g¨v‡bRvi",
+  "createdAt": {
+    "$date": "2024-04-01T06:51:48.298Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:36:44.247Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a599434373d5d40c50418"
+  },
+  "nmEn": "Deputy Project Coordinator",
+  "nmBn": "†WcywU cÖ‡R± †Kv-AwW©‡bUi",
+  "createdAt": {
+    "$date": "2024-04-01T06:52:04.160Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:36:31.265Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a59a334373d5d40c5041c"
+  },
+  "nmEn": "Executive Director",
+  "nmBn": "wbe©vnx cwiPvjK",
+  "createdAt": {
+    "$date": "2024-04-01T06:52:19.730Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:36:17.850Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660a6d8534373d5d40c50479"
+  },
+  "nmEn": "Chairman",
+  "nmBn": "†Pqvig¨vb",
+  "createdAt": {
+    "$date": "2024-04-01T08:17:09.507Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-08T15:35:55.211Z"
+  },
+  "__v": 0
+}]

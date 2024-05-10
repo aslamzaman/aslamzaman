@@ -1,0 +1,896 @@
+[{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bed"
+  },
+  "nmEn": "Dhaka",
+  "nmBn": "ঢাকা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bee"
+  },
+  "nmEn": "Faridpur",
+  "nmBn": "ফরিদপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bef"
+  },
+  "nmEn": "Gazipur",
+  "nmBn": "গাজীপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf0"
+  },
+  "nmEn": "Gopalganj",
+  "nmBn": "গোপালগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf1"
+  },
+  "nmEn": "Jamalpur",
+  "nmBn": "জামালপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf2"
+  },
+  "nmEn": "Kishoreganj",
+  "nmBn": "কিশোরগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf3"
+  },
+  "nmEn": "Madaripur",
+  "nmBn": "মাদারীপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf4"
+  },
+  "nmEn": "Manikganj",
+  "nmBn": "মানিকগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf5"
+  },
+  "nmEn": "Munshiganj",
+  "nmBn": "মুন্সিগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf6"
+  },
+  "nmEn": "Mymensingh",
+  "nmBn": "ময়মনসিংহ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf7"
+  },
+  "nmEn": "Narayanganj",
+  "nmBn": "নারায়াণগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf8"
+  },
+  "nmEn": "Narsingdi",
+  "nmBn": "নরসিংদী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bf9"
+  },
+  "nmEn": "Netrokona",
+  "nmBn": "নেত্রকোণা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bfa"
+  },
+  "nmEn": "Rajbari",
+  "nmBn": "রাজবাড়ি",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bfb"
+  },
+  "nmEn": "Shariatpur",
+  "nmBn": "শরীয়তপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bfc"
+  },
+  "nmEn": "Sherpur",
+  "nmBn": "শেরপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bfd"
+  },
+  "nmEn": "Tangail",
+  "nmBn": "টাঙ্গাইল",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bfe"
+  },
+  "nmEn": "Bogura",
+  "nmBn": "বগুড়া",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9bff"
+  },
+  "nmEn": "Joypurhat",
+  "nmBn": "জয়পুরহাট",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c00"
+  },
+  "nmEn": "Naogaon",
+  "nmBn": "নওগাঁ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c01"
+  },
+  "nmEn": "Natore",
+  "nmBn": "নাটোর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c02"
+  },
+  "nmEn": "Nawabganj",
+  "nmBn": "নবাবগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c03"
+  },
+  "nmEn": "Pabna",
+  "nmBn": "পাবনা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c04"
+  },
+  "nmEn": "Rajshahi",
+  "nmBn": "রাজশাহী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c05"
+  },
+  "nmEn": "Sirajgonj",
+  "nmBn": "সিরাজগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c06"
+  },
+  "nmEn": "Dinajpur",
+  "nmBn": "দিনাজপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c07"
+  },
+  "nmEn": "Gaibandha",
+  "nmBn": "গাইবান্ধা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c08"
+  },
+  "nmEn": "Kurigram",
+  "nmBn": "কুড়িগ্রাম",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c09"
+  },
+  "nmEn": "Lalmonirhat",
+  "nmBn": "লালমনিরহাট",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0a"
+  },
+  "nmEn": "Nilphamari",
+  "nmBn": "নীলফামারী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0b"
+  },
+  "nmEn": "Panchagarh",
+  "nmBn": "পঞ্চগড়",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0c"
+  },
+  "nmEn": "Rangpur",
+  "nmBn": "রংপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0d"
+  },
+  "nmEn": "Thakurgaon",
+  "nmBn": "ঠাকুরগাঁও",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0e"
+  },
+  "nmEn": "Barguna",
+  "nmBn": "বরগুনা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c0f"
+  },
+  "nmEn": "Barishal",
+  "nmBn": "বরিশাল",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c10"
+  },
+  "nmEn": "Bhola",
+  "nmBn": "ভোলা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c11"
+  },
+  "nmEn": "Jhalokati",
+  "nmBn": "ঝালকাঠি",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c12"
+  },
+  "nmEn": "Patuakhali",
+  "nmBn": "পটুয়াখালী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c13"
+  },
+  "nmEn": "Pirojpur",
+  "nmBn": "পিরোজপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c14"
+  },
+  "nmEn": "Bandarban",
+  "nmBn": "বান্দরবান",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c15"
+  },
+  "nmEn": "Brahmanbaria",
+  "nmBn": "ব্রাহ্মণবাড়িয়া",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c16"
+  },
+  "nmEn": "Chandpur",
+  "nmBn": "চাঁদপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c17"
+  },
+  "nmEn": "Chattogram",
+  "nmBn": "চট্টগ্রাম",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c18"
+  },
+  "nmEn": "Cumilla",
+  "nmBn": "কুমিল্লা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c19"
+  },
+  "nmEn": "Cox's Bazar",
+  "nmBn": "কক্স বাজার",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1a"
+  },
+  "nmEn": "Feni",
+  "nmBn": "ফেনী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1b"
+  },
+  "nmEn": "Khagrachari",
+  "nmBn": "খাগড়াছড়ি",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1c"
+  },
+  "nmEn": "Lakshmipur",
+  "nmBn": "লক্ষ্মীপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1d"
+  },
+  "nmEn": "Noakhali",
+  "nmBn": "নোয়াখালী",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1e"
+  },
+  "nmEn": "Rangamati",
+  "nmBn": "রাঙ্গামাটি",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c1f"
+  },
+  "nmEn": "Habiganj",
+  "nmBn": "হবিগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c20"
+  },
+  "nmEn": "Maulvibazar",
+  "nmBn": "মৌলভীবাজার",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c21"
+  },
+  "nmEn": "Sunamganj",
+  "nmBn": "সুনামগঞ্জ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c22"
+  },
+  "nmEn": "Sylhet",
+  "nmBn": "সিলেট",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c23"
+  },
+  "nmEn": "Bagerhat",
+  "nmBn": "বাগেরহাট",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c24"
+  },
+  "nmEn": "Chuadanga",
+  "nmBn": "চুয়াডাঙ্গা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c25"
+  },
+  "nmEn": "Jashore",
+  "nmBn": "যশোর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c26"
+  },
+  "nmEn": "Jhenaidah",
+  "nmBn": "ঝিনাইদহ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c27"
+  },
+  "nmEn": "Khulna",
+  "nmBn": "খুলনা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c28"
+  },
+  "nmEn": "Kushtia",
+  "nmBn": "কুষ্টিয়া",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c29"
+  },
+  "nmEn": "Magura",
+  "nmBn": "মাগুরা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c2a"
+  },
+  "nmEn": "Meherpur",
+  "nmBn": "মেহেরপুর",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c2b"
+  },
+  "nmEn": "Narail",
+  "nmBn": "নড়াইল",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.648Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.648Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "660d074bb8a2f9f9b8bb9c2c"
+  },
+  "nmEn": "Satkhira",
+  "nmBn": "সাতক্ষীরা",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-04-03T07:37:47.648Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-03T07:37:47.648Z"
+  }
+}]
