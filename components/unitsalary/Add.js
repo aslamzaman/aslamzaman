@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextEn, BtnSubmit, DropdownEn, TextNum } from "@/components/Form";
+import { BtnSubmit, DropdownEn, TextNum, TextBn } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
 
 
@@ -15,7 +15,7 @@ const Add = ({ message }) => {
 
     const resetVariables = () => {
         message("Ready to make new additions");
-        setStaffId('660b808ad67b4f55709e3b51');
+        setStaffId('');
         setArear('');
         setSal1('');
         setSal2('');
@@ -100,7 +100,7 @@ const Add = ({ message }) => {
                                     <TextNum Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} />
                                     <TextNum Title="Sal1" Id="sal1" Change={e => setSal1(e.target.value)} Value={sal1} />
                                     <TextNum Title="Sal2" Id="sal2" Change={e => setSal2(e.target.value)} Value={sal2} />
-                                    <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={50} />
+                                    <TextBn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={150} />
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeAddForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -111,7 +111,7 @@ const Add = ({ message }) => {
                     </div>
                 </div>
             )}
-            <button onClick={showAddForm} className="px-1 py-1 bg-blue-500 hover:bg-blue-700 rounded-md transition duration-500" title="Add New">
+            <button onClick={showAddForm} className="px-1 py-1 bg-blue-400 hover:bg-blue-600 rounded-md transition duration-500" title="Add New">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-7 h-7 stroke-white hover:stroke-gray-100">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

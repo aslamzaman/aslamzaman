@@ -10,7 +10,7 @@ const Delete = ({ message, id, data }) => {
 		setShow(true);
 		try {
 		   const { staffId } = data.find(unitsalary => unitsalary._id === id) || { staffId: "" };
-		   setStaffId(staffId);
+		   setStaffId(staffId.nmEn);
 		   message("Ready to delete"); 
 		}
 		catch (err) {

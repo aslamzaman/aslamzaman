@@ -1,27 +1,34 @@
 import React, { useState } from "react";
-import { TextEn, BtnSubmit } from "@/components/Form";
-       
+import { TextBn, TextNum, BtnSubmit, DropdownEn } from "@/components/Form";
+import { fetchData } from "@/lib/utils/FetchData";
 
-const Edit = ({ message, id, data }) => {        
-  const [staffId, setStaffId] = useState('');
-  const [arear, setArear] = useState('');
-  const [sal1, setSal1] = useState('');
-  const [sal2, setSal2] = useState('');
-  const [remarks, setRemarks] = useState('');
-    
+
+
+const Edit = ({ message, id, data }) => {
+    const [staffId, setStaffId] = useState('');
+    const [arear, setArear] = useState('');
+    const [sal1, setSal1] = useState('');
+    const [sal2, setSal2] = useState('');
+    const [remarks, setRemarks] = useState('');
+
     const [show, setShow] = useState(false);
+    const [staffs, setStaffs] = useState([]);
 
-
-    const showEditForm =  () => {
+    const showEditForm = async () => {
         setShow(true);
         message("Ready to edit");
+        const responseStaff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+        console.log(responseStaff)
+        setStaffs(responseStaff);
+
+
         try {
-           const { staffId, arear, sal1, sal2, remarks } = data.find(unitsalary => unitsalary._id === id) || { staffId: '', arear: '', sal1: '', sal2: '', remarks: '' };
-         setStaffId(staffId);
-         setArear(arear);
-         setSal1(sal1);
-         setSal2(sal2);
-         setRemarks(remarks);             
+            const { staffId, arear, sal1, sal2, remarks } = data.find(unitsalary => unitsalary._id === id) || { staffId: '', arear: '', sal1: '', sal2: '', remarks: '' };
+            setStaffId(staffId._id);
+            setArear(arear);
+            setSal1(sal1);
+            setSal2(sal2);
+            setRemarks(remarks);
         } catch (err) {
             console.log(err);
         }
@@ -36,11 +43,11 @@ const Edit = ({ message, id, data }) => {
 
     const createObject = () => {
         return {
-          staffId: staffId,
-          arear: arear,
-          sal1: sal1,
-          sal2: sal2,
-          remarks: remarks                
+            staffId: staffId,
+            arear: arear,
+            sal1: sal1,
+            sal2: sal2,
+            remarks: remarks
         }
     }
 
@@ -60,11 +67,11 @@ const Edit = ({ message, id, data }) => {
                 message("Updated successfully completed");
             } else {
                 throw new Error("Failed to create unitsalary");
-            } 
+            }
         } catch (error) {
             console.error("Error saving unitsalary data:", error);
             message("Error saving unitsalary data.");
-        }finally {
+        } finally {
             setShow(false);
         }
     }
@@ -78,25 +85,27 @@ const Edit = ({ message, id, data }) => {
                         <div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
                             <h1 className="text-xl font-bold text-blue-600">Edit Existing Data</h1>
                             <button onClick={closeEditForm} className="w-8 h-8 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md transition duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full stroke-black">
-                               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                           </svg>
-                          </button>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full stroke-black">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
 
                         </div>
 
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                  <TextEn Title="Staffid" Id="staffId" Change={e => setStaffId(e.target.value)} Value={staffId} Chr={50} />
-                                  <TextEn Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} Chr={50} />
-                                  <TextEn Title="Sal1" Id="sal1" Change={e => setSal1(e.target.value)} Value={sal1} Chr={50} />
-                                  <TextEn Title="Sal2" Id="sal2" Change={e => setSal2(e.target.value)} Value={sal2} Chr={50} />
-                                  <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={50} />                                        
+                                    <DropdownEn Title="Staff" Id="staffId" Change={e => setStaffId(e.target.value)} Value={staffId}>
+                                        {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}</option>) : null}
+                                    </DropdownEn>
+                                    <TextNum Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} />
+                                    <TextNum Title="Sal1" Id="sal1" Change={e => setSal1(e.target.value)} Value={sal1} />
+                                    <TextNum Title="Sal2" Id="sal2" Change={e => setSal2(e.target.value)} Value={sal2} />
+                                    <TextBn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={150} />
                                 </div>
                                 <div className="w-full flex justify-start">
-                                <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
-                                <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                    <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
+                                    <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                                 </div>
                             </form>
                         </div>
@@ -107,7 +116,7 @@ const Edit = ({ message, id, data }) => {
             )}
             <button onClick={showEditForm} title="Edit" className="px-1 py-1 hover:bg-teal-300 rounded-md transition duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 stroke-black hover:stroke-blue-800 transition duration-500">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                 </svg>
             </button>
         </>
