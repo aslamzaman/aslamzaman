@@ -73,7 +73,7 @@ const BayprostabFormat = ({ doc }, data) => {
   let y = 100;
   let dbTotal = 0;
   for (let i = 0; i < x1.length; i++) {
-
+    const itemLen = x1[i].item;
     let tk = parseFloat(x1[i].taka);
     if (tk === 0) {
       y = y + 2;
@@ -81,13 +81,18 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text(`${x1[i].item}`, 16, y, null, null, "left");
     } else {
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x1[i].item}`, 16, y, null, null, "left");
+      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
       doc.text(`${numberWithComma(parseFloat(x1[i].taka))}/-`, 91, y, null, null, "right");
       doc.text(`${x1[i].nos}`, 101.641, y, null, null, "center");
       doc.text(`${numberWithComma((parseFloat(x1[i].taka) * parseFloat(x1[i].nos)))}/-`, 133, y, null, null, "right");
       dbTotal = dbTotal + (parseFloat(x1[i].taka) * parseFloat(x1[i].nos));
     }
-    y = y + 6;
+
+    if (itemLen.length > 30) {
+      y = y + 12;
+    } else {
+      y = y + 6;
+    }
   }
 
   doc.text(data.note, 174.347, 100, { maxWidth: 45, align: 'center' });
@@ -132,7 +137,7 @@ const BayprostabFormat = ({ doc }, data) => {
 
   y = 105;
   for (let i = 0; i < x1.length; i++) {
-
+    const itemLen = x1[i].item;
     let tk = parseFloat(x1[i].taka);
     if (tk === 0) {
       y = y + 2;
@@ -140,12 +145,16 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text(`${x1[i].item}`, 16, y, null, null, "left");
     } else {
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x1[i].item}`, 16, y, null, null, "left");
+      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
       doc.text(`${numberWithComma(parseFloat(x1[i].taka))}/-`, 90, y, null, null, "right");
       doc.text(`${x1[i].nos}`, 101.641, y, null, null, "center");
       doc.text(`${numberWithComma((parseFloat(x1[i].taka) * parseFloat(x1[i].nos)))}/-`, 133, y, null, null, "right");
     }
-    y = y + 6;
+    if (itemLen.length > 30) {
+      y = y + 12;
+    } else {
+      y = y + 6;
+    }
   }
 
 
@@ -168,79 +177,92 @@ const BayprostabFormat = ({ doc }, data) => {
 
 
   /*************************** GO format ************************************************** */
-  doc.addPage("a4", "p");
-  doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
-
-  doc.setFont("SutonnyMJ", "normal");
-  doc.setFontSize(16);
-  doc.text(`${date_format(data.dt)}`, 175, 42, null, null, "left");
-
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
-  doc.text("**", 19, 68, null, null, "center");
-  doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
-  doc.line(25, 76, 98, 76) // underline
-
-  y = 82;
-  let godata = x1.filter(g => parseFloat(g.taka) !== 0);
-  for (let i = 0; i < godata.length; i++) {
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text("-", 19, y, null, null, "center");
-    doc.text(`${godata[i].item}`, 28, y, null, null, "left");
-    doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 130, y, null, null, "right");
-    y = y + 6;
-  }
-
-  doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
-  doc.setFontSize(13);
-  doc.setFont("times", "normal");
-  doc.text(`${hd2}`, 146.5, 68, null, null, "center");
-  doc.setFontSize(14);
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${data.dpt}`, 180, 68, null, null, "center");
-
-
-  /**************************** Bearer check ************************************************* */
-  if (payment !== 'ace') {
+  if (data.project === 'GO') {
     doc.addPage("a4", "p");
-    doc.addImage("/images/formats/bearer.png", "PNG", 0, 0, 210, 297);
-
-    doc.setFont("times", "normal");
-    doc.setFontSize(14);
-    doc.text(`${data.project}`, 103, 41.5, null, null, "left");
+    doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
 
     doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${date_format(data.dt)}`, 165, 49.5, null, null, "left");
-    doc.setFont("times", "normal");
-
+    doc.setFontSize(16);
+    doc.text(`${date_format(data.dt)}`, 175, 42, null, null, "left");
 
     doc.setFont("SutonnyMJ", "normal");
+    doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
+    doc.text("**", 19, 68, null, null, "center");
+    doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
+    doc.line(25, 76, 98, 76) // underline
 
-    doc.text("**", 25, 120, null, null, "center");
-    doc.text(`${data.subject}`, 34, 120, { maxWidth: 64, align: 'left' });
-
-    doc.line(30, 128, 105, 128) // underline
-
-    y = 134;
+    y = 82;
+    let godata = x1.filter(g => parseFloat(g.taka) !== 0);
     for (let i = 0; i < godata.length; i++) {
-
+      const itemLen = godata[i].item;
       doc.setFont("SutonnyMJ", "normal");
-      doc.text("-", 25, y, null, null, "center");
-      doc.text(`${godata[i].item}`, 34, y, null, null, "left");
-      doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 129, y, null, null, "right");
-
-      y = y + 6;
+      doc.text("-", 19, y, null, null, "center");
+      doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
+      doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 130, y, null, null, "right");
+      if (itemLen.length > 38) {
+        y = y + 12;
+      } else {
+        y = y + 6;
+      }
     }
 
-
-
+    doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
+    doc.setFontSize(13);
     doc.setFont("times", "normal");
-    doc.text(`${hd2}`, 162.5, 120, null, null, "center");
-
+    doc.text(`${hd2}`, 146.5, 68, null, null, "center");
+    doc.setFontSize(14);
     doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${numberWithComma(dbTotal)}/-`, 120, 248, null, null, "center");
+    doc.text(`${data.dpt}`, 180, 68, null, null, "center");
 
-    doc.text(`${inwordTak} UvKv gvÎ`, 40, 255, null, null, "left");
+  }
+  
+  /**************************** Bearer check ************************************************* */
+  if (payment === 'br') {
+    if (payment !== 'ace') {
+      doc.addPage("a4", "p");
+      doc.addImage("/images/formats/bearer.png", "PNG", 0, 0, 210, 297);
+
+      doc.setFont("times", "normal");
+      doc.setFontSize(14);
+      doc.text(`${data.project}`, 103, 41.5, null, null, "left");
+
+      doc.setFont("SutonnyMJ", "normal");
+      doc.text(`${date_format(data.dt)}`, 165, 49.5, null, null, "left");
+      doc.setFont("times", "normal");
+
+
+      doc.setFont("SutonnyMJ", "normal");
+
+      doc.text("**", 25, 120, null, null, "center");
+      doc.text(`${data.subject}`, 34, 120, { maxWidth: 64, align: 'left' });
+
+      doc.line(30, 128, 105, 128) // underline
+
+      y = 134;
+      for (let i = 0; i < godata.length; i++) {
+        const itemLen = godata[i].item;
+        doc.setFont("SutonnyMJ", "normal");
+        doc.text("-", 25, y, null, null, "center");
+        doc.text(`${godata[i].item}`, 34, y, { maxWidth: 65, align: 'left' });
+        doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 129, y, null, null, "right");
+
+        if (itemLen.length > 38) {
+          y = y + 12;
+        } else {
+          y = y + 6;
+        }
+      }
+
+
+
+      doc.setFont("times", "normal");
+      doc.text(`${hd2}`, 162.5, 120, null, null, "center");
+
+      doc.setFont("SutonnyMJ", "normal");
+      doc.text(`${numberWithComma(dbTotal)}/-`, 120, 248, null, null, "center");
+
+      doc.text(`${inwordTak} UvKv gvÎ`, 40, 255, null, null, "left");
+    }
   }
 }
 
@@ -393,7 +415,7 @@ const Bayprostab = () => {
                   <TextBn Title="Department" Id="dpt" Change={(e) => { setDpt(e.target.value) }} Value={dpt} Chr="50" />
                 </div>
                 <div className="w-full col-span-4">
-                  <TextBn Title="Subject" Id="subject" Change={(e) => { setSubject(e.target.value) }} Value={subject} Chr="100" />
+                  <TextBn Title="Subject" Id="subject" Change={(e) => { setSubject(e.target.value) }} Value={subject} Chr="150" />
                 </div>
 
                 <div className="w-full col-span-2">
@@ -408,10 +430,6 @@ const Bayprostab = () => {
                   {payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
                     : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
                       : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />}
-                </div>
-
-                <div className="w-full col-span-4">
-                  <TextBn Title="Subject" Id="subject" Change={(e) => { setSubject(e.target.value) }} Value={subject} Chr="100" />
                 </div>
 
 

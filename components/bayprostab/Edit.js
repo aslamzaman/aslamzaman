@@ -68,9 +68,9 @@ const Edit = ({ Msg, Id, data }) => {
                         <form onSubmit={saveHandler}>
                             <div className="w-full grid grid-cols-1 gap-4 my-4">
                                 {check ?
-                                    <TextEn Title="Item" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="50" />
+                                    <TextEn Title="Item (English)" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="150" />
                                     :
-                                    <TextBn Title="Item" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="50" />
+                                    <TextBn Title="Item (Bangla)" Id="item" Change={(e) => { setItem(e.target.value) }} Value={item} Chr="150" />
                                 }
                                 <TextNum Title="Nos" Id="nos" Change={(e) => { setNos(e.target.value) }} Value={nos} />
 
