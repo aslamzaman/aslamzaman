@@ -6,7 +6,7 @@ import { StaffModel } from '@/lib/Models';
 export const GET = async () => {
   try {
     await Connect();
-    const staffs = await StaffModel.find({}).populate('genderId').populate('postId').populate('projectId').populate('placeId').populate('unitId').sort({empId:'asc'});
+    const staffs = await StaffModel.find({isDeleted: false}).populate('genderId').populate('postId').populate('projectId').populate('placeId').populate('unitId').sort({_id:'desc'});
     return NextResponse.json( staffs );
   } catch (error) {
     console.error('GET Error:', error);
@@ -15,12 +15,12 @@ export const GET = async () => {
 }
 
 
-
+/*
 export const POST = async (Request) => {
   try {
     await Connect();
-    const { nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks } = await Request.json();
-    const staffs = await StaffModel.create({ nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks });
+    const { nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = await Request.json();
+    const staffs = await StaffModel.create({ nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary });
     return NextResponse.json(staffs);
   } catch (err) {
     console.error(err);
@@ -28,3 +28,16 @@ export const POST = async (Request) => {
   }
 }
 
+*/
+
+export const POST = async (Request) => {
+  try {
+    await Connect();
+    const data  = await Request.json();
+    const staffs = await StaffModel.insertMany(data);
+    return NextResponse.json(staffs);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: "POST Error", err }, { status: 500 });
+  }
+}

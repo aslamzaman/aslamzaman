@@ -15,16 +15,15 @@ const Page = (tbl, datas) => {
 
     let thead_string = "";
     data.map((d, i) => {
-
         if (i < data.length - 1) {
             if (i > 0) {
                 i === (data.length - 1)
-                    ? thead_string = thead_string + `                                     <th className="text-center border-b border-gray-200 px-4 py-2">${titleCase(d)}</th>`
-                    : thead_string = thead_string + `                                     <th className="text-center border-b border-gray-200 px-4 py-2">${titleCase(d)}</th>\n`;
+                    ? thead_string = thead_string + `                                      <th className="text-center border-b border-gray-200 px-4 py-2">${titleCase(d)}</th>`
+                    : thead_string = thead_string + `                                      <th className="text-center border-b border-gray-200 px-4 py-2">${titleCase(d)}</th>\n`;
             }
         }
-
-    });
+    }
+    );
 
 
     let td_string = "";
@@ -32,8 +31,8 @@ const Page = (tbl, datas) => {
         if (i < data.length - 1) {
             if (i > 0) {
                 i === (data.length - 1)
-                    ? td_string = td_string + `                                             <td className="text-center py-2 px-4">{${tbl}.${d}}</td>`
-                    : td_string = td_string + `                                             <td className="text-center py-2 px-4">{${tbl}.${d}}</td>\n`;
+                    ? td_string = td_string + `                                              <td className="text-center py-2 px-4">{${tbl}.${d}}</td>`
+                    : td_string = td_string + `                                              <td className="text-center py-2 px-4">{${tbl}.${d}}</td>\n`;
             }
         }
     }
@@ -45,13 +44,12 @@ const Page = (tbl, datas) => {
     loadMongo += '                    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/' + tbl + '`, {' + '\n';
     loadMongo += '                        method: "GET",' + '\n';
     loadMongo += '                        headers: { "Content-Type": "application/json" }' + '\n';
-    loadMongo += '                    });' + '\n\n';
+    loadMongo += '                    });' + '\n';
     loadMongo += '                    if (!response.ok) {' + '\n';
     loadMongo += '                        throw new Error("Failed to fetch data");' + '\n';
-    loadMongo += '                    }' + '\n\n';
-
+    loadMongo += '                    }' + '\n';
     loadMongo += '                    const data = await response.json();' + '\n';
-    loadMongo += '                    console.log(data);' + '\n';
+    loadMongo += '                    // console.log(data);\n';
     loadMongo += '                    set' + titleCase(tbl) + 's(data);';
     //-------------
 
@@ -69,17 +67,16 @@ const Page = (tbl, datas) => {
     
 
         useEffect(() => {
-            const fetchData = async () => {
+            const getData = async () => {
                 setWaitMsg('Please Wait...');
                 try {
 ${loadMongo}
-                    setWaitMsg('');
+                setWaitMsg('');
                 } catch (error) {
                     console.error("Error fetching data:", error);
-                    setMsg("Failed to fetch data");
                 }
             };
-            fetchData();
+            getData();
         }, [msg]);
     
     

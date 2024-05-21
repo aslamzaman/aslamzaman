@@ -38,7 +38,6 @@ const BayprostabFormat = ({ doc }, data) => {
     chequeString = `µq m¤úv\`‡Ki bv‡g †eqvivi †PK n‡e|`;
   }
 
-  console.log(chequeString)
 
   for (let i = 0; i < m.length; i++) {
     if (parseInt(m[i].taka) === 0) {
@@ -70,6 +69,7 @@ const BayprostabFormat = ({ doc }, data) => {
   doc.text(`${date_format(data.dt)}`, 157, 40.5, null, null, "left");
 
   let x1 = data.db;
+  const godata = x1.filter(g => parseFloat(g.taka) !== 0);
   let y = 100;
   let dbTotal = 0;
   for (let i = 0; i < x1.length; i++) {
@@ -192,7 +192,9 @@ const BayprostabFormat = ({ doc }, data) => {
     doc.line(25, 76, 98, 76) // underline
 
     y = 82;
-    let godata = x1.filter(g => parseFloat(g.taka) !== 0);
+
+    
+
     for (let i = 0; i < godata.length; i++) {
       const itemLen = godata[i].item;
       doc.setFont("SutonnyMJ", "normal");
@@ -215,7 +217,7 @@ const BayprostabFormat = ({ doc }, data) => {
     doc.text(`${data.dpt}`, 180, 68, null, null, "center");
 
   }
-  
+
   /**************************** Bearer check ************************************************* */
   if (payment === 'br') {
     if (payment !== 'ace') {
@@ -340,8 +342,14 @@ const Bayprostab = () => {
     setMsg(data);
   }
 
+
+
   const handleCreate = (e) => {
     e.preventDefault();
+    if (bayprostabs.length < 2) {
+      setWaitMsg("No data!");
+      return false;
+    }
     setWaitMsg("Please wait...");
 
     const doc = new jsPDF({

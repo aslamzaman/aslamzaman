@@ -4,7 +4,6 @@ import { fetchData } from "@/lib/utils/FetchData";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 
 
-
 const Add = ({ message }) => {
     const [nmEn, setNmEn] = useState('');
     const [nmBn, setNmBn] = useState('');
@@ -19,24 +18,17 @@ const Add = ({ message }) => {
     const [unitId, setUnitId] = useState('');
     const [status, setStatus] = useState('');
     const [remarks, setRemarks] = useState('');
+    const [salary, setSalary] = useState('');
+
     const [show, setShow] = useState(false);
 
-
     const [genders, setGenders] = useState([]);
-    const [genderIdChange, setGenderIdChange] = useState('');
     const [posts, setPosts] = useState([]);
-    const [postIdChange, setPostIdChange] = useState('');
     const [projects, setProjects] = useState([]);
-    const [projectIdChange, setProjectIdChange] = useState('');
     const [places, setPlaces] = useState([]);
-    const [placeIdChange, setPlaceIdChange] = useState('');
     const [units, setUnits] = useState([]);
-    const [unitIdChange, setUnitIdChange] = useState('');
-
-
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setNmEn('');
         setNmBn('');
         setJoinDt(date_format(new Date()));
@@ -48,14 +40,9 @@ const Add = ({ message }) => {
         setEmpId('');
         setPlaceId('');
         setUnitId('');
-        setStatus('1');
+        setStatus('');
         setRemarks('');
-        //-----------------------------------
-        setGenderIdChange('');
-        setPostIdChange('');
-        setProjectIdChange('');
-        setPlaceIdChange('');
-        setUnitIdChange('');
+        setSalary('');
     }
 
 
@@ -70,25 +57,19 @@ const Add = ({ message }) => {
                 fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/place`),
                 fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`)
             ]);
-            const sortPost = responsePost.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).toUpperCase() ? -1 : 1);
-            const sortProject = responseProject.sort((a, b) => (a.name).toUpperCase() < (b.name).toUpperCase() ? -1 : 1);
-            const sortUnit = responseUnit.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).toUpperCase() ? -1 : 1);
-            
             setGenders(responseGender);
-            setPosts(sortPost);
-            setProjects(sortProject);
+            setPosts(responsePost);
+            setProjects(responseProject);
             setPlaces(responsePlace);
-            setUnits(sortUnit);
-
+            setUnits(responseUnit);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error('Failed to fetch delivery data:', error);
         }
     }
 
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -106,7 +87,8 @@ const Add = ({ message }) => {
             placeId: placeId,
             unitId: unitId,
             status: status,
-            remarks: remarks
+            remarks: remarks,
+            salary: salary
         }
     }
 
@@ -123,7 +105,7 @@ const Add = ({ message }) => {
             };
             const response = await fetch(apiUrl, requestOptions);
             if (response.ok) {
-                message("Staff is created!");
+                message(`Staff is created at ${new Date().toISOString()}`);
             } else {
                 throw new Error("Failed to create staff");
             }
@@ -136,45 +118,11 @@ const Add = ({ message }) => {
     }
 
 
-
-    //-------------------------------------------------
-    const genderIdChangeHandler = (e) => {
-        const genderIdValue = e.target.value;
-        setGenderIdChange(genderIdValue);
-        setGenderId(genderIdValue);
-    }
-
-    const postIdChangeHandler = (e) => {
-        const postIdValue = e.target.value;
-        setPostIdChange(postIdValue);
-        setPostId(postIdValue);
-    }
-
-    const projectIdChangeHandler = (e) => {
-        const projectIdValue = e.target.value;
-        setProjectIdChange(projectIdValue);
-        setProjectId(projectIdValue);
-    }
-
-    const placeIdChangeHandler = (e) => {
-        const placeIdValue = e.target.value;
-        setPlaceIdChange(placeIdValue);
-        setPlaceId(placeIdValue);
-    }
-
-    const unitIdChangeHandler = (e) => {
-        const unitIdValue = e.target.value;
-        setUnitIdChange(unitIdValue);
-        setUnitId(unitIdValue);
-    }
-
-
-    
     return (
         <>
             {show && (
                 <div className="fixed inset-0 py-16 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-auto">
-                    <div className="w-11/12 md:w-9/12 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
+                    <div className="w-11/12 md:w-1/2 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
                         <div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
                             <h1 className="text-xl font-bold text-blue-600">Add New Data</h1>
                             <button onClick={closeAddForm} className="w-8 h-8 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md transition duration-500">
@@ -185,42 +133,34 @@ const Add = ({ message }) => {
                         </div>
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler}>
-                                <div className="grid grid-cols-3 gap-4 my-4">
-                                    <TextEn Title="Name English" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
-                                    <TextBn Title="Name Bangla" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
-                                    <TextDt Title="Joindt" Id="joinDt" Change={e => setJoinDt(e.target.value)} Value={joinDt} />
+                                <div className="grid grid-cols-1 gap-4 my-4">
+                                    <TextEn Title="Name (English)" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
+                                    <TextBn Title="Name (Bangla)" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                    <TextDt Title="Joining Date" Id="joinDt" Change={e => setJoinDt(e.target.value)} Value={joinDt} />
                                     <TextEn Title="Mobile" Id="mobile" Change={e => setMobile(e.target.value)} Value={mobile} Chr={50} />
-
-                                    <DropdownEn Title="Gender" Id="genderIdChange" Change={genderIdChangeHandler} Value={genderIdChange}>
+                                    <DropdownEn Title="Gender" Id="genderId" Change={e => setGenderId(e.target.value)} Value={genderId}>
                                         {genders.length ? genders.map(gender => <option value={gender._id} key={gender._id}>{gender.name}</option>) : null}
                                     </DropdownEn>
-
-                                    <DropdownEn Title="Post" Id="postIdChange" Change={postIdChangeHandler} Value={postIdChange}>
+                                    <DropdownEn Title="Post" Id="postId" Change={e => setPostId(e.target.value)} Value={postId}>
                                         {posts.length ? posts.map(post => <option value={post._id} key={post._id}>{post.nmEn}</option>) : null}
                                     </DropdownEn>
 
 
-
-                                    <DropdownEn Title="Project" Id="projectIdChange" Change={projectIdChangeHandler} Value={projectIdChange}>
+                                    <DropdownEn Title="Project" Id="projectId" Change={e => setProjectId(e.target.value)} Value={projectId}>
                                         {projects.length ? projects.map(project => <option value={project._id} key={project._id}>{project.name}</option>) : null}
                                     </DropdownEn>
+                                    <TextEn Title="Picture Url" Id="pictureUrl" Change={e => setPictureUrl(e.target.value)} Value={pictureUrl} Chr={250} />
+                                    <TextEn Title="Employee Id" Id="empId" Change={e => setEmpId(e.target.value)} Value={empId} Chr={50} />
 
-                                    <TextEn Title="Pictureurl" Id="pictureUrl" Change={e => setPictureUrl(e.target.value)} Value={pictureUrl} Chr={50} />
-                                    <TextEn Title="Empid" Id="empId" Change={e => setEmpId(e.target.value)} Value={empId} Chr={50} />
-
-
-                                    <DropdownEn Title="Place" Id="placeIdChange" Change={placeIdChangeHandler} Value={placeIdChange}>
+                                    <DropdownEn Title="Place" Id="placeId" Change={e => setPlaceId(e.target.value)} Value={placeId}>
                                         {places.length ? places.map(place => <option value={place._id} key={place._id}>{place.name}</option>) : null}
                                     </DropdownEn>
 
-
-
-
-                                    <DropdownEn Title="Unit" Id="unitIdChange" Change={unitIdChangeHandler} Value={unitIdChange}>
+                                    <DropdownEn Title="Unit" Id="unitId" Change={e => setUnitId(e.target.value)} Value={unitId}>
                                         {units.length ? units.map(unit => <option value={unit._id} key={unit._id}>{unit.nmEn}</option>) : null}
                                     </DropdownEn>
-
                                     <TextNum Title="Status" Id="status" Change={e => setStatus(e.target.value)} Value={status} />
+                                    <TextNum Title="Salary" Id="salary" Change={e => setSalary(e.target.value)} Value={salary} />
                                     <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={250} />
                                 </div>
                                 <div className="w-full flex justify-start">

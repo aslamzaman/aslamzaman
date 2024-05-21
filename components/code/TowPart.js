@@ -106,6 +106,7 @@ const TwoPart = (tbl, datas) => {
         const [waitMsg, setWaitMsg] = useState("");
        
         const [dt, setDt] = useState('');
+        const [total, setTotal] = useState(0);
         
         useEffect(() => {
             const load = () => {
@@ -115,7 +116,11 @@ const TwoPart = (tbl, datas) => {
                     const data = response.data;                    
                     const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
                     set${titleCase(tbl)}s(result);
-                    setWaitMsg('');
+
+                    //-----------------------------------------------------------------------
+                  //  const grandTotal = data.reduce((t, c) => t + (c.qty + c.tk), 0);
+                  //  setTotal(grandTotal);
+                  setWaitMsg('');
                 } catch (error) {
                     console.log(error);
                 }
@@ -129,6 +134,14 @@ const TwoPart = (tbl, datas) => {
             setMsg(data);
         }
     
+
+        const createObject = () => {
+            return {
+                id: Date.now(),        
+                dt: dt
+            }
+        }
+
     
         const handleCreate = async (e) => {
             e.preventDefault();
@@ -148,10 +161,9 @@ const TwoPart = (tbl, datas) => {
                     putOnlyUsedFonts: true,
                     floatPrecision: 16 // or "smart", default is 16
                 });
-               doc.setFont("times", "normal");
-               doc.setFontSize(16);
-               doc.text('Two Part Page', 105, 20, null, null, 'center');  
-               doc.save(new Date().toISOString() + "-${titleCase(tbl)}.pdf");  
+                const newObject = createObject();
+                console.log(newObject);
+               // doc.save(new Date().toISOString() + "-${titleCase(tbl)}.pdf");  
                setWaitMsg('');             
             } catch (error) {
                 console.log(error);

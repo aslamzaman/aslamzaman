@@ -40,22 +40,39 @@ const url_2 = "`${process.env.NEXT_PUBLIC_URL}/gender/read_all`";
   
 
     *** Reduce:-
-    const result = datas.reduce((t, c) => t + (parseFloat(c.nos) * parseFloat(c.taka)),0);
+    const result = datas.reduce((total, data) => {
+        const taka = parseFloat(data.taka);
+        const nos = parseFloat(data.nos);
+        return total + (taka * nos) ;
+      }, 0);
       
       
  *** Filter1:-
- const result = staffs.filter(s => parseInt(s.place_id) === 1699884047193); // return array    
+ const result = staffs.filter(staff => parseInt(staff.place_id) === 1699884047193); // return array    
  
  
- *** Filter2:-
+ *** Filter2:- (some)
  const result = customers.filter(customer=> payments.some(payment =>payment.customer._id === customer._id));
+ const result = orders.filter(order=> !delivery.some(delivery =>delivery.orderNo === order.orderNo));
+ 
+
+ *** Filter3:- (Range)
+ const filteredValue = data.filter(item => item.Price >= 230 && item.Price <= 800);
 
  
  *** Find:-
  const result = staffs.find(s => parseInt(s.place_id) === 1699884047193); // return object
 
 
-*** Sort:-
+*** Sort-1:-
+const SortResult = datas.sort((a, b) => {
+    if (parseInt(a.id) < parseInt(b.id)) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+*** Sort-2:
 const sortPost = responsePost.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).toUpperCase() ? -1 : 1);
 
 

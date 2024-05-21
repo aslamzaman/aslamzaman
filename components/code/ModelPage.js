@@ -23,15 +23,25 @@ const ModelPage = (tbl, datas) => {
         }
     });
 
+    let inter = "";
+    inter += "    interface I" + titleCase(tbl) + " {" + "\n";
+    data.map((d, i) => {
+        if (i > 0) {
+            i === (data.length - 1)
+                ? inter += `       ${d}: String;`
+                : inter += `       ${d}: String;\n`
+        }
+    });
+    inter += "\n    }" + "\n";
 
 
 
     let str = `    import mongoose,{ Schema } from "mongoose";
 
-
+    //  projectId: { type: Schema.Types.ObjectId, ref: 'Project' },
     const ${titleCase(tbl)}Schema = new Schema(
         {
-${obj}            isDeleted: { type: Boolean, default: false } 
+${obj}            isDeleted: { type: Boolean, default: false }      
         },
         {
             timestamps: true

@@ -3,10 +3,11 @@ import { Connect } from '@/lib/utils/Db';
 import { HondahistoryModel } from '@/lib/Models';
 
 
+
 export const GET = async () => {
   try {
     await Connect();
-    const hondahistorys = await HondahistoryModel.find({}).populate('hondaId').populate('projectId').populate('staffId').populate('postId').sort({_id:'desc'});
+    const hondahistorys = await HondahistoryModel.find({isDeleted: false}).populate('hondaId').populate('projectId').populate('staffId').populate('postId').sort({_id:'desc'});
     return NextResponse.json( hondahistorys );
   } catch (error) {
     console.error('GET Error:', error);

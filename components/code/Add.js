@@ -24,13 +24,13 @@ const Add = (tbl, datas) => {
 
     let dd = "";
     data.map((d, i) => {
-        if (i < data.length - 1) {
-            if (i > 0) {
-                i === (data.length - 2)
-                    ? dd = dd + `                                      <TextEn Title="${titleCase(d)}" Id="${d}" Change={e => set${FirstCap(d)}(e.target.value)} Value={${d}} Chr={50} />`
-                    : dd = dd + `                                      <TextEn Title="${titleCase(d)}" Id="${d}" Change={e => set${FirstCap(d)}(e.target.value)} Value={${d}} Chr={50} />\n`;
-            }
+        if( i < data.length-1){
+        if (i > 0) {
+            i === (data.length - 2)
+                ? dd = dd + `                                      <TextEn Title="${titleCase(d)}" Id="${d}" Change={e => set${FirstCap(d)}(e.target.value)} Value={${d}} Chr={50} />`
+                : dd = dd + `                                      <TextEn Title="${titleCase(d)}" Id="${d}" Change={e => set${FirstCap(d)}(e.target.value)} Value={${d}} Chr={50} />\n`;
         }
+    }
     }
     );
 
@@ -94,7 +94,7 @@ const Add = (tbl, datas) => {
 
     saveStr += '              const response = await fetch(apiUrl, requestOptions);' + '\n';
     saveStr += '              if (response.ok) {' + '\n';
-    saveStr += '                message("' + titleCase(tbl) + ' is created!");' + '\n';
+    saveStr += '                message(`' + titleCase(tbl) + ' is created at ${new Date().toISOString()}`);' + '\n';
     saveStr += '              } else {' + '\n';
     saveStr += '                throw new Error("Failed to create ' + tbl + '");' + '\n';
     saveStr += '              }';
@@ -118,7 +118,6 @@ ${stateVar}
   
   
       const resetVariables = () => {
-          message("Ready to make new additions");        
 ${stateClear}
       }
   
@@ -131,7 +130,6 @@ ${stateClear}
   
       const closeAddForm = () => {
           setShow(false);
-          message("Data ready");
       }
   
   

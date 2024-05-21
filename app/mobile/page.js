@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/mobile/Add";
 import Edit from "@/components/mobile/Edit";    
 import Delete from "@/components/mobile/Delete";
+import Image from "next/image";
 
 
 const Mobile = () => {
@@ -86,6 +87,10 @@ const Mobile = () => {
                             )}
                         </tbody>
                     </table>
+                    
+                </div>
+                <div>
+                    <Image className="w-full md:w-1/2 h-auto mx-auto mt-10" src="/images/mobile/Mobile_Sim_BTRC.jpg" alt="Mobile SIM" width={1491} height={2157} />
                 </div>
             </div>
         </>

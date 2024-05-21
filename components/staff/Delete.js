@@ -8,38 +8,33 @@ const Delete = ({ message, id, data }) => {
 
     const showDeleteForm = () => {
         setShow(true);
-        try {
-           const { nmEn } = data.find(staff => staff._id === id) || { nmEn: "" };
-           setNmEn(nmEn);
-           message("Ready to delete"); 
-        }
-        catch (err) {
-            console.log(err);
-        }
+        const { nmEn } = data.find(staff => staff._id === id) || { nmEn: "" };
+        setNmEn(nmEn); 
     }
 
 
     const closeDeleteForm = () => {
-        setShow(false);
-        message("Data ready");
+        setShow(false);           
     }
 
 
-    const deleteYesClick = async () => {
+    const softDeleteHandler = async () => {
         try {
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/staff/${id}`;
-            const requestOptions = { method: "DELETE" };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Deleted successfully completed");
-            } else {
-                throw new Error("Failed to delete staff");
-            }         
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
+            }
+            const data = await response.json();
+           // console.log(data)
+            message(`Deleted successfully completed. id: ${id}`);
         } catch (error) {
-            console.log(error);
-            message("Data deleting error");
+            console.error("Error fetching data:", error);
+        }finally{
+            setShow(false);          
         }
-        setShow(false);
     }
 
 
@@ -71,7 +66,7 @@ const Delete = ({ message, id, data }) => {
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={deleteYesClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={softDeleteHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/honda/Add";
 import Edit from "@/components/honda/Edit";
 import Delete from "@/components/honda/Delete";
+import Pagehistory from "@/components/honda/Pagehistory";
 
 
 
@@ -26,7 +27,7 @@ const Honda = () => {
                 }
 
                 const data = await response.json();
-                const sortData = data.sort((a,b) => (a.unitId.nmEn).toUpperCase() < (b.unitId.nmEn).toUpperCase()? -1:1)
+                const sortData = data.sort((a, b) => (a.unitId.nmEn).toUpperCase() < (b.unitId.nmEn).toUpperCase() ? -1 : 1)
                 console.log(sortData);
                 setHondas(sortData);
                 setWaitMsg('');
@@ -43,8 +44,40 @@ const Honda = () => {
         setMsg(data);
     }
 
+    /*
+    const btnClick = async () => {
+        console.log(hondas);
+        for (let i = 0; i < hondas.length; i++) {
+            let id = hondas[i]._id;
+            let obj = {
+                regNo: hondas[i].regNo,
+                regDt: hondas[i].regDt,
+                chassisNo: hondas[i].chassisNo,
+                engineNo: hondas[i].engineNo,
+                condition: hondas[i].condition,
+                projectId: hondas[i].projectId,
+                unitId: hondas[i].unitId,
+                remarks: hondas[i].remarks,
+                isDeleted: false
+            }
+            console.log(obj);
 
+            try {
 
+                const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/honda/${id}`;
+                const requestOptions = {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(obj)
+                };
+                await fetch(apiUrl, requestOptions);
+            } catch (error) {
+                console.error("Error saving honda data:", error);
+            }
+
+        }
+    }
+*/
     return (
         <>
             <div className="w-full mb-3 mt-8">
@@ -58,13 +91,13 @@ const Honda = () => {
                         <thead>
                             <tr className="w-full bg-gray-200">
                                 <th className="text-center border-b border-gray-200 px-4 py-2">SL</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Unitid</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Unit</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Regno</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Regdt</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Chassisno</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Engineno</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Chassis No</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Engine No</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Condition</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Projectid</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Project</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Remarks</th>
                                 <th className="w-[100px] font-normal">
                                     <div className="w-full flex justify-end py-0.5 pr-4">
@@ -77,7 +110,7 @@ const Honda = () => {
                             {hondas.length ? (
                                 hondas.map((honda, i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={honda._id}>
-                                        <td className="text-center py-2 px-4">{i+1}</td>
+                                        <td className="text-center py-2 px-4">{i + 1}</td>
                                         <td className="text-center py-2 px-4">{honda.unitId.nmEn}</td>
                                         <td className="text-center py-2 px-4">{honda.regNo}</td>
                                         <td className="text-center py-2 px-4">{honda.regDt}</td>
@@ -89,6 +122,7 @@ const Honda = () => {
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
                                             <Edit message={messageHandler} id={honda._id} data={hondas} />
                                             <Delete message={messageHandler} id={honda._id} data={hondas} />
+                                            <Pagehistory message={messageHandler} id={honda._id} />
                                         </td>
                                     </tr>
                                 ))

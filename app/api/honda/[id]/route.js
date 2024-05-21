@@ -12,15 +12,15 @@ export const GET = async (Request, { params }) => {
   } catch (err) {
     return NextResponse.json({ message: "PUT Error", err }, { status: 500 });
   }
-}    
+}
 
 
-export const PUT = async (Request,{ params }) => {
+export const PUT = async (Request, { params }) => {
   try {
     await Connect();
-    const {id} = params;
-    const { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks } = await Request.json();
-    const hondas = await HondaModel.findOneAndUpdate({ _id: id }, { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks });
+    const { id } = params;
+    const { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks, isDeleted } = await Request.json();
+    const hondas = await HondaModel.findOneAndUpdate({ _id: id }, { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks, isDeleted });
     return NextResponse.json(hondas);
   } catch (err) {
     return NextResponse.json({ message: "PUT Error", err }, { status: 500 });
@@ -28,11 +28,26 @@ export const PUT = async (Request,{ params }) => {
 }
 
 
-export const DELETE = async ( Request, { params }) => {
+
+// Soft deleted
+export const PATCH = async (Request, { params }) => {
   try {
     await Connect();
-    const {id} = params;
-    const hondas = await HondaModel.findOneAndDelete({_id: id});
+    const { id } = params;
+    const hondas = await HondaModel.findOneAndUpdate({ _id: id, isDeleted: false }, { isDeleted: true }, { new: true });
+    return NextResponse.json(hondas);
+  } catch (err) {
+    return NextResponse.json({ message: "GET Error", err }, { status: 500 });
+  }
+}
+
+
+
+export const DELETE = async (Request, { params }) => {
+  try {
+    await Connect();
+    const { id } = params;
+    const hondas = await HondaModel.findOneAndDelete({ _id: id });
     return NextResponse.json(hondas);
   } catch (err) {
     return NextResponse.json({ message: "DELETE Error", err }, { status: 500 });

@@ -14,7 +14,6 @@ import OnePage from "@/components/code/OnePage";
 import ModelPage from "@/components/code/ModelPage";
 import RoutePage from "@/components/code/RoutePage";
 import RouteDynamicPage from "@/components/code/RouteDynamicPage";
-import { MongoDb } from "@/components/code/MongoDb";
 
 
 
@@ -45,7 +44,7 @@ const Code = () => {
         const newTbl = localStorage.getItem('tbl');
         const newFld = localStorage.getItem('fld');
         setTbl(newTbl ? newTbl : "post");
-        setFld(newFld ? newFld : "_id, name, shortname,isDeleted");
+        setFld(newFld ? newFld : "_id, name, shortname");
     }, []);
 
 
@@ -113,27 +112,8 @@ const Code = () => {
 
         const tbName = sp.map(t => ' ' + t.trim() + 'Response').toString();
 
-        const errStr = "         throw new Error(`Failed to fetch data from ${url}`);";
-        const urlString = "`${process.env.NEXT_PUBLIC_BASE_URL}/api/";
+        let str = "";
 
-        let str = '   export const fetchData = async (url) => {\n';
-        str = str + '      const response = await fetch(url, {\n';
-        str = str + '         method: "GET",\n';
-        str = str + '         headers: { "Content-Type": "application/json" }\n';
-        str = str + '      });\n';
-
-        str = str + '      if (!response.ok) {\n';
-        str = str + errStr + '\n';
-        str = str + '      }\n';
-
-        str = str + '         return response.json();\n';
-        str = str + '   };\n';
-        str = str + '// -------------------------------------------------------------------------------\n';
-        str = str + '\n\n\n';
-
-
-
-        str = str + "    const [waitMsg, setWaitMsg] = useState('');\n\n";
         let s4 = "";
         for (let i = 0; i < sp.length; i++) {
             s4 = s4 + `    const [${sp[i].trim()}s, set${titleCase(sp[i].trim())}s] = useState([]);\n`;
@@ -141,49 +121,74 @@ const Code = () => {
         str = str + s4;
 
         str = str + "\n";
-        str = str + "\n\n";
-
-
-
-        str = str + "    const loadData = async () => {\n";
-        str = str + "        setWaitMsg('Please Wait...');\n";
-        str = str + "        try {\n";
-        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
-        let s1 = "";
-
-        for (let i = 0; i < sp.length - 1; i++) {
-            s1 = s1 + '                fetchData(' + urlString + sp[i].trim() + '`),\n';
-        }
-
-        s1 = s1 + '                fetchData(' + urlString + sp[sp.length - 1].trim() + '`)\n';
-        str = str + s1;
-        str = str + "            ]);\n"
-
-        str = str + "            console.log(" + tbName + ");\n"
 
         let s6 = "";
         for (let i = 0; i < sp.length; i++) {
-            s6 = s6 + `            set${titleCase(sp[i].trim())}s(${sp[i].trim()}Response);\n`;
+            s6 = s6 + `    const [${sp[i].trim()}_id, set${titleCase(sp[i].trim())}_id] = useState("");\n`;
         }
         str = str + s6;
 
-        str = str + "            setWaitMsg('');\n";
+        str = str + "\n";
+
+
+
+        str = str + "    const fetchData = async (callback) => {\n";
+        str = str + "        try {\n";
+        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
+        let s1 = "";
+        for (let i = 0; i < sp.length - 1; i++) {
+            s1 = s1 + '                fetchAll("' + sp[i].trim() + '"),\n';
+        }
+
+        s1 = s1 + '                fetchAll("' + sp[sp.length - 1].trim() + '")\n';
+        str = str + s1;
+        str = str + "            ]);\n\n"
+
+
+        str = str + "            callback({\n";
+
+        let s3 = "";
+        for (let i = 0; i < sp.length - 1; i++) {
+            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim() + 'Response'}.data,\n`;
+        }
+
+        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim() + 'Response'}.data\n`;
+        str = str + s3;
+
+
+
+
+        str = str + "            });\n";
         str = str + "        } catch (error) {\n";
         str = str + '            console.error("Error fetching data:", error);\n';
         str = str + "        }\n";
 
         str = str + "    };\n";
-        str = str + "loadData();\n";
-        str = str + "\n\n\n";
+
+        str = str + "\n";
 
 
 
+        str = str + "    const getData = async () => {\n";
+        str = str + "        try{\n";
+        str = str + "            await fetchData(data => {\n";
+        let s5 = "";
+        for (let i = 0; i < sp.length; i++) {
+            s5 = s5 + `                set${titleCase(sp[i].trim())}s(data.${sp[i].trim()});\n`;
+        }
+        str = str + s5;
+
+        str = str + "            });\n";
+        str = str + "        }catch(error){\n";
+        str = str + "            console.log(error);\n";
+        str = str + "        };\n";
+        str = str + "    };\n\n";
 
 
         let s7 = "";
         for (let i = 0; i < sp.length; i++) {
-            s7 = s7 + `                                    <DropdownEn Title="${titleCase(sp[i].trim())}" Id="${sp[i].trim()}Id" Change={e => set${titleCase(sp[i].trim())}Id(e.target.value)} Value={${sp[i].trim()}Id}>\n`;
-            s7 = s7 + `                                        {${sp[i].trim()}s.length?${sp[i].trim()}s.map(${sp[i].trim()}=><option value={${sp[i].trim()}._id} key={${sp[i].trim()}._id}>{${sp[i].trim()}._id}</option>):null}\n`;
+            s7 = s7 + `                                    <DropdownEn Title="${titleCase(sp[i].trim())}" Id="${sp[i].trim()}_id" Change={e => set${titleCase(sp[i].trim())}_id(e.target.value)} Value={${sp[i].trim()}_id}>\n`;
+            s7 = s7 + `                                        {${sp[i].trim()}s.length?${sp[i].trim()}s.map(${sp[i].trim()}=><option value={${sp[i].trim()}.id} key={${sp[i].trim()}.id}>{${sp[i].trim()}.name}</option>):null}\n`;
             s7 = s7 + `                                    </DropdownEn>\n`;
         }
         str = str + s7;
@@ -202,50 +207,26 @@ const Code = () => {
         console.log("a" + tbl[0] + ' n' + tbl[1]);
         if (tbl.length < 2) return false;
         console.log(tbl.length);
+       let url = '`${process.env.NEXT_PUBLIC_BASE_URL}/api/' + tbl[0] + '`';
 
-        const errStr = "         throw new Error(`Failed to fetch data from ${url}`);";
-
-
-        let str = '   export const fetchData = async (url) => {\n';
-        str = str + '      const response = await fetch(url, {\n';
-        str = str + '         method: "GET",\n';
-        str = str + '         headers: { "Content-Type": "application/json" }\n';
-        str = str + '      });\n';
-
-        str = str + '      if (!response.ok) {\n';
-        str = str + errStr + '\n';
-        str = str + '      }\n';
-
-        str = str + '         return response.json();\n';
-        str = str + '   };\n';
-        str = str + '// -------------------------------------------------------------------------------\n';
-        str = str + '\n\n\n';
-
-
-
-
-
-        str = str + '    import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";\n';
-        str = str + '    import { fetchData } from "@/lib/utils/FetchData";\n';
+        let str = 'import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";\n';
+        str = str + 'import { fetchData } from "@/lib/utils/FetchData";\n';
         str = str + "\n";
         str = str + "\n";
-        str = str + `    const [${tbl[0]}s, set${titleCase(tbl[0])}s] = useState([]);\n`;
-
+        str = str + `const [${tbl[0]}s, set${titleCase(tbl[0])}s] = useState([]);\n`;
         str = str + "\n";
         str = str + "\n";
 
-        str = str + "        try {\n";
-        str = str + "            const response" + titleCase(tbl[0]) + " = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/" + tbl[0] + "`);\n";
-        str = str + "            set" + titleCase(tbl[0]) + "s(response" + titleCase(tbl[0]) + ");\n";
-        str = str + "        } catch (error) {\n";
-        str = str + '            console.error("Error fetching data:", error);\n';
-        str = str + "        }\n";
-
+        str = str + "try {\n";
+        str = str + "    const response" + titleCase(tbl[0]) + " = await fetchData(" + url + ");\n";
+        str = str + "   set" + titleCase(tbl[0]) + "s(response" + titleCase(tbl[0]) + ");\n";
+        str = str + "} catch (error) {\n";
+        str = str + "    console.error('Failed to fetch delivery data:', error);\n";
+        str = str + "}\n";
+     
         str = str + "\n";
         str = str + "\n";
 
-        str = str + "\n";
-        str = str + "\n";
 
         str = str + `                                    <DropdownEn Title="${titleCase(tbl[0])}" Id="${tbl[1]}" Change={e=> set${FirstCap(tbl[1])}(e.target.value)} Value={${tbl[1]}}>\n`;
         str = str + `                                        {${tbl[0]}s.length?${tbl[0]}s.map(${tbl[0]}=><option value={${tbl[0]}._id} key={${tbl[0]}._id}>{${tbl[0]}._id}</option>):null}\n`;
@@ -256,6 +237,88 @@ const Code = () => {
         setResult(str);
     }
 
+
+    const JonGenerate = () => {
+        const tbls = prompt("Tables name");
+        if (tbls === null || tbls === '') return false;
+        const sp = tbls.split(',');
+
+        const tbName = sp.map(t => ' ' + t.trim() + 'Response').toString();
+
+        let str = "";
+        str = str + 'import React, { useState, useEffect } from "react";\n';
+        str = str + 'import {fetchAll} from "@/lib/DexieDatabase";\n';
+        str = str + "\n";
+
+        str = str + `    const [${sp[0].trim()}s, set${titleCase(sp[0].trim())}s] = useState([]);\n`;
+
+        str = str + "\n";
+
+
+        str = str + "    const fetchData = async () => {\n";
+        str = str + "        try {\n";
+        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
+        let s1 = "";
+        for (let i = 0; i < sp.length - 1; i++) {
+            s1 = s1 + '                fetchAll("' + sp[i].trim() + '"),\n';
+        }
+
+        s1 = s1 + '                fetchAll("' + sp[sp.length - 1].trim() + '")\n';
+        str = str + s1;
+        str = str + "            ]);\n\n"
+
+
+        let s3 = "";
+        for (let i = 0; i < sp.length; i++) {
+            s3 = s3 + `            const ${sp[i].trim()}Data = ${sp[i].trim() + 'Response'}.data;\n`;
+        }
+        str = str + s3;
+        str = str + "\n";
+        str = str + `            const jointData = ${sp[0].trim()}Data.map(${sp[0].trim()}=>{\n`;
+
+        let m1 = "";
+        for (let i = 1; i < sp.length; i++) {
+            m1 = m1 + '                const match' + titleCase(sp[i].trim()) + ' = ' + sp[i].trim() + 'Data.find(' + sp[i].trim() + ' => parseInt(' + sp[i].trim() + '.id) === parseInt(' + sp[0].trim() + '.' + sp[i].trim() + '_id));\n';
+        }
+        str = str + m1;
+
+
+        str = str + `                return {\n`;
+        str = str + '                   ...' + sp[0].trim() + ',\n';
+
+        let m3 = "";
+        for (let i = 1; i < sp.length - 1; i++) {
+            m3 = m3 + '                   ' + sp[i].trim() + ' : match' + titleCase(sp[i].trim()) + '? match' + titleCase(sp[i].trim()) + ".name : 'Error!',\n";
+        }
+
+        m3 = m3 + '                   ' + sp[sp.length - 1].trim() + ' : match' + titleCase(sp[sp.length - 1].trim()) + '? match' + titleCase(sp[sp.length - 1].trim()) + ".name : 'Error!'\n";
+
+
+
+        str = str + m3;
+
+
+        str = str + `                }\n`;
+
+
+        str = str + `            });\n`;
+        str = str + "\n";
+
+        str = str + "            const result = jointData.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);\n";
+        str = str + "            set" + titleCase(sp[0]) + "s(result);\n";
+
+
+        str = str + "        } catch (error) {\n";
+        str = str + '            console.error("Error fetching data:", error);\n';
+        str = str + "        }\n";
+
+        str = str + "    };\n";
+
+        str = str + "\n";
+        str = str + "    fetchData();\n";
+        setResult(str);
+
+    }
 
 
     const resultChangeHander = (e) => {
@@ -277,10 +340,7 @@ const Code = () => {
         setResult(RouteDynamicPage(tbl, fld));
     }
 
-    const MongoDBHandler = () => {
-        setTitleText(`lib/utils/Db.js`);
-        setResult(MongoDb());
-    }
+
 
 
 
@@ -291,11 +351,11 @@ const Code = () => {
             <div className="w-full px-4 grid grid-cols-5 gap-4">
 
                 <div>
-                    <TextEn Title="Table (post)" Id="tbl" Change={e => setTbl(e.target.value)} Value={tbl} Chr={20} />
+                    <TextEn Title="Table (staff)" Id="tbl" Change={e => setTbl(e.target.value)} Value={tbl} Chr={20} />
                 </div>
 
                 <div className="col-span-4">
-                    <TextEn Title="Column (_id, name, isDeleted)" Id="fld" Change={e => setFld(e.target.value)} Value={fld} Chr={150} />
+                    <TextEn Title="Column (_id,  name, address, isDeleted)" Id="fld" Change={e => setFld(e.target.value)} Value={fld} Chr={150} />
                 </div>
             </div>
 
@@ -317,11 +377,11 @@ const Code = () => {
 
                         <BtnEn Title="Two Part" Click={TwoPartHandle} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="One Page" Click={OnePartHandle} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="MongoDB" Click={MongoDBHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="LocalDatabase" Click={LocalDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Unique Id" Click={UnitqueIdGenerator} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Joint Table" Click={JonGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>

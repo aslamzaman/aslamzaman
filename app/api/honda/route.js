@@ -3,16 +3,18 @@ import { Connect } from '@/lib/utils/Db';
 import { HondaModel } from '@/lib/Models';
 
 
+
 export const GET = async () => {
   try {
     await Connect();
-    const hondas = await HondaModel.find({}).populate('projectId').populate('unitId').sort({_id:'desc'});
+    const hondas = await HondaModel.find({isDeleted: false}).populate('projectId').populate('unitId').sort({_id:'desc'});
     return NextResponse.json( hondas );
   } catch (error) {
     console.error('GET Error:', error);
     return NextResponse.json({ message: 'Failed to fetch hondas' }, { status: 500 });
   }
 }
+
 
 
 
