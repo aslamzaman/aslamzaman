@@ -443,9 +443,13 @@ const Bayprostab = () => {
                 </div>
                 <div className="w-full col-span-2">
 
-                  {payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
-                    : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
-                      : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />}
+                  {
+                    payment === '' ? ' '
+                    :payment === 'ft' ? ' '
+                      : payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
+                        : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
+                          : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />
+                  }
                 </div>
 
 
