@@ -34,9 +34,12 @@ const BayprostabFormat = ({ doc }, data) => {
     chequeEnglihName = `'${data.nmEn}'`;
   } else if (payment === 'acb') {
     chequeString = `'${data.nmBn}' bv‡g GKvD›U †cÕ †PK n‡e|`;
-  } else {
+  } else if (payment === 'br') {
     chequeString = `µq m¤úv\`‡Ki bv‡g †eqvivi †PK n‡e|`;
+  } else {
+    chequeString = ``;
   }
+
 
 
   for (let i = 0; i < m.length; i++) {
@@ -52,9 +55,10 @@ const BayprostabFormat = ({ doc }, data) => {
 
   doc.setFont("SutonnyMJ", "normal");
 
-
+  doc.setFontSize(18);
   doc.setFont("times", "normal");
   doc.text(` ${data.project}`, 167, 26, null, null, "left");
+  doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
 
   doc.setFont("SutonnyMJ", "normal");
   doc.setFontSize(14);
@@ -118,8 +122,10 @@ const BayprostabFormat = ({ doc }, data) => {
 
   doc.addImage("/images/formats/bayprostab3.png", "PNG", 0, 0, 210, 297);
 
+  doc.setFontSize(18);
   doc.setFont("times", "normal");
   doc.text(`${data.project}`, 168, 26, null, null, "left");
+  doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
   doc.setFont("SutonnyMJ", "normal");
 
   doc.setFontSize(14);
@@ -180,12 +186,13 @@ const BayprostabFormat = ({ doc }, data) => {
   if (data.project === 'GO') {
     doc.addPage("a4", "p");
     doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
+    doc.setFontSize(18);
+    doc.setFont("times", "normal");
+    doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
 
     doc.setFont("SutonnyMJ", "normal");
     doc.setFontSize(16);
     doc.text(`${date_format(data.dt)}`, 175, 42, null, null, "left");
-
-    doc.setFont("SutonnyMJ", "normal");
     doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
     doc.text("**", 19, 68, null, null, "center");
     doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
@@ -193,7 +200,7 @@ const BayprostabFormat = ({ doc }, data) => {
 
     y = 82;
 
-    
+
 
     for (let i = 0; i < godata.length; i++) {
       const itemLen = godata[i].item;
@@ -428,6 +435,7 @@ const Bayprostab = () => {
 
                 <div className="w-full col-span-2">
                   <DropdownEn Title="Payment" Id="payment" Change={e => setPayment(e.target.value)} Value={payment}>
+                    <option value="ft">Fund Transfer</option>
                     <option value="ace">A/C Pay English</option>
                     <option value="acb">A/C Pay Bangla</option>
                     <option value="br">Bearer Cheque</option>
