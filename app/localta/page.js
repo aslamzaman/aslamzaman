@@ -9,7 +9,7 @@ import Delete from "@/components/localta/Delete";
 import { fetchData } from "@/lib/utils/FetchData";
 import { getItems } from "@/lib/utils/LocalDatabase";
 
-import { DropdownEn, TextDt, TextBn, BtnSubmit } from "@/components/Form";
+import { DropdownEn, TextDt, TextBn, BtnSubmit, TextNum } from "@/components/Form";
 import { inwordBn } from "@/lib/InwordBn";
 
 require("@/lib/fonts/SUTOM_MJ-normal");
@@ -24,6 +24,7 @@ const LocalTaCreation = ({ doc }, data) => {
     const subject = data.subject;
     const project = data.project;
     const dt = data.dt;
+    const tk = data.tk;
 
 
     doc.addImage("/images/formats/localtasingle.png", "PNG", 0, 0, 210, 297);
@@ -55,22 +56,27 @@ const LocalTaCreation = ({ doc }, data) => {
             x1 = 130;
             x2 = 107;
         }
-        doc.text(`${localtas[i].place1}`, 27, y + (i * 6), null, null, "center");
-        doc.text(`${localtas[i].t1}`, 48.5, y + (i * 6), null, null, "center");
+        doc.text(`${localtas[i].place1}`, 27, y , null, null, "center");
+        doc.text(`${localtas[i].t1}`, 48.5, y , null, null, "center");
 
-        doc.text(`${localtas[i].place2}`, 69.5, y + (i * 6), null, null, "center");
-        doc.text(`${localtas[i].t2}`, 92, y + (i * 6), null, null, "center");
+        doc.text(`${localtas[i].place2}`, 69.5, y , null, null, "center");
+        doc.text(`${localtas[i].t2}`, 92, y , null, null, "center");
 
-        doc.addImage("/images/tick_mark/tick.png", "PNG", x, y - 4 + (i * 6), 4.25, 4.25);
-        doc.text(`-`, x1, y + (i * 6), null, null, "center");
-        doc.text(`-`, x2, y + (i * 6), null, null, "center");
+        doc.addImage("/images/tick_mark/tick.png", "PNG", x, y - 4 , 4.25, 4.25);
+        doc.text(`-`, x1, y , null, null, "center");
+        doc.text(`-`, x2, y , null, null, "center");
 
-        doc.text(`${parseFloat(localtas[i].taka).toFixed(2)}`, 195, y + (i * 6), null, null, "right");
+        doc.text(`${parseFloat(localtas[i].taka).toFixed(2)}`, 195, y, null, null, "right");
         total = total + parseFloat(localtas[i].taka);
+        y = y + 6;
     }
-
-    doc.text(`${total.toFixed(2)}`, 195, 113, null, null, "right");
-    let t = parseInt(total).toString();
+if(parseFloat(tk)>0){
+    doc.text("`ycy‡ii Lvevi", 27, y , null, null, "center");
+    doc.text(`${parseFloat(tk).toFixed(2)}`, 195, y , null, null, "right");
+}
+   const totalTaka = total+ parseFloat(tk);
+    doc.text(`${totalTaka.toFixed(2)}`, 195, 113, null, null, "right");
+    let t = parseInt(totalTaka).toString();
     doc.text(`${inwordBn(t)} UvKv gvÎ`, 39, 113.6, null, null, "left");
 
 
@@ -94,6 +100,7 @@ const Localta = () => {
     const [project, setProject] = useState("");
     const [subject, setSubject] = useState("");
     const [dt, setDt] = useState("");
+    const [tk, setTk] = useState("");
 
     const [total, setTotal] = useState("");
 
@@ -101,6 +108,7 @@ const Localta = () => {
 
     useEffect(() => {
         setDt(date_format(new Date()));
+        setTk('0');
 
         const getData = async () => {
             setWaitMsg('Please Wait...');
@@ -120,7 +128,6 @@ const Localta = () => {
         getData();
 
 
-
         const load = () => {
             let response = getItems("localta");
             const data = response.data;
@@ -129,6 +136,7 @@ const Localta = () => {
             setTotal(result);
         };
         load();
+
     }, [msg]);
 
 
@@ -136,30 +144,30 @@ const Localta = () => {
         setMsg(data);
     }
 
-    const doc = new jsPDF({
-        orientation: "p",
-        unit: "mm",
-        format: "a4",
-        putOnlyUsedFonts: true,
-        floatPrecision: 16
-    });
-
-
-
+    
     const handleCreate = (e) => {
         e.preventDefault();
-
+        
         if (localtas.length < 1) {
             setMsg("No data!!");
             return false;
         }
+        
+        const doc = new jsPDF({
+            orientation: "p",
+            unit: "mm",
+            format: "a4",
+            putOnlyUsedFonts: true,
+            floatPrecision: 16
+        });
 
         const data = {
             localtas: localtas,
             staff: staff,
             subject: subject,
             project: project,
-            dt: dt
+            dt: dt,
+            tk:tk
         }
         setWaitMsg('Please Wait...');
 
@@ -171,8 +179,6 @@ const Localta = () => {
             doc.save(new Date().toISOString() + "_Local_TA_Bill.pdf");
             setWaitMsg('');
         }, 0);
-
-
     }
 
 
@@ -201,6 +207,7 @@ const Localta = () => {
                                 </DropdownEn>
                                 <TextDt Title="Date" Id="dt" Change={(e) => { setDt(e.target.value) }} Value={dt} />
                                 <TextBn Title="Subject" Id="subject" Change={(e) => { setSubject(e.target.value) }} Value={subject} Chr="50" />
+                                <TextNum Title="Lunch Taka" Id="tk" Change={(e) => { setTk(e.target.value) }} Value={tk} />
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnSubmit Title="Create PDF" Class="bg-blue-600 hover:bg-blue-800 text-white" />
@@ -235,12 +242,12 @@ const Localta = () => {
                                             ? localtas.map((localta) => {
                                                 return (
                                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={localta.id}>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.place1}</td>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.t1}</td>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.place2}</td>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.t2}</td>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.vehicle}</td>
-                                                        <td className="text-center py-2 px-4 font-SutonnyMJ_Regular">{localta.taka}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.place1}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.t1}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.place2}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.t2}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.vehicle}</td>
+                                                        <td className="text-center py-2 px-4 font-sutonnyN">{localta.taka}</td>
                                                         <td className="flex justify-end items-center mt-1">
                                                             <Edit Msg={msgHandler} Id={localta.id} data={localtas} />
                                                             <Delete Msg={msgHandler} Id={localta.id} />
@@ -256,7 +263,7 @@ const Localta = () => {
                                         <td className="text-start py-2 px-4"></td>
                                         <td className="text-center py-2 px-4"></td>
                                         <td className="text-start py-2 px-4"></td>
-                                        <td className="text-center py-2 px-4">{total}</td>
+                                        <td className="text-center py-2 px-4 font-sutonnyN">{total}</td>
                                         <td className="flex justify-end items-center mt-1">
                                         </td>
                                     </tr>

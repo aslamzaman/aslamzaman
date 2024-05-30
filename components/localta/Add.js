@@ -26,7 +26,7 @@ const Add = ({ Msg }) => {
         setT1("");
         setPlace2("");
         setT2("");
-        setVehicle("");
+        setVehicle("evm");
         setTaka("");
     }
 
