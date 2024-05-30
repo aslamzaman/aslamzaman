@@ -12,8 +12,20 @@ const Certificate = () => {
     const [stdData, setStdData] = useState([]);
     const [dt, setDt] = useState([]);
     const [msg, setMsg] = useState("Seclect an excel file");
+    const [periodStart, setPeriodStart] = useState("");
+    const [periodEnd, setPeriodEnd] = useState("");
+
+
+
+
+
+
     useEffect(() => {
         setDt(date_format(new Date()));
+        const pStart = localStorage.getItem('periodStart');
+        const pEnd = localStorage.getItem('periodEnd');
+        setPeriodStart(pStart ? date_format(pStart) : date_format(new Date()));
+        setPeriodEnd(pEnd ? date_format(pEnd) : date_format(new Date()));
     }, [])
 
     const fileChangeHandler = async (e) => {
@@ -37,6 +49,10 @@ const Certificate = () => {
 
     const createPdfHanler = (e) => {
         e.preventDefault();
+        localStorage.setItem('periodStart', periodStart);
+        localStorage.setItem('periodEnd', periodEnd);
+
+
         if (stdData.length < 1) {
             setMsg("Please select xlxs file");
             return false;
@@ -52,7 +68,8 @@ const Certificate = () => {
 
         setMsg("Please wait...");
         //  console.log(stdData);
-
+        const period = `${date_format(periodStart)} to ${date_format(periodEnd)}`;
+        console.log(period);
         let i = 0;
         const myTimer = setInterval(() => {
 
@@ -68,8 +85,9 @@ const Certificate = () => {
                 doc.text("Registration no: " + stdData[i].reg, 148, 84, null, null, "center");
 
                 doc.setFont("Lobster-Regular", "normal");
-                doc.setFontSize(18);
-                doc.text(`${stdData[i].trade}`, 162, 102, null, null, "center");
+                doc.setFontSize(17);
+                doc.text(`${stdData[i].trade}`, 162, 103, null, null, "center");
+                doc.text(`${period}`, 84, 110.5, null, null, "center");
                 doc.setFontSize(16)
                 doc.setFont("Lobster-Regular", "normal");
 
@@ -107,14 +125,19 @@ const Certificate = () => {
                     <p className="py-1.5 text-start text-xs font-bold">{msg}</p>
                     <form onSubmit={createPdfHanler} className="w-9/12 p-6 mx-auto">
                         <div className="flex items-center space-x-4">
-                            <div className="mt-5">
+                            <div className="w-1/2 mt-5">
                                 <input type="file" onChange={fileChangeHandler} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300 cursor-pointer" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </div>
-                            <div className="w-48">
+                            <div className="w-1/2">
                                 <TextDt Title="Date" Id="dt" Change={(e) => { setDt(e.target.value) }} Value={dt} />
                             </div>
-                            <BtnSubmit Title="Create PDF" Class="bg-indigo-700 hover:bg-indigo-900 text-white" />
                         </div>
+                        <label className='text-xs font-semibold mb-1 opacity-50'>Period</label>
+                        <div className="flex items-center space-x-4">
+                            <input onChange={e => setPeriodStart(e.target.value)} value={periodStart} type="date" id="periodStart" name="periodStart" required className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" />
+                            <input onChange={e => setPeriodEnd(e.target.value)} value={periodEnd} type="date" id="periodEnd" name="periodEnd" required className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" />
+                        </div>
+                        <BtnSubmit Title="Create PDF" Class="bg-indigo-700 hover:bg-indigo-900 text-white" />
                     </form>
                     <a href="/images/certificate/certificate.xlsx" className="text-2xl py-4 underline">Format Download</a>
                 </div>

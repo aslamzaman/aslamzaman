@@ -288,24 +288,18 @@ const Bayprostab = () => {
   const [projectData, setProjectData] = useState([]);
 
 
-  const [taka, setTaka] = useState("130");
-  const [staff, setStaff] = useState("Avmjvg Rvgvb");
-  const [dt, setDt] = useState("2023-01-12");
-  const [subject, setSubject] = useState("mvwf©m †m›Uv‡ii Mvwoi R¡vjvwb (AK‡Ub) µq");
-  const [project, setProject] = useState("GO");
-  const [item, setItem] = useState("Mvwoi R¡vjvwb (AK‡Ub) µq");
-  const [nos, setNos] = useState("100");
-  const [dpt, setDpt] = useState("ms¯’vcb");
 
+  const [staff, setStaff] = useState("Avmjvg Rvgvb");
+  const [project, setProject] = useState("GO");
+  const [dt, setDt] = useState("2023-01-12");
+  const [dpt, setDpt] = useState("ms¯’vcb");
+  const [subject, setSubject] = useState("mvwf©m †m›Uv‡ii Mvwoi R¡vjvwb (AK‡Ub) µq");
   const [payment, setPayment] = useState("");
   const [nmEn, setNmEn] = useState("");
   const [nmBn, setNmBn] = useState("");
   const [nmBr, setNmBr] = useState("");
-
   const [note, setNote] = useState(`Mvwoi R¡vjvwb (AK‡Ub) cÖ‡qvRb Abyhvqx wewfbœ cv¤ú †_‡K µq Kiv n‡e`);
-
   const [total, setTotal] = useState("");
-
 
 
 
@@ -329,7 +323,6 @@ const Bayprostab = () => {
         setNmEn('Sun Moon Ad & Printers');
         setNmBn('mvb gyb GW Ges wc«›Uvm©');
         setNmBr('Avmjvg Rvgvb');
-
       } catch (err) {
         console.log(err);
       }
@@ -375,19 +368,17 @@ const Bayprostab = () => {
 
     const data = {
       name: staff,
-      dt: dt,
-      subject: subject,
       project: project,
-      item: item,
-      nos: nos,
-      taka: taka,
+      dt: dt,
       dpt: dpt,
-      db: bayprostabs,
-      note: note,
+      subject: subject,
       payment: payment,
       nmEn: nmEn,
       nmBn: nmBn,
-      nmBr: nmBr
+      nmBr: nmBr,
+      note: note,
+      total:total,
+      db: bayprostabs
     }
 
     setTimeout(() => {
@@ -445,10 +436,10 @@ const Bayprostab = () => {
 
                   {
                     payment === '' ? ' '
-                    :payment === 'ft' ? ' '
-                      : payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
-                        : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
-                          : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />
+                      : payment === 'ft' ? ' '
+                        : payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
+                          : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
+                            : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />
                   }
                 </div>
 
