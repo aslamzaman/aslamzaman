@@ -86,10 +86,11 @@ const BayprostabFormat = ({ doc }, data) => {
     } else {
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
-      doc.text(`${numberWithComma(parseFloat(x1[i].taka))}/-`, 91, y, null, null, "right");
-      doc.text(`${x1[i].nos}`, 101.641, y, null, null, "center");
-      doc.text(`${numberWithComma((parseFloat(x1[i].taka) * parseFloat(x1[i].nos)))}/-`, 133, y, null, null, "right");
-      dbTotal = dbTotal + (parseFloat(x1[i].taka) * parseFloat(x1[i].nos));
+      doc.text(`${parseFloat(x1[i].taka).toFixed(2)}`, 91, y, null, null, "right");
+      doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
+      const subTotal = parseFloat(x1[i].taka) * parseFloat(x1[i].nos);
+      doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 133, y, null, null, "right");
+      dbTotal = dbTotal + Math.round(subTotal);
     }
 
     if (itemLen.length > 30) {
@@ -117,7 +118,7 @@ const BayprostabFormat = ({ doc }, data) => {
   doc.text(`${inwordTak} UvKv gvÎ`, 60, 226.144, null, null, "left");
 
 
-  /* ** ************************************************************************** */
+  /* ** *************************2nd Page Sompurno ***************************** */
   doc.addPage("a4", "p");
 
   doc.addImage("/images/formats/bayprostab3.png", "PNG", 0, 0, 210, 297);
@@ -152,9 +153,10 @@ const BayprostabFormat = ({ doc }, data) => {
     } else {
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
-      doc.text(`${numberWithComma(parseFloat(x1[i].taka))}/-`, 90, y, null, null, "right");
-      doc.text(`${x1[i].nos}`, 101.641, y, null, null, "center");
-      doc.text(`${numberWithComma((parseFloat(x1[i].taka) * parseFloat(x1[i].nos)))}/-`, 133, y, null, null, "right");
+      doc.text(`${parseFloat(x1[i].taka).toFixed(2)}`, 90, y, null, null, "right");
+      doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
+      const subTotal2ndPage = parseFloat(x1[i].taka) * parseFloat(x1[i].nos);
+      doc.text(`${numberWithComma(Math.round(subTotal2ndPage))}/-`, 133, y, null, null, "right");
     }
     if (itemLen.length > 30) {
       y = y + 12;
@@ -196,7 +198,7 @@ const BayprostabFormat = ({ doc }, data) => {
     doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
     doc.text("**", 19, 68, null, null, "center");
     doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
-    doc.line(25, 76, 98, 76) // underline
+    doc.line(25, 76, 105, 76) // underline
 
     y = 82;
 
@@ -207,7 +209,8 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.setFont("SutonnyMJ", "normal");
       doc.text("-", 19, y, null, null, "center");
       doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
-      doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 130, y, null, null, "right");
+      const goTotal = parseFloat(godata[i].taka) * parseFloat(godata[i].nos);
+      //  doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
       if (itemLen.length > 38) {
         y = y + 12;
       } else {
@@ -215,7 +218,7 @@ const BayprostabFormat = ({ doc }, data) => {
       }
     }
 
-    doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
+     doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
     doc.setFontSize(13);
     doc.setFont("times", "normal");
     doc.text(`${hd2}`, 146.5, 68, null, null, "center");
@@ -253,7 +256,8 @@ const BayprostabFormat = ({ doc }, data) => {
         doc.setFont("SutonnyMJ", "normal");
         doc.text("-", 25, y, null, null, "center");
         doc.text(`${godata[i].item}`, 34, y, { maxWidth: 65, align: 'left' });
-        doc.text(`${numberWithComma((parseFloat(godata[i].taka) * parseFloat(godata[i].nos)))}/-`, 129, y, null, null, "right");
+        const totalBearar = parseFloat(godata[i].taka) * parseFloat(godata[i].nos);
+        doc.text(`${numberWithComma(Math.round(totalBearar))}/-`, 129, y, null, null, "right");
 
         if (itemLen.length > 38) {
           y = y + 12;
@@ -334,7 +338,8 @@ const Bayprostab = () => {
     console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(c.taka) * parseFloat(c.nos)), 0);
-    setTotal(totalTaka)
+    const totalRound = numberWithComma(Math.round(totalTaka));
+    setTotal(totalRound);
   }, [msg])
 
 
@@ -377,7 +382,7 @@ const Bayprostab = () => {
       nmBn: nmBn,
       nmBr: nmBr,
       note: note,
-      total:total,
+      total: total,
       db: bayprostabs
     }
 

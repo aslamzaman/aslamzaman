@@ -16,60 +16,6 @@ require("@/lib/fonts/SUTOM_MJ-bold");
 
 
 
-
-const BayprostabFormat = ({ doc }, data) => {
-
-  let x = data.db;
-  const total = x.reduce(
-    (a, c) => a + parseFloat(c.taka), 0
-  );
-
-  doc.addImage("/images/formats/bayprostab2.png", "PNG", 0, 0, 210, 297);
-  doc.setFontSize(14);
-  doc.text(`${data.project}`, 168.438, 26, null, null, "left");
-
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${data.staff} `, 38, 37, null, null, "left");
-  doc.text(`${data.dt1 ? date_format(data.dt1) : ""}`, 150, 45, null, null, "left");
-
-  let y = 100;
-  let gt = 0;
-
-  for (let i = 0; i < x.length; i++) {
-    let tk = parseFloat(x[i].taka);
-    if (tk === 0) {
-      y = y + 2;
-      doc.setFont("times", "normal");
-      doc.text(`${x[i].item}`, 17, y, null, null, "left");
-    } else {
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x[i].item}`, 17, y, null, null, "left");
-      doc.text(`${numberWithComma(x[i].taka)}/-`, 90, y, null, null, "right");
-      doc.text(`${x[i].nos}`, 101.408, y, null, null, "center");
-      let subTotal = parseInt(parseFloat(x[i].taka) * parseFloat(x[i].nos));
-      doc.text(`${numberWithComma(subTotal)}/-`, 132, y, null, null, "right");
-      gt = gt + parseInt(parseFloat(x[i].taka) * parseFloat(x[i].nos));
-    }
-    y = y + 6;
-  }
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${numberWithComma(data.advance)}/-  `, 65, 45, null, null, "right");
-  doc.text(`${numberWithComma(gt)}/- `, 65, 53, null, null, "right");
-  doc.text(`${numberWithComma(parseFloat(data.advance) - parseFloat(gt))}/- `, 65, 61, null, null, "right");
-
-  doc.text(`${data.note ? data.note : ""}`, 174.347, 100, { maxWidth: 45, align: 'center' });
-  doc.text(`${numberWithComma(gt)}/-`, 132, 235, null, null, "right");
-
-
-  doc.text(`${inwordBn(gt)} UvKv gvÎ`, 45, 241.5, null, null, "left");
-
-  doc.text(`${date_format(data.dt2)}`, 65, 247.5, null, null, "left");
-
-}
-
-
-
-
 const Bayprostabexecution = () => {
   const [staffData, setStaffData] = useState([]);
   const [projectData, setProjectData] = useState([]);
@@ -167,23 +113,23 @@ const Bayprostabexecution = () => {
           doc.setFont("SutonnyMJ", "normal");
           doc.text(`${x[i].item}`, 17, y, null, null, "left");
           const evalTaka = eval(x[i].taka);
-          doc.text(`${numberWithComma(parseFloat(evalTaka))}/-`, 90, y, null, null, "right");
-          doc.text(`${x[i].nos}`, 101.408, y, null, null, "center");
+          doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
+          doc.text(`${parseFloat(x[i].nos).toFixed(2)}`, 101.408, y, null, null, "center");
           let subTotal = parseFloat(evalTaka) * parseFloat(x[i].nos);
-          doc.text(`${numberWithComma(subTotal)}/-`, 132, y, null, null, "right");
-          gt = gt + subTotal;
+          doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 132, y, null, null, "right");
+          gt = gt + Math.round(subTotal);
         }
         y = y + 6;
       }
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${numberWithComma(gt)}/-`, 65, 53, null, null, "right");
-      doc.text(`${numberWithComma(parseFloat(advance) - gt)}/-`, 65, 61, null, null, "right");
+      doc.text(`${numberWithComma(parseInt(gt))}/-`, 65, 53, null, null, "right");
+      doc.text(`${numberWithComma(parseFloat(advance) - parseInt(gt))}/-`, 65, 61, null, null, "right");
       
       doc.text(`${note ? note : ""}`, 174.347, 100, { maxWidth: 45, align: 'center' });
-      doc.text(`${numberWithComma(gt)}/-`, 132, 235, null, null, "right");
+      doc.text(`${numberWithComma(parseInt(gt))}/-`, 132, 235, null, null, "right");
       
       
-      doc.text(`${inwordBn(gt)} UvKv gvÎ`, 45, 241.5, null, null, "left");
+      doc.text(`${inwordBn(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
 
     
       doc.text(`${date_format(dt2)}`, 60, 247.5, null, null, "left");

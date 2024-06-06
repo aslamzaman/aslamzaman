@@ -7,6 +7,12 @@ require("@/lib/fonts/OpenSansCondensed-Light-normal");
 import { BtnSubmit, TextDt } from "@/components/Form";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 
+const dateBarFormat = (dt)=>{
+    const d1 = date_format(dt);
+    const splitDt= d1.split("-");
+    const result = splitDt[2]+"/"+splitDt[1]+"/"+splitDt[0];
+    return result;
+}
 
 const Certificate = () => {
     const [stdData, setStdData] = useState([]);
@@ -68,7 +74,7 @@ const Certificate = () => {
 
         setMsg("Please wait...");
         //  console.log(stdData);
-        const period = `${date_format(periodStart)} to ${date_format(periodEnd)}`;
+        const period = `${dateBarFormat(periodStart)} to ${dateBarFormat(periodEnd)}`;
         console.log(period);
         let i = 0;
         const myTimer = setInterval(() => {
@@ -93,7 +99,7 @@ const Certificate = () => {
 
                 doc.setFontSize(12);
                 doc.text(`${stdData[i].sl}`, 66, 182);
-                doc.text(`${date_format(dt)}`, 196, 182);
+                doc.text(`${dateBarFormat(dt)}`, 196, 182);
 
                 doc.addPage("a4", "l");
                 setMsg("Page Created: " + i);
