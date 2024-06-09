@@ -107,7 +107,7 @@ export const TextNum = ({ Title, Id, Change, Value }) => {
   return (
     <div className="w-full flex flex-col items-start">
       <label className='text-xs font-semibold mb-1 opacity-50' htmlFor={Id}>{Title}</label>
-      <input onChange={Change} value={Value} type="number" id={Id} name={Id} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" min="0" step="0.01" max="999999999999" required />
+      <input onChange={Change} value={Value} type="number" id={Id} name={Id} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" min="-999999999999" step="0.01" max="999999999999" required />
     </div>
   )
 }
