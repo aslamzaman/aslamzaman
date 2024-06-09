@@ -12,8 +12,9 @@ export const POST = async (Request) => {
     const workbook = await XlsxPopulate.fromFileAsync(filePath);
 
     // Make edits.
-    workbook.sheet("Worksheet").cell("A1").value("foo");
-
+    for(let i =0; i < data.length; i++){
+    workbook.sheet("Worksheet").cell(`H${i+4}`).value(`${data[i].name}`);
+    }
     // Get the output
     await workbook.toFileAsync("./output.xlsx");
 
