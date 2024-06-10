@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import XlsxPopulate from 'xlsx-populate';
-import * as XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
 
@@ -9,7 +8,10 @@ export const POST = async (Request) => {
   try {
     const data = await Request.json();
     console.log(data)
-    const filePath =  `public/excel/logalto/input.xlsx`;
+    const filePath = path.join(process.cwd(), 'public', 'excel', 'logalto', 'input.xlsx');
+    if (!fs.existsSync(filePath)) {
+      throw new Error('Input file not found');
+    }
     console.log(filePath);
     const workbook = await XlsxPopulate.fromFileAsync(filePath);
 
@@ -18,7 +20,8 @@ export const POST = async (Request) => {
     workbook.sheet("Worksheet").cell(`H${i+4}`).value(`${data[i].name}`);
     }
     // Get the output
-    await workbook.toFileAsync("public/excel/logalto/output.xlsx");
+    const outputPath = path.join(process.cwd(), 'public', 'excel', 'logalto', 'output.xlsx');
+    await workbook.toFileAsync(outputPath);
 
     return NextResponse.json(data);
   } catch (err) {
