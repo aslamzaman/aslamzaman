@@ -89,7 +89,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text(`${parseFloat(x1[i].taka).toFixed(2)}`, 91, y, null, null, "right");
       doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
       const subTotal = parseFloat(x1[i].taka) * parseFloat(x1[i].nos);
-      doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 133, y, null, null, "right");
+      doc.text(`${numberWithComma(subTotal)}/-`, 133, y, null, null, "right");
       dbTotal = dbTotal + Math.round(subTotal);
     }
 
@@ -210,7 +210,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text("-", 19, y, null, null, "center");
       doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
       const goTotal = parseFloat(godata[i].taka) * parseFloat(godata[i].nos);
-      //  doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
+        doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
       if (itemLen.length > 38) {
         y = y + 12;
       } else {
@@ -246,7 +246,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.setFont("SutonnyMJ", "normal");
 
       doc.text("**", 25, 120, null, null, "center");
-      doc.text(`${data.subject}`, 34, 120, { maxWidth: 64, align: 'left' });
+      doc.text(`${data.subject}`, 32, 120, { maxWidth: 70, align: 'left' });
 
       doc.line(30, 128, 105, 128) // underline
 

@@ -5,6 +5,7 @@ import Edit from "@/components/logalto/Edit";
 import Delete from "@/components/logalto/Delete";
 import { getItems } from "@/lib/utils/LocalDatabase";
 import { BtnEn } from "@/components/Form";
+import Link from "next/link";
 
 
 const Logalto = () => {
@@ -69,6 +70,7 @@ const Logalto = () => {
                 <p className="w-full text-sm text-red-700">{msg}</p>
                 <div className="p-2 overflow-auto">
                     <BtnEn Title="Create Excel" Click={ExcelHandlerClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                    <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/excel/logalto/output.xlsx`}>Download</Link>
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
