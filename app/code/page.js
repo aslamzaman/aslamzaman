@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { BtnEn, DropdownEn, TextEn } from "@/components/Form";
+import { BtnEn, DropdownEn, TextEn, TextNum } from "@/components/Form";
 
 import Page from "@/components/code/Page";
 import Add from "@/components/code/Add";
@@ -38,7 +38,9 @@ const Code = () => {
     const [tbl, setTbl] = useState("");
     const [fld, setFld] = useState("");
     const [titleText, setTitleText] = useState("Result");
-    const [result, setResult] = useState("Result");
+    const [result, setResult] = useState("");
+    const [sl, setSl] = useState("181");
+    const [code, setCode] = useState("CMES-SRJ");
 
     useEffect(() => {
         const newTbl = localStorage.getItem('tbl');
@@ -207,7 +209,7 @@ const Code = () => {
         console.log("a" + tbl[0] + ' n' + tbl[1]);
         if (tbl.length < 2) return false;
         console.log(tbl.length);
-       let url = '`${process.env.NEXT_PUBLIC_BASE_URL}/api/' + tbl[0] + '`';
+        let url = '`${process.env.NEXT_PUBLIC_BASE_URL}/api/' + tbl[0] + '`';
 
         let str = 'import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";\n';
         str = str + 'import { fetchData } from "@/lib/utils/FetchData";\n';
@@ -223,7 +225,7 @@ const Code = () => {
         str = str + "} catch (error) {\n";
         str = str + "    console.error('Failed to fetch delivery data:', error);\n";
         str = str + "}\n";
-     
+
         str = str + "\n";
         str = str + "\n";
 
@@ -341,15 +343,30 @@ const Code = () => {
     }
 
 
-
+    const dd = () => {
+        const s = result.split('\n');
+        let x = '';
+        for (let i = 0; i < s.length; i++) {
+            x = x + `${code}-0${i + parseInt(sl)} ${s[i]}\n`;
+        }
+        setResult(x);
+        console.log(x)
+    }
 
 
     return (
         <div className="pb-10">
             <h1 className="w-full text-center text-3xl text-gray-500 font-bold py-7">Code Generator</h1>
 
-            <div className="w-full px-4 grid grid-cols-5 gap-4">
+            <div className="w-full px-4 grid grid-cols-3 gap-4">
+                <TextEn Title="Code" Id="tbl" Change={e => setCode(e.target.value)} Value={code} Chr={20} />
+                <TextNum Title="SL Start" Id="sl" Change={e => setSl(e.target.value)} Value={sl} />
+                <button onClick={dd}>Generator</button>
+            </div>
 
+
+
+            <div className="w-full px-4 grid grid-cols-5 gap-4 mt-12">
                 <div>
                     <TextEn Title="Table (staff)" Id="tbl" Change={e => setTbl(e.target.value)} Value={tbl} Chr={20} />
                 </div>

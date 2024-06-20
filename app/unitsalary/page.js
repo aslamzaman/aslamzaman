@@ -96,7 +96,7 @@ const Unitsalary = () => {
                                 unitsalarys.map((unitsalary, i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={unitsalary._id}>
                                         <td className="text-center py-2 px-4">{i + 1}</td>
-                                        <td className="text-start py-2 px-4">{unitsalary.staffId.nmEn} ({unitsalary.post.nmEn})</td>
+                                        <td className="text-start py-2 px-4">{unitsalary.staffId.nmEn} ({unitsalary.post.nmEn})-{unitsalary.staffId.empId}</td>
                                         <td className="text-center py-2 px-4">{unitsalary.unit.nmEn}</td>
                                         <td className="text-center py-2 px-4">{unitsalary.arear}</td>
                                         <td className="text-center py-2 px-4">{unitsalary.sal1}</td>

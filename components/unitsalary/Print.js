@@ -90,14 +90,14 @@ const Print = ({ data, message }) => {
         const sp = mnth.split("-");
         doc.text("µg.", 17.8, y - 6, null, null, "center");
         doc.text("bvg	c`ex", 23, y - 6, null, null, "left");
-        doc.text("c`ex", 89, y - 6, null, null, "center");
-        doc.text("BDwbU", 120.5, y - 6, null, null, "center");
-        doc.text("†hvM`vb", 147, y - 6, null, null, "center");
-        doc.text("Gwiqvi", 168, y - 6, null, null, "center");
-        doc.text(`${sp[0]}-${yr.substring(yr.length - 2, yr.length)}`, 188.5, y - 6, null, null, "center");
-        doc.text(`${sp[1]}-${yr.substring(yr.length - 2, yr.length)}`, 209.5, y - 6, null, null, "center");
-        doc.text("†gvU UvKv", 230, y - 6, null, null, "center");
-        doc.text("gšÍe¨", 265, y - 6, null, null, "center");
+        doc.text("c`ex", 76, y - 6, null, null, "center"); 
+        doc.text("BDwbU", 101, y - 6, null, null, "center");
+        doc.text("†hvM`vb", 125, y - 6, null, null, "center"); // join
+        doc.text("Gwiqvi", 146, y - 6, null, null, "center");
+        doc.text(`${sp[0]}-${yr.substring(yr.length - 2, yr.length)}`, 168, y - 6, null, null, "center");
+        doc.text(`${sp[1]}-${yr.substring(yr.length - 2, yr.length)}`, 190, y - 6, null, null, "center");
+        doc.text("†gvU UvKv", 212, y - 6, null, null, "center");
+        doc.text("gšÍe¨", 255, y - 6, null, null, "center");
 
         doc.setLineWidth(0.1);
         doc.setFont("SutonnyMJ", "normal");
@@ -114,15 +114,15 @@ const Print = ({ data, message }) => {
 
             let total_taka = parseFloat(staffs[i].arear) + parseFloat(staffs[i].sal1) + parseFloat(staffs[i].sal2);
             doc.text(`${sl1}`, 17.5, y, null, null, "center");
-            doc.text(`${staffs[i].staffId.nmBn}`, 23, y, null, null, "left");
-            doc.text(`${staffs[i].post.nmBn}`, 89, y, null, null, "center");
-            doc.text(`${staffs[i].unit.nmBn}`, 120.5, y, null, null, "center");
-            doc.text(`${shortDt(staffs[i].staffId.joinDt)}`, 147, y, null, null, "center");
-            doc.text(`${numberWithComma(staffs[i].arear)}`, 175, y, null, null, "right");
-            doc.text(`${numberWithComma(staffs[i].sal1)}`, 197, y, null, null, "right");
-            doc.text(`${numberWithComma(staffs[i].sal2)}`, 218, y, null, null, "right");
-            doc.text(`${numberWithComma(total_taka)}`, 240, y, null, null, "right");
-            doc.text(`${staffs[i].remarks}`, 264.5, y, { maxWidth: 44, align: "center" });
+            doc.text(`${staffs[i].staffId.nmBn}`, 23, y, null, null, "left"); 
+            doc.text(`${staffs[i].post.nmBn}`, 76, y, null, null, "center"); // correction
+            doc.text(`${staffs[i].unit.nmBn}`, 101, y, null, null, "center");
+            doc.text(`${shortDt(staffs[i].staffId.joinDt)}`, 125, y, null, null, "center");
+            doc.text(`${numberWithComma(staffs[i].arear)}`, 154, y, null, null, "right");
+            doc.text(`${numberWithComma(staffs[i].sal1)}`, 176, y, null, null, "right");
+            doc.text(`${numberWithComma(staffs[i].sal2)}`, 198, y, null, null, "right");
+            doc.text(`${numberWithComma(total_taka)}`, 220, y, null, null, "right");
+            doc.text(`${staffs[i].remarks}`, 255, y, { maxWidth: 62, align: "center" });
             doc.line(14, y + 1, 287, y + 1);
 
             arear_t = arear_t + parseFloat(staffs[i].arear);
@@ -134,22 +134,22 @@ const Print = ({ data, message }) => {
         }
         doc.setFont("SutonnyMJ", "bold");
         doc.text(`me© †gvU UvKv`, 23, y, null, null, "left");
-        doc.text(`${numberWithComma(arear_t)}`, 175, y, null, null, "right");
-        doc.text(`${numberWithComma(s1_t)}`, 197, y, null, null, "right");
-        doc.text(`${numberWithComma(s2_t)}`, 218, y, null, null, "right");
-        doc.text(`${numberWithComma(gt)}`, 240, y, null, null, "right");
+        doc.text(`${numberWithComma(arear_t)}`, 154, y, null, null, "right");
+        doc.text(`${numberWithComma(s1_t)}`, 176, y, null, null, "right");
+        doc.text(`${numberWithComma(s2_t)}`, 198, y, null, null, "right");
+        doc.text(`${numberWithComma(gt)}`, 220, y, null, null, "right");
 
-        doc.line(14, y + 1, 287, y + 1);
+        doc.line(14, y + 1, 287, y + 1); // Horizontal line
         doc.line(14, 25, 14, y + 1);
         doc.line(21, 25, 21, y + 1);
-        doc.line(73, 25, 73, y + 1);
-        doc.line(105, 25, 105, y + 1);
+        doc.line(63, 25, 63, y + 1); 
+        doc.line(90, 25, 90, y + 1);
+        doc.line(113, 25, 113, y + 1);
         doc.line(136, 25, 136, y + 1);
-        doc.line(158, 25, 158, y + 1);
-        doc.line(178, 25, 178, y + 1);
-        doc.line(199, 25, 199, y + 1);
-        doc.line(220, 25, 220, y + 1);
-        doc.line(242, 25, 242, y + 1);
+        doc.line(158, 25, 158, y + 1); // correction
+        doc.line(180, 25, 180, y + 1);
+        doc.line(202, 25, 202, y + 1);
+        doc.line(224, 25, 224, y + 1);
         doc.line(287, 25, 287, y + 1);
         doc.setFont("SutonnyMJ", "normal");
 
