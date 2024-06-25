@@ -45,6 +45,26 @@ export const GET = async () => {
     sheet.cell("G4").value('Bill copy attached ');
 
 
+    sheet.cell("C5").value('1112.1.2');
+    sheet.cell("D5").value(700);
+    sheet.cell("E5").value(300);
+    sheet.cell("F5").formula('D5+E5');
+    sheet.cell("G5").value('Bill copy attached ');
+
+    sheet.cell("C6").value('1112.1.3');
+    sheet.cell("D6").value(900);
+    sheet.cell("E6").value(100);
+    sheet.cell("F6").formula('D6+E6');
+    sheet.cell("G6").value('Bill copy attached ');
+
+
+
+
+    sheet.cell("B7").value('Total');
+    sheet.cell("F7").formula('SUM(F4:F6)');
+
+
+
     sheet.cell("H4").value("Aslam");
     sheet.cell("H5").value("Zohur");
     sheet.cell("H6").value("Mofiz");
