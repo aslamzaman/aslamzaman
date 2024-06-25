@@ -35,28 +35,64 @@ const Logalto = () => {
     }
 
 
-
+/*
     const ExcelHandlerClick = async (e) => {
         try {
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/logalto`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(logaltos)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            console.log(response);
-            if (response.ok) {
-                console.log(`Logalto is created`);
-            } else {
-                throw new Error("Failed to create logalto");
-            }
+          const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/logalto`;
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: "Aslam Zaman" })
+          };
+          const response = await fetch(apiUrl, requestOptions);
+          if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'out.xlsx';
+            document.body.appendChild(a); // Append to the document
+            a.click();
+            a.remove(); // Remove after download
+            console.log(`Excel file created and downloaded.`);
+          } else {
+            throw new Error("Failed to create logalto");
+          }
         } catch (error) {
-            console.error("Error saving logalto data:", error);
-            console.log("Error saving logalto data.");
+          console.error("Error saving logalto data:", error);
+          console.log("Error saving logalto data.");
         }
-    }
+      };
+      
+*/
 
+
+const ExcelHandlerClick = async (e) => {
+    try {
+      const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/logalto`;
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      };
+      const response = await fetch(apiUrl, requestOptions);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'out.xlsx';
+        document.body.appendChild(a); // Append to the document
+        a.click();
+        a.remove(); // Remove after download
+        console.log(`Excel file created and downloaded.`);
+      } else {
+        throw new Error("Failed to create logalto");
+      }
+    } catch (error) {
+      console.error("Error saving logalto data:", error);
+      console.log("Error saving logalto data.");
+    }
+  };
 
 
 

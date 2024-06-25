@@ -1,37 +1,68 @@
 import { NextResponse } from 'next/server';
 import XlsxPopulate from 'xlsx-populate';
-import fs from 'fs';
-import path from 'path';
 
-
-export const POST = async (Request) => {
+export const GET = async () => {
   try {
-    const data = await Request.json();
-    console.log(data)
-    console.log("asla", __dirname)
-    /*
-    const filePath = path.join(process.cwd(), 'public', 'excel', 'logalto', 'input.xlsx');
-    if (!fs.existsSync(filePath)) {
-      throw new Error('Input file not found');
-    }
-      */
-    const filePath = __dirname + "\input.xlsx";
-    console.log(filePath);
-    const workbook = await XlsxPopulate.fromFileAsync(filePath);
+    const workbook = await XlsxPopulate.fromBlankAsync();
+    const sheet = workbook.sheet("Sheet1");
 
-    // Make edits.
-    for (let i = 0; i < data.length; i++) {
-      workbook.sheet("Worksheet").cell(`H${i + 4}`).value(`${data[i].name}`);
-    }
-    // Get the output
-    // const outputPath = path.join(process.cwd(), 'public', 'excel', 'logalto', 'output.xlsx');
-    const outputPath = __dirname + "\output.xlsx";
-    await workbook.toFileAsync(outputPath);
+    sheet.cell("A1").value("This is neat!");
+    sheet.cell("B1").value(50);
+    sheet.cell("C1").value(25);
+    sheet.cell("D1").formula("B1 + C1");
 
-    return NextResponse.json(data);
+    // Generate the Excel file as a buffer
+    const buffer = await workbook.outputAsync();
+
+    // Set headers for file download
+    const filename = "out"; // Set your desired filename here
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    headers.set('Content-Disposition', `attachment; filename=${filename}.xlsx`);
+
+    // Return the buffer directly for download
+    return new NextResponse(buffer, {
+      status: 200,
+      headers: headers
+    });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ message: "POST Error", err }, { status: 500 });
+    return NextResponse.json({ message: "Error generating Excel file", err }, { status: 500 });
   }
-}
+};
 
+
+
+/*
+
+export const POST = async (request) => {
+  try {
+    const workbook = await XlsxPopulate.fromBlankAsync();
+    const sheet = workbook.sheet("Sheet1");
+
+    sheet.cell("A1").value("This is neat!");
+    sheet.cell("B1").value(50);
+    sheet.cell("C1").value(25);
+    sheet.cell("D1").formula("B1 + C1");
+
+    // Generate the Excel file as a buffer
+    const buffer = await workbook.outputAsync();
+
+    // Set headers for file download
+    const filename = "out"; // Set your desired filename here
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    headers.set('Content-Disposition', `attachment; filename=${filename}.xlsx`);
+
+    // Return the buffer directly for download
+    return new NextResponse(buffer, {
+      status: 200,
+      headers: headers
+    });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: "Error generating Excel file", err }, { status: 500 });
+  }
+};
+
+*/

@@ -97,7 +97,7 @@ const Add = ({ message }) => {
                                     <DropdownEn Title="Staff" Id="staffId" Change={e => setStaffId(e.target.value)} Value={staffId}>
                                         {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}</option>) : null}
                                     </DropdownEn>
-                                    <TextNum Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} />
+                                    <TextBn Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} Chr={150} />
                                     <TextNum Title="Sal1" Id="sal1" Change={e => setSal1(e.target.value)} Value={sal1} />
                                     <TextNum Title="Sal2" Id="sal2" Change={e => setSal2(e.target.value)} Value={sal2} />
                                     <TextBn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={150} />

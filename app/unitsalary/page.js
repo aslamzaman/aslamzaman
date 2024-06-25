@@ -42,11 +42,9 @@ const Unitsalary = () => {
                     }
                 })
 
-
-
                 console.log(data);
                 setUnitsalarys(data);
-                const totalSalary = data.reduce((t, c) => t + (parseFloat(c.arear) + parseFloat(c.sal1) + parseFloat(c.sal2)), 0);
+                const totalSalary = data.reduce((t, c) => t + (parseFloat(eval(c.arear)) + parseFloat(c.sal1) + parseFloat(c.sal2)), 0);
                 setTotal(totalSalary);
 
                 setWaitMsg('');
@@ -96,7 +94,7 @@ const Unitsalary = () => {
                                 unitsalarys.map((unitsalary, i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={unitsalary._id}>
                                         <td className="text-center py-2 px-4">{i + 1}</td>
-                                        <td className="text-start py-2 px-4">{unitsalary.staffId.nmEn} ({unitsalary.post.nmEn})-{unitsalary.staffId.empId}</td>
+                                        <td className="text-start py-2 px-4"><span className="font-bold">Employee Id: {unitsalary.staffId.empId}</span><br />{unitsalary.staffId.nmEn} ({unitsalary.post.nmEn})</td>
                                         <td className="text-center py-2 px-4">{unitsalary.unit.nmEn}</td>
                                         <td className="text-center py-2 px-4">{unitsalary.arear}</td>
                                         <td className="text-center py-2 px-4">{unitsalary.sal1}</td>

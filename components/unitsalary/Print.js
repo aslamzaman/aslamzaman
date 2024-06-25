@@ -112,20 +112,20 @@ const Print = ({ data, message }) => {
             let sl1 = sl.substring(sl.length - 2, sl.length);
 
 
-            let total_taka = parseFloat(staffs[i].arear) + parseFloat(staffs[i].sal1) + parseFloat(staffs[i].sal2);
+            let total_taka = parseFloat(Math.round(eval(staffs[i].arear))) + parseFloat(staffs[i].sal1) + parseFloat(staffs[i].sal2);
             doc.text(`${sl1}`, 17.5, y, null, null, "center");
             doc.text(`${staffs[i].staffId.nmBn}`, 23, y, null, null, "left"); 
             doc.text(`${staffs[i].post.nmBn}`, 76, y, null, null, "center"); // correction
             doc.text(`${staffs[i].unit.nmBn}`, 101, y, null, null, "center");
             doc.text(`${shortDt(staffs[i].staffId.joinDt)}`, 125, y, null, null, "center");
-            doc.text(`${numberWithComma(staffs[i].arear)}`, 154, y, null, null, "right");
+            doc.text(`${numberWithComma(Math.round(eval(staffs[i].arear)))}`, 154, y, null, null, "right");
             doc.text(`${numberWithComma(staffs[i].sal1)}`, 176, y, null, null, "right");
             doc.text(`${numberWithComma(staffs[i].sal2)}`, 198, y, null, null, "right");
             doc.text(`${numberWithComma(total_taka)}`, 220, y, null, null, "right");
             doc.text(`${staffs[i].remarks}`, 255, y, { maxWidth: 62, align: "center" });
             doc.line(14, y + 1, 287, y + 1);
 
-            arear_t = arear_t + parseFloat(staffs[i].arear);
+            arear_t = arear_t + parseFloat(Math.round(eval(staffs[i].arear)));
             s1_t = s1_t + parseFloat(staffs[i].sal1);
             s2_t = s2_t + parseFloat(staffs[i].sal2);
 
