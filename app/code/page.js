@@ -343,28 +343,10 @@ const Code = () => {
     }
 
 
-    const dd = () => {
-        const s = result.split('\n');
-        let x = '';
-        for (let i = 0; i < s.length; i++) {
-            x = x + `${code}-0${i + parseInt(sl)} ${s[i]}\n`;
-        }
-        setResult(x);
-        console.log(x)
-    }
-
 
     return (
         <div className="pb-10">
             <h1 className="w-full text-center text-3xl text-gray-500 font-bold py-7">Code Generator</h1>
-
-            <div className="w-full px-4 grid grid-cols-3 gap-4">
-                <TextEn Title="Code" Id="tbl" Change={e => setCode(e.target.value)} Value={code} Chr={20} />
-                <TextNum Title="SL Start" Id="sl" Change={e => setSl(e.target.value)} Value={sl} />
-                <button onClick={dd}>Generator</button>
-            </div>
-
-
 
             <div className="w-full px-4 grid grid-cols-5 gap-4 mt-12">
                 <div>
@@ -372,7 +354,7 @@ const Code = () => {
                 </div>
 
                 <div className="col-span-4">
-                    <TextEn Title="Column (_id,  name, address, isDeleted)" Id="fld" Change={e => setFld(e.target.value)} Value={fld} Chr={150} />
+                    <TextEn Title="Column (_id,  name, address, isDeleted)" Id="fld" Change={e => setFld(e.target.value)} Value={fld} Chr={500} />
                 </div>
             </div>
 
