@@ -14,6 +14,8 @@ import OnePage from "@/components/code/OnePage";
 import ModelPage from "@/components/code/ModelPage";
 import RoutePage from "@/components/code/RoutePage";
 import RouteDynamicPage from "@/components/code/RouteDynamicPage";
+import Upload from "@/components/code/Upload";
+import Download from "@/components/code/Download";
 
 
 
@@ -343,6 +345,17 @@ const Code = () => {
     }
 
 
+    const UploadGenerate = () => {
+        setTitleText(`components/${tbl}/Upload.js`);
+        setResult(Upload());
+    }
+
+    const DownloadGenerate = () => {
+        setTitleText(`components/${tbl}/Download.js`);
+        setResult(Download());
+    }
+
+
 
     return (
         <div className="pb-10">
@@ -381,6 +394,8 @@ const Code = () => {
                         <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Joint Table" Click={JonGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Upload" Click={UploadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Download" Click={DownloadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
