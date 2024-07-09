@@ -8,6 +8,9 @@ const Help_code = (tbl) => {
 
 const url_1 = "`${process.env.NEXT_PUBLIC_URL}/employee/read_all`";
 const url_2 = "`${process.env.NEXT_PUBLIC_URL}/gender/read_all`";
+const returnCode = "`+${image.name}`";
+
+
 
   const str = `
     *** Server:-
@@ -239,6 +242,51 @@ const myTimer = setInterval(() => {
       console.log(x);
   }
 }, 100)
+
+
+
+*** Imagees
+const getImageWidthHeight = (url) => {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+            const imgWidth = img.width;
+            const imgHeight = img.height;
+            resolve({ imgWidth, imgHeight });
+        };
+        img.onerror = (error) => reject(error);
+    });
+};
+
+const fileChangeHandlerImage = async (e) => {
+    try {
+        const files = e.target.files;
+        const imageDataPromises = Array.from(files).map(async (file) => {
+            const imagBlobUrl = URL.createObjectURL(file);
+            const { imgWidth, imgHeight } = await getImageWidthHeight(imagBlobUrl);
+            return {
+                url: imagBlobUrl,
+                width: imgWidth,
+                height: imgHeight,
+                name: file.name,
+                type: file.type,
+                size: file.size,
+            };
+        });
+
+        const imageData = await Promise.all(imageDataPromises);
+        setImageDatas(imageData);
+
+        const reduceName = imageData.reduce((acc, image) => acc + ${returnCode}, '');
+        const subStringText = reduceName.substring(1);
+        setBrakeup(subStringText);
+
+    } catch (error) {
+        console.error("Error processing images:", error);
+    }
+};
+
 
       `;
 
