@@ -196,7 +196,7 @@ const Bayprostabexecution = () => {
                         <tr className="border-b border-gray-200" key={bayprostabexecution.id}>
                           <td className={`text-center py-2 px-4 ${parseFloat(bayprostabexecution.taka) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{bayprostabexecution.item}</td>
                           <td className="text-center py-2 px-4">{bayprostabexecution.nos}</td>
-                          <td className="text-center py-2 px-4" title={eval(bayprostabexecution.taka)}>{bayprostabexecution.taka}</td>
+                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostabexecution.taka))*parseFloat(bayprostabexecution.nos)}>{bayprostabexecution.taka}</td>
                           <td className="flex justify-end items-center mt-1">
                             <Edit message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />
                             <Delete message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />
