@@ -86,9 +86,10 @@ const BayprostabFormat = ({ doc }, data) => {
     } else {
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
-      doc.text(`${parseFloat(x1[i].taka).toFixed(2)}`, 91, y, null, null, "right");
+      const evalTaka = eval(x1[i].taka);
+      doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 91, y, null, null, "right");
       doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
-      const subTotal = parseFloat(x1[i].taka) * parseFloat(x1[i].nos);
+      const subTotal = parseFloat(evalTaka) * parseFloat(x1[i].nos);
       doc.text(`${numberWithComma(subTotal)}/-`, 133, y, null, null, "right");
       dbTotal = dbTotal + Math.round(subTotal);
     }
@@ -153,9 +154,10 @@ const BayprostabFormat = ({ doc }, data) => {
     } else {
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
-      doc.text(`${parseFloat(x1[i].taka).toFixed(2)}`, 90, y, null, null, "right");
+      const evalTaka = eval(x1[i].taka);
+      doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
       doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
-      const subTotal2ndPage = parseFloat(x1[i].taka) * parseFloat(x1[i].nos);
+      const subTotal2ndPage = parseFloat(evalTaka) * parseFloat(x1[i].nos);
       doc.text(`${numberWithComma(Math.round(subTotal2ndPage))}/-`, 133, y, null, null, "right");
     }
     if (itemLen.length > 30) {
@@ -209,7 +211,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.setFont("SutonnyMJ", "normal");
       doc.text("-", 19, y, null, null, "center");
       doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
-      const goTotal = parseFloat(godata[i].taka) * parseFloat(godata[i].nos);
+      const goTotal = parseFloat(eval(godata[i].taka)) * parseFloat(godata[i].nos);
         doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
       if (itemLen.length > 38) {
         y = y + 12;
@@ -256,7 +258,7 @@ const BayprostabFormat = ({ doc }, data) => {
         doc.setFont("SutonnyMJ", "normal");
         doc.text("-", 25, y, null, null, "center");
         doc.text(`${godata[i].item}`, 34, y, { maxWidth: 65, align: 'left' });
-        const totalBearar = parseFloat(godata[i].taka) * parseFloat(godata[i].nos);
+        const totalBearar = parseFloat(eval(godata[i].taka)) * parseFloat(godata[i].nos);
         doc.text(`${numberWithComma(Math.round(totalBearar))}/-`, 129, y, null, null, "right");
 
         if (itemLen.length > 38) {
@@ -337,7 +339,7 @@ const Bayprostab = () => {
     const locaData = getLocal.data;
     console.log(locaData)
     setBayprostabs(locaData);
-    const totalTaka = locaData.reduce((t, c) => t + (parseFloat(c.taka) * parseFloat(c.nos)), 0);
+    const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = numberWithComma(Math.round(totalTaka));
     setTotal(totalRound);
   }, [msg])
@@ -390,7 +392,7 @@ const Bayprostab = () => {
       BayprostabFormat({ doc }, data);
       doc.save(new Date().toISOString() + "-Bayprostab.pdf");
       setWaitMsg("");
-    }, 0);
+    }, 500);
   }
 
 

@@ -66,7 +66,7 @@ const Add = ({ Msg }) => {
                                 }
                                 <TextNum Title="Nos" Id="nos" Change={(e) => { setNos(e.target.value) }} Value={nos} />
 
-                                <TextNum Title="Taka" Id="taka" Change={(e) => { setTaka(e.target.value) }} Value={taka} />
+                                <TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr={200} />
                             </div>
                             <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                         </form>
