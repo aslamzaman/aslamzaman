@@ -488,7 +488,7 @@ const Bayprostab = () => {
                         <tr className="border-b border-gray-200 hover:bg-gray-100" key={bayprostab.id}>
                           <td className={`text-left py-2 pl-6 ${parseFloat(bayprostab.taka) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{i + 1}. {bayprostab.item}</td>
                           <td className="text-center py-2 px-4">{bayprostab.nos}</td>
-                          <td className="text-center py-2 px-4">{bayprostab.taka}</td>
+                          <td className="text-center py-2 px-4" title={eval(bayprostab.taka)}>{bayprostab.taka}</td>
                           <td className="flex justify-end items-center space-x-1 mt-1">
                             <Edit Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
                             <Delete Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
