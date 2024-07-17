@@ -16,6 +16,7 @@ import RoutePage from "@/components/code/RoutePage";
 import RouteDynamicPage from "@/components/code/RouteDynamicPage";
 import Upload from "@/components/code/Upload";
 import Download from "@/components/code/Download";
+import Excle from "@/components/code/Excel";
 
 
 
@@ -355,6 +356,11 @@ const Code = () => {
         setResult(Download());
     }
 
+    const ExcelGenerate = () => {
+        setTitleText(`components/${tbl}/Excel.js`);
+        setResult(Excle());
+    }
+
 
 
     return (
@@ -396,6 +402,7 @@ const Code = () => {
                         <BtnEn Title="Joint Table" Click={JonGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Upload" Click={UploadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Download" Click={DownloadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Excel" Click={ExcelGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
