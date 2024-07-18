@@ -20,15 +20,42 @@ const headerArray = ["id", "name", "age"];
 // accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 const uploadHandler = () => {
-		//const file = e.target.files[0];
 		const reader = new FileReader();
-		reader.onload = (() => {
-			const jsonData = processExcelData(reader.result, headerArray);
-			const withoutFirstElement = jsonData.slice(1);
-			console.log(withoutFirstElement);
-		})
-		reader.readAsArrayBuffer(file);
-	}
+
+		reader.onload = () => {
+			try {
+				const jsonData = processExcelData(reader.result, headerArray);
+				if (jsonData && jsonData.length > 1) {
+					const withoutFirstElement = jsonData.slice(1);
+					const stringifyData = JSON.stringify(withoutFirstElement);
+					localStorage.setItem("registration", stringifyData);
+					message("Upload successful");
+					console.log("Upload successful");
+				} else {
+					throw new Error("The processed data is invalid or empty.");
+				}
+			} catch (error) {
+				console.error("Error processing Excel data:", error);
+				message("Failed to upload. Please try again.");
+			}
+		};
+
+		reader.onerror = () => {
+			console.error("Error reading the file.");
+			message("Failed to read the file. Please try again.");
+		};
+
+		if (file) {
+			reader.readAsArrayBuffer(file);
+			setShow(false);
+		} else {
+			message("No file selected. Please choose a file to upload.");
+		}
+	};
+
+
+
+
 
 
 
