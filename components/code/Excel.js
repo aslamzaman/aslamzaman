@@ -18,15 +18,17 @@ const processExcelData = (readerResult, headerArray) => {
 
 const headerArray = ["id", "name", "age"];
 // accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-const fileChangehandler = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-        const jsonData = processExcelData(reader.result, headerArray);
-        console.log(jsonData);
-    })
-    reader.readAsArrayBuffer(file);
-}
+
+const uploadHandler = () => {
+		//const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.onload = (() => {
+			const jsonData = processExcelData(reader.result, headerArray);
+			const withoutFirstElement = jsonData.slice(1);
+			console.log(withoutFirstElement);
+		})
+		reader.readAsArrayBuffer(file);
+	}
 
 
 
