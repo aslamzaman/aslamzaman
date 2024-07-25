@@ -6,6 +6,8 @@ import { fetchData } from "@/lib/utils/FetchData";
 import { DateBangla } from "@/lib/DateBangla";
 
 import { inwordBn } from "@/lib/InwordBn";
+import { numberWithComma } from "@/lib/NumberWithComma";
+
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
@@ -64,52 +66,65 @@ const Increment = () => {
             floatPrecision: 16 // or "smart", default is 16
         });
         const splitName = nm.split(";");
+        const tk = eval(taka);
 
-        doc.setFont("SutonnyMJ", "normal");
-        doc.setFontSize(16);
-        doc.text(`¯§viK bs-wmGgBGm/GBPAviwW/${refNo}`, 25, 55, null, null, 'left');
-        doc.text(`${DateBangla(dt)}`, 25, 62, null, null, 'left');
+        const st = `<div style="width:160px; margin-left:25px; margin-top:50px; line-height: normal; font-family:SutonnyMJ;font-size:5px">
+        <p style="width:100%; ">¯§viK bs-wmGgBGm/GBPAviwW/${new Date().getFullYear()}-${refNo}<br />${DateBangla(dt)}</p>
+        <p style="margin-top:8px;">Rbve ${splitName[0]}<br />${splitName[1]}<br />wmGgBGm, jvjgvwUqv, XvKv-1207 </p>
+       
 
+        <p id="subject" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;font-weight:700;">welq: ${yr} A_© eQ‡ii g~j¨vq‡bi wfwË‡Z ${DateBangla(dt2)} ZvwiL †_‡K Avcbvi  evrmwiK †eZb 5% e„w× KiY cÖm‡½|</p>
+       
 
-        doc.text(`Rbve ${splitName[0]}`, 25, 78, null, null, 'left');
-        doc.text(`${splitName[1]}`, 25, 85, null, null, 'left');
-        doc.text(`wmGgBGm, XvKv-1207`, 25, 92, null, null, 'left');
+        <p id="letterBody" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;">Rbve,<br />${yr} A_© eQ‡ii ÷vd cvidi‡gÝ g~j¨vq‡bi wfwË‡Z evrmwiK †eZb 5% e„w×i ci Avcbvi eZ©gvb †eZb ${numberWithComma(tk)}/-(${inwordBn(tk)}) UvKvq DbœxZ K‡i\ ${DateBangla(dt2)} ZvwiL †_‡K Kvh©Ki Kiv n‡q‡Q|</p>
 
-        doc.setFont("SutonnyMJ", "bold");
-        doc.text(`welq: ${yr} A_© eQ‡ii g~j¨vq‡bi wfwË‡Z ${DateBangla(dt2)} ZvwiL †_‡K Avcbvi  evrmwiK †eZb 5% e„w× KiY cÖm‡½|`, 25, 110, { maxWidth: 159, align: 'left' });
+        <p style="margin-top:10px;">ab¨ev\`v‡šÍ</p>
 
+        <p style="margin-top:20px;">†gv: Igi dviæK nvq\`vi<br />wbe©vnx cwiPvjK<br />wmGgBGm</p>
 
-        doc.setFont("SutonnyMJ", "normal");
-        doc.text(`Rbve,`, 25, 130, null, null, 'left');
-        doc.text(`${yr} A_© eQ‡ii cvidi‡gÝ g~j¨vq‡bi wfwË‡Z Avcbvi  evrmwiK †eZb 5% e„w×i ci Avcbvi eZ©gvb †eZb ${taka}/-(${inwordBn(taka)}) UvKvq DbœxZ K‡i ${DateBangla(dt2)} ZvwiL †_‡K Kvh©Ki Kiv n‡q‡Q|`, 25, 137, { align: 'justify', maxWidth: 159 });
+        <p style="margin-top:16px;">Abywjwc:<br />1. GBPAviwW/wcGd</p>
 
-
-        doc.text(`ab¨ev\`v‡šÍ`, 25, 170, null, null, 'left');
+        </div>`
 
 
-        doc.text(`†gv: Igi dviæK nvq\`vi`, 25, 199, null, null, 'left');
-        doc.text(`wbe©vnx cwiPvjK`, 25, 206, null, null, 'left');
-        doc.text(`wmGgBGm`, 25, 213, null, null, 'left');
+
+        doc.html(st, {
+            callback: function (dc) {
+                dc.save(new Date().toISOString() + "-5_Percent_Increment.pdf");
+            }
+        })
 
 
-        doc.text(`Abywjwc:`, 25, 245, null, null, 'left');
-        doc.text(`1. GBPAviwW/wcGd`, 25, 252, null, null, 'left');
-
-
-        doc.save(new Date().toISOString() + "-experience-certificate.pdf");;
         setNm("");
         setTaka("");
         setWaitMsg(`Ok: ${Date.now}`);
     }
+/*
+    const dd = () => {
+        const doc = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true,
+            floatPrecision: 16 // or "smart", default is 16
+        });
+        doc.setFont("SutonnyMJ", "normal");
+        let y = 10;
+        staffData.forEach(item => {
+            doc.text(`${item.nmBn}- ${item.postId.nmBn}`, 10, y);
+            y = y + 7;
+        })
+        doc.save('export.pdf');
 
-
+    }
+*/
     return (
         <>
             <div className="w-full mb-3 mt-8">
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Staff Increment</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>
-
+           
             <div className="px-4 lg:px-6">
 
                 <div className="p-2 overflow-auto">
