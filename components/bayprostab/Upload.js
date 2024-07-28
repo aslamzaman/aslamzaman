@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
+import { jsonDataFromExcelSheet, localStorageAddItem, localStorageAddManyItem, localStorageDeleteAllItem } from "@/lib/utils";
+import { data } from "autoprefixer";
 
 
 const Upload = ({ Msg }) => {
@@ -16,25 +18,17 @@ const Upload = ({ Msg }) => {
 	}
 
 
-	const uploadHandler = (e) => {
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = (() => {
-				let checkData = JSON.parse(reader.result)[0];
-				if (!checkData.item) {
-					Msg("Data not match!");
-					setShow(false);
-					return false;
-				};
-
-				localStorage.setItem("bayprostab", reader.result);
-				Msg("Data loaded successfully");
+	const uploadHandler = () => {
+		try {
+			jsonDataFromExcelSheet(file, ['id', 'item', 'nos', 'taka'], (data) => {
+				localStorageDeleteAllItem("bayprostab");
+				localStorageAddManyItem("bayprostab", data);
+				Msg("Uploaded data successfully.");
 				setShow(false);
 			})
-			reader.readAsText(file);
-		} else {
-			Msg("Please select a file.");
-			setShow(false);
+		} catch (error) {
+			console.error("Faild upload data" + error);
+			console.log('Fail upload data.')
 		}
 	}
 
@@ -49,7 +43,7 @@ const Upload = ({ Msg }) => {
 					</div>
 
 					<div className="p-6 text-black">
-						<input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/javascript" />
+						<input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
 					</div>
 
 					<div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">

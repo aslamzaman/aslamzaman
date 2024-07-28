@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { updateItem } from "@/lib/utils/LocalDatabase";
+import { localStorageUpdateItem } from "@/lib/utils";
 
 
 const Edit = ({ Msg, Id, data }) => {
@@ -43,8 +43,8 @@ const Edit = ({ Msg, Id, data }) => {
             taka: taka
         }
 
-        const getLocalData = updateItem("bayprostab", Id, obj);
-        Msg(getLocalData.message);
+        const message = localStorageUpdateItem("bayprostab", Id, obj);
+        Msg(message);
         setShow(false);
     }
 

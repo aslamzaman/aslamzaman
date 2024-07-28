@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 
 const Delete = ({ Msg, Id }) => {
@@ -14,8 +14,8 @@ const Delete = ({ Msg, Id }) => {
     }
 
     const removeHandler = () => {
-        const getLocalData = deleteItem("bayprostab", Id);
-        Msg(getLocalData.message);
+        const message = localStorageDeleteItem("bayprostab", Id);
+        Msg(message);
         setShow(false);
     }
 

@@ -5,19 +5,18 @@ import { BtnSubmit, DropdownEn, TextBn, TextEn, TextDt, TextareaBn } from "@/com
 import Add from "@/components/bayprostab/Add";
 import Edit from "@/components/bayprostab/Edit";
 import Delete from "@/components/bayprostab/Delete";
+import Download from '@/components/bayprostab/Download';
+import Upload from '@/components/bayprostab/Upload';
 
-
-import { fetchData } from '@/lib/utils/FetchData';
-import { getItems } from '@/lib/utils/LocalDatabase';
-import { numberWithComma } from '@/lib/NumberWithComma';
-import { inwordBn } from '@/lib/InwordBn';
+import { fetchDataFromApi, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from '@/lib/utils';
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+
+
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
-  return date_format(new Date(dt2));
+  return formatedDateDot(new Date(dt2),true);
 }
 
 
@@ -70,7 +69,7 @@ const BayprostabFormat = ({ doc }, data) => {
   doc.setFont("SutonnyMJ", "normal");
   doc.text(`${data.subject}`, 25, 53.5, null, null, "left");
 
-  doc.text(`${date_format(data.dt)}`, 157, 40.5, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt,true)}`, 157, 40.5, null, null, "left");
 
   let x1 = data.db;
   const godata = x1.filter(g => parseFloat(g.taka) !== 0);
@@ -115,7 +114,7 @@ const BayprostabFormat = ({ doc }, data) => {
 
 
   doc.text(`${numberWithComma(dbTotal)}/-`, 122.844, 218, null, null, "center");
-  let inwordTak = inwordBn(parseInt(dbTotal));
+  let inwordTak = inwordBangla(parseInt(dbTotal));
   doc.text(`${inwordTak} UvKv gvÎ`, 60, 226.144, null, null, "left");
 
 
@@ -132,14 +131,14 @@ const BayprostabFormat = ({ doc }, data) => {
 
   doc.setFontSize(14);
   doc.text(`${data.name}`, 42, 35.173, null, null, "left");
-  doc.text(`${date_format(data.dt)}`, 173, 35.173, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt,true)}`, 173, 35.173, null, null, "left");
 
   doc.setFont("times", "normal");
   doc.text(`${hd1}`, 23, 47.188, null, null, "left");
   doc.setFont("SutonnyMJ", "normal");
   doc.text(`${data.subject}`, 27, 53.246, null, null, "left");
 
-  doc.text(`${date_format(data.dt)}`, 47, 59.2, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt,true)}`, 47, 59.2, null, null, "left");
   doc.text(`${dtAdd15Days(data.dt)}`, 145, 59.2, null, null, "center");
 
 
@@ -196,7 +195,7 @@ const BayprostabFormat = ({ doc }, data) => {
 
     doc.setFont("SutonnyMJ", "normal");
     doc.setFontSize(16);
-    doc.text(`${date_format(data.dt)}`, 175, 42, null, null, "left");
+    doc.text(`${formatedDateDot(data.dt,true)}`, 175, 42, null, null, "left");
     doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
     doc.text("**", 19, 68, null, null, "center");
     doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
@@ -212,7 +211,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text("-", 19, y, null, null, "center");
       doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
       const goTotal = parseFloat(eval(godata[i].taka)) * parseFloat(godata[i].nos);
-        doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
+      doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
       if (itemLen.length > 38) {
         y = y + 12;
       } else {
@@ -220,7 +219,7 @@ const BayprostabFormat = ({ doc }, data) => {
       }
     }
 
-     doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
+    doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
     doc.setFontSize(13);
     doc.setFont("times", "normal");
     doc.text(`${hd2}`, 146.5, 68, null, null, "center");
@@ -241,7 +240,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text(`${data.project}`, 103, 41.5, null, null, "left");
 
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${date_format(data.dt)}`, 165, 49.5, null, null, "left");
+      doc.text(`${formatedDateDot(data.dt,true)}`, 165, 49.5, null, null, "left");
       doc.setFont("times", "normal");
 
 
@@ -294,7 +293,6 @@ const Bayprostab = () => {
   const [projectData, setProjectData] = useState([]);
 
 
-
   const [staff, setStaff] = useState("Avmjvg Rvgvb");
   const [project, setProject] = useState("GO");
   const [dt, setDt] = useState("2023-01-12");
@@ -311,14 +309,14 @@ const Bayprostab = () => {
 
 
   useEffect(() => {
-    setDt(date_format(new Date()));
+    setDt(formatedDate(new Date()));
 
     const getData = async () => {
       setWaitMsg('Please wait...');
       try {
         const [staffs, projects] = await Promise.all([
-          fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         console.log(scStaff)
@@ -335,8 +333,7 @@ const Bayprostab = () => {
     }
     getData();
 
-    const getLocal = getItems("bayprostab");
-    const locaData = getLocal.data;
+    const locaData = localStorageGetItem("bayprostab");
     console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
@@ -468,6 +465,12 @@ const Bayprostab = () => {
           <div className="w-full col-span-2 border-2 p-4 shadow-md rounded-md">
             <div className="px-4 lg:px-6 overflow-auto">
               <p className="w-full text-sm text-red-700">{msg}</p>
+              <div className='flex justify-end'>
+                <div className='flex space-x-1'>
+                <Download Msg={msgHandler} />
+                <Upload Msg={msgHandler} />
+                </div>
+              </div>
               <table className="w-full border border-gray-200">
                 <thead>
                   <tr className="w-full bg-gray-200">
@@ -488,7 +491,7 @@ const Bayprostab = () => {
                         <tr className="border-b border-gray-200 hover:bg-gray-100" key={bayprostab.id}>
                           <td className={`text-left py-2 pl-6 ${parseFloat(bayprostab.taka) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{i + 1}. {bayprostab.item}</td>
                           <td className="text-center py-2 px-4">{bayprostab.nos}</td>
-                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostab.taka))*parseFloat(bayprostab.nos)}>{bayprostab.taka}</td>
+                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostab.taka)) * parseFloat(bayprostab.nos)}>{bayprostab.taka}</td>
                           <td className="flex justify-end items-center space-x-1 mt-1">
                             <Edit Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
                             <Delete Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
