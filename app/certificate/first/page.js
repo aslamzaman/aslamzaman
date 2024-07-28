@@ -107,7 +107,7 @@ const Certificate = () => {
 
             <div className="p-6">
 
-                <div className="w-full md:w-8/12 mx-auto my-[50px] flex flex-col items-center border border-gray-200 rounded-lg shadow-md bg-white z-50">
+                <div className="w-full lg:w-9/12 mx-auto my-[50px] flex flex-col items-center border border-gray-200 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full bg-gray-100 border-b rounded-t-lg">
                         <h1 className="py-2.5 text-center font-semibold text-[calc(1.40rem+0.3vw)]">Certificate COL - 1st Phase</h1>
                     </div>
@@ -117,12 +117,14 @@ const Certificate = () => {
                             <div className="mt-5">
                                 <input type="file" onChange={fileChangeHandler} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300 cursor-pointer" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </div>
+                            <div className="w-48">
                             <DropdownEn  Title="Qurter" Id="quart" Change={(e) => { setQuart(e.target.value) }} Value={quart}>
                                 <option value="1">Qurter-1</option>
                                 <option value="2">Qurter-2</option>
                                 <option value="3">Qurter-3</option>
                                 <option value="4">Qurter-4</option>
                             </DropdownEn>
+                            </div>
                             <div>
                                 <TextDt Title="Date" Id="dt" Change={(e) => { setDt(e.target.value) }} Value={dt} />
                             </div>
