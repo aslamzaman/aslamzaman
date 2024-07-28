@@ -2,12 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { TextDt, TextBn, BtnSubmit, DropdownEn } from "@/components/Form";
 import { jsPDF } from "jspdf";
-import { fetchData } from "@/lib/utils/FetchData";
-import { DateBangla } from "@/lib/DateBangla";
-
-import { inwordBn } from "@/lib/InwordBn";
-import { numberWithComma } from "@/lib/NumberWithComma";
-
+import { formatedDateBangla } from "@/lib/utils";
+import { fetchDataFromApi } from "@/lib/utils";
+import { inwordBangla } from "@/lib/utils";
+import { numberWithComma } from "@/lib/utils";
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
@@ -29,9 +27,8 @@ const Increment = () => {
 
     useEffect(() => {
         const getData = async () => {
-
             try {
-                const staff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const staff = await fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
                 const scStaff = staff.filter(staf => staf.placeId._id === "660ae2d4825d0610471e272d");
                 console.log(scStaff)
                 setStaffData(scStaff);
@@ -69,14 +66,14 @@ const Increment = () => {
         const tk = eval(taka);
 
         const st = `<div style="width:160px; margin-left:25px; margin-top:50px; line-height: normal; font-family:SutonnyMJ;font-size:5px">
-        <p style="width:100%; ">¯§viK bs-wmGgBGm/GBPAviwW/${new Date().getFullYear()}-${refNo}<br />${DateBangla(dt)}</p>
+        <p style="width:100%; ">¯§viK bs-wmGgBGm/GBPAviwW/${new Date().getFullYear()}-${refNo}<br />${formatedDateBangla(dt)}</p>
         <p style="margin-top:8px;">Rbve ${splitName[0]}<br />${splitName[1]}<br />wmGgBGm, jvjgvwUqv, XvKv-1207 </p>
        
 
-        <p id="subject" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;font-weight:700;">welq: ${yr} A_© eQ‡ii g~j¨vq‡bi wfwË‡Z ${DateBangla(dt2)} ZvwiL †_‡K Avcbvi  evrmwiK †eZb 5% e„w× KiY cÖm‡½|</p>
+        <p id="subject" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;font-weight:700;">welq: ${yr} A_© eQ‡ii g~j¨vq‡bi wfwË‡Z ${formatedDateBangla(dt2)} ZvwiL †_‡K Avcbvi  evrmwiK †eZb 5% e„w× KiY cÖm‡½|</p>
        
 
-        <p id="letterBody" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;">Rbve,<br />${yr} A_© eQ‡ii ÷vd cvidi‡gÝ g~j¨vq‡bi wfwË‡Z evrmwiK †eZb 5% e„w×i ci Avcbvi eZ©gvb †eZb ${numberWithComma(tk)}/-(${inwordBn(tk)}) UvKvq DbœxZ K‡i\ ${DateBangla(dt2)} ZvwiL †_‡K Kvh©Ki Kiv n‡q‡Q|</p>
+        <p id="letterBody" style="max-width: 160px; margin-top:8px;text-align:justify; word-break: normal;">Rbve,<br />${yr} A_© eQ‡ii ÷vd cvidi‡gÝ g~j¨vq‡bi wfwË‡Z Avcbvi evrmwiK †eZb 5% e„w×i ci eZ©gvb †eZb ${numberWithComma(tk)}/-(${inwordBangla(tk)}) UvKvq DbœxZ K‡i\ ${formatedDateBangla(dt2)} ZvwiL †_‡K Kvh©Ki Kiv n‡q‡Q|</p>
 
         <p style="margin-top:10px;">ab¨ev\`v‡šÍ</p>
 

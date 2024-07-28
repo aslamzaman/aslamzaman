@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
-import { numberWithComma } from "@/lib/NumberWithComma";
-import { inwordBn } from "@/lib/InwordBn";
+import { numberWithComma } from "@/lib/utils";
+import { inwordBangla } from "@/lib/utils";
 
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 require("@/lib/fonts/SUTOM_MJ-normal");
@@ -128,7 +128,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.text(`${numberWithComma(total)}/-`, 132, 218, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
 
-  doc.text(`${inwordBn(total)} UvKv gvÎ`, 60, 226.144, null, null, "left");
+  doc.text(`${inwordBangla(total)} UvKv gvÎ`, 60, 226.144, null, null, "left");
 
   //------------------------------------------------------------------
   doc.addPage("a4", "p");
@@ -212,7 +212,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.setFont("SutonnyMJ", "bold");
   doc.text(`${numberWithComma(total)}/-`, 132, 226.803, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${inwordBn(total)} UvKv gvÎ`, 45, 239.5, null, null, "left");
+  doc.text(`${inwordBangla(total)} UvKv gvÎ`, 45, 239.5, null, null, "left");
 
   //--------------------------------------------------------------------
   doc.addPage("a4", "p");
@@ -241,7 +241,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.setFont("SutonnyMJ", "bold");
   doc.text(`${numberWithComma(total)}/-`, 130, 187, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${inwordBn(total)} UvKv gvÎ`, 55, 196, null, null, "left");
+  doc.text(`${inwordBangla(total)} UvKv gvÎ`, 55, 196, null, null, "left");
 
 }
 

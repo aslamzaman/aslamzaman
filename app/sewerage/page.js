@@ -6,8 +6,8 @@ require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
 import { TextNum, DropdownEn, BtnSubmit, TextDt } from "@/components/Form";
-import { numberWithComma } from "@/lib/NumberWithComma";
-import { inwordBn } from "@/lib/InwordBn";
+import { numberWithComma } from "@/lib/utils";
+import { inwordBangla } from "@/lib/utils";
 
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 const dtAdd15Days = (d1) => {
@@ -101,7 +101,7 @@ const Sewerage = {
     doc.text(`${numberWithComma(parseFloat(tk))}/-`, 132, 219.228, null, null, "right");
     doc.setFont("SutonnyMJ", "normal");
 
-    doc.text(`${inwordBn(tk)} UvKv gvÎ`, 60, 226.144, null, null, "left");
+    doc.text(`${inwordBangla(tk)} UvKv gvÎ`, 60, 226.144, null, null, "left");
 
   },
   Page2({ doc }, m, y, tk, dt) {
@@ -158,7 +158,7 @@ const Sewerage = {
     doc.setFont("SutonnyMJ", "bold");
     doc.text(`${numberWithComma(parseFloat(tk))}/-`, 132, 226.803, null, null, "right");
     doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${inwordBn(tk)} UvKv gvÎ`, 40, 239.429, null, null, "left");
+    doc.text(`${inwordBangla(tk)} UvKv gvÎ`, 40, 239.429, null, null, "left");
 
   },
   Go({ doc }, m, y, tk, dt) {
@@ -184,7 +184,7 @@ const Sewerage = {
     doc.setFont("SutonnyMJ", "bold");
     doc.text(`${numberWithComma(parseFloat(tk))}/-`, 130, 187, null, null, "right");
     doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${inwordBn(tk)} UvKv gvÎ`, 56, 196, null, null, "left");
+    doc.text(`${inwordBangla(tk)} UvKv gvÎ`, 56, 196, null, null, "left");
   }
 }
 
