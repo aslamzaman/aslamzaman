@@ -5,12 +5,9 @@ import { jsPDF } from "jspdf";
 import Add from "@/components/bayprostabexecution/Add";
 import Edit from "@/components/bayprostabexecution/Edit";
 import Delete from "@/components/bayprostabexecution/Delete";
-import { fetchData } from "@/lib/utils/FetchData";
-import { getItems } from "@/lib/utils/LocalDatabase";
-import { numberWithComma } from "@/lib/NumberWithComma";
-import { inwordBn } from "@/lib/InwordBn";
 
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+import { localStorageGetItem,fetchDataFromApi, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
+
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
@@ -40,8 +37,8 @@ const Bayprostabexecution = () => {
       setWaitMsg("Please wait...");
       try {
         const [staffs, projects] = await Promise.all([
-          fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         setStaffData(scStaff);
@@ -52,10 +49,8 @@ const Bayprostabexecution = () => {
       }
     }
     getData();
-    setDt2(date_format(new Date()));
-    const localData = getItems("bayprostabexecution");
-    const getLocalData = localData.data;
-
+    setDt2(formatedDate(new Date()));
+    const getLocalData = localStorageGetItem("bayprostabexecution");
 
     const result = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     setTotal(result)
@@ -79,8 +74,8 @@ const Bayprostabexecution = () => {
       floatPrecision: 16 // or "smart", default is 16
     });
 
-    const localData = getItems("bayprostabexecution");
-    if (!localData) {
+    const x = localStorageGetItem("bayprostabexecution");
+    if (!x) {
       setMsg("No data!!");
       return false;
     }
@@ -90,14 +85,14 @@ const Bayprostabexecution = () => {
     setWaitMsg("Please wait...");
     setTimeout(() => {
 
-      let x = localData.data;
+ 
 
       doc.addImage("/images/formats/bayprostab2.png", "PNG", 0, 0, 210, 297);
       doc.setFontSize(14);
       doc.text(`${project}`, 168.438, 26, null, null, "left");
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${staff} `, 38, 37, null, null, "left");
-      doc.text(`${dt1 ? date_format(dt1) : ""}`, 150, 45, null, null, "left");
+      doc.text(`${dt1 ? formatedDate(dt1) : ""}`, 150, 45, null, null, "left");
       doc.text(`${numberWithComma(parseFloat(advance))}/-`, 65, 45, null, null, "right");
 
       let y = 100;
@@ -129,10 +124,10 @@ const Bayprostabexecution = () => {
       doc.text(`${numberWithComma(parseInt(gt))}/-`, 132, 235, null, null, "right");
       
       
-      doc.text(`${inwordBn(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
+      doc.text(`${inwordBangla(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
 
     
-      doc.text(`${date_format(dt2)}`, 60, 247.5, null, null, "left");
+      doc.text(`${formatedDate(dt2)}`, 60, 247.5, null, null, "left");
 
       doc.save(new Date().toISOString() + "Bayprostab-Execution.pdf");
       setWaitMsg("");
