@@ -1,39 +1,37 @@
 import React, { useState } from "react";
 import { BtnEn } from "../../components/Form";
 import { Close } from "../Icons";
+import { jsonDataFromExcelSheet, localStorageAddManyItem } from "@/lib/utils";
 
 
-const Upload = ({ Msg }) => {
+
+const Upload = ({ message }) => {
   const [file, setFile] = useState(null);
-
 
   const [show, setShow] = useState(false);
 
 
   const showModal = () => {
     setShow(true);
-    Msg("Ready to upload");
+    message("Ready to upload");
   }
 
 
   const uploadHandler = (e) => {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (() => {
-        let checkData = JSON.parse(reader.result)[0];
-        if (!checkData.item) {
-          Msg("Data not match!");
+    try {
+      if (file) {
+        jsonDataFromExcelSheet(file, ["id", "item", "nos", "taka", "ckd"], (data) => {
+          localStorageAddManyItem("bayprostabexecution", data);
+          message(`File uploaded successfull completed. ${Date.now()}`);
           setShow(false);
-          return false;
-        };
-
-        localStorage.setItem("bayprostabexecution", reader.result);
-        Msg("Data loaded successfully");
+        })
+      } else {
+        message("Please select a file.");
         setShow(false);
-      })
-      reader.readAsText(file);
-    } else {
-      Msg("Please select a file.");
+      }
+    } catch (error) {
+      console.error("Error uploading bayprostabexecution data:", error);
+      message("Error uploading bayprostabexecution data.");
       setShow(false);
     }
   }
@@ -45,15 +43,15 @@ const Upload = ({ Msg }) => {
         <div className="w-11/12 md:w-8/12 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
           <div className="px-6 md:px-6 py-6 flex justify-between items-center border-b border-gray-300">
             <h1 className="text-xl font-bold text-blue-600">Upload File</h1>
-            <Close Click={() => { setShow(false); Msg("Data ready") }} Size="w-9 h-9" />
+            <Close Click={() => { setShow(false); }} Size="w-9 h-9" />
           </div>
 
           <div className="p-6 text-black">
-            <input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/javascript" />
+            <input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">
-            <BtnEn Title="Close" Click={() => { setShow(false); Msg("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
+            <BtnEn Title="Close" Click={() => { setShow(false); }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
             <BtnEn Title="Upload" Click={uploadHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
           </div>
         </div>

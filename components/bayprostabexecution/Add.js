@@ -47,10 +47,10 @@ const Add = ({ message }) => {
 			const newObject = createObject();
 			const local = addItem('bayprostabexecution', newObject);
 			message(local.message);
+			setShow(false);
 		} catch (error) {
 			console.error("Error saving bayprostabexecution data:", error);
 			message("Error saving bayprostabexecution data.");
-		} finally {
 			setShow(false);
 		}
 	}

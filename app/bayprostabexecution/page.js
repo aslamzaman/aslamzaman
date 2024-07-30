@@ -5,8 +5,10 @@ import { jsPDF } from "jspdf";
 import Add from "@/components/bayprostabexecution/Add";
 import Edit from "@/components/bayprostabexecution/Edit";
 import Delete from "@/components/bayprostabexecution/Delete";
+import Download from "@/components/bayprostabexecution/Download";
+import Upload from "@/components/bayprostabexecution/Upload";
 
-import { localStorageGetItem,fetchDataFromApi, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
+import { localStorageGetItem, fetchDataFromApi, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
 
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
@@ -33,6 +35,12 @@ const Bayprostabexecution = () => {
 
 
   useEffect(() => {
+    const getLocalData = localStorageGetItem("bayprostabexecution");
+    setBayprostabexecutions(getLocalData);
+    const result = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
+    setTotal(result)
+    setDt2(formatedDate(new Date()));
+
     const getData = async () => {
       setWaitMsg("Please wait...");
       try {
@@ -49,12 +57,7 @@ const Bayprostabexecution = () => {
       }
     }
     getData();
-    setDt2(formatedDate(new Date()));
-    const getLocalData = localStorageGetItem("bayprostabexecution");
 
-    const result = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
-    setTotal(result)
-    setBayprostabexecutions(getLocalData);
   }, [msg])
 
 
@@ -85,7 +88,7 @@ const Bayprostabexecution = () => {
     setWaitMsg("Please wait...");
     setTimeout(() => {
 
- 
+
 
       doc.addImage("/images/formats/bayprostab2.png", "PNG", 0, 0, 210, 297);
       doc.setFontSize(14);
@@ -119,21 +122,20 @@ const Bayprostabexecution = () => {
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${numberWithComma(parseInt(gt))}/-`, 65, 53, null, null, "right");
       doc.text(`${numberWithComma(parseFloat(advance) - parseInt(gt))}/-`, 65, 61, null, null, "right");
-      
+
       doc.text(`${note ? note : ""}`, 174.347, 100, { maxWidth: 45, align: 'center' });
       doc.text(`${numberWithComma(parseInt(gt))}/-`, 132, 235, null, null, "right");
-      
-      
+
+
       doc.text(`${inwordBangla(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
 
-    
+
       doc.text(`${formatedDate(dt2)}`, 60, 247.5, null, null, "left");
 
       doc.save(new Date().toISOString() + "Bayprostab-Execution.pdf");
       setWaitMsg("");
     }, 0);
   }
-
 
 
   return (
@@ -146,6 +148,7 @@ const Bayprostabexecution = () => {
       <div className="px-4 lg:px-6">
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4">
           <div className="w-full border-2 p-4 shadow-md rounded-md">
+         
             <form onSubmit={createHandler}>
               <div className="grid grid-cols-1 gap-2 my-2">
                 <DropdownEn Title="Staff Name *" Id="staff" Change={e => setStaff(e.target.value)} Value={staff}>
@@ -172,6 +175,12 @@ const Bayprostabexecution = () => {
           <div className="w-full col-span-2 border-2 p-4 shadow-md rounded-md">
             <div className="px-4 lg:px-6 overflow-auto">
               <p className="w-full text-sm text-red-700">{msg}</p>
+              <div className="w-full flex justify-end">
+                <div className="flex">
+                  <Download message={msgHandler} />
+                  <Upload message={msgHandler} />
+                </div>
+              </div>
               <table className="w-full border border-gray-200">
                 <thead>
                   <tr className="w-full bg-gray-200">
@@ -191,7 +200,7 @@ const Bayprostabexecution = () => {
                         <tr className="border-b border-gray-200" key={bayprostabexecution.id}>
                           <td className={`text-center py-2 px-4 ${parseFloat(bayprostabexecution.taka) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{bayprostabexecution.item}</td>
                           <td className="text-center py-2 px-4">{bayprostabexecution.nos}</td>
-                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostabexecution.taka))*parseFloat(bayprostabexecution.nos)}>{bayprostabexecution.taka}</td>
+                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostabexecution.taka)) * parseFloat(bayprostabexecution.nos)}>{bayprostabexecution.taka}</td>
                           <td className="flex justify-end items-center mt-1">
                             <Edit message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />
                             <Delete message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />

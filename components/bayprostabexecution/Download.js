@@ -1,20 +1,22 @@
 import React from "react";
 import { saveAs } from "file-saver";
+import { excelSheetFromJsonData, formatedDate, localStorageGetItem } from "@/lib/utils";
 
 
-const Download = ({ Msg }) => {
+const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    let localData = localStorage.getItem("bayprostabexecution");
-    if (localData) {
-      const blob = new Blob([localData], { type: "application/json" });
-      saveAs(blob, `${new Date().toISOString()}-bayprostabexecution.js`);
-      Msg("Data download successfully.");
-    } else {
-      Msg("Data not available.");
+    try {
+      const localData = localStorageGetItem("bayprostabexecution");
+      excelSheetFromJsonData(localData, 'Sheet-1', `${formatedDate(new Date())}-bayprostab-execution`);
+      message("Data download successfully.");
+    } catch (error) {
+      console.error('Failed to dowload.')
+      message("Data not available.");
     }
   }
+
 
 
   return (
