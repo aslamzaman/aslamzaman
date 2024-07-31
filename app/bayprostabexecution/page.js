@@ -35,6 +35,7 @@ const Bayprostabexecution = () => {
 
 
   useEffect(() => {
+
     const getLocalData = localStorageGetItem("bayprostabexecution");
     setBayprostabexecutions(getLocalData);
     const result = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
@@ -148,7 +149,7 @@ const Bayprostabexecution = () => {
       <div className="px-4 lg:px-6">
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4">
           <div className="w-full border-2 p-4 shadow-md rounded-md">
-         
+
             <form onSubmit={createHandler}>
               <div className="grid grid-cols-1 gap-2 my-2">
                 <DropdownEn Title="Staff Name *" Id="staff" Change={e => setStaff(e.target.value)} Value={staff}>
@@ -187,6 +188,7 @@ const Bayprostabexecution = () => {
                     <th className="text-center border-b border-gray-200 py-2">Item</th>
                     <th className="text-center border-b border-gray-200 py-2">Nos</th>
                     <th className="text-center border-b border-gray-200 py-2">Taka</th>
+                    <th className="text-center border-b border-gray-200 py-2">Bkash</th>
                     <th className="font-normal text-start flex justify-end mt-1">
                       <Add message={msgHandler} />
 
