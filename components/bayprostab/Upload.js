@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import { jsonDataFromExcelSheet, localStorageAddItem, localStorageAddManyItem, localStorageDeleteAllItem } from "@/lib/utils";
+import { jsonDataFromExcelSheet, localStorageAddManyItem, localStorageDeleteAllItem } from "@/lib/utils";
 import { data } from "autoprefixer";
 
 
@@ -18,17 +18,29 @@ const Upload = ({ Msg }) => {
 	}
 
 
-	const uploadHandler = () => {
+
+	const uploadHandler = async () => {
 		try {
-			jsonDataFromExcelSheet(file, ['id', 'item', 'nos', 'taka'], (data) => {
+
+			const data = await jsonDataFromExcelSheet(file, ['id', 'item', 'nos', 'taka']);
+			const checkNos = parseFloat(data[1].nos);
+			const checkTaka = parseFloat(data[1].taka);
+		
+			if (checkNos && checkTaka) {
+				console.log(checkNos, checkTaka);
 				localStorageDeleteAllItem("bayprostab");
 				localStorageAddManyItem("bayprostab", data);
 				Msg("Uploaded data successfully.");
-				setShow(false);
-			})
+			} else {
+				console.log("dfsdf",checkNos, checkTaka);
+				Msg("Data not matching!");
+			}
+			
 		} catch (error) {
 			console.error("Faild upload data" + error);
 			console.log('Fail upload data.')
+		}finally{
+			setShow(false);
 		}
 	}
 

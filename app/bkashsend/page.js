@@ -61,7 +61,7 @@ const Bkash = () => {
 
                 <div className="w-full md:w-8/12 mx-auto border-2 p-4 shadow-md rounded-md">
                     <form onSubmit={handleCreate}>
-                        <div className="grid grid-cols-1 gap-2 my-2">
+                        <div className="grid grid-cols-1 gap-2 my-2 gap-4">
                             <TextNum Title="Taka" Id="tk" Change={e => setTk(e.target.value)} Value={tk} />
                             <TextNum Title="Charge (per thousand)" Id="charge" Change={e => setCharge(e.target.value)} Value={charge} />
                         </div>

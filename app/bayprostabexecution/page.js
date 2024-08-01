@@ -8,7 +8,7 @@ import Delete from "@/components/bayprostabexecution/Delete";
 import Download from "@/components/bayprostabexecution/Download";
 import Upload from "@/components/bayprostabexecution/Upload";
 
-import { localStorageGetItem, fetchDataFromApi, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
+import { localStorageGetItem, fetchDataFromAPI, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
 
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
@@ -46,8 +46,8 @@ const Bayprostabexecution = () => {
       setWaitMsg("Please wait...");
       try {
         const [staffs, projects] = await Promise.all([
-          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         setStaffData(scStaff);
@@ -88,8 +88,6 @@ const Bayprostabexecution = () => {
 
     setWaitMsg("Please wait...");
     setTimeout(() => {
-
-
 
       doc.addImage("/images/formats/bayprostab2.png", "PNG", 0, 0, 210, 297);
       doc.setFontSize(14);
@@ -137,6 +135,7 @@ const Bayprostabexecution = () => {
       setWaitMsg("");
     }, 0);
   }
+
 
 
   return (

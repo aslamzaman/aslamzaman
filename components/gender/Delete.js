@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
+import { deleteDataFromAPI } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
@@ -28,13 +29,8 @@ const Delete = ({ message, id, data }) => {
     const deleteYesClick = async () => {
         try {
             const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/gender/${id}`;
-            const requestOptions = { method: "DELETE" };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Deleted successfully completed");
-            } else {
-                throw new Error("Failed to delete gender");
-            }         
+            const msg = await deleteDataFromAPI(apiUrl);
+            message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");

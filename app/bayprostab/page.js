@@ -8,15 +8,16 @@ import Delete from "@/components/bayprostab/Delete";
 import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
-import { fetchDataFromApi, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from '@/lib/utils';
+import { fetchDataFromAPI, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from '@/lib/utils';
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
+
 
 
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
-  return formatedDateDot(new Date(dt2),true);
+  return formatedDateDot(new Date(dt2), true);
 }
 
 
@@ -69,7 +70,7 @@ const BayprostabFormat = ({ doc }, data) => {
   doc.setFont("SutonnyMJ", "normal");
   doc.text(`${data.subject}`, 25, 53.5, null, null, "left");
 
-  doc.text(`${formatedDateDot(data.dt,true)}`, 157, 40.5, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt, true)}`, 157, 40.5, null, null, "left");
 
   let x1 = data.db;
   const godata = x1.filter(g => parseFloat(g.taka) !== 0);
@@ -131,14 +132,14 @@ const BayprostabFormat = ({ doc }, data) => {
 
   doc.setFontSize(14);
   doc.text(`${data.name}`, 42, 35.173, null, null, "left");
-  doc.text(`${formatedDateDot(data.dt,true)}`, 173, 35.173, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt, true)}`, 173, 35.173, null, null, "left");
 
   doc.setFont("times", "normal");
   doc.text(`${hd1}`, 23, 47.188, null, null, "left");
   doc.setFont("SutonnyMJ", "normal");
   doc.text(`${data.subject}`, 27, 53.246, null, null, "left");
 
-  doc.text(`${formatedDateDot(data.dt,true)}`, 47, 59.2, null, null, "left");
+  doc.text(`${formatedDateDot(data.dt, true)}`, 47, 59.2, null, null, "left");
   doc.text(`${dtAdd15Days(data.dt)}`, 145, 59.2, null, null, "center");
 
 
@@ -195,7 +196,7 @@ const BayprostabFormat = ({ doc }, data) => {
 
     doc.setFont("SutonnyMJ", "normal");
     doc.setFontSize(16);
-    doc.text(`${formatedDateDot(data.dt,true)}`, 175, 42, null, null, "left");
+    doc.text(`${formatedDateDot(data.dt, true)}`, 175, 42, null, null, "left");
     doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
     doc.text("**", 19, 68, null, null, "center");
     doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
@@ -240,7 +241,7 @@ const BayprostabFormat = ({ doc }, data) => {
       doc.text(`${data.project}`, 103, 41.5, null, null, "left");
 
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${formatedDateDot(data.dt,true)}`, 165, 49.5, null, null, "left");
+      doc.text(`${formatedDateDot(data.dt, true)}`, 165, 49.5, null, null, "left");
       doc.setFont("times", "normal");
 
 
@@ -315,8 +316,8 @@ const Bayprostab = () => {
       setWaitMsg('Please wait...');
       try {
         const [staffs, projects] = await Promise.all([
-          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         console.log(scStaff)
@@ -334,7 +335,7 @@ const Bayprostab = () => {
     getData();
 
     const locaData = localStorageGetItem("bayprostab");
-    console.log(locaData)
+    //console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = numberWithComma(Math.round(totalTaka));
@@ -467,8 +468,8 @@ const Bayprostab = () => {
               <p className="w-full text-sm text-red-700">{msg}</p>
               <div className='flex justify-end'>
                 <div className='flex space-x-1'>
-                <Download Msg={msgHandler} />
-                <Upload Msg={msgHandler} />
+                  <Download Msg={msgHandler} />
+                  <Upload Msg={msgHandler} />
                 </div>
               </div>
               <table className="w-full border border-gray-200">
