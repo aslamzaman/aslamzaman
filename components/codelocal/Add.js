@@ -1,23 +1,51 @@
-import React, { useState } from "react";
-import { BtnSubmit, TextBn, TextNum } from "@/components/Form";
+import { titleCamelCase } from "@/lib/utils";
+export const Add = (tbl, datas) => {
+
+    const replaceQutation = datas.replaceAll('`', '');
+    const splitData = replaceQutation.split(",");
+    const data = splitData.map(s => s.trim());
+
+    let use_state = "";
+
+    for (let i = 1; i < data.length; i++) {
+        use_state += `    const [${data[i]}, set${titleCamelCase(data[i])}] = useState('');${i===data.length-1?'':'\n'}`;
+    }
+
+    let reset_veriable = "";
+
+    for (let i = 1; i < data.length; i++) {
+        reset_veriable += `        set${titleCamelCase(data[i])}('');${i===data.length-1?'':'\n'}`;
+    }
+
+   let form_text = ""; 
+    for (let i = 1; i < data.length; i++) {
+        form_text += `                                    <TextEn Title="${titleCamelCase(data[i])}" Id="${data[i]}" Change={e => set${titleCamelCase(data[i])}(e.target.value)} Value={${data[i]}} Chr={150} />${i===data.length-1?'':'\n'}`;
+    }
+
+    let objectText = ""; 
+    for (let i = 1; i < data.length; i++) {
+        objectText += `            ${data[i]}: ${data[i]}${i===data.length-1?'':',\n'}`;
+    }
+
+
+
+
+    const str = `import React, { useState } from "react";
+import { BtnSubmit, TextEn } from "@/components/Form";
 import { localStorageAddItem } from "@/lib/utils";
 
 const Add = ({ message }) => {
-    const [item, setItem] = useState('');
-    const [no, setNo] = useState('');
-    const [taka, setTaka] = useState('');
+${use_state}   
     const [show, setShow] = useState(false);
 
 
     const resetVariables = () => {
         message("Ready to make new additions");
-        setItem('');
-        setNo('');
-        setTaka('');
+${reset_veriable}        
     }
 
 
-    const showAddForm = async () => {
+    const showAddForm = () => {
         setShow(true);
         resetVariables();
     }
@@ -32,9 +60,7 @@ const Add = ({ message }) => {
     const createObject = () => {
         return {
             id: Date.now(),
-            item: item,
-            no: no,
-            taka: taka
+${objectText}            
         }
     }
 
@@ -43,11 +69,11 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const meg = localStorageAddItem('anybill', newObject);
-            message(meg);
+            const msg = localStorageAddItem('${tbl}', newObject);
+            message(msg);
         } catch (error) {
-            console.error("Error saving anybill data:", error);
-            message("Error saving anybill data.");
+            console.error("Error saving ${tbl} data:", error);
+            message("Error saving ${tbl} data.");
         } finally {
             setShow(false);
         }
@@ -70,9 +96,7 @@ const Add = ({ message }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextBn Title="Item" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr={50} />
-                                    <TextNum Title="Nos" Id="no" Change={e => setNo(e.target.value)} Value={no} />
-                                    <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />
+${form_text}                                
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeAddForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -92,4 +116,9 @@ const Add = ({ message }) => {
     )
 }
 export default Add;
+  
+`;
+
+    return str;
+}
 

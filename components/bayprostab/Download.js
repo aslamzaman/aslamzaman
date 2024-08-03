@@ -8,7 +8,7 @@ const Download = ({ Msg }) => {
   const downloadHandler = () => {
     try {
       const locaData = localStorageGetItem("bayprostab");
-      excelSheetFromJsonData(locaData, 'Sheet-1', `${formatedDate(new Date())}-backup-bayprostab`);
+      excelSheetFromJsonData(locaData, 'Sheet-1', [14,18,5,16], `${formatedDate(new Date())}-backup-bayprostab`);
       Msg("Data downloaded completed.");
     } catch (error) {
       console.error("Faild download data" + error);

@@ -1,23 +1,58 @@
-import React, { useState } from "react";
-import { BtnSubmit, TextBn, TextNum } from "@/components/Form";
+import { titleCamelCase } from "@/lib/utils";
+export const Edit = (tbl, datas) => {
+
+    const replaceQutation = datas.replaceAll('`', '');
+    const splitData = replaceQutation.split(",");
+    const data = splitData.map(s => s.trim());
+
+    let use_state = "";
+
+    for (let i = 1; i < data.length; i++) {
+        use_state += `    const [${data[i]}, set${titleCamelCase(data[i])}] = useState('');${i === data.length - 1 ? '' : '\n'}`;
+    }
+
+const strMap = [];
+const strMap1 = [];
+for (let i = 1; i < data.length; i++) {
+    strMap.push(` ${data[i]}`);
+    strMap1.push(` ${data[i]}: ''`)
+}
+
+let set_item = "";
+
+for (let i = 1; i < data.length; i++) {
+    set_item += `            set${titleCamelCase(data[i])}(${data[i]});${i === data.length - 1 ? '' : '\n'}`;
+}
+
+let objectText = ""; 
+for (let i = 1; i < data.length; i++) {
+    objectText += `            ${data[i]}: ${data[i]}${i===data.length-1?'':',\n'}`;
+}
+
+
+let form_text = ""; 
+for (let i = 1; i < data.length; i++) {
+    form_text += `                                    <TextEn Title="${titleCamelCase(data[i])}" Id="${data[i]}" Change={e => set${titleCamelCase(data[i])}(e.target.value)} Value={${data[i]}} Chr={150} />${i===data.length-1?'':'\n'}`;
+}
+
+
+
+
+    const str = `import React, { useState } from "react";
+import { BtnSubmit, TextEn } from "@/components/Form";
 import { localStorageUpdateItem } from "@/lib/utils";
 
-const Edit = ({ message, id, data }) => {
-    const [item, setItem] = useState('');
-    const [no, setNo] = useState('');
-    const [taka, setTaka] = useState('');
+const Edit = ({ message, id, data  }) => {
+${use_state}   
     const [show, setShow] = useState(false);
 
-    const showEditForm = () => {
+
+  const showEditForm = () => {
         setShow(true);
         message("Ready to edit");
         try {
-            //------------------------------------------------
-            console.log(data)
-            const { item, no, taka } = data.find(any => any.id === id) || { item: '', no: '', taka: '' };
-            setItem(item);
-            setNo(no);
-            setTaka(taka);
+            const {${strMap} } = data.find(${tbl} => parseInt(${tbl}.id) === parseInt(id)) || {${strMap1} };
+${set_item}
         } catch (err) {
             console.log(err);
         }
@@ -33,22 +68,20 @@ const Edit = ({ message, id, data }) => {
     const createObject = () => {
         return {
             id: id,
-            item: item,
-            no: no,
-            taka: taka
+${objectText}            
         }
     }
 
 
-    const saveHandler = async (e) => {
+    const updateHandler = async (e) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = localStorageUpdateItem('anybill', id, newObject);
+            const msg = localStorageUpdateItem('${tbl}', id, newObject);
             message(msg);
         } catch (error) {
-            console.error("Error saving anybill data:", error);
-            message("Error saving anybill data.");
+            console.error("Error updating ${tbl} data:", error);
+            message("Error updating ${tbl} data.");
         } finally {
             setShow(false);
         }
@@ -71,11 +104,9 @@ const Edit = ({ message, id, data }) => {
                         </div>
 
                         <div className="px-6 pb-6 text-black">
-                            <form onSubmit={saveHandler} >
+                            <form onSubmit={updateHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextBn Title="Item" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr={50} />
-                                    <TextNum Title="Nos" Id="no" Change={e => setNo(e.target.value)} Value={no} />
-                                    <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />
+${form_text}                                
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -97,5 +128,9 @@ const Edit = ({ message, id, data }) => {
     )
 }
 export default Edit;
+  
+`;
 
+    return str;
+}
 

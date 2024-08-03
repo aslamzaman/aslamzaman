@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import { titleCamelCase } from "@/lib/utils";
+export const Delete = (tbl, datas) => {
+
+    const replaceQutation = datas.replaceAll('`', '');
+    const splitData = replaceQutation.split(",");
+    const data = splitData.map(s => s.trim());
+
+
+
+    const str = `import React, { useState, id, data } from "react";
 import { BtnEn } from "@/components/Form";
 import { localStorageDeleteItem } from "@/lib/utils";
 
 const Delete = ({ message, id, data }) => {
-    const [item, setItem] = useState("");
+    const [${data[1]}, set${titleCamelCase(data[1])}] = useState("");
     const [show, setShow] = useState(false);
 
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { item } = data.find(any => any.id === id) || { item: "" };
-            setItem(item);
+            const { ${data[1]} } = data.find(${tbl} =>  parseInt(${tbl}.id) === parseInt(id)) || { ${data[1]}: "" };
+            set${titleCamelCase(data[1])}(${data[1]});
             message("Ready to delete");
         }
         catch (err) {
@@ -27,7 +36,7 @@ const Delete = ({ message, id, data }) => {
 
     const deleteYesClick = async () => {
         try {
-            const msg = localStorageDeleteItem('anybill', id);
+            const msg = localStorageDeleteItem('${tbl}', id);
             message(msg);
         } catch (error) {
             console.log(error);
@@ -61,7 +70,7 @@ const Delete = ({ message, id, data }) => {
 
                                 <h1 className="text-sm text-center text-gray-600 mt-4">
                                     Are you sure to proceed with the deletion?</h1>
-                                <h1 className="text-center text-gray-600 font-bold font-sutonnyN">{item}</h1>
+                                <h1 className="text-center text-gray-600 font-bold">{${data[1]}}</h1>
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
@@ -80,5 +89,9 @@ const Delete = ({ message, id, data }) => {
     )
 }
 export default Delete;
+  
+`;
 
+    return str;
+}
 

@@ -307,8 +307,6 @@ const Bayprostab = () => {
   const [total, setTotal] = useState("");
 
 
-
-
   useEffect(() => {
     setDt(formatedDate(new Date()));
 
@@ -346,7 +344,6 @@ const Bayprostab = () => {
   const msgHandler = (data) => {
     setMsg(data);
   }
-
 
 
   const handleCreate = (e) => {

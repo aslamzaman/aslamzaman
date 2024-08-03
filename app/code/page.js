@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { BtnEn, DropdownEn, TextEn, TextNum } from "@/components/Form";
+import { BtnEn, TextEn } from "@/components/Form";
 
 import Page from "@/components/code/Page";
 import Add from "@/components/code/Add";
@@ -17,7 +17,14 @@ import RouteDynamicPage from "@/components/code/RouteDynamicPage";
 import Upload from "@/components/code/Upload";
 import Download from "@/components/code/Download";
 import Excle from "@/components/code/Excel";
+import { Saira } from "next/font/google";
+import { utilsLibrary } from "@/components/code/utilsLibrary";
 
+const saira = Saira({
+    subsets: ['latin'],
+    weight: ['500']
+
+})
 
 
 const titleCase = (str) => {
@@ -43,7 +50,9 @@ const Code = () => {
     const [titleText, setTitleText] = useState("Result");
     const [result, setResult] = useState("");
     const [sl, setSl] = useState("181");
-    const [code, setCode] = useState("CMES-SRJ");
+    const [codeText, setCodeText] = useState("");
+    const [isCopied, setIsCopied] = useState(false);
+
 
     useEffect(() => {
         const newTbl = localStorage.getItem('tbl');
@@ -51,6 +60,21 @@ const Code = () => {
         setTbl(newTbl ? newTbl : "post");
         setFld(newFld ? newFld : "_id, name, shortname");
     }, []);
+
+
+    const UtilsGenerate = () => {
+        const data = utilsLibrary();
+        const blob = new Blob([data], {
+            type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'utils.js';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
 
 
     const PageGenerate = () => {
@@ -377,7 +401,6 @@ const Code = () => {
                 </div>
             </div>
 
-
             <div className="w-full px-4 grid grid-cols-3 gap-4">
                 <div className="mt-7">
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-2">
@@ -404,6 +427,7 @@ const Code = () => {
                         <BtnEn Title="Download" Click={DownloadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Excel" Click={ExcelGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        <BtnEn Title="Utils" Click={UtilsGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
                 <div className="col-span-2 py-4">

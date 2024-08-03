@@ -1,18 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { BtnSubmit, DropdownEn, TextBn, TextDt, TextEn } from "@/components/Form";
+import { BtnSubmit, DropdownEn, TextBn, TextDt } from "@/components/Form";
 import Add from "@/components/anybill/Add";
 import Edit from "@/components/anybill/Edit";
 import Delete from "@/components/anybill/Delete";
 import { jsPDF } from "jspdf";
-import { getItems } from "@/lib/utils/LocalDatabase";
-import { fetchData } from "@/lib/utils/FetchData";
-import { inwordBn } from "@/lib/InwordBn";
-import { numberWithComma } from "@/lib/NumberWithComma";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+
 require("@/lib/fonts/SUTOM_MJ-bold");
 require("@/lib/fonts/SUTOM_MJ-normal");
-
+import { localStorageGetItem, fetchDataFromAPI, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from "@/lib/utils";
 
 
 const Anybill = () => {
@@ -34,17 +30,16 @@ const Anybill = () => {
             setWaitMsg('Please Wait...');
             try {
                 const [responseStaff, responseProject] = await Promise.all([
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
                 ]);
-                 
-               
+
+
                 const filterScStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d"); // filter only sc staff
                 setStaffs(filterScStaff);
                 setProjects(responseProject);
                 //--------------------------------------------------------------------
-                const response = getItems("anybill");
-                const data = response.data;
+                const data = localStorageGetItem("anybill");
                 const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
                 setAnybills(result);
                 //-----------------------------------------------------------------------
@@ -56,7 +51,7 @@ const Anybill = () => {
             }
         };
         load();
-        setDt(date_format(new Date()));
+        setDt(formatedDate(new Date()));
     }, [msg]);
 
 
@@ -69,8 +64,7 @@ const Anybill = () => {
         e.preventDefault();
         setWaitMsg('Please Wait...');
 
-        const response = getItems("anybill");
-        const data = response.data;
+        const data = localStorageGetItem("anybill");
 
         if (data.length < 1) {
             setWaitMsg("No data to creating bkash.");
@@ -93,33 +87,33 @@ const Anybill = () => {
 
                 doc.setFont("SutonnyMJ", "normal");
                 doc.setFontSize(14);
-                doc.text(`${date_format(dt)}`, 100, 63, null, null, "left");
+                doc.text(`${formatedDateDot(dt)}`, 100, 63, null, null, "left");
                 doc.text(`${subject}`, 35, 75.75, { maxWidth: 162, align: 'left' });
-              
+
 
                 let y = 103;
-              
+
                 let dbTotal = 0;
-              
+
                 for (let i = 0; i < anybills.length; i++) {
-              
-                  let tk = parseFloat(anybills[i].taka);
-                  let subTotal = parseFloat(anybills[i].taka) * parseFloat(anybills[i].no); 
-              
-                  doc.text(`${i + 1}`, 30, y, null, null, "center");
-                  doc.text(`${anybills[i].item}`, 42, y, null, null, "left");    
-                  doc.text(`${tk.toFixed(2)}`, 142, y, null, null, "right");
-                  doc.text(`${anybills[i].no}`, 155, y, null, null, "right");
-              
-                  doc.text(`${numberWithComma(subTotal)}`, 183, y, null, null, "right");
-                  dbTotal = dbTotal + subTotal;
-              
-                  y = y + 6;
+
+                    let tk = parseFloat(anybills[i].taka);
+                    let subTotal = parseFloat(anybills[i].taka) * parseFloat(anybills[i].no);
+
+                    doc.text(`${i + 1}`, 30, y, null, null, "center");
+                    doc.text(`${anybills[i].item}`, 42, y, null, null, "left");
+                    doc.text(`${tk.toFixed(2)}`, 142, y, null, null, "right");
+                    doc.text(`${anybills[i].no}`, 155, y, null, null, "right");
+
+                    doc.text(`${numberWithComma(subTotal)}`, 183, y, null, null, "right");
+                    dbTotal = dbTotal + subTotal;
+
+                    y = y + 6;
                 }
-              
+
                 doc.line(180, y - 3, 168, 188) // cross line
-              console.log(dbTotal)
-                let inwordTak = inwordBn(parseInt(dbTotal));
+                console.log(dbTotal)
+                let inwordTak = inwordBangla(parseInt(dbTotal));
                 doc.text(`${inwordTak} UvKv gvÎ`, 58, 203, null, null, "left");
                 doc.text(`${numberWithComma(dbTotal)}`, 183, 196, null, null, "right");
                 let nm = data.name;
@@ -169,7 +163,7 @@ const Anybill = () => {
                             <table className="w-full border border-gray-200">
                                 <thead>
                                     <tr className="w-full bg-gray-200">
-                                        <th className="text-center border-b border-gray-200 px-4 py-2 font-sutonnyN">Item</th>
+                                        <th className="text-center border-b border-gray-200 px-4 py-2">Item</th>
                                         <th className="text-center border-b border-gray-200 px-4 py-2">Nos.</th>
                                         <th className="text-center border-b border-gray-200 px-4 py-2">Taka</th>
                                         <th className="w-[100px] font-normal">
