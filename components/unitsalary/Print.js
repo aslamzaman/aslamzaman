@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { jsPDF } from "jspdf";
 import { Close } from "@/components/Icons";
-
 import { DropdownEn, BtnSubmit } from "@/components/Form";
+import { numberWithComma, formatedDate, formatedDateDot } from "@/lib/utils";
 
-import { numberWithComma } from "@/lib/NumberWithComma";
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+
 const shortDt = (dt) => {
     const d = new Date(dt);
-    const d1 = date_format(d);
+    const d1 = formatedDate(d);
     const spltDt = d1.split('-');
     const fullYear = d.getFullYear();
     const strYear = fullYear.toString();
@@ -26,8 +25,8 @@ const MonthData = [
     { id: "RyjvB-AvMó", option: "July-August" },
     { id: "†m‡Þ¤^i-A‡±vei", option: "September-October" },
     { id: "b‡f¤^i-wW‡m¤^i", option: "November-December" },
-
 ]
+
 
 const YearData = [
     { id: 2023, option: '2023' },
@@ -54,9 +53,7 @@ const Print = ({ data, message }) => {
     const printShow = async () => {
         setShow(true);
         message("Ready to print");
-       // console.log(data);
         setStaffs(data);
-
     }
 
 
@@ -153,7 +150,6 @@ const Print = ({ data, message }) => {
         doc.line(287, 25, 287, y + 1);
         doc.setFont("SutonnyMJ", "normal");
 
-
         doc.text("†Pqvig¨vb", 14, y + 22, null, null, "left");
         doc.text("wbe©vnx cwiPvjK", 85, y + 22, null, null, "center");
         doc.text("wWwcwm", 149.2, y + 22, null, null, "center");
@@ -161,8 +157,6 @@ const Print = ({ data, message }) => {
         doc.text("cÖkvmb", 280, y + 22, null, null, "center");
 
         doc.save(new Date().toISOString() + "-Unit-Salary.pdf");
-
-
     }
 
 

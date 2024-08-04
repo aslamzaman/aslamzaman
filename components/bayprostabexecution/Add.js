@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
-import { addItem, getItems } from "@/lib/utils/LocalDatabase";
+import { localStorageAddItem } from "@/lib/utils";
 
 const Add = ({ message }) => {
 	const [item, setItem] = useState('');
@@ -8,7 +8,7 @@ const Add = ({ message }) => {
 	const [taka, setTaka] = useState('');
 
 	const [show, setShow] = useState(false);
-	const [eng, setEng] = useState(false);
+	const [ckd, setCkd] = useState(false);
 
 
 	const resetVariables = () => {
@@ -16,7 +16,6 @@ const Add = ({ message }) => {
 		setItem('');
 		setNos('');
 		setTaka('');
-		setEng(false);
 	}
 
 	const showAddForm = () => {
@@ -33,9 +32,8 @@ const Add = ({ message }) => {
 		return {
 			id: Date.now(),
 			item: item,
-			nos: nos,
-			taka: taka,
-			ckd:eng ? 1 : 0
+			nos: ckd ? 0 : nos,
+			taka: ckd ? 0 : taka
 		}
 	}
 
@@ -45,29 +43,17 @@ const Add = ({ message }) => {
 		e.preventDefault();
 		try {
 			const newObject = createObject();
-			const local = addItem('bayprostabexecution', newObject);
-			message(local.message);
-			setShow(false);
+			const msg = localStorageAddItem('bayprostabexecution', newObject);
+			message(msg);
 		} catch (error) {
 			console.error("Error saving bayprostabexecution data:", error);
 			message("Error saving bayprostabexecution data.");
+		} finally {
 			setShow(false);
 		}
 	}
 
 
-const checkChangeHandler = (e)=>{
-	const checked =e.target.checked;
-	if(checked === true){
-		setEng(true);
-		setNos('0');
-		setTaka('0');
-	}else{
-		setEng(false);
-		setNos('');
-		setTaka('');
-	}
-}	
 
 	return (
 		<>
@@ -84,11 +70,11 @@ const checkChangeHandler = (e)=>{
 						</div>
 						<div className="px-6 pb-6 text-black">
 							<div className="flex items-center space-x-3">
-								<input type="checkbox" onChange={checkChangeHandler} /> <p>English</p>
+								<input type="checkbox" onChange={() => setCkd(!ckd)} checked={ckd} /> <p>English</p>
 							</div>
 							<form onSubmit={saveHandler}>
 								<div className="grid grid-cols-1 gap-4 my-4">
-									{eng ? <TextEn Title="Item" Id="item" Change={e =>  setItem(e.target.value) } Value={item} Chr="50" /> : <TextBn Title="Item" Id="item" Change={e =>  setItem(e.target.value) } Value={item} Chr="50" />}
+									{ckd ? <TextEn Title="Item (English)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" /> : <TextBn Title="Item (Bangla)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" />}
 									<TextNum Title="Nos" Id="nos" Change={e => setNos(e.target.value)} Value={nos} />
 									<TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr={200} />
 								</div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BtnSubmit, DropdownEn, TextNum, TextBn } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, postDataToAPI } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -27,7 +27,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseStaff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
             console.log(responseStaff)
             setStaffs(responseStaff);
         } catch (error) {
@@ -57,18 +57,9 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Unitsalary is created!");
-            } else {
-                throw new Error("Failed to create unitsalary");
-            }
+            const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`;
+            const msg = await postDataToAPI(url, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving unitsalary data:", error);
             message("Error saving unitsalary data.");

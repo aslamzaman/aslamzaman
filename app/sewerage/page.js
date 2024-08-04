@@ -6,15 +6,14 @@ require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
 import { TextNum, DropdownEn, BtnSubmit, TextDt } from "@/components/Form";
-import { numberWithComma } from "@/lib/utils";
-import { inwordBangla } from "@/lib/utils";
+import { numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";
 
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
-  return date_format(new Date(dt2));
+  return formatedDate(new Date(dt2));
 }
+
 
 const MonthData = [
   { id: "Rvbyqvix", option: "January" },
@@ -30,6 +29,7 @@ const MonthData = [
   { id: "b‡f¤^i", option: "November" },
   { id: "wW‡m¤^i", option: "December" }
 ]
+
 
 const YearData = [
   { id: 2023, option: '2023' },
@@ -56,7 +56,7 @@ const Sewerage = {
     doc.setFontSize(16);
     doc.text('Avmjvg Rvgvb', 49.881, 40.600, null, null, "left");
     doc.setFontSize(14);
-    doc.text(date_format(dt), 150, 33.5, null, null, "left");
+    doc.text(formatedDateDot(dt,true), 150, 33.5, null, null, "left");
     doc.setFont("times", "normal");
     doc.text('Utilities', 25, 46.454, null, null, "left");
     doc.text('GO', 170, 26, null, null, "left");
@@ -112,7 +112,7 @@ const Sewerage = {
     doc.setFontSize(14);
 
 
-    doc.text(date_format(dt), 170, 35.173, null, null, "left");
+    doc.text(formatedDateDot(dt,true), 172, 35.173, null, null, "left");
 
     doc.setFont("times", "normal");
     doc.text('Utilities', 25, 47.188, null, null, "left");
@@ -123,8 +123,8 @@ const Sewerage = {
     doc.text(`mvwf©m †m›Uv‡ii cvwb I wmD‡q‡iR wej cwi‡kva`, 25, 53.246, null, null, "left");
     doc.setFontSize(14);
 
-    doc.text(`${date_format(dt)}`, 50, 59.304, null, null, "left");
-    doc.text(`${dtAdd15Days(dt)}`, 135.293, 59.304, null, null, "center");
+    doc.text(`${formatedDateDot(dt,true)}`, 50, 59.304, null, null, "left");
+    doc.text(`${formatedDateDot(dtAdd15Days(dt),true)}`, 135.293, 59.304, null, null, "center");
 
 
     doc.setFont("SutonnyMJ", "bold");
@@ -165,7 +165,7 @@ const Sewerage = {
     doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
     doc.setFont("SutonnyMJ", "normal");
     doc.setFontSize(16);
-    doc.text(`${date_format(dt)}`, 174, 42, null, null, "left");
+    doc.text(`${formatedDateDot(dt,true)}`, 174, 42, null, null, "left");
 
     doc.setFont("SutonnyMJ", "normal");
     doc.text('1.', 16, 70, null, null, "left");
@@ -201,7 +201,7 @@ const Sewerage_page = () => {
 
   useEffect(() => {
 
-    setDt(date_format(new Date()));
+    setDt(formatedDate(new Date()));
     const d = new Date();
     const d1 = d.getMonth();
     const d2 = d.getFullYear();

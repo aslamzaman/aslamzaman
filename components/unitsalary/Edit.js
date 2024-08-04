@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextBn, TextNum, BtnSubmit, DropdownEn } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-
+import { fetchDataFromAPI, putDataToAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
@@ -17,7 +16,7 @@ const Edit = ({ message, id, data }) => {
     const showEditForm = async () => {
         setShow(true);
         message("Ready to edit");
-        const responseStaff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+        const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
         console.log(responseStaff)
         setStaffs(responseStaff);
 
@@ -57,17 +56,8 @@ const Edit = ({ message, id, data }) => {
         try {
             const newObject = createObject();
             const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create unitsalary");
-            }
+            const msg = await putDataToAPI(apiUrl, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving unitsalary data:", error);
             message("Error saving unitsalary data.");

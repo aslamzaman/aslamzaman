@@ -4,10 +4,8 @@ import { Close } from "../Icons";
 import { jsonDataFromExcelSheet, localStorageAddManyItem } from "@/lib/utils";
 
 
-
 const Upload = ({ message }) => {
   const [file, setFile] = useState(null);
-
   const [show, setShow] = useState(false);
 
 
@@ -17,21 +15,19 @@ const Upload = ({ message }) => {
   }
 
 
-  const uploadHandler = (e) => {
+  const uploadHandler = async (e) => {
     try {
       if (file) {
-        jsonDataFromExcelSheet(file, ["id", "item", "nos", "taka", "ckd"], (data) => {
-          localStorageAddManyItem("bayprostabexecution", data);
-          message(`File uploaded successfull completed. ${Date.now()}`);
-          setShow(false);
-        })
+        const data = await jsonDataFromExcelSheet(file, ["id", "item", "nos", "taka"]);
+        localStorageAddManyItem("bayprostabexecution", data);
+        message(`File uploaded successfull completed. ${Date.now()}`);
       } else {
         message("Please select a file.");
-        setShow(false);
       }
     } catch (error) {
       console.error("Error uploading bayprostabexecution data:", error);
       message("Error uploading bayprostabexecution data.");
+    } finally {
       setShow(false);
     }
   }
@@ -47,11 +43,11 @@ const Upload = ({ message }) => {
           </div>
 
           <div className="p-6 text-black">
-            <input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <input type="file" onChange={e => setFile(e.target.files[0])} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">
-            <BtnEn Title="Close" Click={() => { setShow(false); }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
+            <BtnEn Title="Close" Click={() => setShow(false)} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
             <BtnEn Title="Upload" Click={uploadHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
           </div>
         </div>

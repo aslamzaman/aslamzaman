@@ -2,16 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
-import { numberWithComma } from "@/lib/utils";
-import { inwordBangla } from "@/lib/utils";
+import { numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";
 
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib//fonts/SUTOM_MJ-bold");
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
-  return date_format(new Date(dt2));
+  return formatedDate(new Date(dt2));
 }
 
 const MonthData = [
@@ -49,7 +47,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.addImage("/images/formats/bayprostab1.png", "PNG", 0, 0, 210, 297);
 
   doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${date_format(dt)}`, 150, 34, null, null, "left");
+  doc.text(`${formatedDateDot(dt, true)}`, 150, 34, null, null, "left");
   doc.text("1", 160, 40.600, null, null, "left");
 
   doc.setFont("times", "normal");
@@ -139,7 +137,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.text('Avmjvg Rvgvb', 40, 35.173, null, null, "left");
   doc.setFontSize(14);
 
-  doc.text(date_format(dt), 175, 35.173, null, null, "left");
+  doc.text(formatedDateDot(dt), 175, 35.173, null, null, "left");
   doc.setFont("times", "normal");
   doc.text('Rent', 25, 47.188, null, null, "left");
   doc.text('GO', 170, 26, null, null, "left");
@@ -149,8 +147,8 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.text(`${m} ${y} gv‡mi evwo fvov I M¨vm wej`, 25, 53.246, null, null, "left");
 
   doc.setFontSize(14);
-  doc.text(`${date_format(dt)}`, 50, 59, null, null, "left");
-  doc.text(`${dtAdd15Days(dt)}`, 150, 59, null, null, "center");
+  doc.text(`${formatedDateDot(dt,true)}`, 50, 59, null, null, "left");
+  doc.text(`${formatedDateDot(dtAdd15Days(dt),true)}`, 150, 59, null, null, "center");
 
 
   doc.setFont("SutonnyMJ", "bold");
@@ -220,7 +218,7 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
 
   doc.setFont("SutonnyMJ", "normal");
   doc.setFontSize(16);
-  doc.text(date_format(dt), 175, 41.75, null, null, "left");
+  doc.text(formatedDateDot(dt,true), 175, 41.75, null, null, "left");
 
   doc.setFont("SutonnyMJ", "normal");
   doc.text('1.', 16, 70, null, null, "left");
@@ -256,7 +254,7 @@ const Houserent = () => {
 
 
   useEffect(() => {
-    setDt(date_format(new Date()));
+    setDt(formatedDate(new Date()));
     const d = new Date();
     const d1 = d.getMonth();
     const d2 = d.getFullYear();
@@ -292,7 +290,7 @@ const Houserent = () => {
     }, 0);
   }
 
- 
+
   return (
     <>
       <div className="w-full mb-3 mt-8">

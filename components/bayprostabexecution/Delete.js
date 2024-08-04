@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
     const [item, setItem] = useState("");
     const [show, setShow] = useState(false);
 
-    const [eng, setEng] = useState(false);
+    const [ckd, setCkd] = useState(false);
 
 
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { item, ckd } = data.find(bayprostabexecution => parseInt(bayprostabexecution.id) === parseInt(id)) || { item: "" };
-            console.log(item)
+            const { item, taka } = data.find(bayprostabexecution => parseInt(bayprostabexecution.id) === parseInt(id));
             setItem(item);
-            setEng(ckd === 0 ? false : true);
+            setCkd(parseInt(taka) === 0 ? true : false);
             message("Ready to delete");
         }
         catch (err) {
@@ -33,13 +32,14 @@ const Delete = ({ message, id, data }) => {
 
     const deleteYesClick = () => {
         try {
-            const response = deleteItem("bayprostabexecution", id);
-            message(response.message);
+            const msg = localStorageDeleteItem("bayprostabexecution", id);
+            message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");
+        } finally {
+            setShow(false);
         }
-        setShow(false);
     }
 
 
@@ -67,7 +67,7 @@ const Delete = ({ message, id, data }) => {
 
                                 <h1 className="text-sm text-center text-gray-600 mt-4">
                                     Are you sure to proceed with the deletion?</h1>
-                                <h1 className={`text-center text-gray-600 font-bold ${eng ? 'font-sans' : 'font-sutonnyN'}`}>{item}</h1>
+                                <h1 className={`text-center text-gray-600 font-bold ${ckd ? 'font-sans' : 'font-sutonnyN'}`}>{item}</h1>
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />

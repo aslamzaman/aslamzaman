@@ -79,13 +79,14 @@ const BayprostabFormat = ({ doc }, data) => {
   for (let i = 0; i < x1.length; i++) {
     const itemLen = x1[i].item;
     let tk = parseFloat(x1[i].taka);
+
     if (tk === 0) {
       y = y + 2;
       doc.setFont("times", "normal");
       doc.text(`${x1[i].item}`, 16, y, null, null, "left");
     } else {
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
+      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 52, align: 'left' });
       const evalTaka = eval(x1[i].taka);
       doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 91, y, null, null, "right");
       doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
@@ -94,7 +95,7 @@ const BayprostabFormat = ({ doc }, data) => {
       dbTotal = dbTotal + Math.round(subTotal);
     }
 
-    if (itemLen.length > 30) {
+    if (itemLen.length > 28) {
       y = y + 12;
     } else {
       y = y + 6;
@@ -140,7 +141,7 @@ const BayprostabFormat = ({ doc }, data) => {
   doc.text(`${data.subject}`, 27, 53.246, null, null, "left");
 
   doc.text(`${formatedDateDot(data.dt, true)}`, 47, 59.2, null, null, "left");
-  doc.text(`${dtAdd15Days(data.dt)}`, 145, 59.2, null, null, "center");
+  doc.text(`${formatedDateDot(dtAdd15Days(data.dt))}`, 145, 59.2, null, null, "center");
 
 
   y = 105;

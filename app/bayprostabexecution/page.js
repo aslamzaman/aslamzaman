@@ -8,7 +8,7 @@ import Delete from "@/components/bayprostabexecution/Delete";
 import Download from "@/components/bayprostabexecution/Download";
 import Upload from "@/components/bayprostabexecution/Upload";
 
-import { localStorageGetItem, fetchDataFromAPI, numberWithComma, inwordBangla, formatedDate } from "@/lib/utils";
+import { localStorageGetItem, fetchDataFromAPI, numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";
 
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
@@ -85,7 +85,6 @@ const Bayprostabexecution = () => {
     }
 
 
-
     setWaitMsg("Please wait...");
     setTimeout(() => {
 
@@ -94,21 +93,25 @@ const Bayprostabexecution = () => {
       doc.text(`${project}`, 168.438, 26, null, null, "left");
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${staff} `, 38, 37, null, null, "left");
-      doc.text(`${dt1 ? formatedDate(dt1) : ""}`, 150, 45, null, null, "left");
+      doc.text(`${dt1 ? formatedDateDot(dt1) : ""}`, 150, 45, null, null, "left");
       doc.text(`${numberWithComma(parseFloat(advance))}/-`, 65, 45, null, null, "right");
 
       let y = 100;
       let gt = 0;
 
       for (let i = 0; i < x.length; i++) {
+
+        const itemLen = x[i].item.length;
         let tk = parseFloat(x[i].taka);
+
         if (tk === 0) {
           y = y + 2;
           doc.setFont("times", "normal");
           doc.text(`${x[i].item}`, 17, y, null, null, "left");
         } else {
           doc.setFont("SutonnyMJ", "normal");
-          doc.text(`${x[i].item}`, 17, y, null, null, "left");
+          doc.text(`${x[i].item}`, 17, y, { maxWidth: 50, align: 'left' });
+
           const evalTaka = eval(x[i].taka);
           doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
           doc.text(`${parseFloat(x[i].nos).toFixed(2)}`, 101.408, y, null, null, "center");
@@ -116,26 +119,30 @@ const Bayprostabexecution = () => {
           doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 132, y, null, null, "right");
           gt = gt + Math.round(subTotal);
         }
-        y = y + 6;
+        if (itemLen > 28) {
+          y = y + 12;
+        } else {
+          y = y + 6;
+        }
       }
+
       doc.setFont("SutonnyMJ", "normal");
       doc.text(`${numberWithComma(parseInt(gt))}/-`, 65, 53, null, null, "right");
       doc.text(`${numberWithComma(parseFloat(advance) - parseInt(gt))}/-`, 65, 61, null, null, "right");
-
       doc.text(`${note ? note : ""}`, 174.347, 100, { maxWidth: 45, align: 'center' });
       doc.text(`${numberWithComma(parseInt(gt))}/-`, 132, 235, null, null, "right");
-
-
       doc.text(`${inwordBangla(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
-
-
-      doc.text(`${formatedDate(dt2)}`, 60, 247.5, null, null, "left");
-
+      doc.text(`${formatedDateDot(dt2)}`, 60, 247.5, null, null, "left");
       doc.save(new Date().toISOString() + "Bayprostab-Execution.pdf");
       setWaitMsg("");
     }, 0);
   }
 
+
+  const dd = () => {
+    let x = 'Aslam Zaman';
+    console.log(x.length);
+  }
 
 
   return (
@@ -144,7 +151,7 @@ const Bayprostabexecution = () => {
         <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Bayprostab Execution</h1>
         <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
       </div>
-
+      <button onClick={dd}>Click Me</button>
       <div className="px-4 lg:px-6">
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4">
           <div className="w-full border-2 p-4 shadow-md rounded-md">
@@ -187,7 +194,6 @@ const Bayprostabexecution = () => {
                     <th className="text-center border-b border-gray-200 py-2">Item</th>
                     <th className="text-center border-b border-gray-200 py-2">Nos</th>
                     <th className="text-center border-b border-gray-200 py-2">Taka</th>
-                    <th className="text-center border-b border-gray-200 py-2">Bkash</th>
                     <th className="font-normal text-start flex justify-end mt-1">
                       <Add message={msgHandler} />
 

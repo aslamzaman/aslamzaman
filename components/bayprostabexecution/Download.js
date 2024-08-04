@@ -1,5 +1,4 @@
 import React from "react";
-import { saveAs } from "file-saver";
 import { excelSheetFromJsonData, formatedDate, localStorageGetItem } from "@/lib/utils";
 
 
@@ -9,7 +8,7 @@ const Download = ({ message }) => {
   const downloadHandler = () => {
     try {
       const localData = localStorageGetItem("bayprostabexecution");
-      excelSheetFromJsonData(localData, 'Sheet-1', [16,20,10,15], `${formatedDate(new Date())}-bayprostab-execution`);
+      excelSheetFromJsonData(localData, 'Sheet-1', [14, 27, 6, 15], `${formatedDate(new Date())}-bayprostab-execution`);
       message("Data download successfully.");
     } catch (error) {
       console.error('Failed to dowload.')

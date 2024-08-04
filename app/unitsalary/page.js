@@ -4,31 +4,25 @@ import Add from "@/components/unitsalary/Add";
 import Edit from "@/components/unitsalary/Edit";
 import Delete from "@/components/unitsalary/Delete";
 import Print from "@/components/unitsalary/Print";
-import { numberWithComma } from "@/lib/NumberWithComma";
-import { fetchData } from "@/lib/utils/FetchData";
+import { numberWithComma, fetchDataFromAPI } from "@/lib/utils";
+
 
 const Unitsalary = () => {
     const [unitsalarys, setUnitsalarys] = useState([]);
     const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
 
-
-
     const [total, setTotal] = useState('0');
-
-
-
 
 
     useEffect(() => {
         const loadData = async () => {
             setWaitMsg('Please Wait...');
             try {
-
                 const [unitsalaryResponse, unitResponse, postResponse] = await Promise.all([
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`),
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`),
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
                 ]);
                 console.log(unitsalaryResponse, unitResponse, postResponse);
 
