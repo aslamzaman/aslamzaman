@@ -1,4 +1,4 @@
-import { lastDayInMonth } from "./LastDayInMonth";
+import { lastDayInMonth } from "@/lib/utils";
 
 
 export const leaveJoin = (dt) => {

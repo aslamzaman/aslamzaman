@@ -5,10 +5,7 @@ import Add from "@/components/bkash/Add";
 import Edit from "@/components/bkash/Edit";
 import Delete from "@/components/bkash/Delete";
 import { jsPDF } from "jspdf";
-import { getItems } from "@/lib/utils/LocalDatabase";
-import { fetchData } from "@/lib/utils/FetchData";
-import { inwordBn } from "@/lib/InwordBn";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+import { formatedDate, formatedDateDot, localStorageGetItem, fetchDataFromAPI, inwordBangla } from "@/lib/utils";
 require("@/lib/fonts/SUTOM_MJ-bold");
 require("@/lib/fonts/SUTOM_MJ-normal");
 
@@ -16,8 +13,8 @@ require("@/lib/fonts/SUTOM_MJ-normal");
 
 const Bkash = () => {
     const [bkashs, setBkashs] = useState([]);
-    const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
+    const [msg, setMsg] = useState("Data ready");
 
     const [dt, setDt] = useState('');
     const [staff, setStaff] = useState('');
@@ -29,13 +26,11 @@ const Bkash = () => {
         const load = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const responseStaff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
                 const filterScStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d"); // filter only sc staff
-                console.log(filterScStaff);
                 setStaffs(filterScStaff);
                 //--------------------------------------------------------------------
-                const response = getItems("bkash");
-                const data = response.data;
+                const data = localStorageGetItem("bkash");
                 const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
                 setBkashs(result);
                 //-----------------------------------------------------------------------
@@ -47,7 +42,7 @@ const Bkash = () => {
             }
         };
         load();
-        setDt(date_format(new Date()));
+        setDt(formatedDate(new Date()));
     }, [msg]);
 
 
@@ -60,9 +55,7 @@ const Bkash = () => {
         e.preventDefault();
         setWaitMsg("Please wait...");
 
-        const response = getItems("bkash");
-        const data = response.data;
-
+        const data = localStorageGetItem("bkash");
         if (data.length < 1) {
             setWaitMsg("No data to creating bkash.");
             return false;
@@ -85,7 +78,7 @@ const Bkash = () => {
                 doc.setFontSize(16);
                 //doc.line(20,37,190,37); // horizontal line
                 doc.setFont("SutonnyMJ", "normal");
-                doc.text(`${date_format(dt)}`, 100, 55.5, null, null, "left");
+                doc.text(`${formatedDateDot(dt)}`, 100, 55.5, null, null, "left");
                 doc.setFontSize(16);
 
                 let y = 85;
@@ -117,7 +110,7 @@ const Bkash = () => {
                 doc.text("†gvU UvKv", 65, y - 2, null, null, "left");
                 doc.text(`${t}/-`, 180, y - 2, null, null, "right");
                 doc.setFont("SutonnyMJ", "normal");
-                doc.text(`UvKv K_vqt- ${inwordBn(t)} UvKv gvÎ`, 20, y + 8 - 2, null, null, "left");
+                doc.text(`UvKv K_vqt- ${inwordBangla(t)} UvKv gvÎ`, 20, y + 8 - 2, null, null, "left");
 
 
                 doc.text(`${staff.split(",")[0]}`, 20, y + 42, null, null, "left");
@@ -137,9 +130,10 @@ const Bkash = () => {
 
     return (
         <>
-             <div className="w-full mb-3 mt-8">
+            <div className="w-full mb-3 mt-8">
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Bkash Bill</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
+                <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
             </div>
 
             <div className="px-4 lg:px-6">
@@ -159,7 +153,6 @@ const Bkash = () => {
                     </div>
                     <div className="w-full col-span-2 border-2 p-4 shadow-md rounded-md">
                         <div className="px-4 lg:px-6 overflow-auto">
-                            <p className="w-full text-sm text-red-700">{msg}</p>
                             <table className="w-full border border-gray-200">
                                 <thead>
                                     <tr className="w-full bg-gray-200">

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BtnSubmit, DropdownEn, TextNum } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-import { addItem } from "@/lib/utils/LocalDatabase";
+import { fetchDataFromAPI, localStorageAddItem } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -24,8 +23,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseUnit = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
-            console.log(responseUnit);
+            const responseUnit = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
             setUnits(responseUnit);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -52,8 +50,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const addObject = addItem('bkash', newObject);
-            message(addObject.message);
+            const msg = localStorageAddItem('bkash', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving bkash data:", error);
             message("Error saving bkash data.");

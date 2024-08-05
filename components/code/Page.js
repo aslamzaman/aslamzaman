@@ -62,8 +62,8 @@ const Page = (tbl, datas) => {
 
     const ${titleCase(tbl)} = () => {
         const [${tbl}s, set${titleCase(tbl)}s] = useState([]);
-        const [msg, setMsg] = useState("Data ready");
         const [waitMsg, setWaitMsg] = useState("");
+        const [msg, setMsg] = useState("Data ready");
     
 
         useEffect(() => {
@@ -90,10 +90,10 @@ ${loadMongo}
                 <div className="w-full mb-3 mt-8">
                     <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">${titleCase(tbl)}</h1>
                     <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
+                    <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
                 </div>    
-                <div className="px-4 lg:px-6">
-                    <p className="w-full text-sm text-red-700">{msg}</p>  
-                    <div className="p-2 overflow-auto">  
+                <div className="px-4">
+                    <div className="overflow-auto">  
                         <table className="w-full border border-gray-200">
                             <thead>
                                 <tr className="w-full bg-gray-200">                           

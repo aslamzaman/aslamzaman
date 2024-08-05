@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
@@ -28,8 +28,8 @@ const Delete = ({ message, id, data }) => {
 
     const deleteYesClick = async () => {
         try {
-            const deletObject = deleteItem('bkash', id);
-            message(deletObject.message);
+            const msg = localStorageDeleteItem('bkash', id);
+            message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");

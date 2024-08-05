@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
 import { jsonDataFromExcelSheet, localStorageAddManyItem, localStorageDeleteAllItem } from "@/lib/utils";
-import { data } from "autoprefixer";
 
 
 const Upload = ({ Msg }) => {
@@ -18,10 +17,8 @@ const Upload = ({ Msg }) => {
 	}
 
 
-
 	const uploadHandler = async () => {
 		try {
-
 			const data = await jsonDataFromExcelSheet(file, ['id', 'item', 'nos', 'taka']);
 			const checkNos = parseFloat(data[1].nos);
 			const checkTaka = parseFloat(data[1].taka);

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BtnSubmit, TextEn, DropdownEn, TextNum } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-import { updateItem } from "@/lib/utils/LocalDatabase";
+import { localStorageUpdateItem, fetchDataFromAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
@@ -16,7 +15,7 @@ const Edit = ({ message, id, data }) => {
         setShow(true);
         message("Ready to edit");
         try {
-            const responseUnit = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+            const responseUnit = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
             console.log(responseUnit);
             setUnits(responseUnit);
             //------------------------------------------------
@@ -50,8 +49,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const updatedObject = updateItem('bkash', id, newObject);
-            message(updatedObject.message);
+            const msg = localStorageUpdateItem('bkash', id, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving bkash data:", error);
             message("Error saving bkash data.");
@@ -65,7 +64,7 @@ const Edit = ({ message, id, data }) => {
         const nmUnitValue = e.target.value;
         setNmUnitChange(nmUnitValue);
         setNmUnit(nmUnitValue);
-    }   
+    }
 
     return (
         <>
@@ -84,7 +83,7 @@ const Edit = ({ message, id, data }) => {
 
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
-                            <div className="grid grid-cols-1 gap-4 my-4">
+                                <div className="grid grid-cols-1 gap-4 my-4">
                                     <DropdownEn Title="Unit" Id="nmUnitChange" Change={nmUnitChangeHandler} Value={nmUnitChange}>
                                         {units.length ? units.map(unit => <option value={unit.nmBn} key={unit._id}>{unit.nmEn}</option>) : null}
                                     </DropdownEn>

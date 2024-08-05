@@ -287,8 +287,8 @@ const BayprostabFormat = ({ doc }, data) => {
 
 const Bayprostab = () => {
   const [bayprostabs, setBayprostabs] = useState([]);
-  const [msg, setMsg] = useState("Data ready");
   const [waitMsg, setWaitMsg] = useState('');
+  const [msg, setMsg] = useState("Data ready");
 
 
   const [staffData, setStaffData] = useState([]);

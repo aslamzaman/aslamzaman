@@ -1,17 +1,14 @@
 "use client";
 import React, { useState } from "react";
+import { BtnSubmit, TextDt, TextEn, TextNum, TextareaEn } from "@/components/Form";
 
-import { date_difference } from "./_lib/DateDifference";
 import { leaveJoin, leaveLeave, elTaka } from "./_lib/Calculation";
-
-import { BtnSubmit, TextDt, TextEn, TextNum, TextareaEn } from "@/components/Form.js";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-import { dateDifferenceLocal } from "@/lib/utils";
+import { dateDifferenceLocal, formatedDate } from "@/lib/utils";
 
 
 const Benefit = () => {
-    const [join, setJoin] = useState(date_format("2014-05-05"));
-    const [leave, setLeave] = useState(date_format("2017-10-01"));
+    const [join, setJoin] = useState(formatedDate("2014-05-05"));
+    const [leave, setLeave] = useState(formatedDate("2017-10-01"));
     const [last_salary, setLast_salary] = useState("6300");
     const [salary15, setSalary15] = useState("6000");
     const [el_days, setEl_days] = useState("14.9");
@@ -20,20 +17,18 @@ const Benefit = () => {
     const [result, setResult] = useState("");
 
 
-
     const cmdCalculate = (e) => {
         e.preventDefault();
+        const dateDiff = dateDifferenceLocal(join, leave);
 
-        const date_diff = date_difference(join, leave);
+        const lastHalfSalary = (parseInt(last_salary) / 2).toFixed(2);
 
-        const last_half_salary = (parseInt(last_salary) / 2).toFixed(2);
-
-        const taka1 = parseFloat(date_diff.yrs * last_half_salary).toFixed(2);
-        const taka2 = parseFloat((date_diff.mnths / 12) * last_half_salary).toFixed(2);
-        const taka3 = parseFloat((date_diff.days / 365) * last_half_salary).toFixed(2);
+        const taka1 = parseFloat(dateDiff.years * lastHalfSalary).toFixed(2);
+        const taka2 = parseFloat((dateDiff.months / 12) * lastHalfSalary).toFixed(2);
+        const taka3 = parseFloat((dateDiff.days / 365) * lastHalfSalary).toFixed(2);
 
         let gratuity = 0;
-        if (date_diff.yrs < 3) {
+        if (dateDiff.years < 3) {
             gratuity = 0;
         } else {
             gratuity = (parseFloat(taka1) + parseFloat(taka2) + parseFloat(taka3)).toFixed(2);
@@ -42,7 +37,7 @@ const Benefit = () => {
         const el_taka = elTaka(salary15, el_days);
 
 
-        const str = `Working Days:            ${date_diff.yrs}-${date_diff.mnths}-${date_diff.days} (Manually)
+        const str = `Working Days:            ${dateDiff.years}-${dateDiff.months}-${dateDiff.days} (Manually)
 
 Years Taka:                  ${taka1}
 Months Taka:               ${taka2}

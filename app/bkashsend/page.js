@@ -1,21 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { BtnSubmit, DropdownEn, TextDt, TextEn, TextNum } from "@/components/Form";
-import Add from "@/components/bkash/Add";
-import Edit from "@/components/bkash/Edit";
-import Delete from "@/components/bkash/Delete";
-import { jsPDF } from "jspdf";
-import { getItems } from "@/lib/utils/LocalDatabase";
-import { fetchData } from "@/lib/utils/FetchData";
-import { inwordBn } from "@/lib/InwordBn";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-require("@/lib/fonts/SUTOM_MJ-bold");
-require("@/lib/fonts/SUTOM_MJ-normal");
-
+import React, { useState } from "react";
+import { BtnSubmit, TextNum } from "@/components/Form";
 
 
 const Bkash = () => {
-
     const [tk, setTk] = useState("1000");
     const [charge, setCharge] = useState("18.5");
     const [msg, setMsg] = useState("");

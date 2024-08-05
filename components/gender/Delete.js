@@ -7,6 +7,7 @@ const Delete = ({ message, id, data }) => {
     const [name, setName] = useState("");   
     const [show, setShow] = useState(false);
 
+    
     const showDeleteForm = () => {
         setShow(true);
         try {
