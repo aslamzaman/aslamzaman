@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/district/Add";
 import Edit from "@/components/district/Edit";
 import Delete from "@/components/district/Delete";
-
+import { fetchDataFromAPI } from "@/lib/utils";
 
 const District = () => {
     const [districts, setDistricts] = useState([]);
@@ -15,16 +15,7 @@ const District = () => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/district`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
+                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/district`);
                 console.log(data);
                 setDistricts(data);
                 setWaitMsg('');
@@ -56,8 +47,8 @@ const District = () => {
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Nmen</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Nmbn</th>
+                                <th className="text-start border-b border-gray-200 px-4 py-2">Name English</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Name Bangla</th>
                                 <th className="w-[100px] font-normal">
                                     <div className="w-full flex justify-end py-0.5 pr-4">
                                         <Add message={messageHandler} />
@@ -69,7 +60,7 @@ const District = () => {
                             {districts.length ? (
                                 districts.map(district => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={district._id}>
-                                        <td className="text-center py-2 px-4">{district.nmEn}</td>
+                                        <td className="text-start py-2 px-4">{district.nmEn}</td>
                                         <td className="text-center py-2 px-4">{district.nmBn}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
                                             <Edit message={messageHandler} id={district._id} data={districts} />

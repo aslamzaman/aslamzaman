@@ -2,10 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { TextDt, TextBn, BtnSubmit, DropdownEn } from "@/components/Form";
 import { jsPDF } from "jspdf";
-import { formatedDateBangla } from "@/lib/utils";
-import { fetchDataFromApi } from "@/lib/utils";
-import { inwordBangla } from "@/lib/utils";
-import { numberWithComma } from "@/lib/utils";
+import { formatedDateBangla, fetchDataFromAPI, numberWithComma } from "@/lib/utils";
+
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 
@@ -28,7 +26,7 @@ const Increment = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const staff = await fetchDataFromApi(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const staff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
                 const scStaff = staff.filter(staf => staf.placeId._id === "660ae2d4825d0610471e272d");
                 console.log(scStaff)
                 setStaffData(scStaff);
@@ -96,25 +94,7 @@ const Increment = () => {
         setTaka("");
         setWaitMsg(`Ok: ${Date.now}`);
     }
-/*
-    const dd = () => {
-        const doc = new jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4',
-            putOnlyUsedFonts: true,
-            floatPrecision: 16 // or "smart", default is 16
-        });
-        doc.setFont("SutonnyMJ", "normal");
-        let y = 10;
-        staffData.forEach(item => {
-            doc.text(`${item.nmBn}- ${item.postId.nmBn}`, 10, y);
-            y = y + 7;
-        })
-        doc.save('export.pdf');
 
-    }
-*/
     return (
         <>
             <div className="w-full mb-3 mt-8">
