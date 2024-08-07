@@ -56,9 +56,9 @@ const Page = (tbl, datas) => {
 const str = `
 "use client";
 import React, { useState, useEffect } from "react";
-import Add from "@/components/gender/Add";
-import Edit from "@/components/gender/Edit";
-import Delete from "@/components/gender/Delete";
+import Add from "@/components/${tbl}/Add";
+import Edit from "@/components/${tbl}/Edit";
+import Delete from "@/components/${tbl}/Delete";
 import { fetchDataFromAPI } from "@/lib/utils";
 
 
@@ -73,7 +73,7 @@ const ${titleCase(tbl)} = () => {
             setWaitMsg('Please Wait...');
             try {
                 const data = await fetchDataFromAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"`"});
-                setGenders(data);
+                set${titleCase(tbl)}s(data);
                 setWaitMsg('');
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -119,7 +119,7 @@ ${td_string}                                        <td className="h-8 flex just
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={${data.length}} className="text-center py-10 px-4">
+                                    <td colSpan={${data.length-1}} className="text-center py-10 px-4">
                                         Data not available.
                                     </td>
                                 </tr>

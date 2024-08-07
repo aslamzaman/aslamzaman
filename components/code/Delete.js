@@ -172,7 +172,7 @@ ${sowFormMongoData}
 
     const softDeleteClick = async () => {
         try {
-            const msg = await patchDataToAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"`"});
+            const msg = await patchDataToAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"/${id}`"});
             message(msg);
         } catch (error) {
             console.log(error);
@@ -185,7 +185,7 @@ ${sowFormMongoData}
 /*
     const hardDeleteClick = async () => {
         try {
-            const msg = await deleteDataFromAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"`"});
+            const msg = await deleteDataFromAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"/${id}`"});
             message(msg);
         } catch (error) {
             console.log(error);
@@ -224,7 +224,7 @@ ${sowFormMongoData}
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={deleteYesClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={softDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>
