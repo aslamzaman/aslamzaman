@@ -8,12 +8,6 @@ const Add = ({ message }) => {
     const [show, setShow] = useState(false);
 
 
-    const resetVariables = () => {
-        message("Ready to make new additions");
-        setName('');
-    }
-
-
     const showAddForm = () => {
         setShow(true);
         resetVariables();
@@ -23,6 +17,12 @@ const Add = ({ message }) => {
     const closeAddForm = () => {
         setShow(false);
         message("Data ready");
+    }
+
+
+    const resetVariables = () => {
+        message("Ready to make new additions");
+        setName('');
     }
 
 
