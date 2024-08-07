@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { TextDt, TextBn, BtnSubmit, DropdownEn } from "@/components/Form";
 import { jsPDF } from "jspdf";
-import { formatedDateBangla, fetchDataFromAPI, numberWithComma } from "@/lib/utils";
+import { formatedDateBangla, fetchDataFromAPI, numberWithComma, inwordBangla } from "@/lib/utils";
 
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
