@@ -49,9 +49,7 @@ const Code = () => {
     const [fld, setFld] = useState("");
     const [titleText, setTitleText] = useState("Result");
     const [result, setResult] = useState("");
-    const [sl, setSl] = useState("181");
-    const [codeText, setCodeText] = useState("");
-    const [isCopied, setIsCopied] = useState(false);
+
 
 
     useEffect(() => {
@@ -386,7 +384,6 @@ const Code = () => {
     }
 
 
-
     return (
         <div className="pb-10">
             <h1 className="w-full text-center text-3xl text-gray-500 font-bold py-7">Code Generator</h1>
@@ -400,7 +397,6 @@ const Code = () => {
                     <TextEn Title="Column (_id,  name, address, isDeleted)" Id="fld" Change={e => setFld(e.target.value)} Value={fld} Chr={500} />
                 </div>
             </div>
-
             <div className="w-full px-4 grid grid-cols-3 gap-4">
                 <div className="mt-7">
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-2">
