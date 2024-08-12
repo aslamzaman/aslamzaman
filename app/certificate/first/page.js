@@ -21,10 +21,9 @@ const Certificate = () => {
     }, [])
 
 
-    const fileChangeHandler = (e) => {
-        jsonDataFromExcelSheet(e.target.files[0], ["sl", "name", "trade", "reg"], (data) => {
-            setStdData(data);
-        })
+    const fileChangeHandler = async (e) => {
+        const data = await jsonDataFromExcelSheet(e.target.files[0], ["sl", "name", "trade", "reg"]);
+         setStdData(data);
     }
 
 
