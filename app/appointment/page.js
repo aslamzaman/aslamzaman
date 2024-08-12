@@ -36,16 +36,32 @@ const Increment = () => {
         printPageSetup('p', 2, 1, 1, 1);
     }, [msg])
 
+
+
+    const refChangeHandler = (e) => {
+        const value = e.target.value;
+        setRefNo(value);
+        setIsShowPrintButton(false);
+    }
+
+    const dtChangeHandler = (e) => {
+        const value = e.target.value;
+        setDt(value);
+        setIsShowPrintButton(false);
+    } 
+
     const nmChangeHandler = (e) => {
         const value = e.target.value;
         setName(value);
         const x = value.split(";");
         setNames(x);
-        if (refNo === "" || name === "" || subject === "" || detail === "") {
-            setIsShowPrintButton(false)
-        } else {
-            setIsShowPrintButton(true)
-        }
+        setIsShowPrintButton(false);
+    }
+
+    const subjectChangeHandler = (e) => {
+        const value = e.target.value;
+        setSubject(value);
+        setIsShowPrintButton(false);
     }
 
     const bodyChangeHandler = (e) => {
@@ -53,16 +69,14 @@ const Increment = () => {
         setDetail(value);
         const x = value.split(";");
         setDetails(x);
-        if (refNo === "" || name === "" || subject === "" || detail === "") {
-
-            setIsShowPrintButton(false)
-        } else {
-            setIsShowPrintButton(true)
-        }
+        setIsShowPrintButton(false);
     }
 
 
-    const createHandler = () => { }
+    const createHandler = (e) => {
+        e.preventDefault();
+        setIsShowPrintButton(true);
+    }
 
 
     return (
@@ -72,24 +86,28 @@ const Increment = () => {
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
                 <p className="w-full text-center text-pink-300">&nbsp;{msg}&nbsp;</p>
             </div>
-            {isShowPrintButton ? <ReactToPrint trigger={() => <button >Print</button>} content={() => contentRef.current} /> : null}
 
             <div className="px-4 lg:px-6">
                 <div className="p-2 overflow-auto">
                     <form onSubmit={createHandler}>
                         <div className="w-full grid grid-cols-1 gap-4">
-                            <TextEn Title="Ref. No:" Id="refNo" Change={(e) => { setRefNo(e.target.value) }} Value={refNo} Chr="150" />
+                            <div className="flex space-x-4">
+                            <TextEn Title="Ref. No:" Id="refNo" Change={refChangeHandler} Value={refNo} Chr="150" />
+                            <TextDt Title="Date" Id="dt" Change={dtChangeHandler} Value={dt} />
+                            </div>
                             <TextEn Title="Name. (For new line use semiclone ';')" Id="name" Change={nmChangeHandler} Value={name} Chr="250" />
-                            <TextEn Title="Subject" Id="subject" Change={e => setSubject(e.target.value)} Value={subject} Chr="250" />
+                            <TextEn Title="Subject" Id="subject" Change={subjectChangeHandler} Value={subject} Chr="250" />
                             <TextareaEn Title="Detail" Id="detail" Rows="4" Change={bodyChangeHandler} Value={detail} Chr="250" />
                         </div>
+                        <BtnSubmit Title="Create Letter" Class="bg-green-600 hover:bg-green-800 text-white mr-1" />
+                        {isShowPrintButton ? <ReactToPrint trigger={() => <button className="text-center mt-3 mx-0.5 px-4 py-2 text-sm font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 text-white bg-blue-600 hover:bg-blue-800 text-white">Print Appointment</button>} content={() => contentRef.current} documentTitle="Appointment Letter" /> : null}
                     </form>
                 </div>
 
 
                 <div className="hidden">
                     <div ref={contentRef} className={trio.className} >
-                        <p className={`${trio.className} leading-5`}> স্মারক নং সিএমইএস/এইচআরডি/{convertDigitToUnicode(yr)}-{convertDigitToUnicode(refNo)}<br />{formatedDateUnicode(dt)}</p>
+                        <p className={`${trio.className} leading-5`}>স্মারক নং সিএমইএস/এইচআরডি/{convertDigitToUnicode(yr)}-{convertDigitToUnicode(refNo)}<br />{formatedDateUnicode(dt)}</p>
 
 
                         <p className="mt-7 leading-5">
