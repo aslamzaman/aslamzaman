@@ -1,48 +1,57 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { TextDt, TextBn, BtnSubmit, DropdownEn } from "@/components/Form";
+import React, { useState, useEffect, useRef } from "react";
+import { TextDt, TextBn, BtnSubmit, DropdownEn, TextEn } from "@/components/Form";
 import { jsPDF } from "jspdf";
-import { formatedDateBangla, fetchDataFromAPI, numberWithComma, inwordBangla } from "@/lib/utils";
+import { formatedDateBangla, fetchDataFromAPI, numberWithComma, inwordBangla, convertDigitToUnicode, formatedDateUnicode, localStorageGetItem, formatedDate, inwordEnglish, inwordUnicode } from "@/lib/utils";
+import ReactToPrint from "react-to-print";
+import { Tiro_Bangla } from 'next/font/google';
+const trio = Tiro_Bangla({ subsets: ['latin'], weight: "400" });
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+
+import Add from "@/components/increment/Add";
+import Edit from "@/components/increment/Edit";
+import Delete from "@/components/increment/Delete";
 
 
 
 
 
 const Increment = () => {
-    const [staffData, setStaffData] = useState([]);
-
+    const [increments, setIncrements] = useState([]);
     const [waitMsg, setWaitMsg] = useState("");
-    const [refNo, setRefNo] = useState("2024-208");
-    const [dt, setDt] = useState("");
-    const [nm, setNm] = useState("†gv: ûgvqyb Kwei");
-    const [yr, setYr] = useState("2023-2024");
-    const [dt2, setDt2] = useState("");
-    const [taka, setTaka] = useState("40000");
+    const [msg, setMsg] = useState("");
 
+    const [incomeYr, setIncomeYr] = useState("");
+    const [fullyr, setFullyr] = useState("");
+    const [dt, setDt] = useState("");
+    const [activeDt, setActiveDt] = useState("");
+
+    const letterRef = useRef(null);
 
     useEffect(() => {
         const getData = async () => {
+            setWaitMsg('Please Wait...');
             try {
-                const staff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
-                const scStaff = staff.filter(staf => staf.placeId._id === "660ae2d4825d0610471e272d");
-                console.log(scStaff)
-                setStaffData(scStaff);
+                const data = localStorageGetItem("increment");
+                const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
+                setIncrements(result);
                 setWaitMsg('');
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.log(error);
             }
         }
         getData();
 
-        setDt(localStorage.getItem("incrDt") ? localStorage.getItem("incrDt") : "");
-        setDt2(localStorage.getItem("incrDt2") ? localStorage.getItem("incrDt2") : "");
-        setYr(localStorage.getItem("incrYr") ? localStorage.getItem("incrYr") : "");
-        setRefNo(localStorage.getItem("incrRef") ? localStorage.getItem("incrRef") : "");
+        setIncomeYr("2023-2024");
+        setFullyr(new Date().getFullYear());
+        setDt(formatedDate(new Date()));
+        setActiveDt(formatedDate(new Date()));
+    }, [msg])
 
-    }, [waitMsg])
+
+    const messageHandler = (data) => {
+        setMsg(data);
+    }
 
 
     const createLetter = (e) => {
@@ -98,34 +107,88 @@ const Increment = () => {
     return (
         <>
             <div className="w-full mb-3 mt-8">
-                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Staff Increment</h1>
+                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Increment</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
+                <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
             </div>
-           
-            <div className="px-4 lg:px-6">
+
+
+            <div className="px-4 grid grid-cols-4 gap-4">
 
                 <div className="p-2 overflow-auto">
                     <form onSubmit={createLetter}>
-                        <div className="w-full grid grid-cols-2 gap-4">
-                            <TextBn Title="Ref. No:" Id="refNo" Change={(e) => { setRefNo(e.target.value) }} Value={refNo} Chr="150" />
+                        <div className="w-full grid grid-cols-1 gap-4">
+                            <TextEn Title="Income Year" Id="incomeYr" Change={(e) => { setIncomeYr(e.target.value) }} Value={incomeYr} Chr="150" />
                             <TextDt Title="Date" Id="dt" Change={(e) => { setDt(e.target.value) }} Value={dt} />
-                            <TextBn Title="Year" Id="yr" Change={(e) => { setYr(e.target.value) }} Value={yr} Chr="150" />
-                            <TextDt Title="Effective Date" Id="dt2" Change={(e) => { setDt2(e.target.value) }} Value={dt2} />
-                            <DropdownEn Title="Name" Id="nm" Change={e => setNm(e.target.value)} Value={nm}>
-                                {staffData ? staffData.map(staff => {
-                                    const vl = `${staff.nmBn};${staff.postId.nmBn}`;
-                                    return (
-                                        <option value={vl} key={staff._id}>{staff.nmEn}</option>
-                                    )
-
-                                }) : null}
-                            </DropdownEn>
-                            <TextBn Title="Taka" Id="taka" Change={(e) => { setTaka(e.target.value) }} Value={taka} Chr="150" />
+                            <TextDt Title="Active Date" Id="activeDt" Change={(e) => { setActiveDt(e.target.value) }} Value={activeDt} />
                         </div>
                         <BtnSubmit Title="Submit" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                     </form>
                 </div>
+
+                <div className="col-span-3 overflow-auto">
+                    <table className="w-full border border-gray-200">
+                        <thead>
+                            <tr className="w-full bg-gray-200">
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Refno</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Name</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Salary</th>
+                                <th className="w-[100px] font-normal">
+                                    <div className="w-full flex justify-end mt-1 pr-[3px] lg:pr-2">
+                                        <Add message={messageHandler} />
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                increments.length ? increments.map(increment => {
+                                    return (
+                                        <tr className="border-b border-gray-200 hover:bg-gray-100" key={increment.id}>
+                                            <td className="text-center py-2 px-4">{increment.refNo}</td>
+                                            <td className="text-center py-2 px-4">{increment.name}</td>
+                                            <td className="text-center py-2 px-4">{increment.salary}</td>
+                                            <td className="flex justify-end items-center mt-1">
+                                                <Edit message={messageHandler} id={increment.id} data={increments} />
+                                                <Delete message={messageHandler} id={increment.id} data={increments} />
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                                    : null
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
+
+            <ReactToPrint trigger={() => <button>Print</button>} content={() => letterRef.current} pageStyle={`@media print{@page{size: A4 portrait;margin:2in 1in 1in 1in;}footer {page-break-after: always;}}`} />
+            <div className="overflow-auto hidden">
+                <div ref={letterRef} className={trio.className}>
+                    {increments.length ? increments.map((increment,i) => {
+                        const nm = increment.name.split(';');
+                        return (
+                            <div key={i}>
+                                <p>স্মারক নং-সিএমইএস/এইচআরডি/{convertDigitToUnicode(fullyr)}-{convertDigitToUnicode(increment.refNo)}<br />{formatedDateUnicode(dt)}</p>
+
+                                <p className="mt-5">জনাব {nm[0]} <br />{nm[0]} <br />সিএমইএস, লালমাটিয়া, ঢাকা </p>
+
+                                <p className="mt-5 text-justify">বিষয় : <span className="font-bold">{convertDigitToUnicode(incomeYr)} অর্থ বছরের মূল্যায়নের ভিত্তিতে গত {formatedDateUnicode(activeDt)} তারিখ থেকে আপনার  বাৎসরিক বেতন ৫% বৃদ্ধি করণ প্রসঙ্গে।</span> </p>
+                                <p className="mt-5 text-justify">জনাব,<br />{convertDigitToUnicode(incomeYr)} অর্থ বছরের স্টাফ পারফরমেন্স মূল্যায়নের ভিত্তিতে আপনার বাৎসরিক বেতন ৫% বৃদ্ধির পর বর্তমান {convertDigitToUnicode(numberWithComma(increment.salary))}/-({inwordUnicode(increment.salary)}) টাকায় উন্নীত করে গত {formatedDateUnicode(activeDt)} তারিখ থেকে কার্যকর করা হয়েছে। </p>
+
+                                <p className="mt-5">ধন্যবাদান্তে,</p>
+
+                                <p className="mt-16">মোঃ ওমর ফারুক হায়দার<br />নির্বাহী পরিচালক<br />সিএমইএস</p>
+                                <p className="mt-5"> অনুলিপি:<br />১. এইচআরডি/পিএফ</p>
+                                <footer className=""> </footer>
+                            </div>
+                        )
+                    }) : null}
+                </div>
+            </div>
+
         </>
     );
 
