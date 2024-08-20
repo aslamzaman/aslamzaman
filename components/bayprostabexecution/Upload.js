@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../../components/Form";
 import { Close } from "../Icons";
-import { jsonDataFromExcelSheet, localStorageAddManyItem } from "@/lib/utils";
+import { jsonDataFromExcelSheet, localStorageSetItem } from "@/lib/utils";
 
 
 const Upload = ({ message }) => {
@@ -19,7 +19,7 @@ const Upload = ({ message }) => {
     try {
       if (file) {
         const data = await jsonDataFromExcelSheet(file, ["id", "item", "nos", "taka"]);
-        localStorageAddManyItem("bayprostabexecution", data);
+        localStorageSetItem("bayprostabexecution", data);
         message(`File uploaded successfull completed. ${Date.now()}`);
       } else {
         message("Please select a file.");

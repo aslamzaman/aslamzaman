@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import { jsonDataFromExcelSheet, localStorageAddManyItem, localStorageDeleteAllItem } from "@/lib/utils";
+import { jsonDataFromExcelSheet, localStorageSetItem } from "@/lib/utils";
 
 
 const Upload = ({ Msg }) => {
@@ -25,8 +25,7 @@ const Upload = ({ Msg }) => {
 		
 			if (checkNos && checkTaka) {
 				console.log(checkNos, checkTaka);
-				localStorageDeleteAllItem("bayprostab");
-				localStorageAddManyItem("bayprostab", data);
+				localStorageSetItem("bayprostab", data);
 				Msg("Uploaded data successfully.");
 			} else {
 				console.log("dfsdf",checkNos, checkTaka);
