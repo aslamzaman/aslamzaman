@@ -84,7 +84,7 @@ const Increment = () => {
                     <div className="w-[730px] h-fit p-[60px] border-2 border-gray-200 mx-auto">
                         <div id="page" ref={contentRef} className={`w-full h-auto bg-white ${tiro.className}`} >
 
-                            {increments.length > 1 ? increments.map(staff => {
+                            {increments.length > 0 ? increments.map(staff => {
                                 const staffNameWithPost = staff.name;
                                 const nm = staffNameWithPost.split(";");
                                 return (
