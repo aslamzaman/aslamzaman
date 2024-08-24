@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 
 const Page = (tbl, datas) => {
 

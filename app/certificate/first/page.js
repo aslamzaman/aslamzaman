@@ -23,7 +23,7 @@ const Certificate = () => {
 
     const fileChangeHandler = async (e) => {
         const data = await jsonDataFromExcelSheet(e.target.files[0], ["sl", "name", "trade", "reg"]);
-         setStdData(data);
+        setStdData(data);
     }
 
 
@@ -74,15 +74,13 @@ const Certificate = () => {
             doc.addPage("a4", "l");
             setMsg("Page Created: " + i);
 
-
-
             i = i + 1;
             if (i >= stdData.length) {
                 clearInterval(myTimer);
-
-                doc.deletePage((stdData.length));
+                doc.deletePage((stdData.length + 1));
                 doc.save(Date.now() + ".pdf");
             }
+
         }, 500)
 
 

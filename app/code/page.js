@@ -17,14 +17,9 @@ import RouteDynamicPage from "@/components/code/RouteDynamicPage";
 import Upload from "@/components/code/Upload";
 import Download from "@/components/code/Download";
 import Excle from "@/components/code/Excel";
-import { Saira } from "next/font/google";
+
 import { utilsLibrary } from "@/components/code/utilsLibrary";
 
-const saira = Saira({
-    subsets: ['latin'],
-    weight: ['500']
-
-})
 
 
 const titleCase = (str) => {

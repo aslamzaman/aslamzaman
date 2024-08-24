@@ -7,6 +7,15 @@ export const BtnEn = ({ Title, Click, Class }) => {
   )
 }
 
+
+export const BtnInput = ({ Title, Click, Class }) => {
+  return (
+    <input type="button" onClick={Click} className={`text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 ${Class} cursor-pointer`} value={Title} />
+  )
+}
+
+
+
 export const BtnEnSm = ({ Title, Click, Class }) => {
   return (
     <button onClick={Click} className={`text-center mt-3 mx-0.5 px-4 py-2 text-sm font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 text-white ${Class}`}>{Title}</button>

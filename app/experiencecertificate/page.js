@@ -145,7 +145,7 @@ const Experiencecertificate = () => {
     <>
       <div className="w-full mb-3 mt-8">
         <div className="w-full mb-3 mt-8">
-          <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Author</h1>
+          <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Experience Certificate</h1>
         </div>
         <div className="w-11/12 lg:w-9/12 mx-auto mt-10 p-4 border shadow-lg">
           <form onSubmit={createCertificate}>

@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { BtnSubmit, TextEn } from "@/components/Form";
-import { localStorageUpdateItem } from "@/lib/utils";
+import { BtnSubmit, DropdownEn, TextEn } from "@/components/Form";
+import { localStorageUpdateItem, fetchDataFromAPI } from "@/lib/utils";
 
-const Edit = ({ message, id, data  }) => {
+const Edit = ({ message, id, data }) => {
+    const [staffs, setStaffs] = useState([]);
     const [refNo, setRefNo] = useState('');
     const [name, setName] = useState('');
-    const [salary, setSalary] = useState('');   
+    const [salary, setSalary] = useState('');
     const [show, setShow] = useState(false);
 
 
-  const showEditForm = () => {
+    const showEditForm = async () => {
         setShow(true);
         message("Ready to edit");
         try {
+            const response = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const result = response.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
+            console.log("Aslam", result)
+            setStaffs(result);
+
             const { refNo, name, salary } = data.find(increment => parseInt(increment.id) === parseInt(id)) || { refNo: '', name: '', salary: '' };
             setRefNo(refNo);
             setName(name);
@@ -34,7 +40,7 @@ const Edit = ({ message, id, data  }) => {
             id: id,
             refNo: refNo,
             name: name,
-            salary: salary            
+            salary: salary
         }
     }
 
@@ -73,8 +79,10 @@ const Edit = ({ message, id, data  }) => {
                             <form onSubmit={updateHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     <TextEn Title="RefNo" Id="refNo" Change={e => setRefNo(e.target.value)} Value={refNo} Chr={150} />
-                                    <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={150} />
-                                    <TextEn Title="Salary" Id="salary" Change={e => setSalary(e.target.value)} Value={salary} Chr={150} />                                
+                                    <DropdownEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name}>
+                                        {staffs.length ? staffs.map(staff => <option value={`${staff.nmUn};${staff.postId.nmUn}`} key={staff._id}>{staff.nmUn}</option>) : null}
+                                    </DropdownEn>
+                                    <TextEn Title="Salary" Id="salary" Change={e => setSalary(e.target.value)} Value={salary} Chr={150} />
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -96,4 +104,4 @@ const Edit = ({ message, id, data  }) => {
     )
 }
 export default Edit;
-  
+
