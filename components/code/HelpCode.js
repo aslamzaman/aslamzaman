@@ -121,13 +121,24 @@ const createPdfHandler = async (e) => {
       floatPrecision: 16 // or "smart", default is 16
   });
 
-  const pageText = pageRef.current;
   try {
-      const canvas = await html2canvas(pageText);
-      const dataUrl = canvas.toDataURL('images/png');
-      console.log(dataUrl);
+      const canvas = await html2canvas(pageRef.current,{
+            scale:4,
+            useCORS:true
+        });
+      const dataUrl = canvas.toDataURL('images/png',1.0);
+ 
       doc.addImage(dataUrl, "PNG", 0, 0, 210, 297);
       doc.save(new Date().toISOString() + "-Bayprostab.pdf");
+      /*
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'hello.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      */
+
   }
   catch (err) {
       console.log(err);
