@@ -7,6 +7,7 @@ const date_format = dt => new Date(dt).toISOString().split('T')[0];
 const Edit = ({ message, id, data }) => {
     const [nmEn, setNmEn] = useState('');
     const [nmBn, setNmBn] = useState('');
+    const [nmUn, setNmUn] = useState('');
     const [joinDt, setJoinDt] = useState('');
     const [mobile, setMobile] = useState('');
     const [genderId, setGenderId] = useState('');
@@ -46,9 +47,10 @@ const Edit = ({ message, id, data }) => {
             setUnits(responseUnit);
 
 
-            const { nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = data.find(staff => staff._id === id) || { nmEn: '', nmBn: '', joinDt: '', mobile: '', genderId: '', postId: '', projectId: '', pictureUrl: '', empId: '', placeId: '', unitId: '', status: '', remarks: '', salary: '' };
+            const { nmEn, nmBn, nmUn,joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = data.find(staff => staff._id === id) || { nmEn: '', nmBn: '',nmUn:'', joinDt: '', mobile: '', genderId: '', postId: '', projectId: '', pictureUrl: '', empId: '', placeId: '', unitId: '', status: '', remarks: '', salary: '' };
             setNmEn(nmEn);
             setNmBn(nmBn);
+            setNmUn(nmUn);
             setJoinDt(date_format(joinDt));
             setMobile(mobile);
             setGenderId(genderId._id);
@@ -76,6 +78,7 @@ const Edit = ({ message, id, data }) => {
         return {
             nmEn: nmEn,
             nmBn: nmBn,
+            nmUn:nmUn,
             joinDt: joinDt,
             mobile: mobile,
             genderId: genderId,
@@ -137,6 +140,7 @@ const Edit = ({ message, id, data }) => {
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                 <TextEn Title="Name (English)" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
                                     <TextBn Title="Name (Bangla)" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                    <TextBn Title="Name (Unicode)" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />
                                     <TextDt Title="Joining Date" Id="joinDt" Change={e => setJoinDt(e.target.value)} Value={joinDt} />
                                     <TextEn Title="Mobile" Id="mobile" Change={e => setMobile(e.target.value)} Value={mobile} Chr={50} />
                                     <DropdownEn Title="Gender" Id="genderId" Change={e => setGenderId(e.target.value)} Value={genderId}>

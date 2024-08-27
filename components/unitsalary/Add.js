@@ -28,8 +28,9 @@ const Add = ({ message }) => {
         resetVariables();
         try {
             const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const sortStaff = responseStaff.sort((a,b)=>parseInt(a.empId) < parseInt(b.empId)?-1:1);
             console.log(responseStaff)
-            setStaffs(responseStaff);
+            setStaffs(sortStaff);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -86,7 +87,7 @@ const Add = ({ message }) => {
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     <DropdownEn Title="Staff" Id="staffId" Change={e => setStaffId(e.target.value)} Value={staffId}>
-                                        {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}</option>) : null}
+                                        {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}-{staff.empId}</option>) : null}
                                     </DropdownEn>
                                     <TextBn Title="Arear" Id="arear" Change={e => setArear(e.target.value)} Value={arear} Chr={150} />
                                     <TextNum Title="Sal1" Id="sal1" Change={e => setSal1(e.target.value)} Value={sal1} />

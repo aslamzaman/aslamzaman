@@ -7,6 +7,7 @@ const date_format = dt => new Date(dt).toISOString().split('T')[0];
 const Add = ({ message }) => {
     const [nmEn, setNmEn] = useState('');
     const [nmBn, setNmBn] = useState('');
+    const [nmUn, setNmUn] = useState('');
     const [joinDt, setJoinDt] = useState('');
     const [mobile, setMobile] = useState('');
     const [genderId, setGenderId] = useState('');
@@ -31,6 +32,7 @@ const Add = ({ message }) => {
     const resetVariables = () => {
         setNmEn('');
         setNmBn('');
+        setNmUn('');
         setJoinDt(date_format(new Date()));
         setMobile('');
         setGenderId('');
@@ -77,6 +79,7 @@ const Add = ({ message }) => {
         return {
             nmEn: nmEn,
             nmBn: nmBn,
+            nmUn: nmUn,
             joinDt: joinDt,
             mobile: mobile,
             genderId: genderId,
@@ -136,6 +139,7 @@ const Add = ({ message }) => {
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     <TextEn Title="Name (English)" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
                                     <TextBn Title="Name (Bangla)" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                    <TextBn Title="Name (Unicode)" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />
                                     <TextDt Title="Joining Date" Id="joinDt" Change={e => setJoinDt(e.target.value)} Value={joinDt} />
                                     <TextEn Title="Mobile" Id="mobile" Change={e => setMobile(e.target.value)} Value={mobile} Chr={50} />
                                     <DropdownEn Title="Gender" Id="genderId" Change={e => setGenderId(e.target.value)} Value={genderId}>

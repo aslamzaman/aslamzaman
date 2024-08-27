@@ -15,12 +15,11 @@ export const GET = async () => {
 }
 
 
-/*
 export const POST = async (Request) => {
   try {
     await Connect();
-    const { nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = await Request.json();
-    const staffs = await StaffModel.create({ nmEn, nmBn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary });
+    const { nmEn, nmBn,nmUn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = await Request.json();
+    const staffs = await StaffModel.create({ nmEn, nmBn, nmUn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary });
     return NextResponse.json(staffs);
   } catch (err) {
     console.error(err);
@@ -28,8 +27,8 @@ export const POST = async (Request) => {
   }
 }
 
-*/
 
+/*
 export const POST = async (Request) => {
   try {
     await Connect();
@@ -41,3 +40,4 @@ export const POST = async (Request) => {
     return NextResponse.json({ message: "POST Error", err }, { status: 500 });
   }
 }
+  */

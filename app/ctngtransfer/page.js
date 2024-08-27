@@ -26,17 +26,14 @@ const Ctngtransfer = () => {
     const [option, setOption] = useState("");
     const [main, setMain] = useState("");
 
+    //  `গত ${formatedDateUnicode(dt)} তারিখে COL প্রজেক্ট আরটিসি থেকে সরিয়ে অন্য এলাকায় নেয়ার ফলে আপনাকে ${unit} ইউনিটের কেয়ারটেকার-কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
 
 
     const letterBody = (dt, dt2, unit, taka) => {
         return [
-            `গত ${formatedDateUnicode(dt)} তারিখে COL প্রজেক্ট আরটিসি থেকে সরিয়ে অন্য এলাকায় নেয়ার ফলে আপনাকে ${unit} ইউনিটের কেয়ারটেকার-কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
+            `COL Empowering Women and Girls প্রকল্পের কার্যক্রম গত ${formatedDateUnicode(dt)} তারিখে শেষ হওয়ার কারণে আপনাকে ${unit} ইউনিটের কেয়ারটেকার কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
 
-            `গত ${formatedDateUnicode(dt)} তারিখে MC প্রজেক্ট আরটিসি থেকে সরিয়ে অন্য এলাকায় নেয়ার ফলে আপনাকে ${unit} ইউনিটের কেয়ারটেকার-কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
-
-            `গত ${formatedDateUnicode(dt)} তারিখে COL প্রজেক্ট আরটিসি থেকে পুরোপুরি বন্ধ হওয়ার ফলে আপনাকে ${unit} ইউনিটের কেয়ারটেকার-কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
-
-            `গত ${formatedDateUnicode(dt)} তারিখে MC প্রজেক্ট আরটিসি থেকে পুরোপুরি বন্ধ হওয়ার ফলে আপনাকে ${unit} ইউনিটের কেয়ারটেকার-কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
+            `Microcredit প্রকল্পের কার্যক্রম গত ${formatedDateUnicode(dt)} তারিখে শেষ হওয়ার কারণে আপনাকে ${unit} ইউনিটের কেয়ারটেকার কাম নাইটগার্ড পদ থেকে অব্যাহতি প্রদান করা হয়েছে। ${unit} ইউনিটের সার্বিক নিরাপত্তার জন্য পূর্বের মতো আপনাকে GO খাতে স্থানান্তর করে মাসিক ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা বেতনে পুণরায় নিয়োগ প্রদান করা হলো যা ${formatedDateUnicode(dt2)} তারিখ থেকে কার্যকর করা হয়েছে।`,
 
             `আপনার আবেদন ও অভিজ্ঞতার ভিত্তিতে আপনাকে ${unit} ইউনিটের কেয়ারটেকার কাম নাইটগার্ড পদে নিয়োগ দেওয়া হলো। এই নিয়োগ ${formatedDateUnicode(dt)} তারিখ থেকে কার্যকর করা হয়েছে। এ পদে আপনার মাসিক ভাতা সর্বসাকুল্যে ${convertDigitToUnicode(numberWithComma(taka))}/- (${inwordUnicode(taka)}) টাকা নির্ধারণ করা হলো।`
         ]
@@ -84,11 +81,11 @@ const Ctngtransfer = () => {
                 scale: 4,
                 useCORS: true
             });
-            const url = canvas.toDataURL("image/png", 1.0);
-            doc.addImage(url, "PNG", 0, 0, 210, 297);
-            doc.save("aslam.pdf");
+            const url = canvas.toDataURL("image/jpg", 1.0);
+            doc.addImage(url, "JPG", 0, 0, 210, 297);
+            doc.save(`${nm[0]}-appointment-letter-${Date.now()}.pdf`);
             setMsg("PDF Created successfully");
-        }, 0)
+        }, 100)
 
     }
 
@@ -116,13 +113,10 @@ const Ctngtransfer = () => {
                             <DropdownEn Title="Select Option" id="option" Change={e => setOption(e.target.value)} Value={option}>
                                 <option value="0">COL Project Transfer</option>
                                 <option value="1">MC Project Transfer</option>
-                                <option value="2">COL Project Closed</option>
-                                <option value="3">MC Project Closed</option>
-                                <option value="4">New Appointment</option>
+                                <option value="2">New Appointment</option>
                             </DropdownEn>
                         </div>
                         <BtnSubmit Title="Create Letter" Class="bg-green-600 hover:bg-green-800 text-white mr-1" />
-
                     </form>
                 </div>
             </div>
@@ -132,7 +126,7 @@ const Ctngtransfer = () => {
 
             <div className="w-fit h-fit border border-gray-400 mx-auto my-6">
 
-                <div ref={pageRef} className={`w-[595.44px] h-[841.68px] pt-[129.6px] pt-[72px] px-[72px] text-[12.25px] bg-white ${tiro.className}`}>
+                <div ref={pageRef} className={`w-[595.44px] h-[841.68px] pt-[129.6px] pb-[15px] px-[72px] text-[12.25px] bg-white ${tiro.className}`}>
 
 
                     <div className="w-full h-auto">
@@ -154,7 +148,7 @@ const Ctngtransfer = () => {
                             {main}
                         </p>
                         <br />
-                        <p className="w-full text-justify">আপনি প্রতিদিন ক্যাম্পাস ঝাড়মোছ করে পরিস্কার রাখবেন এবং রাত্রে উপস্থিত থেকে ইউনিট পাহারা দিবেন। আরটিসির সার্বিক নিরাপত্তার দ্বায়িত্ব পালন করবেন।</p>
+                        <p className="w-full text-justify">আপনি প্রতিদিন ক্যাম্পাস ঝাড়মোছ করে পরিস্কার রাখবেন এবং রাত্রে উপস্থিত থেকে ইউনিট পাহারা দিবেন। আরটিসির সার্বিক নিরাপত্তার দায়িত্ব পালন করবেন।</p>
                         <br />
                         <p className="w-full text-justify">এক মাসের নোটিশে অথবা সমপরিমান বেতন দিয়ে সিএমইএস অথবা আপনি যেকোন পক্ষ এ নিয়োগের অবসান ঘটাতে পারবেন।</p>
 
