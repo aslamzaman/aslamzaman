@@ -58,6 +58,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/${tbl}/Add";
 import Edit from "@/components/${tbl}/Edit";
 import Delete from "@/components/${tbl}/Delete";
+import Print from "@/components/${tbl}/Print";
 import { fetchDataFromAPI } from "@/lib/utils";
 
 
@@ -99,8 +100,9 @@ const ${titleCase(tbl)} = () => {
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-${thead_string}                                <th className="w-[100px] font-normal">
-                                    <div className="w-full flex justify-end py-0.5 pr-4">
+${thead_string}                                <th className="w-[95px] font-normal">
+                                    <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
+                                        <Print data={${tbl}s} />
                                         <Add message={messageHandler} />
                                     </div>
                                 </th>
