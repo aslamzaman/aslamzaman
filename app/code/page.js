@@ -6,6 +6,7 @@ import Page from "@/components/code/Page";
 import Add from "@/components/code/Add";
 import Edit from "@/components/code/Edit";
 import Delete from "@/components/code/Delete";
+import Print from "@/components/code/Print";
 import LocalDatabase from "@/components/code/LocalDatabase";
 import LayoutPage from "@/components/code/LayoutPage";
 import Help_code from "@/components/code/HelpCode";
@@ -93,11 +94,15 @@ const Code = () => {
         setResult(Delete(tbl, fld));
     }
 
+    const PrintGenerate = () => {
+        setTitleText(`components/${tbl}/Print.js`);
+        setResult(Print(tbl, fld));
+    }    
+    
     const LocalDatabaseGenerate = () => {
         setTitleText(`lib/LocalDatabase.js`);
         setResult(LocalDatabase());
     }
-
 
 
     const UnitqueIdGenerator = () => {
@@ -404,7 +409,8 @@ const Code = () => {
                         <BtnEn Title="Add" Click={AddGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Edit" Click={EditGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Delete" Click={DeleteGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-
+                        <BtnEn Title="Print" Click={PrintGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
+                        
                         <BtnEn Title="Model" Click={ModelPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
 
                         <BtnEn Title="Two Part" Click={TwoPartHandle} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
