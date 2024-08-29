@@ -6,7 +6,7 @@ import { UnitModel } from '@/lib/Models';
 export const GET = async () => {
   try {
     await Connect();
-    const units = await UnitModel.find({}).sort({_id:'desc'});
+    const units = await UnitModel.find({isDeleted: false}).sort({_id:'desc'});
     return NextResponse.json( units );
   } catch (error) {
     console.error('GET Error:', error);
@@ -19,8 +19,8 @@ export const GET = async () => {
 export const POST = async (Request) => {
   try {
     await Connect();
-    const { nmEn, nmBn } = await Request.json();
-    const units = await UnitModel.create({ nmEn, nmBn });
+    const { nmEn, nmBn, nmUn } = await Request.json();
+    const units = await UnitModel.create({ nmEn, nmBn, nmUn });
     return NextResponse.json(units);
   } catch (err) {
     console.error(err);

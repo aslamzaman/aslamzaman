@@ -3,24 +3,13 @@ import { Connect } from '@/lib/utils/Db';
 import { UnitModel } from '@/lib/Models';
 
 
-export const GET = async (Request, { params }) => {
-  try {
-    await Connect();
-    const { id } = params;
-    const units = await PostModel.findById(id);
-    return NextResponse.json(units);
-  } catch (err) {
-    return NextResponse.json({ message: "PUT Error", err }, { status: 500 });
-  }
-}    
-
-
+// Update data
 export const PUT = async (Request,{ params }) => {
   try {
     await Connect();
     const {id} = params;
-    const { nmEn, nmBn } = await Request.json();
-    const units = await UnitModel.findOneAndUpdate({ _id: id }, { nmEn, nmBn });
+    const { nmEn, nmBn, nmUn } = await Request.json();
+    const units = await UnitModel.findOneAndUpdate({ _id: id }, { nmEn, nmBn, nmUn });
     return NextResponse.json(units);
   } catch (err) {
     return NextResponse.json({ message: "PUT Error", err }, { status: 500 });
@@ -28,6 +17,21 @@ export const PUT = async (Request,{ params }) => {
 }
 
 
+// Soft deleted
+export const PATCH = async (Request, { params }) => {
+  try {
+    await Connect();
+    const { id } = params;
+    const units = await UnitModel.findOneAndUpdate({_id: id, isDeleted: false},{isDeleted:true},{new:true});
+    return NextResponse.json(units);
+  } catch (err) {
+    return NextResponse.json({ message: "GET Error", err }, { status: 500 });
+  }
+} 
+
+
+
+// Hard deleted
 export const DELETE = async ( Request, { params }) => {
   try {
     await Connect();
