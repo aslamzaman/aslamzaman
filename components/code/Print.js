@@ -11,7 +11,7 @@ const Print = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                thead_string = thead_string + `                                            <th className="text-center px-4 py-2">${titleCamelCase(d)}</th>\n`
+                thead_string = thead_string + `                                            <th className="text-center border border-gray-600">${titleCamelCase(d)}</th>\n`
             }
         }
     }
@@ -22,7 +22,7 @@ const Print = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                td_string = td_string + `                                                    <td className="text-center">{${tbl}.${d}}</td>\n`
+                td_string = td_string + `                                                    <td className="text-center border border-gray-600">{${tbl}.${d}}</td>\n`
             }
         }
     });
@@ -111,19 +111,19 @@ const Print = ({ data }) => {
 
                                 <table className="w-full border border-gray-600">
                                     <thead>
-                                        <tr className="w-full bg-gray-200 border border-gray-600">
+                                        <tr className="w-full bg-gray-200">
 ${thead_string}                                       </tr>
                                     </thead>
                                     <tbody>
                                         {${tbl}s.length > 0 ? (
                                             ${tbl}s.map(${tbl} => (
-                                                <tr className="border border-gray-600 hover:bg-gray-100" key={${tbl}._id}>
+                                                <tr className="hover:bg-gray-100" key={${tbl}._id}>
 ${td_string}                                                </tr>
                                             ))
                                         ) : (
-                                            <tr className="border border-gray-600">
-                                                <td colSpan={${data.length-2}} className="text-center py-10 px-4">
-                                                    Data not available.
+                                            <tr className="hover:bg-gray-100">
+                                                <td colSpan={${data.length-2}} className="text-center border border-gray-600">
+                                                    Data not found!
                                                 </td>
                                             </tr>
                                         )}
