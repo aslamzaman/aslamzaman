@@ -18,7 +18,7 @@ const Page = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                thead_string = thead_string + `                                <th className="text-center border-b border-gray-200 px-4 py-2">${titleCase(d)}</th>\n`
+                thead_string = thead_string + `                                <th className="text-center border border-gray-600">${titleCase(d)}</th>\n`
             }
         }
     }
@@ -29,7 +29,7 @@ const Page = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                td_string = td_string + `                                        <td className="text-center py-2 px-4">{${tbl}.${d}}</td>\n`
+                td_string = td_string + `                                        <td className="text-center border border-gray-600">{${tbl}.${d}}</td>\n`
             }
         }
     });

@@ -1,10 +1,13 @@
+
 import React, { useState } from "react";
-import { TextEn, BtnSubmit, TextBn } from "@/components/Form";
+import { TextEn, BtnSubmit } from "@/components/Form";
+import { putDataToAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
     const [nmEn, setNmEn] = useState('');
     const [nmBn, setNmBn] = useState('');
+    const [nmUn, setNmUn] = useState('');
     const [show, setShow] = useState(false);
 
 
@@ -12,9 +15,10 @@ const Edit = ({ message, id, data }) => {
         setShow(true);
         message("Ready to edit");
         try {
-            const { nmEn, nmBn } = data.find(post => post._id === id) || { nmEn: '', nmBn: '' };
+             const { nmEn, nmBn, nmUn } = data.find(post => post._id === id) || { nmEn: '', nmBn: '', nmUn: '' };
             setNmEn(nmEn);
             setNmBn(nmBn);
+            setNmUn(nmUn);
         } catch (err) {
             console.log(err);
         }
@@ -29,8 +33,9 @@ const Edit = ({ message, id, data }) => {
 
     const createObject = () => {
         return {
-            nmEn: nmEn,
-            nmBn: nmBn
+              nmEn: nmEn,
+              nmBn: nmBn,
+              nmUn: nmUn
         }
     }
 
@@ -39,18 +44,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create post");
-            }
+            const msg = await putDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving post data:", error);
             message("Error saving post data.");
@@ -63,7 +58,7 @@ const Edit = ({ message, id, data }) => {
     return (
         <>
             {show && (
-                <div className="fixed inset-0 py-16 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-auto">
+                <div className="fixed inset-0 px-4 py-16 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-auto">
                     <div className="w-11/12 md:w-1/2 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
                         <div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
                             <h1 className="text-xl font-bold text-blue-600">Edit Existing Data</h1>
@@ -74,12 +69,12 @@ const Edit = ({ message, id, data }) => {
                             </button>
 
                         </div>
-
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextEn Title="Name English" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
-                                    <TextBn Title="Name Bangla" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                   <TextEn Title="Nmen" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
+                                   <TextEn Title="Nmbn" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                   <TextEn Title="Nmun" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />                                    
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -87,10 +82,8 @@ const Edit = ({ message, id, data }) => {
                                 </div>
                             </form>
                         </div>
-
-
-                    </div >
-                </div >
+                    </div>
+                </div>
             )}
             <button onClick={showEditForm} title="Edit" className="px-1 py-1 hover:bg-teal-300 rounded-md transition duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 stroke-black hover:stroke-blue-800 transition duration-500">
@@ -103,3 +96,8 @@ const Edit = ({ message, id, data }) => {
 export default Edit;
 
 
+
+
+
+
+    

@@ -109,7 +109,7 @@ const Add = (tbl, datas) => {
 
 
     const str = `  
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { TextEn, BtnSubmit } from "@/components/Form";
 import { postDataToAPI } from "@/lib/utils";
 
@@ -123,10 +123,6 @@ ${stateVar}
     const showAddForm = () => {
         setShow(true);
         resetVariables();
-        setTimeout(() => {
-            modalRef.current.classList.add('mt-16');
-            modalRef.current.classList.remove('-mt-64');
-        }, 50);
     }
 
 
@@ -167,8 +163,8 @@ ${getValue}
     return (
         <>
             {show && (
-                <div className="fixed inset-0 p-4 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-y-scroll">
-                    <div ref={modalRef} className="w-full sm:w-11/12 md:w-9/12 lg:w-7/12 xl:w-1/2 -mt-64 mx-auto mb-20 bg-white border-2 border-gray-300 rounded-md shadow-md duration-500">
+                <div className="fixed inset-0 px-4 py-16 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-y-scroll">
+                    <div className="w-full sm:w-11/12 md:w-9/12 lg:w-7/12 xl:w-1/2 mb-10 mx-auto mb-20 bg-white border-2 border-gray-300 rounded-md shadow-md duration-500">
                         <div className="px-4 md:px-6 py-4 flex justify-between items-center border-b border-gray-300 rounded-t-md">
                             <h1 className="text-xl font-bold text-blue-600">Add New Data</h1>
                             <button onClick={closeAddForm} className="w-8 h-8 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md transition duration-500">

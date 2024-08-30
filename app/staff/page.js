@@ -5,6 +5,8 @@ import Edit from "@/components/staff/Edit";
 import Delete from "@/components/staff/Delete";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 import Image from "next/image";
+import { Tiro_Bangla } from 'next/font/google';
+const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });
 
 
 
@@ -59,6 +61,7 @@ const Staff = () => {
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Name</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Project</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Salary</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">Unit</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Remarks</th>
                                 <th className="w-[100px] font-normal">
                                     <div className="w-full flex justify-end py-0.5 pr-4">
@@ -80,7 +83,7 @@ const Staff = () => {
 
                                         <td className="text-center py-2 px-4">
                                             <span className="font-bold"> Employee ID: {staff.empId}</span><br />
-                                            <span className="font-sutonnyN"> {staff.nmBn}</span><br />
+                                            <span className={tiro.className}> {staff.nmUn}</span><br />
                                             {staff.nmEn} - {staff.postId.nmEn}<br />
                                             ({staff.genderId.name})<br />                                          
                                             Joining Date: {date_format(staff.joinDt)}<br />
@@ -89,6 +92,7 @@ const Staff = () => {
                                         </td>
                                         <td className="text-center py-2 px-4">{staff.projectId.name}</td>
                                         <td className="text-center py-2 px-4">{staff.salary}</td>
+                                        <td className={`text-center py-2 px-4 ${tiro.className}`}>{staff.unitId.nmUn}</td>
                                         <td className="text-center py-2 px-4">{staff.remarks}</td>
                                         <td className="h-44 flex justify-end items-center space-x-1 mt-1 mr-2">
                                                 <Edit message={messageHandler} id={staff._id} data={staffs} />

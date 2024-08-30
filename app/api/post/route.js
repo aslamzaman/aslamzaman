@@ -6,7 +6,7 @@ import { PostModel } from '@/lib/Models';
 export const GET = async () => {
   try {
     await Connect();
-    const posts = await PostModel.find({}).sort({_id:'desc'});
+    const posts = await PostModel.find({isDeleted: false}).sort({_id:'desc'});
     return NextResponse.json( posts );
   } catch (error) {
     console.error('GET Error:', error);
@@ -19,8 +19,8 @@ export const GET = async () => {
 export const POST = async (Request) => {
   try {
     await Connect();
-    const { nmEn, nmBn } = await Request.json();
-    const posts = await PostModel.create({ nmEn, nmBn });
+    const { nmEn, nmBn, nmUn } = await Request.json();
+    const posts = await PostModel.create({ nmEn, nmBn, nmUn });
     return NextResponse.json(posts);
   } catch (err) {
     console.error(err);

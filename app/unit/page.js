@@ -51,7 +51,8 @@ const Unit = () => {
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Name English</th>
+                                <th className="text-center border-b border-gray-200 px-4 py-2">SL</th>
+                                <th className="pl-4 text-start border-b border-gray-200 px-4 py-2">Name English</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Name SutonnyMJ</th>
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Name Unicode</th>
                                 <th className="w-[95px] font-normal">
@@ -64,9 +65,10 @@ const Unit = () => {
                         </thead>
                         <tbody>
                             {units.length ? (
-                                units.map(unit => (
+                                units.map((unit,i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={unit._id}>
-                                        <td className="text-center py-2 px-4">{unit.nmEn}</td>
+                                        <td className="text-center py-2 px-4">{i+1}</td>
+                                        <td className="pl-4 text-start py-2 px-4">{unit.nmEn}</td>
                                         <td className="text-center py-2 px-4 font-sutonnyN ">{unit.nmBn}</td>
                                         <td className={`text-center py-2 px-4 ${tiro.className}`}>{unit.nmUn}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">

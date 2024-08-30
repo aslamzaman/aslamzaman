@@ -2,12 +2,13 @@
 import React, { useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import { Tiro_Bangla } from 'next/font/google';
+import { formatedDateDot } from "@/lib/utils";
 const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });
 
 
 
 const Print = ({ data }) => {
-    const [units, setUnits] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false)
     const contentRef = useRef();
 
@@ -15,7 +16,7 @@ const Print = ({ data }) => {
     const showPrintForm = () => {
         setShow(true);
         try {
-            setUnits(data);
+            setPosts(data);
         } catch (error) {
             console.error('Failed to data:', error);
         }
@@ -45,7 +46,9 @@ const Print = ({ data }) => {
             font-family: 'SutonnyMJ';
             src: url('/fonts/SutonnyMJ-Regular.ttf');
         }
-    } `;
+       #header{display:block;}     
+       #dt{display:block;}     
+    }`;
 
 
 
@@ -70,7 +73,7 @@ const Print = ({ data }) => {
                         <div className="px-6 md:px-6 py-3 flex justify-between items-center border-b border-gray-300">
                             <h1 className="text-xl font-bold text-blue-600">Print Form</h1>
                             <div className="flex justify-center items-center space-x-2">
-                                <ReactToPrint trigger={printButton} content={() => contentRef.current} pageStyle={pageStyle} documentTitle="Unit Print" />
+                                <ReactToPrint trigger={printButton} content={() => contentRef.current} pageStyle={pageStyle} documentTitle="Post Print" />
                                 <button title="Close" onClick={closePrintForm} className="w-9 h-9 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md transition duration-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full stroke-black">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -81,24 +84,25 @@ const Print = ({ data }) => {
 
                         <div className="p-6 text-black">
                             <div id="page" ref={contentRef} className={`w-full h-auto`}>
-
+                                <h1 id="header" className="w-full text-center text-2xl hidden">Post</h1>
+                                <p id="dt" className="w-full text-center mb-10 hidden">Date: {formatedDateDot(new Date())}</p>
                                 <table className="w-full border border-gray-600">
                                     <thead>
                                         <tr className="w-full bg-gray-200">
                                             <th className="text-center border border-gray-600">SL</th>
                                             <th className="pl-4 text-start border border-gray-600">Name English</th>
-                                            <th className="text-center border border-gray-600">Name SutonnyMJ</th>
+                                            <th className="text-center border border-gray-600">Name SutnnyMJ</th>
                                             <th className="text-center border border-gray-600">Name Unicode</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {units.length > 0 ? (
-                                            units.map((unit, i) => (
-                                                <tr className="hover:bg-gray-100" key={unit._id}>
+                                        {posts.length > 0 ? (
+                                            posts.map((post, i) => (
+                                                <tr className="hover:bg-gray-100" key={post._id}>
                                                     <td className="text-center border border-gray-600">{i + 1}</td>
-                                                    <td className="pl-4 text-start border border-gray-600">{unit.nmEn}</td>
-                                                    <td className="text-center border border-gray-600 font-sutonnyN"  style={{ fontFamily: 'SutonnyMJ' }}>{unit.nmBn}</td>
-                                                    <td className={`text-center border border-gray-600 ${tiro.className}`}>{unit.nmUn}</td>
+                                                    <td className="pl-4 text-start border border-gray-600">{post.nmEn}</td>
+                                                    <td className="text-center border border-gray-600" style={{ fontFamily: 'SutonnyMJ' }}>{post.nmBn}</td>
+                                                    <td className={`text-center border border-gray-600 ${tiro.className}`}>{post.nmUn}</td>
                                                 </tr>
                                             ))
                                         ) : (
