@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { TextDt, TextNum, DropdownEn, BtnSubmit } from "@/components/Form";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-import { fetchData } from "@/lib/utils/FetchData";
 import { jsPDF } from "jspdf";
-import { inword } from "@/lib/Inword";
+import { titleCamelCase, inwordEnglish, fetchDataFromAPI, formatedDate, formatedDateDot } from "@/lib/utils";
 
 const montsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+
 
 const Link3 = () => {
     const [msg, setMsg] = useState("Data ready");
@@ -30,8 +31,8 @@ const Link3 = () => {
             setMsg('Please Wait...');
             try {
                 const [responseStaff, responseProject, response] = await Promise.all([
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
+                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
                 ]);
                 const scStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
                 setStaffs(scStaff);
@@ -43,7 +44,7 @@ const Link3 = () => {
             }
         };
         loadData();
-        setDt(date_format(new Date()));
+        setDt(formatedDate(new Date()));
         setYr(new Date().getFullYear());
         setMonths(montsArray[new Date().getMonth()]);
     }, []);
@@ -78,30 +79,32 @@ const Link3 = () => {
 
                 //--------------------------------------------------------------------
 
-                doc.addImage("/images/formats/link3internetbill.png", "PNG", 0, 0, 210, 297);
+                doc.addImage("/images/formats/link3internetbill.jpg", "JPG", 0, 0, 210, 297);
                 doc.setFontSize(13);
                 doc.setFont("times", "normal");
                 doc.text(`${projectName}`, 102, 48, null, null, "left");
-                doc.text(`${date_format(dt)}`, 102, 54, null, null, "left");
+                doc.text(`${formatedDateDot(dt)}`, 102, 54, null, null, "left");
 
                 doc.setFont("times", "normal");
                 doc.text(`${months} ${yr}`, 113, 77, null, null, "left");
-                doc.text(`${taka}/-`, 180, 77, null, null, "right");
+                doc.text("1932/-", 180, 77, null, null, "right");
                 //-------------------------------------------------------------
-                let b = taka / 1.15;
-                doc.text(`${b.toFixed(2)}`, 100, 82, null, null, "right");
-                doc.text(`${(b * 0.05).toFixed(2)}`, 100, 87, null, null, "right");
-                doc.text(`${(b * 0.1).toFixed(2)}`, 100, 92, null, null, "right");
+
+                doc.text("1680.00", 100, 82, null, null, "right");
+                doc.text("84.00", 100, 87, null, null, "right");
+                doc.text("168.00", 100, 92, null, null, "right");
                 //-------------------------------------------------------------
+                doc.text(`- ${1764 - parseFloat(taka)}/-`, 179.5, 97, null, null, "right");
+                //-------------------------------------------------------------
+
+
 
                 doc.setFont("times", "bold");
-                doc.text(`${taka}/-`, 180, 180, null, null, "right"); // Total Taka
-                let total = parseInt(taka);
+                doc.text(`${1932 - (1764 - parseInt(taka))}/-`, 180, 180, null, null, "right"); // Total Taka
+                let total = `${1932 - (1764 - parseInt(taka))}`;
                 doc.setFont("times", "normal");
-                let t = inword(total);
-                doc.text(`${t.toUpperCase()} TAKA ONLY`, 42, 188, null, null, "left"); // Inword
-                doc.line(175, 82, 160, 170);
-
+                let t = inwordEnglish(parseInt(total));
+                doc.text(`${titleCamelCase(t)}Taka Only`, 42, 188, null, null, "left"); // Inword
                 doc.text(`${staffName.split(",")[0]}`, 25, 216, null, null, "left");
                 doc.text(`${staffName.split(",")[1]}`, 25, 222, null, null, "left");
 

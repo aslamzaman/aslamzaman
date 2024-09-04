@@ -8,9 +8,10 @@ import Delete from "@/components/bayprostab/Delete";
 import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
-import { fetchDataFromAPI, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from '@/lib/utils';
+import { fetchDataFromAPI, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot, localStorageSetItem } from '@/lib/utils';
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
+
 
 
 
@@ -19,6 +20,148 @@ const dtAdd15Days = (d1) => {
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
   return formatedDateDot(new Date(dt2), true);
 }
+
+const octenInitialData = [
+  {
+    "id": 1715063792028,
+    "item": "Fuel and Maintenance",
+    "nos": "0",
+    "taka": "0"
+  },
+  {
+    "id": 1722238997542,
+    "item": "R¦vjvbx AK‡Ub",
+    "nos": "100",
+    "taka": "131"
+  },
+  {
+    "id": 1723009985957,
+    "item": "gwej",
+    "nos": "2",
+    "taka": "3400"
+  },
+  {
+    "id": 1723010030117,
+    "item": "gwej wdëvi",
+    "nos": "1",
+    "taka": "350"
+  },
+  {
+    "id": 1723010049736,
+    "item": "Gqvi wdëvi",
+    "nos": "1",
+    "taka": "280"
+  },
+  {
+    "id": 1723010067936,
+    "item": "mvwf©wms gRyix",
+    "nos": "1",
+    "taka": "500"
+  }
+]
+
+const utilitiesInitialData = [
+  {
+    "id": "1696132914376",
+    "item": "Utilities",
+    "nos": 0,
+    "taka": 0
+  },
+  {
+    "id": "1697954408859",
+    "item": "dzjevwo BDwbU",
+    "nos": "1",
+    "taka": "2062"
+  },
+  {
+    "id": "1697969706641",
+    "item": "Lv‡minvU BDwbU-1wU",
+    "nos": "1",
+    "taka": "1446"
+  },
+  {
+    "id": "1698041914343",
+    "item": "AvgZjx BDwbU-4wU",
+    "nos": "1",
+    "taka": "1402"
+  },
+  {
+    "id": "1698571393678",
+    "item": "N›UvNi BDwbU-2wU",
+    "nos": "1",
+    "taka": "877"
+  },
+  {
+    "id": "1698750460577",
+    "item": "ivbxie›`i BDwbU-1wU",
+    "nos": "1",
+    "taka": "3753"
+  },
+  {
+    "id": "1699177918265",
+    "item": " mwLcyi BDwbU-1wU",
+    "nos": "1",
+    "taka": "2200"
+  },
+  {
+    "id": "1699333415687",
+    "item": "nvjyqvNvU BDwbU-1wU",
+    "nos": "1",
+    "taka": "1133"
+  },
+  {
+    "id": "1699334180195",
+    "item": "AvgZjx BDwbU-1wU",
+    "nos": "1",
+    "taka": "587"
+  }
+];
+
+const maintenanceInitialData = [
+  {
+    "id": "1685510085407",
+    "item": "Maintenance",
+    "nos": 0,
+    "taka": 0
+  },
+  {
+    "id": "1697954649183",
+    "item": "dzjevwo BDwbU",
+    "nos": "1",
+    "taka": "1925"
+  },
+  {
+    "id": "1697969755519",
+    "item": "Lv‡minvU BDwbU",
+    "nos": "1",
+    "taka": "40"
+  },
+  {
+    "id": "1698042054538",
+    "item": "AvgZjx BDwbU-2wU",
+    "nos": "1",
+    "taka": "90"
+  },
+  {
+    "id": "1698571470686",
+    "item": "N›UvNi BDwbU-1wU",
+    "nos": "1",
+    "taka": "800"
+  },
+  {
+    "id": "1698743746685",
+    "item": "ivbxie›`i BDwbU-2wU",
+    "nos": "1",
+    "taka": "810"
+  },
+  {
+    "id": "1699333519606",
+    "item": "nvjyqvNvU BDwbU-1wU",
+    "nos": "1",
+    "taka": "120"
+  }
+];
+
 
 
 const BayprostabFormat = ({ doc }, data) => {
@@ -334,7 +477,7 @@ const Bayprostab = () => {
     getData();
 
     const locaData = localStorageGetItem("bayprostab");
-    //console.log(locaData)
+    console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = numberWithComma(Math.round(totalTaka));
@@ -391,6 +534,22 @@ const Bayprostab = () => {
     }, 500);
   }
 
+  // ----------------------------------------------
+  const utilitiesHandler = () => {
+    const getMsg = localStorageSetItem("bayprostab", utilitiesInitialData);
+    setMsg(`${getMsg}-${new Date().toISOString()}`);
+    console.log(getMsg);
+  }
+  const maintenanceHandler = () => {
+    const getMsg = localStorageSetItem("bayprostab", maintenanceInitialData);
+    setMsg(`${getMsg}-${new Date().toISOString()}`);
+    console.log(getMsg);
+  }
+  const octenHandler = () => {
+    const getMsg = localStorageSetItem("bayprostab", octenInitialData);
+    setMsg(`${getMsg}-${new Date().toISOString()}`);
+    console.log(getMsg);
+  }
 
   return (
     <>
@@ -398,6 +557,13 @@ const Bayprostab = () => {
         <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Bayprostab</h1>
         <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
       </div>
+
+      <div className="w-full px-4 lg:px-6 mb-4 flex justify-between">
+        <button onClick={utilitiesHandler} className="text-blue-300 underline underline-offset-4 decoration-4">Utilities</button>
+        <button onClick={maintenanceHandler} className="text-blue-300 underline underline-offset-4 decoration-4">Maintenance</button>
+        <button onClick={octenHandler} className="text-blue-300 underline underline-offset-4 decoration-4">Octen</button>
+      </div>
+
 
       <div className="px-4 lg:px-6">
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4">
@@ -445,7 +611,6 @@ const Bayprostab = () => {
                             : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />
                   }
                 </div>
-
 
                 <div className="w-full col-span-4">
                   <TextareaBn Title="Notes" Id="note" Rows="2" Change={(e) => { setNote(e.target.value) }} Value={note} />

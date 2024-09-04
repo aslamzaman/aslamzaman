@@ -62,64 +62,25 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.setFont("SutonnyMJ", "bold");
   doc.text('evwo fvov : ', 15, 100, null, null, "left");
   doc.setFont("SutonnyMJ", "normal");
-
-  //-------------------------------------------------
   doc.text(`- ${m} ${y}`, 15, 106, null, null, "left");
-  doc.text(`33,600/-`, 90, 106, null, null, "right");
-  doc.text('2', 103, 106, null, null, "right");
-  doc.text(`67,200/-`, 132, 106, null, null, "right");
-
-
-  //-------------------------------------------------
   doc.text('- M¨vm wej', 15, 112, null, null, "left");
-  doc.text(`1,080/-`, 90, 112, null, null, "right");
-  doc.text('1', 103, 112, null, null, "right");
-  doc.text(`1,080/-`, 132, 112, null, null, "right");
-
-
-  //-------------------------------------------------
   doc.text('-f¨vU (†Rbv‡ij Acv‡ikb)', 15, 118, null, null, "left");
-
-
-
-  //----------vat---------------------------------------
-  doc.text(` -- 21,000   15%`, 15, 124, null, null, "left");
-  doc.text(`3,150/-`, 90, 124, null, null, "right");
-  doc.text('1', 103, 124, null, null, "right");
-  doc.text(`3,150/-`, 132, 124, null, null, "right");
-
-
-  //-------------------------------------------------
-  doc.text('-U¨v· (†Rbv‡ij Acv‡ikb)', 15, 130, null, null, "left");
-
-
-  //----------tax---------------------------------------
-  doc.text(` -- 21,000    5%`, 15, 136, null, null, "left");
-  doc.text(`1,050/-`, 90, 136, null, null, "right");
-  doc.text('1', 103, 136, null, null, "right");
-  doc.text(`1,050/-`, 132, 136, null, null, "right");
-
-
-
-  //--------------Extra-----------------------------------
-  doc.text(`-e‡Kqv f¨vU`, 15, 142, null, null, "left");
-  doc.text(`118/-`, 90, 142, null, null, "right");
-  doc.text('1', 103, 142, null, null, "right");
-  doc.text(`118/-`, 132, 142, null, null, "right");
-
-  doc.text(`-e‡Kqv U¨v· `, 15, 148, null, null, "left"); //----------------
-  doc.text(`40/-`, 90, 148, null, null, "right");
-  doc.text('1', 103, 148, null, null, "right");
-  doc.text(`40/-`, 132, 148, null, null, "right");
-
+  doc.text(`-- 21,000    15%`, 15, 124, null, null, "left");
 
   doc.line(35, 121.5, 37, 123.5); // Multiply
   doc.line(37, 121.5, 35, 123.5); // Multiply
 
-  doc.line(35, 134, 37, 136); // Multiply
-  doc.line(37, 134, 35, 136); // Multiply
+  doc.text(`33,600/-`, 90, 106, null, null, "right");
+  doc.text(`1,080/-`, 90, 112, null, null, "right");
+  doc.text(`3,150/-`, 90, 124, null, null, "right");
 
+  doc.text('2', 103, 106, null, null, "right");
+  doc.text('1', 103, 112, null, null, "right");
+  doc.text('1', 103, 124, null, null, "right");
 
+  doc.text(`67,200/-`, 132, 106, null, null, "right");
+  doc.text(`1,080/-`, 132, 112, null, null, "right");
+  doc.text(`3,150/-`, 132, 124, null, null, "right");
 
   // TOR
 
@@ -147,13 +108,24 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.text("Ges M¨vm wej eve` " + `${numberWithComma(gas)}/-`, 174.347, 160, null, null, "center");
   doc.text("UvKvi 2wU GKvD›U †cÕ †PK n‡e", 174.347, 165, null, null, "center");
 
+  // VAt
+  doc.setFont("SutonnyMJ", "bold");
+  doc.text(`f¨vU:`, 150, 175, null, null, "left");
+  doc.setFont("SutonnyMJ", "normal");
+
+  doc.text("GKvD›Um wefv‡Mi m`‡m¨i", 174.347, 180, null, null, "center");
+  doc.text("bv‡g †Rbv‡ij Acv‡ik‡bi", 174.347, 185, null, null, "center");
+  doc.text("f¨vU+U¨v· eve`", 174.347, 190, null, null, "center");
+  doc.text("(3,150+1,050)= 4,200/-", 174.347, 195, null, null, "center");
+  doc.text("UvKvi  †eqvivi †PK n‡e|", 174.347, 200, null, null, "center");
+
 
   doc.setFont("SutonnyMJ", "bold");
 
-  doc.text("72,638/-", 132, 218, null, null, "right");
+  doc.text("71,430/-", 132, 218, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
 
-  doc.text(`${inwordBangla(72638)} UvKv gvÎ`, 60, 226.144, null, null, "left");
+  doc.text(`${inwordBangla(71430)} UvKv gvÎ`, 60, 226.144, null, null, "left");
 
 
   //------------------------------------------------------------------
@@ -175,71 +147,33 @@ const RentFormate = ({ doc }, m, y, dt, rent, goRent, gas, vat, go_tax, total_ta
   doc.text(`${m} ${y} gv‡mi evwo fvov I M¨vm wej`, 25, 53.246, null, null, "left");
 
   doc.setFontSize(14);
-  doc.text(`${formatedDateDot(dt, true)}`, 50, 59, null, null, "left");
-  doc.text(`${formatedDateDot(dtAdd15Days(dt), true)}`, 150, 59, null, null, "center");
+  doc.text(`${formatedDateDot(dt,true)}`, 50, 59, null, null, "left");
+  doc.text(`${formatedDateDot(dtAdd15Days(dt),true)}`, 150, 59, null, null, "center");
 
 
   doc.setFont("SutonnyMJ", "bold");
   doc.text('evwo fvov : ', 15, 106, null, null, "left");
   doc.setFont("SutonnyMJ", "normal");
-
-//-------------------Rent ------------------------------------
   doc.text(`- ${m} ${y}`, 15, 112, null, null, "left");
-  doc.text("33,600/-", 90, 112, null, null, "right");
-  doc.text('2', 103, 112, null, null, "right");
-  doc.text("67,200/-", 132, 112, null, null, "right");
-
-
-//-------------------Gas ------------------------------------
   doc.text('- M¨vm wej', 15, 118, null, null, "left");
-  doc.text("1,080/-", 90, 118, null, null, "right");
-  doc.text('1', 103, 118, null, null, "right");
-  doc.text("1,080/-", 132, 118, null, null, "right");
-
-
-//-------------------Vat ------------------------------------
   doc.text('-f¨vU (†Rbv‡ij Acv‡ikb)', 15, 124, null, null, "left");
-  
-  //-------------------------------------------------------
-  doc.text(` -- 21,000   15%`, 15, 130, null, null, "left");
-  doc.text("3,150/-", 90, 130, null, null, "right");
-  doc.text('1', 103, 130, null, null, "right");
-  doc.text("3,150/-", 132, 130, null, null, "right");
-
-
-//-------------------Tax ------------------------------------
-doc.text('-U¨v· (†Rbv‡ij Acv‡ikb)', 15, 136, null, null, "left");
-  
-//-------------------------------------------------------
-doc.text(` -- 21,000   5%`, 15, 142, null, null, "left");
-doc.text("1,050/-", 90, 142, null, null, "right");
-doc.text('1', 103, 142, null, null, "right");
-doc.text("1,050/-", 132, 142, null, null, "right");
-
-
-  //--------------Extra-----------------------------------
-  doc.text(`-e‡Kqv f¨vU`, 15, 148, null, null, "left");
-  doc.text(`118/-`, 90, 148, null, null, "right");
-  doc.text('1', 103, 148, null, null, "right");
-  doc.text(`118/-`, 132, 148, null, null, "right");
-
-  doc.text(`-e‡Kqv U¨v· `, 15, 154, null, null, "left"); //----------------
-  doc.text(`40/-`, 90, 154, null, null, "right");
-  doc.text('1', 103, 154, null, null, "right");
-  doc.text(`40/-`, 132, 154, null, null, "right");
-
-
+  doc.text(`-- 21,000    15%`, 15, 130, null, null, "left");
 
 
   doc.line(35, 127.5, 37, 129.5); // Multiply
   doc.line(37, 127.5, 35, 129.5); // Multiply
 
-  
-  doc.line(35, 140, 37, 142); // Multiply
-  doc.line(37, 140, 35, 142); // Multiply
+  doc.text("33,600/-", 90, 112, null, null, "right");
+  doc.text("1,080/-", 90, 118, null, null, "right");
+  doc.text("3,150/-", 90, 130, null, null, "right");
 
- 
+  doc.text('2', 103, 112, null, null, "right");
+  doc.text('1', 103, 118, null, null, "right");
+  doc.text('1', 103, 130, null, null, "right");
 
+  doc.text("67,200/-", 132, 112, null, null, "right");
+  doc.text("1,080/-", 132, 118, null, null, "right");
+  doc.text("3,150/-", 132, 130, null, null, "right");
 
 
   // TOR
@@ -263,11 +197,20 @@ doc.text("1,050/-", 132, 142, null, null, "right");
   doc.text("M¨vm wej eve` 1,080/- UvKvi", 167, 155, null, null, "center");
   doc.text("2wU GKvD›Um †cÕ †PK n‡e|", 167, 160, null, null, "center");
 
+  // VAt
+  doc.setFont("SutonnyMJ", "bold");
+  doc.text(`f¨vU:`, 136, 175, null, null, "left");
+  doc.setFont("SutonnyMJ", "normal");
+
+  doc.text("GKvD›Um wefv‡Mi m`‡m¨i bv‡g", 167, 180, null, null, "center");
+  doc.text("†Rbv‡ij Acv‡ik‡bi f¨vU+U¨v· eve`", 167, 185, null, null, "center");
+  doc.text("(3,150 + 1,050) = 4,200/-", 167, 190, null, null, "center");
+  doc.text("UvKvi †eqvivi †PK n‡e|", 167, 195, null, null, "center");
 
   doc.setFont("SutonnyMJ", "bold");
-  doc.text("72,638/-", 132, 226.803, null, null, "right");
+  doc.text("71,430/-", 132, 226.803, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${inwordBangla(72638)} UvKv gvÎ`, 40, 239.5, null, null, "left");
+  doc.text(`${inwordBangla(71430)} UvKv gvÎ`, 40, 239.5, null, null, "left");
 
 
   //--------------------------------------------------------------------
@@ -276,11 +219,10 @@ doc.text("1,050/-", 132, 142, null, null, "right");
 
   doc.setFont("SutonnyMJ", "normal");
   doc.setFontSize(16);
-  doc.text(formatedDateDot(dt, true), 175, 41.75, null, null, "left");
+  doc.text(formatedDateDot(dt,true), 175, 41.75, null, null, "left");
 
   doc.setFont("SutonnyMJ", "normal");
   doc.text('1.', 16, 70, null, null, "left");
-
   doc.text(`${m} ${y} gv‡mi evwo fvov I M¨vm wej`, 30, 70, null, null, "left");
   doc.text('ms¯’vcb', 170, 70, null, null, "left");
   doc.text(`- ${m} ${y} evwo fvov`, 30, 77, null, null, "left");
@@ -288,30 +230,17 @@ doc.text("1,050/-", 132, 142, null, null, "right");
 
   doc.text("- M¨vm wej", 30, 84, null, null, "left");
   doc.text("1,080/-", 130, 84, null, null, "right");
-  doc.text("--f¨vU (†Rbv‡ij Acv‡ikb) 15%", 30, 91, null, null, "left");
-  doc.text("--U¨v· (†Rbv‡ij Acv‡ikb) 5%", 30, 98, null, null, "left");
-  doc.text("3,150/-", 130, 91, null, null, "right");
-  doc.text("1,050/-", 130, 98, null, null, "right");
-
-
-  //--------------Extra-----------------------------------
-  doc.text(`-e‡Kqv f¨vU`, 30, 105, null, null, "left");
-  doc.text(`118/-`, 130, 105, null, null, "right");
-
-  doc.text(`-e‡Kqv U¨v· `, 30, 112, null, null, "left");
-  doc.text(`40/-`, 130, 112, null, null, "right");
-
-
-
-
+  doc.text("--f¨vU (†Rbv‡ij Acv‡ikb)", 30, 91, null, null, "left");
+  doc.text("-- f¨vU 15%", 60, 98, null, null, "left");
+  doc.text("3,150/-", 130, 98, null, null, "right");
 
   doc.setFont("times", "normal");
   doc.text('Rent', 145, 70, null, null, "center");
 
   doc.setFont("SutonnyMJ", "bold");
-  doc.text("72,638/-", 130, 187, null, null, "right");
+  doc.text("71,430/-", 130, 187, null, null, "right");
   doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${inwordBangla(72638)} UvKv gvÎ`, 55, 196, null, null, "left");
+  doc.text(`${inwordBangla(71430)} UvKv gvÎ`, 55, 196, null, null, "left");
 
 }
 
