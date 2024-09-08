@@ -12,7 +12,6 @@ import Link from "next/link";
 const Print = () => {
     const [refNo, setRefNo] = useState("");
     const [dt, setDt] = useState("");
-    const [yr, setYr] = useState("");
     const [names, setNames] = useState([]);
 
     const [subject, setSubject] = useState("");
@@ -23,10 +22,9 @@ const Print = () => {
 
     useEffect(() => {
         try {
-            const { refNo, dt, fullyr, name, subject, detail } = localStorageGetItem('appointmentData');
+            const { refNo, dt, name, subject, detail } = localStorageGetItem('appointmentData');
             setRefNo(refNo);
             setDt(dt);
-            setYr(fullyr);
             const nm = name.split(";");
             setNames(nm);
             setSubject(subject);
@@ -83,7 +81,7 @@ const Print = () => {
                         <div id="page" ref={contentRef} className={`w-full h-auto bg-white ${tiro.className}`} >
                            
                             <p className="w-full text-justify">
-                                স্মারক নং সিএমইএস/এইচআরডি/{convertDigitToUnicode(yr)}-{convertDigitToUnicode(refNo)}<br />
+                                স্মারক নং সিএমইএস/এইচআরডি/{convertDigitToUnicode(refNo)}<br />
                                 {formatedDateUnicode(dt)}
                             </p>
                             <br />

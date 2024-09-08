@@ -45,11 +45,9 @@ const Appointment = () => {
     const createHandler = async (e) => {
         e.preventDefault();
         try {
-            const fullyr = new Date().getFullYear();
             const data = {
                 refNo: refNo,
                 dt: dt,
-                fullyr: fullyr,
                 name: name,
                 subject: subject,
                 detail: detail
@@ -63,7 +61,7 @@ const Appointment = () => {
     }
 
     const getInitialValue = () => {
-        setRefNo('77');
+        setRefNo('2021-77');
         setDt(formatedDate(new Date()));
         setName(initialName);
         setSubject(initialSubject);
