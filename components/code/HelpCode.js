@@ -89,23 +89,27 @@ const sortPost = responsePost.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).t
         floatPrecision: 16
     });
 
-    const margin = 15;
-    const itemsPerPage = 12;
+    const margin = 30;
+    const linePerPage = 31;
     let y = margin;
+    let pageNo = 1;
+
     doc.setFontSize(12);
 
-    for (let i = 0; i < staffs.length; i++) {       
-        doc.text(\`\${staffs[i].post}\`, 105, y + 12, null, null, "center");   
-        y = y + 23;        
-        if (i % itemsPerPage === itemsPerPage - 1) {               
-            doc.addPage();                
-            y = margin;
+    for (let i = 0; i < data.length; i++) {
+        doc.text(`${i + 1}. ${data[i].nmEn}`, 30, y, 'left');
+        y += 8;
+
+        if ((i + 1) % linePerPage === 0 || i === data.length - 1) {
+            doc.text(`Page No: ${pageNo}`, 30, y + 10, 'left');
+            if (i !== data.length - 1) {
+                doc.addPage();
+                y = margin;
+                pageNo += 1;
+            }
         }
     }
-
-    doc.save(\`\${Date.now()}-staff.pdf\`);
-    Msg("Print completed.");
-    setShow(false);
+    doc.save("staff.pdf");
 }
 
 
