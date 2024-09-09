@@ -79,8 +79,9 @@ const SortResult = datas.sort((a, b) => {
 const sortPost = responsePost.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).toUpperCase() ? -1 : 1);
 
 
+
   *** PDF Multiple Page:-
-  const printMultiplePageHandler = async () => {
+const printMultiplePageHandler = async () => {
     const doc = new jsPDF({
         orientation: "p",
         unit: "mm",
@@ -92,25 +93,31 @@ const sortPost = responsePost.sort((a, b) => (a.nmEn).toUpperCase() < (b.nmEn).t
     const margin = 30;
     const linePerPage = 31;
     let y = margin;
-    let pageNo = 1;
 
     doc.setFontSize(12);
 
-    for (let i = 0; i < data.length; i++) {
-        doc.text(`${i + 1}. ${data[i].nmEn}`, 30, y, 'left');
+    for (let i = 0; i < staffs.length; i++) {
+        doc.text(\`\${i + 1}. \${staffs[i].nmEn}\`, 30, y, 'left');
         y += 8;
 
-        if ((i + 1) % linePerPage === 0 || i === data.length - 1) {
-            doc.text(`Page No: ${pageNo}`, 30, y + 10, 'left');
-            if (i !== data.length - 1) {
+        if ((i + 1) % linePerPage === 0) {
+            if (i !== staffs.length - 1) {
                 doc.addPage();
                 y = margin;
-                pageNo += 1;
             }
         }
     }
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 0; i < pageCount; i++) {
+        doc.setPage(i + 1);
+        doc.text(\`Page: \${i + 1}/\${pageCount}\`, 199, 288, null, null, 'right');
+    }
     doc.save("staff.pdf");
 }
+
+
+
+
 
 
 *** Create PDF Page From Canvas:-

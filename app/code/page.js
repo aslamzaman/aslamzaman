@@ -398,7 +398,7 @@ const Code = () => {
                 </div>
             </div>
             <div className="w-full px-4 grid grid-cols-3 gap-4">
-                <div className="mt-7">
+                <div className="mt-7 py-4 max-h-96 overflow-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-2">
 
                         <BtnEn Title="Page" Click={PageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
@@ -427,7 +427,7 @@ const Code = () => {
                         <BtnEn Title="Utils" Click={UtilsGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
-                <div className="col-span-2 py-4">
+                <div className="col-span-2 py-4 max-h-[800px] overflow-auto">
                     <p>{titleText}</p>
                     <textarea rows={20} id="result" name="result" onChange={resultChangeHander} value={result} required maxLength={2500} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" />
 

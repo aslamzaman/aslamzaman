@@ -7,7 +7,7 @@ const date_format = dt => new Date(dt).toISOString().split('T')[0];
 import Image from "next/image";
 import { Tiro_Bangla } from 'next/font/google';
 const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });
-
+import { jsPDF } from "jspdf";
 
 
 const Staff = () => {
@@ -45,12 +45,14 @@ const Staff = () => {
     }
 
 
+
     return (
         <>
             <div className="w-full mb-3 mt-8">
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Staff</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>
+  
             <div className="px-4 lg:px-6">
                 <p className="w-full text-sm text-red-700">{msg}</p>
                 <div className="p-2 overflow-auto">
@@ -85,7 +87,7 @@ const Staff = () => {
                                             <span className="font-bold"> Employee ID: {staff.empId}</span><br />
                                             <span className={tiro.className}> {staff.nmUn}</span><br />
                                             {staff.nmEn} - {staff.postId.nmEn}<br />
-                                            ({staff.genderId.name})<br />                                          
+                                            ({staff.genderId.name})<br />
                                             Joining Date: {date_format(staff.joinDt)}<br />
                                             SC/Field: {staff.placeId.name} - Mobile: {staff.mobile}<br />
                                             Remarks: {staff.remarks}<br />
@@ -95,8 +97,8 @@ const Staff = () => {
                                         <td className={`text-center py-2 px-4 ${tiro.className}`}>{staff.unitId.nmUn}</td>
                                         <td className="text-center py-2 px-4">{staff.remarks}</td>
                                         <td className="h-44 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                                <Edit message={messageHandler} id={staff._id} data={staffs} />
-                                                <Delete message={messageHandler} id={staff._id} data={staffs} />
+                                            <Edit message={messageHandler} id={staff._id} data={staffs} />
+                                            <Delete message={messageHandler} id={staff._id} data={staffs} />
                                         </td>
                                     </tr>
                                 ))
