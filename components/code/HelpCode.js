@@ -300,7 +300,7 @@ const fileChangeHandlerImage = async (e) => {
         const imageData = await Promise.all(imageDataPromises);
         setImageDatas(imageData);
 
-        const reduceName = imageData.reduce((acc, image) => acc + ${returnCode}, '');
+        const reduceName = imageData.reduce((acc, image) => acc + \${returnCode}, '');
         const subStringText = reduceName.substring(1);
         setBrakeup(subStringText);
 
@@ -308,6 +308,33 @@ const fileChangeHandlerImage = async (e) => {
         console.error("Error processing images:", error);
     }
 };
+
+
+
+  *** Upload 
+  const uploadHandler = (e) => {
+	  try{
+			// const file = e.target.files[0];
+			if (!file) {
+				console.log("No file selected.");
+			  return;
+			}
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				try{
+					const result = JSON.parse(reader.result);
+					console.log(result);
+				}catch(parseError){
+					console.error('Error parsing JSON:', parseError);
+				}
+			}
+			reader.readAsText(file);
+		} catch(error) {
+			console.error('Error reading file:', error);
+		}
+	}
+
 
 
    *** Download 
