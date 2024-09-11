@@ -117,7 +117,6 @@ import { postDataToAPI } from "@/lib/utils";
 const Add = ({ message }) => {
 ${stateVar}
     const [show, setShow] = useState(false);
-     const modalRef = useRef("");
 
 
     const showAddForm = () => {

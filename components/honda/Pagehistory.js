@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Addhistory from "./Addhistory";
 import { dateDot } from "@/lib/DateDot";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Pagehistory = ({ message, id }) => {
@@ -14,14 +15,7 @@ const Pagehistory = ({ message, id }) => {
     const getData = async () => {
         setWaitMsg('Please Wait...');
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch data");
-            }
-            const data = await response.json();
+            const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`);
             const filterById = data.filter(honda => honda.hondaId._id === id);
             console.log(data);
             setHondahistorys(filterById);

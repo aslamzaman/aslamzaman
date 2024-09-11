@@ -1,41 +1,39 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
 import Add from "@/components/hondahistory/Add";
 import Edit from "@/components/hondahistory/Edit";
 import Delete from "@/components/hondahistory/Delete";
-import { dateDot } from "@/lib/DateDot";
+import { fetchDataFromAPI, formatedDateSlash, localStorageGetItem } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+
+
 
 
 const Hondahistory = () => {
     const [hondahistorys, setHondahistorys] = useState([]);
-    const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
+    const [msg, setMsg] = useState("Data ready");
+    const router = useRouter();
+
 
 
     useEffect(() => {
-        const fetchData = async () => {
+        const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
+                const hondaId = localStorageGetItem('hondaId');
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
-                const sortData = data.sort((a, b) => new Date(a.dt) < new Date(b.dt)? -1 : 1);
-                console.log(sortData);
-                setHondahistorys(sortData);
+                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`);
+                const findData = data.filter(honda => honda.hondaId._id === hondaId);
+                console.log(findData)
+                setHondahistorys(findData);
                 setWaitMsg('');
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setMsg("Failed to fetch data");
             }
         };
-        fetchData();
+        getData();
     }, [msg]);
 
 
@@ -44,58 +42,70 @@ const Hondahistory = () => {
     }
 
 
+    const closeHandler = () => {
+        router.push('honda');
+    }
+
+
+
+
     return (
         <>
-            <div className="w-full mb-3 mt-8">
-                <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Honda History</h1>
-                <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
-            </div>
-            <div className="px-4 lg:px-6">
-                <p className="w-full text-sm text-red-700">{msg}</p>
-                <div className="p-2 overflow-auto">
-                    <table className="w-full border border-gray-200">
-                        <thead>
-                            <tr className="w-full bg-gray-200">
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Date</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Staff</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Honda</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Location</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Remarks</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Picurl</th>
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Page No</th>
-                                <th className="w-[100px] font-normal">
-                                    <div className="w-full flex justify-end py-0.5 pr-4">
-                                        <Add message={messageHandler} />
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {hondahistorys.length ? (
-                                hondahistorys.map((hondahistory,i) => (
-                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={hondahistory._id}>
-                                        <td className="text-center py-2 px-4">{i+1}. {dateDot(hondahistory.dt,true)}</td>
-                                        <td className="text-center py-2 px-4">{hondahistory.staffId?hondahistory.staffId.nmEn:'null'}-{hondahistory.postId?hondahistory.postId.nmEn:'error'} ({hondahistory.projectId.name})</td>
-                                        <td className="text-center py-2 px-4">{hondahistory.hondaId.regNo}</td>
-                                        <td className="text-center py-2 px-4">{hondahistory.location}</td>
-                                        <td className="text-center py-2 px-4">{hondahistory.remarks}</td>
-                                        <td className="text-center py-2 px-4">{/*hondahistory.picUrl*/}</td>
-                                        <td className="text-center py-2 px-4">{hondahistory.pageNo}</td>
-                                        <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={hondahistory._id} data={hondahistorys} />
-                                            <Delete message={messageHandler} id={hondahistory._id} data={hondahistorys} />
+            <div className="w-full lg:w-3/4 mx-auto my-10 px-4 pb-10 border border-gray-300 shadow-lg rounded-lg">
+                <div className="w-full mb-3 mt-8">
+                    <div className="flex justify-between items-center">
+                        <h1 className="w-full text-xl lg:text-3xl font-bold text-start text-blue-700">Honda History</h1>
+                        <button onClick={closeHandler} className="w-12 h-12  p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full stroke-black">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div className="w-full p-4 mx-auto">
+                    <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
+                    <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
+                    <div className="overflow-auto">
+                        <table className="w-full border border-gray-200">
+                            <thead>
+                                <tr className="w-full bg-gray-200">
+                                    <th className="text-center border border-gray-600">Date</th>
+                                    <th className="text-center border border-gray-600">Staff</th>
+                                    <th className="text-center border border-gray-600">Page No</th>
+                                    <th className="text-center border border-gray-600">Remarks</th>
+                                    <th className="w-[95px] font-normal border border-gray-600">
+                                        <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
+                                            <Add message={messageHandler} />
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {hondahistorys.length ? (
+                                    hondahistorys.map(hondahistory => (
+                                        <tr className="border-b border-gray-200 hover:bg-gray-100" key={hondahistory._id}>
+                                            <td className="text-center border border-gray-600">{formatedDateSlash(hondahistory.dt)}</td>
+                                            <td className="text-center border border-gray-600">{hondahistory.staffId.nmEn}-{hondahistory.staffId.empId}</td>
+                                            <td className="text-center border border-gray-600">{hondahistory.pageNo}</td>
+                                            <td className="text-center border border-gray-600">{hondahistory.remarks}</td>
+                                            <td className="text-center border border-gray-600">
+                                                <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
+                                                    <Edit message={messageHandler} id={hondahistory._id} data={hondahistorys} />
+                                                    <Delete message={messageHandler} id={hondahistory._id} data={hondahistorys} />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={6} className="text-center py-10 px-4">
+                                            Data not available.
                                         </td>
                                     </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan={8} className="text-center py-10 px-4">
-                                        Data not available.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>
@@ -104,5 +114,4 @@ const Hondahistory = () => {
 };
 
 export default Hondahistory;
-
 

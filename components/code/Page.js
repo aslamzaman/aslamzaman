@@ -100,7 +100,7 @@ const ${titleCase(tbl)} = () => {
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-${thead_string}                                <th className="w-[95px] font-normal">
+${thead_string}                                <th className="w-[95px] font-normal border border-gray-600">
                                     <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
                                         <Print data={${tbl}s} />
                                         <Add message={messageHandler} />
@@ -112,9 +112,11 @@ ${thead_string}                                <th className="w-[95px] font-norm
                             {${tbl}s.length ? (
                                 ${tbl}s.map(${tbl} => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={${tbl}._id}>    
-${td_string}                                        <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={${tbl}._id} data={${tbl}s} />
-                                            <Delete message={messageHandler} id={${tbl}._id} data={${tbl}s} />
+${td_string}                                        <td className="text-center border border-gray-600">
+                                            <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
+                                                <Edit message={messageHandler} id={${tbl}._id} data={${tbl}s} />
+                                                <Delete message={messageHandler} id={${tbl}._id} data={${tbl}s} />
+                                            </div>
                                         </td>
                                     </tr>
                                 ))

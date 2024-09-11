@@ -3,30 +3,22 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/honda/Add";
 import Edit from "@/components/honda/Edit";
 import Delete from "@/components/honda/Delete";
-import Pagehistory from "@/components/honda/Pagehistory";
-
+import { fetchDataFromAPI, localStorageSetItem } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 
 const Honda = () => {
     const [hondas, setHondas] = useState([]);
     const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
-
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/honda`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
+                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/honda`);
                 const sortData = data.sort((a, b) => (a.unitId.nmEn).toUpperCase() < (b.unitId.nmEn).toUpperCase() ? -1 : 1)
                 console.log(sortData);
                 setHondas(sortData);
@@ -44,40 +36,13 @@ const Honda = () => {
         setMsg(data);
     }
 
-    /*
-    const btnClick = async () => {
-        console.log(hondas);
-        for (let i = 0; i < hondas.length; i++) {
-            let id = hondas[i]._id;
-            let obj = {
-                regNo: hondas[i].regNo,
-                regDt: hondas[i].regDt,
-                chassisNo: hondas[i].chassisNo,
-                engineNo: hondas[i].engineNo,
-                condition: hondas[i].condition,
-                projectId: hondas[i].projectId,
-                unitId: hondas[i].unitId,
-                remarks: hondas[i].remarks,
-                isDeleted: false
-            }
-            console.log(obj);
 
-            try {
-
-                const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/honda/${id}`;
-                const requestOptions = {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(obj)
-                };
-                await fetch(apiUrl, requestOptions);
-            } catch (error) {
-                console.error("Error saving honda data:", error);
-            }
-
-        }
+    const goToDetail = (id) => {
+        localStorageSetItem('hondaId', id);
+        router.push('hondahistory')
     }
-*/
+
+
     return (
         <>
             <div className="w-full mb-3 mt-8">
@@ -122,7 +87,12 @@ const Honda = () => {
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
                                             <Edit message={messageHandler} id={honda._id} data={hondas} />
                                             <Delete message={messageHandler} id={honda._id} data={hondas} />
-                                            <Pagehistory message={messageHandler} id={honda._id} />
+
+                                            <button title="Detail" onClick={() => goToDetail(honda._id)} className="w-7 h-7 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full p-[1px] stroke-black">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))

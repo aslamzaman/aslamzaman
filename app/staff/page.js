@@ -7,7 +7,7 @@ const date_format = dt => new Date(dt).toISOString().split('T')[0];
 import Image from "next/image";
 import { Tiro_Bangla } from 'next/font/google';
 const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });
-import { jsPDF } from "jspdf";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Staff = () => {
@@ -20,14 +20,7 @@ const Staff = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-                const data = await response.json();
+                const data =  await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
                 const sortData = data.sort((a, b) => parseInt(a.empId) < parseInt(b.empId) ? -1 : 1)
                 console.log(sortData);
                 setStaffs(sortData);
