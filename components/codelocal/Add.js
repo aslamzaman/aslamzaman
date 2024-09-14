@@ -40,7 +40,6 @@ ${use_state}
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
 ${reset_veriable}        
     }
 
@@ -53,7 +52,6 @@ ${reset_veriable}
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 

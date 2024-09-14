@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BtnEn, BtnSubmit, TextDt, DropdownEn } from "@/components/Form";
 import { jsPDF } from "jspdf";
 import { Close } from "@/components/Icons";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 require("@/lib/fonts/SUTOM_MJ-bold");
 require("@/lib/fonts/SUTOM_MJ-normal");
@@ -78,8 +79,8 @@ const Print = ({ message }) => {
 
         try {
             const [staff, post] = await Promise.all([
-                fetchAll("staff"),
-                fetchAll("post")
+                fetchDataFromAPI("staff"),
+                fetchDataFromAPI("post")
             ]);
             const staffData = staff.data;
             const postData = post.data;

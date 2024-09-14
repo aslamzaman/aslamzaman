@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BtnSubmit, DropdownEn, TextNum } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
 import { addItem } from "@/lib/utils/LocalDatabase";
+import { fetchDataFromAPI, localStorageAddItem } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -17,7 +18,6 @@ const Add = ({ message }) => {
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setName('');
         setNum('');
         setTaka('');
@@ -28,7 +28,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseMobile = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mobile`);
+            const responseMobile = await fetchDataFromAPI("mobile");
             setMobiles(responseMobile);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -39,7 +39,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -58,8 +57,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const addData = addItem('mobilebill', newObject);
-            message(addData.message);
+            const msg = localStorageAddItem('mobilebill', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving mobilebill data:", error);
             message("Error saving mobilebill data.");

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
+import { deleteDataFromAPI } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
@@ -9,9 +10,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-           const { name } = data.find(price => price._id === id) || { name: "" };
+           const { name } = data;
            setName(name);
-           message("Ready to delete"); 
         }
         catch (err) {
             console.log(err);
@@ -21,20 +21,13 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const deleteYesClick = async () => {
         try {
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/price/${id}`;
-            const requestOptions = { method: "DELETE" };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Deleted successfully completed");
-            } else {
-                throw new Error("Failed to delete price");
-            }         
+            const msg = deleteDataFromAPI("price",id);
+            message(msg);          
         } catch (error) {
             console.log(error);
             message("Data deleting error");

@@ -12,9 +12,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { dt } = data.find(hondahistory => hondahistory._id === id) || { dt: "" };
-            setDt(formatedDateDot(dt,true));        
-            message("Ready to delete");
+            const { dt } = data;
+            setDt(formatedDateDot(dt, true));
         }
         catch (err) {
             console.log(err);
@@ -24,7 +23,6 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -33,7 +31,7 @@ const Delete = ({ message, id, data }) => {
 
     const hardDeleteClick = async () => {
         try {
-            const msg = await deleteDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory/${id}`);
+            const msg = await deleteDataFromAPI("hondahistory", id);
             message(msg);
         } catch (error) {
             console.log(error);
@@ -72,7 +70,7 @@ const Delete = ({ message, id, data }) => {
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={hardDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={hardDeleteClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>
@@ -87,6 +85,5 @@ const Delete = ({ message, id, data }) => {
     )
 }
 export default Delete;
-    
 
-    
+

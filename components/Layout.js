@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
     useEffect(() => {
         const user = sessionStorage.getItem('log');
-        if (user === undefined || user === null) {
+        if (!user) {
             router.push('/');
         }
     }, [router]);

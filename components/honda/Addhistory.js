@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, postDataToAPI } from "@/lib/utils";
 
 const Addhistory = ({ message, id }) => {
     const [hondaId, setHondaId] = useState('');
@@ -16,16 +17,12 @@ const Addhistory = ({ message, id }) => {
 
 
     const [hondas, setHondas] = useState([]);
-    const [hondaIdChange, setHondaIdChange] = useState('');
     const [projects, setProjects] = useState([]);
-    const [projectIdChange, setProjectIdChange] = useState('');
     const [staffs, setStaffs] = useState([]);
-    const [staffIdChange, setStaffIdChange] = useState('');
     const [posts, setPosts] = useState([]);
-    const [postIdChange, setPostIdChange] = useState('');
+
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setHondaId(id);
         setLocation('');
         setProjectId('');
@@ -42,11 +39,11 @@ const Addhistory = ({ message, id }) => {
         setShow(true);
         resetVariables();
         try {
-            const [responseHonda, responseProject, responseStaff,responsePost ] = await Promise.all([
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/honda`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
+            const [responseHonda, responseProject, responseStaff, responsePost] = await Promise.all([
+                fetchDataFromAPI("honda"),
+                fetchDataFromAPI("project"),
+                fetchDataFromAPI("staff"),
+                fetchDataFromAPI("post")
             ]);
 
             setHondas(responseHonda);
@@ -61,7 +58,6 @@ const Addhistory = ({ message, id }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -84,18 +80,8 @@ const Addhistory = ({ message, id }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Hondahistory is created!");
-            } else {
-                throw new Error("Failed to create hondahistory");
-            }
+            const msg = postDataToAPI('hondahistory', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving hondahistory data:", error);
             message("Error saving hondahistory data.");
@@ -104,30 +90,6 @@ const Addhistory = ({ message, id }) => {
         }
     }
 
-
-    const hondaIdChangeHandler = (e) => {
-        const hondaIdValue = e.target.value;
-        setHondaIdChange(hondaIdValue);
-        setHondaId(hondaIdValue);
-    }
-
-    const projectIdChangeHandler = (e) => {
-        const projectIdValue = e.target.value;
-        setProjectIdChange(projectIdValue);
-        setProjectId(projectIdValue);
-    }
-
-    const staffIdChangeHandler = (e) => {
-        const staffIdValue = e.target.value;
-        setStaffIdChange(staffIdValue);
-        setStaffId(staffIdValue);
-    }
-
-    const postIdChangeHandler = (e) => {
-        const postIdValue = e.target.value;
-        setPostIdChange(postIdValue);
-        setPostId(postIdValue);
-     }
 
 
     return (
@@ -148,18 +110,18 @@ const Addhistory = ({ message, id }) => {
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     <TextEn Title="Location" Id="location" Change={e => setLocation(e.target.value)} Value={location} Chr={50} />
 
-                                    <DropdownEn Title="Project" Id="projectIdChange" Change={projectIdChangeHandler} Value={projectIdChange}>
+                                    <DropdownEn Title="Project" Id="projectId" Change={e=>setProjectId(e.target.value)} Value={projectId}>
                                         {projects.length ? projects.map(project => <option value={project._id} key={project._id}>{project.name}</option>) : null}
                                     </DropdownEn>
 
 
-                                    <DropdownEn Title="Staff" Id="staffIdChange" Change={staffIdChangeHandler} Value={staffIdChange}>
+                                    <DropdownEn Title="Staff" Id="staffId" Change={e=>setStaffId(e.target.value)} Value={staffId}>
                                         {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}-{staff.empId}</option>) : null}
                                     </DropdownEn>
 
 
-                                    <DropdownEn Title="Post" Id="postIdChange" Change={postIdChangeHandler} Value={postIdChange}>
-                                        {posts.length?posts.map(post=><option value={post._id} key={post._id}>{post.nmEn}</option>):null}
+                                    <DropdownEn Title="Post" Id="postId" Change={e=>setPostId(e.target.value)} Value={postId}>
+                                        {posts.length ? posts.map(post => <option value={post._id} key={post._id}>{post.nmEn}</option>) : null}
                                     </DropdownEn>
                                     <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
                                     <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={50} />

@@ -20,7 +20,7 @@ const Unit = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+                const data = await fetchDataFromAPI("unit");
                 console.log(data)
                 setUnits(data);
                 setWaitMsg('');
@@ -36,7 +36,7 @@ const Unit = () => {
         setMsg(data);
     }
 
-   
+
 
 
     return (
@@ -65,15 +65,15 @@ const Unit = () => {
                         </thead>
                         <tbody>
                             {units.length ? (
-                                units.map((unit,i) => (
+                                units.map((unit, i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={unit._id}>
-                                        <td className="text-center py-2 px-4">{i+1}</td>
+                                        <td className="text-center py-2 px-4">{i + 1}</td>
                                         <td className="pl-4 text-start py-2 px-4">{unit.nmEn}</td>
                                         <td className="text-center py-2 px-4 font-sutonnyN ">{unit.nmBn}</td>
                                         <td className={`text-center py-2 px-4 ${tiro.className}`}>{unit.nmUn}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={unit._id} data={units} />
-                                            <Delete message={messageHandler} id={unit._id} data={units} />
+                                            <Edit message={messageHandler} id={unit._id} data={unit} />
+                                            <Delete message={messageHandler} id={unit._id} data={unit} />
                                         </td>
                                     </tr>
                                 ))

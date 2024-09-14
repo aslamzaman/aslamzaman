@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { BtnSubmit, TextEn, TextPw } from "@/components/Form";
 import { useRouter } from "next/navigation";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 export default function Home() {
@@ -19,16 +20,7 @@ export default function Home() {
     const loadUser = async () => {
       setMsg("Please wait....");
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        console.log(data);
+        const data = await fetchDataFromAPI("user");
         setUserData(data);
         setMsg("Ready to login.");
       } catch (error) {
@@ -47,7 +39,7 @@ export default function Home() {
       setUser('');
       setPw('');
     } else {
-      sessionStorage.setItem('log', 1);
+      sessionStorage.setItem('log', true);
       router.push('/dashboard');
     }
 

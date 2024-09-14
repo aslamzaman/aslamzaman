@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BtnSubmit, DropdownEn, TextNum } from "@/components/Form";
 import { updateItem } from "@/lib/utils/LocalDatabase";
 import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, localStorageUpdateItem } from "@/lib/utils";
 
 
 
@@ -19,14 +20,11 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const responseMobile = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mobile`);
+            const responseMobile = await fetchDataFromAPI("mobile");
             setMobiles(responseMobile);
-            console.log("aslam1", responseMobile)
             //--------------------------------------------------------
-            console.log("aslam", data)
-            const { name, num, taka, mobileId } = data.find(mobilebill => mobilebill.id === id) || { name: '', num: '', taka: '', mobileId: '' };
+            const { name, num, taka, mobileId } = data;
             setName(name);
             setNum(num);
             setTaka(taka);
@@ -39,7 +37,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -58,8 +55,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const dataUpdate = updateItem('mobilebill', id, newObject);
-            message(dataUpdate.message);
+            const dataUpdate = localStorageUpdateItem('mobilebill', id, newObject);
+            message(dataUpdate);
         } catch (error) {
             console.error("Error saving mobilebill data:", error);
             message("Error saving mobilebill data.");

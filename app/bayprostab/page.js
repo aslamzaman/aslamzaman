@@ -458,8 +458,8 @@ const Bayprostab = () => {
       setWaitMsg('Please wait...');
       try {
         const [staffs, projects] = await Promise.all([
-          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromAPI('staff'),
+          fetchDataFromAPI('project')
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         console.log(scStaff)
@@ -545,11 +545,15 @@ const Bayprostab = () => {
     setMsg(`${getMsg}-${new Date().toISOString()}`);
     console.log(getMsg);
   }
+  
   const octenHandler = () => {
     const getMsg = localStorageSetItem("bayprostab", octenInitialData);
     setMsg(`${getMsg}-${new Date().toISOString()}`);
     console.log(getMsg);
   }
+
+
+
 
   return (
     <>
@@ -657,8 +661,8 @@ const Bayprostab = () => {
                           <td className="text-center py-2 px-4">{bayprostab.nos}</td>
                           <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostab.taka)) * parseFloat(bayprostab.nos)}>{bayprostab.taka}</td>
                           <td className="flex justify-end items-center space-x-1 mt-1">
-                            <Edit Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
-                            <Delete Msg={msgHandler} Id={bayprostab.id} data={bayprostabs} />
+                            <Edit Msg={msgHandler} Id={bayprostab.id} data={bayprostab} />
+                            <Delete Msg={msgHandler} Id={bayprostab.id} data={bayprostab} />
                           </td>
                         </tr>
                       )

@@ -9,7 +9,7 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { item } = data.find(any => any.id === id) || { item: "" };
+            const { item } = data;
             setItem(item);
             message("Ready to delete");
         }

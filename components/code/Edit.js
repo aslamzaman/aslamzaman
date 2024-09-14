@@ -1,3 +1,4 @@
+import { titleCamelCase } from "@/lib/utils";
 
 const Edit = (tbl, datas) => {
 
@@ -108,20 +109,10 @@ const Edit = (tbl, datas) => {
     }
     );
 
-    sowFormMongoData = '             const { ' + sowFormMongo + ' } = data.find(' + tbl + ' => ' + tbl + '._id === id) || { ' + sowFormMongop + ' };' + '\n'
-
-    let sowFormMongo2 = "";
-    data.map((d, i) => {
-        if (i < data.length - 1) {
-            if (i > 0) {
-                i === (data.length - 2)
-                    ? sowFormMongo2 += `            set${FirstCap(d)}(${d});`
-                    : sowFormMongo2 += `            set${FirstCap(d)}(${d});` + `\n`
-            }
-        }
-    }
-    );
-    sowFormMongoData += sowFormMongo2;
+    sowFormMongoData = '             const { ' + sowFormMongo + ' } = data;' + '\n'
+    const sliceData = data.slice(1, data.length-1);
+    const ret1 = sliceData.map(s=>`            set${titleCamelCase(s)}(${s});`).join('\n') ;
+const res1 = sowFormMongoData + ret1;
 
     //------------------------------------------------------------------------------
 
@@ -165,9 +156,8 @@ ${stateVar}
 
     const showEditForm = () => {
         setShow(true);
-        message("Ready to edit");
         try {
-${sowFormMongoData}
+${res1}
         } catch (err) {
             console.log(err);
         }
@@ -176,7 +166,6 @@ ${sowFormMongoData}
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -191,7 +180,7 @@ ${getValue}
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await putDataToAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"/${id}`"}, newObject);
+            const msg = await putDataToAPI("${tbl}",id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving ${tbl} data:", error);

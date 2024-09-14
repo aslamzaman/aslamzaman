@@ -29,7 +29,7 @@ const Brickwork = () => {
         const load = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/price`);
+                const response = await fetchDataFromAPI('price');
                 console.log(response);
                 const brickPrice = response.find(brick => brick._id === '660d0383b8a2f9f9b8bb9bb9');
                 const cementPrice = response.find(cement => cement._id === '660d038fb8a2f9f9b8bb9bbd');

@@ -1,9 +1,9 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import Add from "@/components/gender/Add";
 import Edit from "@/components/gender/Edit";
 import Delete from "@/components/gender/Delete";
+// import Print from "@/components/gender/Print";
 import { fetchDataFromAPI } from "@/lib/utils";
 
 
@@ -17,7 +17,7 @@ const Gender = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/gender`);
+                const data = await fetchDataFromAPI("gender");
                 setGenders(data);
                 setWaitMsg('');
             } catch (error) {
@@ -40,14 +40,15 @@ const Gender = () => {
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
                 <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
             </div>
-            <div className="w-full lg:w-3/4 p-4 mx-auto border-2 shadow-md rounded-md">
-                <div className="overflow-auto">
+            <div className="px-4 lg:px-6">
+                <div className="p-4 overflow-auto">
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-                                <th className="text-center border-b border-gray-200 px-4 py-2">Name</th>
-                                <th className="w-[100px] font-normal">
-                                    <div className="w-full flex justify-end py-0.5 pr-4">
+                                <th className="text-center border-b border-gray-200 px-4 py-1">Name</th>
+                                <th className="w-[95px] border-b border-gray-200 px-4 py-2">
+                                    <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
+                                        {/* <Print data={genders} /> */}
                                         <Add message={messageHandler} />
                                     </div>
                                 </th>
@@ -57,16 +58,18 @@ const Gender = () => {
                             {genders.length ? (
                                 genders.map(gender => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={gender._id}>    
-                                        <td className="text-center py-2 px-4">{gender.name}</td>
-                                        <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={gender._id} data={genders} />
-                                            <Delete message={messageHandler} id={gender._id} data={genders} />
+                                        <td className="text-center py-1 px-4">{gender.name}</td>
+                                        <td className="text-center py-2">
+                                            <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
+                                                <Edit message={messageHandler} id={gender._id} data={gender} />
+                                                <Delete message={messageHandler} id={gender._id} data={gender} />
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={3} className="text-center py-10 px-4">
+                                    <td colSpan={2} className="text-center py-10 px-4">
                                         Data not available.
                                     </td>
                                 </tr>

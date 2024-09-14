@@ -2,15 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt, TextBn, TextareaBn } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
+
 import { inwordBn } from "@/lib/InwordBn";
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
 import { dateDifference } from "@/lib/DateDifference";
 import { dateDot } from "@/lib/DateDot";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-
-
+import { dateDifferenceInDays, fetchDataFromAPI, formatedDate,  formatedDateDot } from "@/lib/utils";
 
 
 
@@ -30,7 +28,7 @@ const LeavePage = () => {
     const getData = async () => {
       setWaitMsg("Please wait...");
       try {
-        const staffs = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+        const staffs = await fetchDataFromAPI("staff");
         setStaffData(staffs);
         setWaitMsg("");
       } catch (err) {
@@ -38,7 +36,7 @@ const LeavePage = () => {
       }
     }
     getData();
-    const date1 = date_format(new Date());
+    const date1 = formatedDate(new Date());
     setDt1(date1);
     setDt2(date1);
     setCause("cvwievwiK Kv‡Ri Rb¨");
@@ -50,7 +48,7 @@ const LeavePage = () => {
 
   const createHandler = (e) => {
     e.preventDefault();
-    const diff = dateDifference(dt1, dt2, true);
+    const diff = dateDifferenceInDays(dt1, dt2, true);
     if (description === "") {
       setWaitMsg("Click on 'Create Application' button");
       return false;
@@ -70,7 +68,7 @@ const LeavePage = () => {
       doc.setFont("SutonnyMJ", "normal");
       doc.setFontSize(14);
       //----------------------------------------------------
-      doc.text(`${dateDot(new Date(),true)}`, 169, 40 - 1, null, null, "left"); // date
+      doc.text(`${formatedDateDot(new Date(),true)}`, 169, 40 - 1, null, null, "left"); // date
       doc.text(`${s[0]}`, 59, 50 - 1, null, null, "center"); // name
       doc.text(`${s[1]}`, 130, 50 - 1, null, null, "center");  // post
       doc.setFont("times", "normal");
@@ -79,8 +77,8 @@ const LeavePage = () => {
       doc.setFont("SutonnyMJ", "normal");
       doc.setFontSize(14);
       doc.text(`${cause}`, 55, 60 - 1, null, null, "left");
-      doc.text(`${dateDot(dt1,true)}`, 70.5, 70 - 1, null, null, "center");
-      doc.text(`${dateDot(dt2, true)}`, 120.5, 70 - 1, null, null, "center");
+      doc.text(`${formatedDateDot(dt1,true)}`, 70.5, 70 - 1, null, null, "center");
+      doc.text(`${formatedDateDot(dt2,true)}`, 120.5, 70 - 1, null, null, "center");
       doc.text(`${diff}`, 162.5, 70 - 1, null, null, "center");
 
       doc.text(`${description}`, 20, 121.5, { maxWidth: 178, align: 'justify' });

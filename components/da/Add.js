@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BtnSubmit, DropdownEn, TextNum } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, postDataToAPI } from "@/lib/utils";
+
+
 
 const Add = ({ message }) => {
     const [postId, setPostId] = useState('');
@@ -8,14 +10,11 @@ const Add = ({ message }) => {
     const [show, setShow] = useState(false);
 
     const [posts, setPosts] = useState([]);
-    const [postIdChange, setPostIdChange] = useState('');
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setPostId('');
         setTk('');
-        setPostIdChange('');
     }
 
 
@@ -23,7 +22,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responsePost = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`);
+            const responsePost = await fetchDataFromAPI('post');
             setPosts(responsePost);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -33,7 +32,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -49,18 +47,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/da`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Da is created!");
-            } else {
-                throw new Error("Failed to create da");
-            }
+            const msg = await postDataToAPI('da', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving da data:", error);
             message("Error saving da data.");
@@ -70,11 +58,6 @@ const Add = ({ message }) => {
     }
 
 
-    const postIdChangeHandler = (e) => {
-        const postIdValue = e.target.value;
-        setPostIdChange(postIdValue);
-        setPostId(postIdValue);
-    }
 
 
     return (
@@ -93,7 +76,7 @@ const Add = ({ message }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <DropdownEn Title="Post" Id="postIdChange" Change={postIdChangeHandler} Value={postIdChange}>
+                                    <DropdownEn Title="Post" Id="postId" Change={e=>setPostId(e.target.value)} Value={postId}>
                                         {posts.length ? posts.map(post => <option value={post._id} key={post._id}>{post.nmEn}</option>) : null}
                                     </DropdownEn>
                                     <TextNum Title="Taka" Id="tk" Change={e => setTk(e.target.value)} Value={tk} />

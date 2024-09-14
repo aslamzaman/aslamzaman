@@ -15,8 +15,7 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = () => {
         setShow(true);
-        message("Ready to edit");
-        const findData = data.find(d => parseInt(d.id) === parseInt(id));
+        const findData = data;
         const { item, nos, taka } = findData;
         setItem(item);
         setNos(nos);
@@ -27,7 +26,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 

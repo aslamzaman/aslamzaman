@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/price/Add";
 import Edit from "@/components/price/Edit";    
 import Delete from "@/components/price/Delete";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Price = () => {
@@ -15,17 +16,7 @@ const Price = () => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/price`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
-                console.log(data);
+                const data = await fetchDataFromAPI("price");
                 setPrices(data);
                 setWaitMsg('');
             } catch (error) {
@@ -70,8 +61,8 @@ const Price = () => {
                                           <td className="text-center py-2 px-4">{price.name}</td>
                                           <td className="text-center py-2 px-4">{price.tk}</td>                                            
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={price._id} data={prices} />
-                                            <Delete message={messageHandler} id={price._id} data={prices} />
+                                            <Edit message={messageHandler} id={price._id} data={price} />
+                                            <Delete message={messageHandler} id={price._id} data={price} />
                                         </td>
                                     </tr>
                                 ))

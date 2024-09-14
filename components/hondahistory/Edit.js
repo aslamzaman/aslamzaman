@@ -17,16 +17,15 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
 
-            const hondaData = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const hondaData = await fetchDataFromAPI("staff");
             const sortData = hondaData.sort((a, b) => parseInt(a.empId) < parseInt(b.empId) ? -1 : 1);
             console.log(hondaData);
             setStaffs(sortData);
 
 
-            const { dt, staffId, pageNo, remarks } = data.find(hondahistory => hondahistory._id === id) || { dt: '', staffId: '', pageNo: '', remarks: '' };
+            const { dt, staffId, pageNo, remarks } = data;
             setDt(formatedDate(dt));
             setStaffId(staffId._id);
             setPageNo(pageNo);
@@ -39,7 +38,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -59,7 +57,7 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await putDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory/${id}`, newObject);
+            const msg = await putDataToAPI("hondahistory", id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving hondahistory data:", error);

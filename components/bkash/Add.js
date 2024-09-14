@@ -9,11 +9,10 @@ const Add = ({ message }) => {
     const [show, setShow] = useState(false);
 
     const [units, setUnits] = useState([]);
-    const [nmUnitChange, setNmUnitChange] = useState('');
+
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setNmUnit('');
         setTaka('');
     }
@@ -23,7 +22,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseUnit = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+            const responseUnit = await fetchDataFromAPI('unit');
             setUnits(responseUnit);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -33,7 +32,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -61,11 +59,6 @@ const Add = ({ message }) => {
     }
 
 
-    const nmUnitChangeHandler = (e) => {
-        const nmUnitValue = e.target.value;
-        setNmUnitChange(nmUnitValue);
-        setNmUnit(nmUnitValue);
-    }
 
 
     return (
@@ -84,7 +77,7 @@ const Add = ({ message }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <DropdownEn Title="Unit" Id="nmUnitChange" Change={nmUnitChangeHandler} Value={nmUnitChange}>
+                                    <DropdownEn Title="Unit" Id="nmUnit" Change={e=>setNmUnit(e.target.value)} Value={nmUnit}>
                                         {units.length ? units.map(unit => <option value={unit.nmBn} key={unit._id}>{unit.nmEn}</option>) : null}
                                     </DropdownEn>
                                     <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />

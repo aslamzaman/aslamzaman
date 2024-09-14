@@ -13,9 +13,8 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = () => {
         setShow(true);
-        message("Ready to edit");
         try {
-             const { nmEn, nmBn, nmUn } = data.find(post => post._id === id) || { nmEn: '', nmBn: '', nmUn: '' };
+            const { nmEn, nmBn, nmUn } = data;
             setNmEn(nmEn);
             setNmBn(nmBn);
             setNmUn(nmUn);
@@ -27,15 +26,14 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
     const createObject = () => {
         return {
-              nmEn: nmEn,
-              nmBn: nmBn,
-              nmUn: nmUn
+            nmEn: nmEn,
+            nmBn: nmBn,
+            nmUn: nmUn
         }
     }
 
@@ -44,7 +42,7 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await putDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`, newObject);
+            const msg = await putDataToAPI("post", id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving post data:", error);
@@ -72,9 +70,9 @@ const Edit = ({ message, id, data }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                   <TextEn Title="Nmen" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
-                                   <TextEn Title="Nmbn" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
-                                   <TextEn Title="Nmun" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />                                    
+                                    <TextEn Title="Nmen" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
+                                    <TextEn Title="Nmbn" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
+                                    <TextEn Title="Nmun" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -100,4 +98,3 @@ export default Edit;
 
 
 
-    

@@ -14,10 +14,8 @@ const Edit = ({ Msg, Id, data }) => {
 
     const editHandler = () => {
         setShow(true);
-        Msg("Ready to edit");
-        const getLocalData = data.find(d => parseInt(d.id)===parseInt(Id));
-        if (getLocalData) {
-            const { item, nos, taka } = getLocalData;
+        if (data) {
+            const { item, nos, taka } = data;
             setItem(item);
             setNos(nos);
             setTaka(taka);

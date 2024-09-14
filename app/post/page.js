@@ -23,7 +23,7 @@ const Post = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`);
+                const data = await fetchDataFromAPI("post");
                 setPosts(data);
                 setWaitMsg('');
             } catch (error) {
@@ -72,8 +72,8 @@ const Post = () => {
                                         <td className="text-center font-sutonnyN">{post.nmBn}</td>
                                         <td className={`text-center ${tiro.className}`}>{post.nmUn}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={post._id} data={posts} />
-                                            <Delete message={messageHandler} id={post._id} data={posts} />
+                                            <Edit message={messageHandler} id={post._id} data={post} />
+                                            <Delete message={messageHandler} id={post._id} data={post} />
                                         </td>
                                     </tr>
                                 ))

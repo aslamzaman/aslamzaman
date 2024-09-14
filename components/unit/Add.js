@@ -25,12 +25,10 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
           setNmEn('');
           setNmBn('');
           setNmUn('');
@@ -50,7 +48,7 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await postDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`, newObject);
+            const msg = await postDataToAPI("unit", newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving unit data:", error);

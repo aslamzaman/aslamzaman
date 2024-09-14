@@ -13,10 +13,9 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { item, taka } = data.find(bayprostabexecution => parseInt(bayprostabexecution.id) === parseInt(id));
+            const { item, taka } = data;
             setItem(item);
             setCkd(parseInt(taka) === 0 ? true : false);
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -26,7 +25,6 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 

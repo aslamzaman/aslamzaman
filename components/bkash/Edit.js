@@ -9,18 +9,17 @@ const Edit = ({ message, id, data }) => {
     const [show, setShow] = useState(false);
 
     const [units, setUnits] = useState([]);
-    const [nmUnitChange, setNmUnitChange] = useState('');
+
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const responseUnit = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+            const responseUnit = await fetchDataFromAPI('unit');
             console.log(responseUnit);
             setUnits(responseUnit);
             //------------------------------------------------
             console.log(data)
-            const { nmUnit, taka } = data.find(bkash => bkash.id === id) || { nmUnit: '', taka: '' };
+            const { nmUnit, taka } = data;
             setNmUnit(nmUnit);
             setTaka(taka);
             setNmUnitChange(nmUnit);
@@ -32,7 +31,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -60,11 +58,7 @@ const Edit = ({ message, id, data }) => {
     }
 
 
-    const nmUnitChangeHandler = (e) => {
-        const nmUnitValue = e.target.value;
-        setNmUnitChange(nmUnitValue);
-        setNmUnit(nmUnitValue);
-    }
+
 
     return (
         <>
@@ -84,7 +78,7 @@ const Edit = ({ message, id, data }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <DropdownEn Title="Unit" Id="nmUnitChange" Change={nmUnitChangeHandler} Value={nmUnitChange}>
+                                    <DropdownEn Title="Unit" Id="nmUnit" Change={e=>setNmUnit(e.target.value)} Value={nmUnit}>
                                         {units.length ? units.map(unit => <option value={unit.nmBn} key={unit._id}>{unit.nmEn}</option>) : null}
                                     </DropdownEn>
                                     <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />

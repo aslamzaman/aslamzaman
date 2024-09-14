@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
+import { patchDataToAPI } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
@@ -8,7 +9,7 @@ const Delete = ({ message, id, data }) => {
 
     const showDeleteForm = () => {
         setShow(true);
-        const { nmEn } = data.find(staff => staff._id === id) || { nmEn: "" };
+        const { nmEn } = data;
         setNmEn(nmEn); 
     }
 
@@ -20,16 +21,8 @@ const Delete = ({ message, id, data }) => {
 
     const softDeleteHandler = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff/${id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" }
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch data");
-            }
-            const data = await response.json();
-           // console.log(data)
-            message(`Deleted successfully completed. id: ${id}`);
+            const msg = patchDataToAPI('staff',id);
+            message(msg);
         } catch (error) {
             console.error("Error fetching data:", error);
         }finally{

@@ -13,9 +13,8 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const { nmEn, nmBn, nmUn } = data.find(unit => unit._id === id) || { nmEn: '', nmBn: '', nmUn: '' };
+            const { nmEn, nmBn, nmUn } = data;
             setNmEn(nmEn);
             setNmBn(nmBn);
             setNmUn(nmUn);
@@ -27,7 +26,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -44,7 +42,7 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await putDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit/${id}`, newObject);
+            const msg = await putDataToAPI("unit",id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving unit data:", error);

@@ -11,7 +11,6 @@ const Upload = ({ message }) => {
 
   const showModal = () => {
     setShow(true);
-    message("Ready to upload");
   }
 
 

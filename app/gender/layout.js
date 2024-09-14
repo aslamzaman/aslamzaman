@@ -8,6 +8,6 @@ export const metadata = {
 
 
 export default function GenderLayout({ children }) {
-  return <Layout>{children}</Layout> 
+    return <Layout>{children}</Layout>  
 }
 

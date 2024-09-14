@@ -10,9 +10,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { nmUnit } = data.find(bkash => bkash.id === id) || { nmUnit: "" };
+            const { nmUnit } = data;
             setNmUnit(nmUnit);
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -22,7 +21,6 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 

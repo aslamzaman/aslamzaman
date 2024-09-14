@@ -12,7 +12,6 @@ const Add = ({ message }) => {
 
 
 	const resetVariables = () => {
-		message("Ready to make new additions");
 		setItem('');
 		setNos('');
 		setTaka('');
@@ -25,7 +24,6 @@ const Add = ({ message }) => {
 
 	const closeAddForm = () => {
 		setShow(false);
-		message("Data ready");
 	}
 
 	const createObject = () => {

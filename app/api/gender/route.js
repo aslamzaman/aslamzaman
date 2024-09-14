@@ -6,7 +6,7 @@ import { GenderModel } from '@/lib/Models';
 export const GET = async () => {
   try {
     await Connect();
-    const genders = await GenderModel.find({}).sort({_id:'desc'});
+    const genders = await GenderModel.find({isDeleted: false}).sort({_id:'desc'});
     return NextResponse.json( genders );
   } catch (error) {
     console.error('GET Error:', error);

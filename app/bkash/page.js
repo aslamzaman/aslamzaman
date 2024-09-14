@@ -26,7 +26,7 @@ const Bkash = () => {
         const load = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const responseStaff = await fetchDataFromAPI('staff');
                 const filterScStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d"); // filter only sc staff
                 setStaffs(filterScStaff);
                 //--------------------------------------------------------------------
@@ -128,6 +128,10 @@ const Bkash = () => {
     }
 
 
+
+
+    
+
     return (
         <>
             <div className="w-full mb-3 mt-8">
@@ -173,8 +177,8 @@ const Bkash = () => {
                                                     <td className="text-center py-2 px-4 font-sutonnyN">{bkash.nmUnit}</td>
                                                     <td className="text-center py-2 px-4 font-sutonnyN">{bkash.taka}</td>
                                                     <td className="flex justify-end items-center mt-1">
-                                                        <Edit message={messageHandler} id={bkash.id} data={bkashs} />
-                                                        <Delete message={messageHandler} id={bkash.id} data={bkashs} />
+                                                        <Edit message={messageHandler} id={bkash.id} data={bkash} />
+                                                        <Delete message={messageHandler} id={bkash.id} data={bkash} />
                                                     </td>
                                                 </tr>
                                             )

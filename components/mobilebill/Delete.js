@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 const Delete = ({ message, id, data }) => {
     const [name, setName] = useState("");
@@ -9,9 +10,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { name } = data.find(mobilebill => mobilebill.id === id) || { name: "" };
+            const { name } = data;
             setName(name);
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -21,14 +21,13 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const deleteYesClick = async () => {
         try {
-            const deleteData = deleteItem('mobilebill', id);
-            message(deleteData.message);
+            const deleteData = localStorageDeleteItem('mobilebill', id);
+            message(deleteData);
         } catch (error) {
             console.log(error);
             message("Data deleting error");

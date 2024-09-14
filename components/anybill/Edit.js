@@ -14,7 +14,7 @@ const Edit = ({ message, id, data }) => {
         try {
             //------------------------------------------------
             console.log(data)
-            const { item, no, taka } = data.find(any => any.id === id) || { item: '', no: '', taka: '' };
+            const { item, no, taka } = data;
             setItem(item);
             setNo(no);
             setTaka(taka);

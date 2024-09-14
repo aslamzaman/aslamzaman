@@ -1,53 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, id, data } from "react";
 import { BtnEn } from "@/components/Form";
-import { Close } from "@/components/Icons";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
-
-const Delete = ({ Msg, Id }) => {
+const Delete = ({ message, id, data }) => {
+    const [place1, setPlace1] = useState("");
     const [show, setShow] = useState(false);
 
-
-    const deleteHandler = () => {
+    const showDeleteForm = () => {
         setShow(true);
-        Msg("Ready to delete.");
+        try {
+            const { place1 } = data;
+            setPlace1(place1);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
 
-    const removeHandler = () => {
+    const closeDeleteForm = () => {
+        setShow(false);
+    }
+
+
+    const deleteYesClick = async () => {
         try {
-            let deletedItem = deleteItem("localta", Id);
-            Msg(deletedItem.message);
+            const msg = localStorageDeleteItem('localta', id);
+            message(msg);
         } catch (error) {
-            Msg(deletedItem.message);
-            console.log(`Error deleting data: ${error}`);
+            console.log(error);
+            message("Data deleting error");
         }
         setShow(false);
     }
 
 
-
     return (
         <>
-            <div className={`fixed inset-0 py-16 bg-gray-900 ${show ? 'block' : 'hidden'}  bg-opacity-60 overflow-auto`}>
-                <div className="w-11/12 md:w-8/12 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
-                    <div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
-                        <h1 className="text-xl font-bold text-blue-600">Delete Existing</h1>
-                        <Close Click={() => { setShow(false); Msg("Data ready") }} Size="w-9 h-9" />
-                    </div>
+            {show && (
+                <div className="fixed inset-0 py-16 bg-black bg-opacity-30 backdrop-blur-sm z-10 overflow-auto">
+                    <div className="w-11/12 md:w-1/2 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
+                        <div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
+                            <h1 className="text-xl font-bold text-blue-600">Delete Existing Data</h1>
+                            <button onClick={closeDeleteForm} className="w-8 h-8 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md transition duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full stroke-black">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
 
-                    <div className="p-6 text-black">
-                        <p className="text-left text-md text-red-400">Are you sure delete?</p>
-                    </div>
+                        </div>
+                        <div className="p-4 lg:p-6 flex flex-col space-y-4">
+                            <div className="w-full">
+                                <svg height="60" width="60" xmlns="http://www.w3.org/2000/svg" className="bg-white-100 mx-auto">
+                                    <path d="M30 3 L3 57 L57 57 Z" className="fill-none stroke-red-700 stroke-[5px]" />
+                                    <path d="M30 23 L30 40" className="fill-none stroke-red-700 stroke-[5px]" />
+                                    <path d="M30 45 L30 50" className="fill-none stroke-red-700 stroke-[5px]" />
+                                </svg>
 
-                    <div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">
-                        <BtnEn Title="Close" Click={() => { setShow(false); Msg("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
-                        <BtnEn Title="Yes" Click={removeHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <h1 className="text-sm text-center text-gray-600 mt-4">
+                                    Are you sure to proceed with the deletion?</h1>
+                                <h1 className="text-center text-gray-600 font-bold font-sutonnyN">{place1}</h1>
+                            </div>
+                            <div className="w-full flex justify-start">
+                                <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
+                                <BtnEn Title="Yes Delete" Click={deleteYesClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button onClick={deleteHandler} className="w-7 h-7 bg-red-700 hover:bg-red-900 text-white flex justify-center items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+            )}
+            <button onClick={showDeleteForm} title="Delete" className="px-1 py-1 hover:bg-red-300 rounded-md transition duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 stroke-black hover:stroke-blue-800 transition duration-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -55,3 +78,4 @@ const Delete = ({ Msg, Id }) => {
     )
 }
 export default Delete;
+  

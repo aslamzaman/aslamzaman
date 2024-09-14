@@ -4,17 +4,8 @@ import Add from "@/components/electric/Add";
 import Edit from "@/components/electric/Edit";
 import Delete from "@/components/electric/Delete";
 import { TextDt, TextNum, DropdownEn, BtnSubmit } from "@/components/Form";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-import { fetchData } from "@/lib/utils/FetchData";
 import { jsPDF } from "jspdf";
-import { inword } from "@/lib/Inword";
-
-const titleCase = (str) => {
-    return str
-        .split(' ')
-        .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
-}
+import { fetchDataFromAPI, formatedDate, inwordEnglish } from "@/lib/utils";
 
 
 
@@ -44,9 +35,9 @@ const Electric = () => {
             setWaitMsg('Please Wait...');
             try {
                 const [responseStaff, responseProject, response] = await Promise.all([
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/electric`)
+                  fetchDataFromAPI("staff"),
+                  fetchDataFromAPI("project"),
+                  fetchDataFromAPI("electric")
                 ]);
 
                 //  console.log(responseStaff, responseProject, response);
@@ -63,7 +54,7 @@ const Electric = () => {
         };
         loadData();
 
-        setDt(date_format(new Date()));
+        setDt(formatedDate(new Date()));
     }, [msg]);
 
 
@@ -72,17 +63,6 @@ const Electric = () => {
     }
 
     //-----------------------------------------------
-    const staffNameChangeHandler = (e) => {
-        const staffNameValue = e.target.value;
-        setStaffNameChange(staffNameValue);
-        setStaffName(staffNameValue);
-    }
-
-    const projectNameChangeHandler = (e) => {
-        const projectNameValue = e.target.value;
-        setProjectNameChange(projectNameValue);
-        setProjectName(projectNameValue);
-    }
 
 
     const pdfCreateHandler = (e) => {
@@ -104,7 +84,7 @@ const Electric = () => {
                 doc.setFontSize(13);
                 doc.setFont("times", "normal");
                 doc.text(`${projectName}`, 100, 48, null, null, "left");
-                doc.text(`${date_format(dt)}`, 100, 54, null, null, "left");
+                doc.text(`${formatedDate(dt)}`, 100, 54, null, null, "left");
 
                 doc.text(`Electric bill for the month of ${months} ${yr}`, 47, 77, null, null, "left");
                 doc.text(`${taka}/-`, 180, 77, null, null, "right");
@@ -113,7 +93,7 @@ const Electric = () => {
                 doc.text(`${taka}/-`, 180, 207, null, null, "right");
                 let total = parseInt(taka);
                 doc.setFont("times", "normal");
-                let t = inword(total);
+                let t = inwordEnglish(total);
                 doc.text(`${t.toUpperCase()} TAKA ONLY`, 45, 215, null, null, "left");
 
                 doc.text(`${staffName.split(",")[0]}`, 25, 241, null, null, "left");
@@ -141,10 +121,10 @@ const Electric = () => {
                     <div className="p-3 border-2 border-gray-400 shadow-lg rounded-lg">
                         <form onSubmit={pdfCreateHandler}>
                             <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
-                            <DropdownEn Title="Staff" Id="staffNameChange" Change={staffNameChangeHandler} Value={staffNameChange}>
+                            <DropdownEn Title="Staff" Id="staffName" Change={e=>setStaffName(e.target.value)} Value={staffName}>
                                 {staffs.length ? staffs.map(staff => <option value={`${staff.nmEn},${staff.postId.nmEn}`} key={staff._id}>{staff.nmEn}</option>) : null}
                             </DropdownEn>
-                            <DropdownEn Title="Project" Id="projectNameChange" Change={projectNameChangeHandler} Value={projectNameChange}>
+                            <DropdownEn Title="Project" Id="projectName" Change={e=>setProjectName(e.target.value)} Value={projectName}>
                                 {projects.length ? projects.map(project => <option value={project.name} key={project._id}>{project.name}</option>) : null}
                             </DropdownEn>
 
@@ -206,8 +186,8 @@ const Electric = () => {
                                             <tr className="border-b border-gray-200 hover:bg-gray-100" key={electric._id}>
                                                 <td className="text-start py-2 px-4">{electric.description}</td>
                                                 <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                                    <Edit message={messageHandler} id={electric._id} data={electrics} />
-                                                    <Delete message={messageHandler} id={electric._id} data={electrics} />
+                                                    <Edit message={messageHandler} id={electric._id} data={electric} />
+                                                    <Delete message={messageHandler} id={electric._id} data={electric} />
                                                 </td>
                                             </tr>
                                         ))

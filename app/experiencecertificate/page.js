@@ -2,15 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { TextEn, BtnSubmit, DropdownEn, TextDt, TextareaEn } from "../../components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+import { fetchDataFromAPI, formatedDate } from "@/lib/utils";
 const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const formatedDate = (dt) => {
-  const d = new Date(dt);
-  const ret = `${month[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-  return ret;
-}
 
 
 
@@ -38,8 +32,8 @@ const Experiencecertificate = () => {
 
     const getData = async () => {
       try {
-        const staffs = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
-        const authors = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/author`);
+        const staffs = await fetchDataFromAPI("staff");
+        const authors = await fetchDataFromAPI("author");
         console.log(staffs, authors)
 
         setStaffs(staffs);
@@ -50,8 +44,8 @@ const Experiencecertificate = () => {
     }
     getData();
 
-    setDt(date_format(new Date()));
-    setDt1(date_format(new Date()));
+    setDt(formatedDate(new Date()));
+    setDt1(formatedDate(new Date()));
   }, [])
 
 

@@ -18,7 +18,7 @@ const Honda = () => {
             setWaitMsg('Please Wait...');
             try {
 
-                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/honda`);
+                const data = await fetchDataFromAPI("honda");
                 const sortData = data.sort((a, b) => (a.unitId.nmEn).toUpperCase() < (b.unitId.nmEn).toUpperCase() ? -1 : 1)
                 console.log(sortData);
                 setHondas(sortData);
@@ -85,8 +85,8 @@ const Honda = () => {
                                         <td className="text-center py-2 px-4">{honda.projectId.name}</td>
                                         <td className="text-center py-2 px-4">{honda.remarks}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={honda._id} data={hondas} />
-                                            <Delete message={messageHandler} id={honda._id} data={hondas} />
+                                            <Edit message={messageHandler} id={honda._id} data={honda} />
+                                            <Delete message={messageHandler} id={honda._id} data={honda} />
 
                                             <button title="Detail" onClick={() => goToDetail(honda._id)} className="w-7 h-7 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full p-[1px] stroke-black">

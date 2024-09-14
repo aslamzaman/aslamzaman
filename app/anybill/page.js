@@ -19,8 +19,6 @@ const Anybill = () => {
     const [dt, setDt] = useState('');
     const [staffs, setStaffs] = useState([]);
     const [staff, setStaff] = useState('');
-    const [projects, setProjects] = useState([]);
-    const [project, setProject] = useState('');
     const [subject, setSubject] = useState('');
     const [total, setTotal] = useState(0);
 
@@ -29,15 +27,9 @@ const Anybill = () => {
         const load = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const [responseStaff, responseProject] = await Promise.all([
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
-                ]);
-
-
+                const responseStaff = await fetchDataFromAPI('staff');
                 const filterScStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d"); // filter only sc staff
                 setStaffs(filterScStaff);
-                setProjects(responseProject);
                 //--------------------------------------------------------------------
                 const data = localStorageGetItem("anybill");
                 const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
@@ -90,9 +82,7 @@ const Anybill = () => {
                 doc.text(`${formatedDateDot(dt)}`, 100, 63, null, null, "left");
                 doc.text(`${subject}`, 35, 75.75, { maxWidth: 162, align: 'left' });
 
-
                 let y = 103;
-
                 let dbTotal = 0;
 
                 for (let i = 0; i < anybills.length; i++) {
@@ -147,9 +137,6 @@ const Anybill = () => {
                                 <DropdownEn Title="Staff" Id="staff" Change={e => setStaff(e.target.value)} Value={staff}>
                                     {staffs.length ? staffs.map(staff => <option value={`${staff.nmBn},${staff.postId.nmBn}`} key={staff._id}>{staff.nmEn}</option>) : null}
                                 </DropdownEn>
-                                <DropdownEn Title="Project" Id="project" Change={e => setProject(e.target.value)} Value={project}>
-                                    {projects.length ? projects.map(project => <option value={project.name} key={project._id}>{project.name}</option>) : null}
-                                </DropdownEn>
                                 <TextBn Title="Subject" Id="subject" Change={e => setSubject(e.target.value)} Value={subject} Chr={200} />
                             </div>
                             <div className="w-full flex justify-start">
@@ -182,8 +169,8 @@ const Anybill = () => {
                                                     <td className="text-center py-2 px-4 font-sutonnyN">{any.no}</td>
                                                     <td className="text-center py-2 px-4 font-sutonnyN">{any.taka}</td>
                                                     <td className="flex justify-end items-center mt-1">
-                                                        <Edit message={messageHandler} id={any.id} data={anybills} />
-                                                        <Delete message={messageHandler} id={any.id} data={anybills} />
+                                                        <Edit message={messageHandler} id={any.id} data={any} />
+                                                        <Delete message={messageHandler} id={any.id} data={any} />
                                                     </td>
                                                 </tr>
                                             )

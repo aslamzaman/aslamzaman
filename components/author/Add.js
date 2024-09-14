@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, postDataToAPI } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -9,10 +9,9 @@ const Add = ({ message }) => {
     const [show, setShow] = useState(false);
 
     const [posts, setPosts] = useState([]);
-    const [postIdChange, setPostIdChange] = useState('');
+
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setName('');
         setPostId('');
     }
@@ -22,8 +21,8 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responsePost = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`);
-            setPosts(responsePost);
+            const data = await fetchDataFromAPI('post');
+            setPosts(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -32,7 +31,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -48,18 +46,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/author`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Author is created!");
-            } else {
-                throw new Error("Failed to create author");
-            }
+            const msg = await postDataToAPI('author', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving author data:", error);
             message("Error saving author data.");
@@ -68,11 +56,6 @@ const Add = ({ message }) => {
         }
     }
 
-    const postIdChangeHandler = (e) => {
-        const postIdValue = e.target.value;
-        setPostIdChange(postIdValue);
-        setPostId(postIdValue);
-     }
 
 
     return (
@@ -89,19 +72,19 @@ const Add = ({ message }) => {
                             </button>
                         </div>
                         <div className="px-6 pb-6 text-black">
-                        
+
                             <form onSubmit={saveHandler}>
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={150} />                                    
-                                    <DropdownEn Title="Post" Id="postIdChange" Change={postIdChangeHandler} Value={postIdChange}>
-                                        {posts.length?posts.map(post=><option value={post._id} key={post._id}>{post.nmEn}</option>):null}
+                                    <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={150} />
+                                    <DropdownEn Title="Post" Id="postId" Change={e=> setPostId(e.target.value)} Value={postId}>
+                                        {posts.length ? posts.map(post => <option value={post._id} key={post._id}>{post.nmEn}</option>) : null}
                                     </DropdownEn>
                                 </div>
                                 <div className="w-full flex justify-start">
                                     <input type="button" onClick={closeAddForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
                                     <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                                 </div>
-                            </form>                           
+                            </form>
                         </div>
                     </div>
                 </div>

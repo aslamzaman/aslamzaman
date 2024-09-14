@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextBn, TextDt, TextNum } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+import { fetchDataFromAPI, formatedDate, putDataToAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
@@ -34,11 +33,11 @@ const Edit = ({ message, id, data }) => {
         setShow(true);
         try {
             const [responseGender, responsePost, responseProject, responsePlace, responseUnit] = await Promise.all([
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/gender`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/place`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`)
+                fetchDataFromAPI("gender"),
+                fetchDataFromAPI("post"),
+                fetchDataFromAPI("project"),
+                fetchDataFromAPI("place"),
+                fetchDataFromAPI("unit")
             ]);
             setGenders(responseGender);
             setPosts(responsePost);
@@ -47,11 +46,11 @@ const Edit = ({ message, id, data }) => {
             setUnits(responseUnit);
 
 
-            const { nmEn, nmBn, nmUn,joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = data.find(staff => staff._id === id) || { nmEn: '', nmBn: '',nmUn:'', joinDt: '', mobile: '', genderId: '', postId: '', projectId: '', pictureUrl: '', empId: '', placeId: '', unitId: '', status: '', remarks: '', salary: '' };
+            const { nmEn, nmBn, nmUn, joinDt, mobile, genderId, postId, projectId, pictureUrl, empId, placeId, unitId, status, remarks, salary } = data;
             setNmEn(nmEn);
             setNmBn(nmBn);
             setNmUn(nmUn);
-            setJoinDt(date_format(joinDt));
+            setJoinDt(formatedDate(joinDt));
             setMobile(mobile);
             setGenderId(genderId._id);
             setPostId(postId._id);
@@ -78,7 +77,7 @@ const Edit = ({ message, id, data }) => {
         return {
             nmEn: nmEn,
             nmBn: nmBn,
-            nmUn:nmUn,
+            nmUn: nmUn,
             joinDt: joinDt,
             mobile: mobile,
             genderId: genderId,
@@ -99,18 +98,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/staff/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message(`Updated successfully completed at ${new Date().toISOString()}`);
-            } else {
-                throw new Error("Failed to create staff");
-            }
+            const msg = putDataToAPI('staff', id, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving staff data:", error);
             message("Error saving staff data.");
@@ -138,7 +127,7 @@ const Edit = ({ message, id, data }) => {
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
-                                <TextEn Title="Name (English)" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
+                                    <TextEn Title="Name (English)" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr={50} />
                                     <TextBn Title="Name (Bangla)" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr={50} />
                                     <TextBn Title="Name (Unicode)" Id="nmUn" Change={e => setNmUn(e.target.value)} Value={nmUn} Chr={50} />
                                     <TextDt Title="Joining Date" Id="joinDt" Change={e => setJoinDt(e.target.value)} Value={joinDt} />

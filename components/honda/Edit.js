@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
+import { putDataToAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
@@ -16,26 +17,24 @@ const Edit = ({ message, id, data }) => {
 
 
     const [projects, setProjects] = useState([]);
-    const [projectIdChange, setProjectIdChange] = useState('');
     const [units, setUnits] = useState([]);
-    const [unitIdChange, setUnitIdChange] = useState('');
+
 
 
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
             const [responseProject, responseUnit] = await Promise.all([
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`)
+                fetchDataFromAPI("project"),
+                fetchDataFromAPI("unit")
             ]);
             setProjects(responseProject);
             setUnits(responseUnit);
 
             //-----------------------------------------------------------------
             console.log("data", data)
-            const { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks } = data.find(honda => honda._id === id) || { regNo: '', regDt: '', chassisNo: '', engineNo: '', condition: '', projectId: '', unitId: '',remarks:'' };
+            const { regNo, regDt, chassisNo, engineNo, condition, projectId, unitId, remarks } = data;
             console.log("aslam",regNo, projectId, unitId)
             setRegNo(regNo);
             setRegDt(regDt);
@@ -45,9 +44,6 @@ const Edit = ({ message, id, data }) => {
             setProjectId(projectId);
             setUnitId(unitId);
             setRemarks(remarks);
-            //--------------------------------
-            setProjectIdChange(projectId._id);
-            setUnitIdChange(unitId._id);
         } catch (err) {
             console.log(err);
         }
@@ -56,7 +52,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -78,18 +73,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/honda/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create honda");
-            }
+            const msg = putDataToAPI('honda',id,newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving honda data:", error);
             message("Error saving honda data.");
@@ -98,17 +83,6 @@ const Edit = ({ message, id, data }) => {
         }
     }
 
-    const projectIdChangeHandler = (e) => {
-        const projectIdValue = e.target.value;
-        setProjectIdChange(projectIdValue);
-        setProjectId(projectIdValue);
-    }
-
-    const unitIdChangeHandler = (e) => {
-        const unitIdValue = e.target.value;
-        setUnitIdChange(unitIdValue);
-        setUnitId(unitIdValue);
-    }
 
 
 
@@ -135,10 +109,10 @@ const Edit = ({ message, id, data }) => {
                                     <TextEn Title="Chassisno" Id="chassisNo" Change={e => setChassisNo(e.target.value)} Value={chassisNo} Chr={50} />
                                     <TextEn Title="Engineno" Id="engineNo" Change={e => setEngineNo(e.target.value)} Value={engineNo} Chr={50} />
                                     <TextEn Title="Condition" Id="condition" Change={e => setCondition(e.target.value)} Value={condition} Chr={50} />
-                                    <DropdownEn Title="Project" Id="projectIdChange" Change={projectIdChangeHandler} Value={projectIdChange}>
+                                    <DropdownEn Title="Project" Id="projectId" Change={e=>setProjectId(e.target.value)} Value={projectId}>
                                         {projects.length ? projects.map(project => <option value={project._id} key={project._id}>{project.name}</option>) : null}
                                     </DropdownEn>
-                                    <DropdownEn Title="Unit" Id="unitIdChange" Change={unitIdChangeHandler} Value={unitIdChange}>
+                                    <DropdownEn Title="Unit" Id="unitId" Change={e=>setUnitId(e.target.value)} Value={unitId}>
                                         {units.length ? units.map(unit => <option value={unit._id} key={unit._id}>{unit.nmEn}</option>) : null}
                                     </DropdownEn>
                                     <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={250} />

@@ -1,6 +1,6 @@
-const Download = () => {
+const Download = (tbl) => {
  
-  const x = "`${new Date().toISOString()}-registration.js`";
+  const x = "`${new Date().toISOString()}-registration.json`";
 
   const str = `import React from "react";
 import { saveAs } from "file-saver";
@@ -10,7 +10,7 @@ const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    let localData = localStorage.getItem("registration");
+    let localData = localStorage.getItem("${tbl}");
     if (localData) {
       const blob = new Blob([localData], { type: "application/json" });
       saveAs(blob, ${x});

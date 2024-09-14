@@ -5,10 +5,7 @@ import Add from "@/components/mobilebill/Add";
 import Edit from "@/components/mobilebill/Edit";
 import Delete from "@/components/mobilebill/Delete";
 import { jsPDF } from "jspdf";
-import { getItems } from "@/lib/utils/LocalDatabase";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
-import { fetchData } from "@/lib/utils/FetchData";
-import { inword } from "@/lib/Inword";
+import { fetchDataFromAPI, formatedDate, formatedDateDot, inwordEnglish, localStorageGetItem } from "@/lib/utils";
 
 
 
@@ -32,18 +29,17 @@ const Mobilebill = () => {
         const load = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = getItems("mobilebill");
-                const data = response.data;
+                const data = localStorageGetItem("mobilebill");
                 const result = data.sort((a, b) => parseInt(b.id) > parseInt(a.id) ? 1 : -1);
                 const totaTaka = data.reduce((t, c) => t + parseInt(c.taka), 0);
                 setMobilebills(result);
                 setTotal(totaTaka);
 
-                const responseStaff = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const responseStaff = await fetchDataFromAPI("staff");
                 const scStaff = responseStaff.filter(staff => staff.placeId._id === '660ae2d4825d0610471e272d');
                 setStaffs(scStaff);
 
-                const responseProject = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`);
+                const responseProject = await fetchDataFromAPI("project");
                 setProjects(responseProject);
                 setWaitMsg('');
             } catch (error) {
@@ -51,7 +47,7 @@ const Mobilebill = () => {
             }
         };
         load();
-        setDt(date_format(new Date()));
+        setDt(formatedDate(new Date()));
     }, [msg]);
 
 
@@ -63,9 +59,8 @@ const Mobilebill = () => {
 
     const handleCreate = async (e) => {
         e.preventDefault();
-        const response = getItems("mobilebill");
-        const data = response.data;
 
+        const data = localStorageGetItem("mobilebill");
         if (data.length < 0) {
             setWaitMsg("No data to creating mobile bill.");
             return false;
@@ -88,7 +83,7 @@ const Mobilebill = () => {
                 doc.text(`${projectName}`, 103, 52.5, null, null, "left");
                 doc.setFont("times", "normal");
                 doc.setFontSize(12);
-                doc.text(` ${date_format(dt)}`, 103, 58.25, null, null, "left");
+                doc.text(` ${formatedDateDot(dt,true)}`, 103, 58.25, null, null, "left");
 
                 let y = 70;
 
@@ -139,7 +134,7 @@ const Mobilebill = () => {
                 doc.text("TOTAL", 35, y + 12, null, null, "left");
                 doc.text(`${total}`, 182, y + 12, null, null, "center");
                 doc.setFont("times", "normal");
-                let inodrd = inword(parseInt(total));
+                let inodrd = inwordEnglish(parseInt(total));
                 doc.text(`INWORD: ${inodrd.toUpperCase()} ONLY`, 15, y + 19, null, null, "left");
 
                 const splitName = staffName.split(',');
@@ -152,19 +147,6 @@ const Mobilebill = () => {
         } catch (error) {
             console.log(error);
         }
-    }
-
-
-    const staffNameChangeHandler = (e) => {
-        const staffNameValue = e.target.value;
-        setStaffNameChange(staffNameValue);
-        setStaffName(staffNameValue);
-    }
-
-    const projectNameChangeHandler = (e) => {
-        const projectNameValue = e.target.value;
-        setProjectNameChange(projectNameValue);
-        setProjectName(projectNameValue);
     }
 
 
@@ -181,11 +163,11 @@ const Mobilebill = () => {
                         <form onSubmit={handleCreate}>
                             <div className="grid grid-cols-1 gap-2 my-2">
                                 <TextDt Title="Date" Id="dt" Change={(e) => setDt(e.target.value)} Value={dt} />
-                                <DropdownEn Title="Staff" Id="staffNameChange" Change={staffNameChangeHandler} Value={staffNameChange}>
+                                <DropdownEn Title="Staff" Id="staffName" Change={e=>setStaffName(e.target.value)} Value={staffName}>
                                     {staffs.length ? staffs.map(staff => <option value={`${staff.nmEn},${staff.postId.nmEn}`} key={staff._id}>{staff.nmEn}</option>) : null}
                                 </DropdownEn>
                             </div>
-                            <DropdownEn Title="Project" Id="projectNameChange" Change={projectNameChangeHandler} Value={projectNameChange}>
+                            <DropdownEn Title="Project" Id="projectName" Change={e=>setProjectName(e.target.value)} Value={projectName}>
                                 {projects.length ? projects.map(project => <option value={project.name} key={project._id}>{project.name}</option>) : null}
                             </DropdownEn>
 
@@ -219,8 +201,8 @@ const Mobilebill = () => {
                                                     <td className="text-center py-2 px-4">{mobilebill.num}</td>
                                                     <td className="text-end py-2 px-4">{mobilebill.taka}</td>
                                                     <td className="flex justify-end items-center mt-1">
-                                                        <Edit message={messageHandler} id={mobilebill.id} data={mobilebills} />
-                                                        <Delete message={messageHandler} id={mobilebill.id} data={mobilebills} />
+                                                        <Edit message={messageHandler} id={mobilebill.id} data={mobilebill} />
+                                                        <Delete message={messageHandler} id={mobilebill.id} data={mobilebill} />
                                                     </td>
                                                 </tr>
                                             )

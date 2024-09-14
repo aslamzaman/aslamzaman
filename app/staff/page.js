@@ -10,6 +10,9 @@ const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });
 import { fetchDataFromAPI } from "@/lib/utils";
 
 
+
+
+
 const Staff = () => {
     const [staffs, setStaffs] = useState([]);
     const [msg, setMsg] = useState("Data ready");
@@ -20,7 +23,7 @@ const Staff = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const data =  await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+                const data = await fetchDataFromAPI("staff");
                 const sortData = data.sort((a, b) => parseInt(a.empId) < parseInt(b.empId) ? -1 : 1)
                 console.log(sortData);
                 setStaffs(sortData);
@@ -90,8 +93,8 @@ const Staff = () => {
                                         <td className={`text-center py-2 px-4 ${tiro.className}`}>{staff.unitId.nmUn}</td>
                                         <td className="text-center py-2 px-4">{staff.remarks}</td>
                                         <td className="h-44 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={staff._id} data={staffs} />
-                                            <Delete message={messageHandler} id={staff._id} data={staffs} />
+                                            <Edit message={messageHandler} id={staff._id} data={staff} />
+                                            <Delete message={messageHandler} id={staff._id} data={staff} />
                                         </td>
                                     </tr>
                                 ))

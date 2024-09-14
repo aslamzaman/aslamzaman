@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit } from "@/components/Form";
+import { postDataToAPI } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -8,7 +9,6 @@ const Add = ({ message }) => {
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");        
         setName('');
     }
 
@@ -21,7 +21,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -36,18 +35,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`;
-            const requestOptions = {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-              message("Project is created!");
-            } else {
-              throw new Error("Failed to create project");
-            } 
+            const msg = postDataToAPI("project",newObject);
+            message(msg);
           } catch (error) {
               console.error("Error saving project data:", error);
               message("Error saving project data.");

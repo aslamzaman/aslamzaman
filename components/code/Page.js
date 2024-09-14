@@ -18,7 +18,7 @@ const Page = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                thead_string = thead_string + `                                <th className="text-center border border-gray-600">${titleCase(d)}</th>\n`
+                thead_string = thead_string + `                                <th className="text-center border-b border-gray-200 px-4 py-1">${titleCase(d)}</th>\n`
             }
         }
     }
@@ -29,7 +29,7 @@ const Page = (tbl, datas) => {
     data.map((d, i) => {
         if (i < data.length - 1) {
             if (i > 0) {
-                td_string = td_string + `                                        <td className="text-center border border-gray-600">{${tbl}.${d}}</td>\n`
+                td_string = td_string + `                                        <td className="text-center py-1 px-4">{${tbl}.${d}}</td>\n`
             }
         }
     });
@@ -52,13 +52,12 @@ const Page = (tbl, datas) => {
 
 
 
-const str = `
-"use client";
+const str = `"use client";
 import React, { useState, useEffect } from "react";
 import Add from "@/components/${tbl}/Add";
 import Edit from "@/components/${tbl}/Edit";
 import Delete from "@/components/${tbl}/Delete";
-import Print from "@/components/${tbl}/Print";
+// import Print from "@/components/${tbl}/Print";
 import { fetchDataFromAPI } from "@/lib/utils";
 
 
@@ -72,7 +71,7 @@ const ${titleCase(tbl)} = () => {
         const getData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const data = await fetchDataFromAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"`"});
+                const data = await fetchDataFromAPI("${tbl}");
                 set${titleCase(tbl)}s(data);
                 setWaitMsg('');
             } catch (error) {
@@ -95,14 +94,14 @@ const ${titleCase(tbl)} = () => {
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
                 <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
             </div>
-            <div className="w-full lg:w-3/4 p-4 mx-auto border-2 shadow-md rounded-md">
-                <div className="overflow-auto">
+            <div className="px-4 lg:px-6">
+                <div className="p-4 overflow-auto">
                     <table className="w-full border border-gray-200">
                         <thead>
                             <tr className="w-full bg-gray-200">
-${thead_string}                                <th className="w-[95px] font-normal border border-gray-600">
+${thead_string}                                <th className="w-[95px] border-b border-gray-200 px-4 py-2">
                                     <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
-                                        <Print data={${tbl}s} />
+                                        {/* <Print data={${tbl}s} /> */}
                                         <Add message={messageHandler} />
                                     </div>
                                 </th>
@@ -112,10 +111,10 @@ ${thead_string}                                <th className="w-[95px] font-norm
                             {${tbl}s.length ? (
                                 ${tbl}s.map(${tbl} => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={${tbl}._id}>    
-${td_string}                                        <td className="text-center border border-gray-600">
+${td_string}                                        <td className="text-center py-2">
                                             <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                                <Edit message={messageHandler} id={${tbl}._id} data={${tbl}s} />
-                                                <Delete message={messageHandler} id={${tbl}._id} data={${tbl}s} />
+                                                <Edit message={messageHandler} id={${tbl}._id} data={${tbl}} />
+                                                <Delete message={messageHandler} id={${tbl}._id} data={${tbl}} />
                                             </div>
                                         </td>
                                     </tr>

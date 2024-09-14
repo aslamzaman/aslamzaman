@@ -18,9 +18,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { ${data[1]} } = data.find(${tbl} =>  parseInt(${tbl}.id) === parseInt(id)) || { ${data[1]}: "" };
+            const { ${data[1]} } = data;
             set${titleCamelCase(data[1])}(${data[1]});
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -30,7 +29,6 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 

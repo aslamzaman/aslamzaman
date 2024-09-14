@@ -10,7 +10,6 @@ const Print = ({ Msg }) => {
 
   const printShow = () => {
     setShow(true);
-    Msg("Ready to print");
   }
 
 

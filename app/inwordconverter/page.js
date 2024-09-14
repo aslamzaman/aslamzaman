@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import { TextEn, TextBn, TextNum, BtnEn } from "@/components/Form";
 
-import { inword } from "@/lib/Inword";
-import { inwordBn } from "@/lib/InwordBn";
+import { inwordBangla, inwordEnglish } from "@/lib/utils";
 
 
 const Inwordconverter = ({ Msg }) => {
@@ -13,8 +12,8 @@ const Inwordconverter = ({ Msg }) => {
 
 
     const resultHandler = () => {
-        setInword_bn(inwordBn(tk));
-        setInword_en(inword(tk));
+        setInword_bn(inwordBangla(tk));
+        setInword_en(inwordEnglish(tk));
     }
 
 

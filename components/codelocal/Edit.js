@@ -49,9 +49,8 @@ ${use_state}
 
   const showEditForm = () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const {${strMap} } = data.find(${tbl} => parseInt(${tbl}.id) === parseInt(id)) || {${strMap1} };
+            const {${strMap} } = data;
 ${set_item}
         } catch (err) {
             console.log(err);
@@ -61,7 +60,6 @@ ${set_item}
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 

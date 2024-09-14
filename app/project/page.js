@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/project/Add";
 import Edit from "@/components/project/Edit";    
 import Delete from "@/components/project/Delete";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Project = () => {
@@ -15,17 +16,7 @@ const Project = () => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
-                console.log(data);
+                const data = await fetchDataFromAPI("project");
                 setProjects(data);
                 setWaitMsg('');
             } catch (error) {
@@ -68,8 +59,8 @@ const Project = () => {
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={project._id}>                                           
                                           <td className="text-center py-2 px-4">{project.name}</td>                                            
                                         <td className="flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={project._id} data={projects} />
-                                            <Delete message={messageHandler} id={project._id} data={projects} />
+                                            <Edit message={messageHandler} id={project._id} data={project} />
+                                            <Delete message={messageHandler} id={project._id} data={project} />
                                         </td>
                                     </tr>
                                 ))

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextBn, TextDt, TextNum } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
-const date_format = dt => new Date(dt).toISOString().split('T')[0];
+import { fetchDataFromAPI, formatedDate, postDataToAPI } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -33,7 +32,7 @@ const Add = ({ message }) => {
         setNmEn('');
         setNmBn('');
         setNmUn('');
-        setJoinDt(date_format(new Date()));
+        setJoinDt(formatedDate(new Date()));
         setMobile('');
         setGenderId('');
         setPostId('');
@@ -53,11 +52,11 @@ const Add = ({ message }) => {
         resetVariables();
         try {
             const [responseGender, responsePost, responseProject, responsePlace, responseUnit] = await Promise.all([
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/gender`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/place`),
-                fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`)
+                fetchDataFromAPI("gender"),
+                fetchDataFromAPI("post"),
+                fetchDataFromAPI("project"),
+                fetchDataFromAPI("place"),
+                fetchDataFromAPI("unit")
             ]);
             setGenders(responseGender);
             setPosts(responsePost);
@@ -100,18 +99,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message(`Staff is created at ${new Date().toISOString()}`);
-            } else {
-                throw new Error("Failed to create staff");
-            }
+            const msg = postDataToAPI('staff', newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving staff data:", error);
             message("Error saving staff data.");

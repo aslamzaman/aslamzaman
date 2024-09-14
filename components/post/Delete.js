@@ -12,9 +12,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { nmEn } = data.find(post => post._id === id) || { nmEn: "" };
+            const { nmEn } = data;
             setNmEn(nmEn);        
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -24,13 +23,12 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const softDeleteClick = async () => {
         try {
-            const msg = await patchDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`);
+            const msg = await patchDataToAPI("post", id);
             message(msg);
         } catch (error) {
             console.log(error);

@@ -127,12 +127,10 @@ ${stateVar}
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
 ${stateClear}
     }
 
@@ -148,7 +146,7 @@ ${getValue}
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await postDataToAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"`"}, newObject);
+            const msg = await postDataToAPI("${tbl}", newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving ${tbl} data:", error);

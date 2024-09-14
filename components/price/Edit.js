@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, TextNum } from "@/components/Form";
+import { putDataToAPI } from "@/lib/utils";
        
 
 const Edit = ({ message, id, data }) => {        
@@ -10,9 +11,8 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm =  () => {
         setShow(true);
-        message("Ready to edit");
         try {
-           const { name, tk } = data.find(price => price._id === id) || { name: '', tk: '' };
+           const { name, tk } = data;
            setName(name);
            setTk(tk);             
         } catch (err) {
@@ -23,7 +23,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -39,18 +38,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/price/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create price");
-            } 
+            const msg = putDataToAPI("price",id, newObject);
+            message(msg); 
         } catch (error) {
             console.error("Error saving price data:", error);
             message("Error saving price data.");

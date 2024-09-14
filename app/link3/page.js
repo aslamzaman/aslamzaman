@@ -20,9 +20,8 @@ const Link3 = () => {
     const [projectName, setProjectName] = useState('');
 
     const [staffs, setStaffs] = useState([]);
-    const [staffNameChange, setStaffNameChange] = useState('');
     const [projects, setProjects] = useState([]);
-    const [projectNameChange, setProjectNameChange] = useState('');
+
 
 
 
@@ -31,8 +30,8 @@ const Link3 = () => {
             setMsg('Please Wait...');
             try {
                 const [responseStaff, responseProject, response] = await Promise.all([
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+                    fetchDataFromAPI("staff"),
+                    fetchDataFromAPI("project")
                 ]);
                 const scStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
                 setStaffs(scStaff);
@@ -51,17 +50,6 @@ const Link3 = () => {
 
 
     //-----------------------------------------------
-    const staffNameChangeHandler = (e) => {
-        const staffNameValue = e.target.value;
-        setStaffNameChange(staffNameValue);
-        setStaffName(staffNameValue);
-    }
-
-    const projectNameChangeHandler = (e) => {
-        const projectNameValue = e.target.value;
-        setProjectNameChange(projectNameValue);
-        setProjectName(projectNameValue);
-    }
 
 
     const pdfCreateHandler = (e) => {
@@ -83,7 +71,7 @@ const Link3 = () => {
                 doc.setFontSize(13);
                 doc.setFont("times", "normal");
                 doc.text(`${projectName}`, 102, 48, null, null, "left");
-                doc.text(`${formatedDateDot(dt)}`, 102, 54, null, null, "left");
+                doc.text(`${formatedDateDot(dt,true)}`, 102, 54, null, null, "left");
 
                 doc.setFont("times", "normal");
                 doc.text(`${months} ${yr}`, 113, 77, null, null, "left");
@@ -133,10 +121,10 @@ const Link3 = () => {
                     <form onSubmit={pdfCreateHandler}>
                         <div className="grid grid-cols-2 gap-4">
                             <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
-                            <DropdownEn Title="Staff" Id="staffNameChange" Change={staffNameChangeHandler} Value={staffNameChange}>
+                            <DropdownEn Title="Staff" Id="staffName" Change={e=>setStaffName(e.target.value)} Value={staffName}>
                                 {staffs.length ? staffs.map(staff => <option value={`${staff.nmEn},${staff.postId.nmEn}`} key={staff._id}>{staff.nmEn}</option>) : null}
                             </DropdownEn>
-                            <DropdownEn Title="Project" Id="projectNameChange" Change={projectNameChangeHandler} Value={projectNameChange}>
+                            <DropdownEn Title="Project" Id="projectName" Change={e=>setProjectName(e.target.value)} Value={projectName}>
                                 {projects.length ? projects.map(project => <option value={project.name} key={project._id}>{project.name}</option>) : null}
                             </DropdownEn>
 

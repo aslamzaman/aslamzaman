@@ -18,7 +18,7 @@ const Add = ({ message}) => {
         setShow(true);
         resetVariables();
         try {
-            const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const data = await fetchDataFromAPI("staff");
             const sortData = data.sort((a,b)=>parseInt(a.empId) < parseInt(b.empId)?-1:1);
             console.log(data);
             setStaffs(sortData);
@@ -30,12 +30,10 @@ const Add = ({ message}) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setDt(formatedDate(new Date()));
         setPageNo('');
         setRemarks('');
@@ -58,7 +56,7 @@ const Add = ({ message}) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = await postDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`, newObject);
+            const msg = await postDataToAPI("hondahistory", newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving hondahistory data:", error);

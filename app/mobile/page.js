@@ -4,6 +4,8 @@ import Add from "@/components/mobile/Add";
 import Edit from "@/components/mobile/Edit";    
 import Delete from "@/components/mobile/Delete";
 import Image from "next/image";
+import mobileImage from "@/public/images/mobile/Mobile_Sim_BTRC.jpg";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Mobile = () => {
@@ -16,22 +18,12 @@ const Mobile = () => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mobile`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
+                const data = await fetchDataFromAPI("mobile");
                 console.log(data);
                 setMobiles(data);
                 setWaitMsg('');
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setMsg("Failed to fetch data");
             }
         };
         fetchData();
@@ -73,8 +65,8 @@ const Mobile = () => {
                                           <td className="text-center py-2 px-4">{mobile.presentUser}</td>
                                           <td className="text-center py-2 px-4">{mobile.mobileNo}</td>                                            
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={mobile._id} data={mobiles} />
-                                            <Delete message={messageHandler} id={mobile._id} data={mobiles} />
+                                            <Edit message={messageHandler} id={mobile._id} data={mobile} />
+                                            <Delete message={messageHandler} id={mobile._id} data={mobile} />
                                         </td>
                                     </tr>
                                 ))
@@ -90,7 +82,7 @@ const Mobile = () => {
                     
                 </div>
                 <div>
-                    <Image className="w-full md:w-1/2 h-auto mx-auto mt-10" src="/images/mobile/Mobile_Sim_BTRC.jpg" alt="Mobile SIM" width={1491} height={2157} />
+                    <Image className="w-full md:w-1/2 h-auto mx-auto mt-10" src={mobileImage} alt="Mobile SIM" width={1491} height={2157} priority={true} />
                 </div>
             </div>
         </>

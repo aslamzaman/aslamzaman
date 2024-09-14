@@ -91,7 +91,7 @@ const Delete = (tbl, datas) => {
     //------------------------------------------------------------------------
 
     let sowFormMongoData = '';
-    sowFormMongoData = '            const { ' + data[1] + ' } = data.find(' + tbl + ' => ' + tbl + '._id === id) || { ' + data[1] + ': "" };' + '\n'
+    sowFormMongoData = '            const { ' + data[1] + ' } = data;' + '\n'
 
     sowFormMongoData += `            set${FirstCap(data[1])}(${data[1]});`;
     //--------------------------
@@ -156,7 +156,6 @@ const Delete = ({ message, id, data }) => {
         setShow(true);
         try {
 ${sowFormMongoData}        
-            message("Ready to delete");
         }
         catch (err) {
             console.log(err);
@@ -166,26 +165,12 @@ ${sowFormMongoData}
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
-
-
-    const softDeleteClick = async () => {
-        try {
-            const msg = await patchDataToAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"/${id}`"});
-            message(msg);
-        } catch (error) {
-            console.log(error);
-            message("Data deleting error");
-        }
-        setShow(false);
-    }
-
 
 /*
-    const hardDeleteClick = async () => {
+    const softDeleteClick = async () => {
         try {
-            const msg = await deleteDataFromAPI(${"`${process.env.NEXT_PUBLIC_BASE_URL}/api/"+tbl+"/${id}`"});
+            const msg = await patchDataToAPI('${tbl}',id);
             message(msg);
         } catch (error) {
             console.log(error);
@@ -194,6 +179,19 @@ ${sowFormMongoData}
         setShow(false);
     }
 */
+
+
+    const hardDeleteClick = async () => {
+        try {
+            const msg = await deleteDataFromAPI('${tbl}',id);
+            message(msg);
+        } catch (error) {
+            console.log(error);
+            message("Data deleting error");
+        }
+        setShow(false);
+    }
+
 
 
     return (
@@ -224,7 +222,7 @@ ${sowFormMongoData}
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={softDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={hardDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>

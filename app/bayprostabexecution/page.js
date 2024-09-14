@@ -46,8 +46,8 @@ const Bayprostabexecution = () => {
       setWaitMsg("Please wait...");
       try {
         const [staffs, projects] = await Promise.all([
-          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-          fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`)
+          fetchDataFromAPI('staff'),
+          fetchDataFromAPI('project')
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
         setStaffData(scStaff);
@@ -209,8 +209,8 @@ const Bayprostabexecution = () => {
                           <td className="text-center py-2 px-4">{bayprostabexecution.nos}</td>
                           <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostabexecution.taka)) * parseFloat(bayprostabexecution.nos)}>{bayprostabexecution.taka}</td>
                           <td className="flex justify-end items-center mt-1">
-                            <Edit message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />
-                            <Delete message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecutions} />
+                            <Edit message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecution} />
+                            <Delete message={msgHandler} id={bayprostabexecution.id} data={bayprostabexecution} />
                           </td>
                         </tr>
                       )

@@ -1,6 +1,7 @@
+
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
-import { deleteDataFromAPI } from "@/lib/utils";
+import { patchDataToAPI, deleteDataFromAPI } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
@@ -11,9 +12,8 @@ const Delete = ({ message, id, data }) => {
     const showDeleteForm = () => {
         setShow(true);
         try {
-            const { name } = data.find(gender => gender._id === id) || { name: "" };
-            setName(name);
-            message("Ready to delete");
+            const { name } = data;
+            setName(name);        
         }
         catch (err) {
             console.log(err);
@@ -23,14 +23,12 @@ const Delete = ({ message, id, data }) => {
 
     const closeDeleteForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
-
-    const deleteYesClick = async () => {
+/*
+    const softDeleteClick = async () => {
         try {
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/gender/${id}`;
-            const msg = await deleteDataFromAPI(apiUrl);
+            const msg = await patchDataToAPI('gender',id);
             message(msg);
         } catch (error) {
             console.log(error);
@@ -38,6 +36,20 @@ const Delete = ({ message, id, data }) => {
         }
         setShow(false);
     }
+*/
+
+
+    const hardDeleteClick = async () => {
+        try {
+            const msg = await deleteDataFromAPI('gender',id);
+            message(msg);
+        } catch (error) {
+            console.log(error);
+            message("Data deleting error");
+        }
+        setShow(false);
+    }
+
 
 
     return (
@@ -68,7 +80,7 @@ const Delete = ({ message, id, data }) => {
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={deleteYesClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={hardDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>
@@ -83,5 +95,6 @@ const Delete = ({ message, id, data }) => {
     )
 }
 export default Delete;
+    
 
-
+    

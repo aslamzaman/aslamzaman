@@ -15,7 +15,6 @@ const Add = ({ Msg }) => {
 
     const addtHandler = () => {
         setShow(true);
-        Msg("Ready to add new");
         setItem("");
         setNos("");
         setTaka("");

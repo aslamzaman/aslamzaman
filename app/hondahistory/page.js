@@ -24,7 +24,7 @@ const Hondahistory = () => {
             try {
                 const hondaId = localStorageGetItem('hondaId');
 
-                const data = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hondahistory`);
+                const data = await fetchDataFromAPI("hondahistory");
                 const findData = data.filter(honda => honda.hondaId._id === hondaId);
                 console.log(findData)
                 setHondahistorys(findData);
@@ -90,8 +90,8 @@ const Hondahistory = () => {
                                             <td className="text-center border border-gray-600">{hondahistory.remarks}</td>
                                             <td className="text-center border border-gray-600">
                                                 <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                                    <Edit message={messageHandler} id={hondahistory._id} data={hondahistorys} />
-                                                    <Delete message={messageHandler} id={hondahistory._id} data={hondahistorys} />
+                                                    <Edit message={messageHandler} id={hondahistory._id} data={hondahistory} />
+                                                    <Delete message={messageHandler} id={hondahistory._id} data={hondahistory} />
                                                 </div>
                                             </td>
                                         </tr>

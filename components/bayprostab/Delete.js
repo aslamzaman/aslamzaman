@@ -4,13 +4,12 @@ import { Close } from "@/components/Icons";
 import { localStorageDeleteItem } from "@/lib/utils";
 
 
-const Delete = ({ Msg, Id }) => {
+const Delete = ({ Msg, Id, data }) => {
     const [show, setShow] = useState(false);
 
 
     const deleteHandler = () => {
         setShow(true);
-        Msg("Ready to delete.");
     }
 
     const removeHandler = () => {

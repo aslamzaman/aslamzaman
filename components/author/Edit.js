@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, putDataToAPI } from "@/lib/utils";
+
 
 const Edit = ({ message, id, data }) => {
     const [name, setName] = useState('');
     const [postId, setPostId] = useState('');
     const [show, setShow] = useState(false);
 
-
     const [posts, setPosts] = useState([]);
-    const [postIdChange, setPostIdChange] = useState('');
+
 
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const responsePost = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`);
-            setPosts(responsePost);
+            const postData = await fetchDataFromAPI('post');
+            setPosts(postData);
             //----------------------------------------------------------------
-            const { name, postId } = data.find(author => author._id === id) || { name: '', postId: '' };
+            const { name, postId } = data;
             setName(name);
             setPostId(postId._id);
-            setPostIdChange(postId._id);
         } catch (err) {
             console.log(err);
         }
@@ -30,10 +28,9 @@ const Edit = ({ message, id, data }) => {
 
 
 
-    
+
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -49,30 +46,14 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/author/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create author");
-            }
+            const msg = putDataToAPI('author', id, newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving author data:", error);
             message("Error saving author data.");
         } finally {
             setShow(false);
         }
-    }
-
-    const postIdChangeHandler = (e) => {
-        const postIdValue = e.target.value;
-        setPostIdChange(postIdValue);
-        setPostId(postIdValue);
     }
 
 
@@ -96,7 +77,7 @@ const Edit = ({ message, id, data }) => {
                             <form onSubmit={saveHandler} >
                                 <div className="grid grid-cols-1 gap-4 my-4">
                                     <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={50} />
-                                    <DropdownEn Title="Post" Id="postIdChange" Change={postIdChangeHandler} Value={postIdChange}>
+                                    <DropdownEn Title="Post" Id="postId" Change={e => setPostId(e.target.value)} Value={postId}>
                                         {posts.length ? posts.map(post => <option value={post._id} key={post._id}>{post.nmEn}</option>) : null}
                                     </DropdownEn>
                                 </div>
