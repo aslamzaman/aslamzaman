@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { Close } from "@/components/Icons";
 import { deleteItem } from "@/lib/utils/LocalDatabase";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 
 const Delete = ({ message, Id }) => {
@@ -16,8 +17,8 @@ const Delete = ({ message, Id }) => {
 
     const removeHandler = () => {
         try {
-            let deletedItem = deleteItem("tabill", Id);
-            message(deletedItem.message);
+            let msg = localStorageDeleteItem("tabill", Id);
+            message(msg);
         } catch (error) {
             message(deletedItem.message);
             console.log(`Error deleting data: ${error}`);

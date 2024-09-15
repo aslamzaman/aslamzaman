@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextDt, TextTm, TextBn, BtnEn, TextNum, BtnSubmit, DropdownBn, TextEnDisabled } from "@/components/Form";
 import { Close } from "@/components/Icons";
 import { updateItem } from "@/lib/utils/LocalDatabase";
+import { localStorageUpdateItem } from "@/lib/utils";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 
 
@@ -37,17 +38,14 @@ const Edit = ({ message, Id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
-    };
+     };
 
 
     const editHandler = () => {
         setShow(true);
-        message("Ready to edit");
-
         try {
             console.log(data)
-            const findData = data.find(ta => parseInt(ta.id) === parseInt(Id));
+            const findData = data;
             if (findData) {
                 const { dt, place1, tm1, place2, tm2, vehicle, taka, cause } = findData;
                 setDt(date_format(dt));
@@ -94,10 +92,10 @@ const Edit = ({ message, Id, data }) => {
         e.preventDefault();
         try {
             const tabillData = createLocaltaObject();
-            const updatedtabill = updateItem("tabill", Id, tabillData);
-            message(updatedtabill.message);
+            const updatedtabill = localStorageUpdateItem("tabill", Id, tabillData);
+            message(updatedtabill);
         } catch (error) {
-            message(updatedtabill.message);
+            message(updatedtabill);
             console.log(`Error updating localta data: ${error}`);
         }
         setShow(false);

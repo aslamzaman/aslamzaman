@@ -10,9 +10,8 @@ const Delete = ({ message, id, data }) => {
 	const showDeleteForm = () => {
 		setShow(true);
 		try {
-			const { staffId } = data.find(unitsalary => unitsalary._id === id) || { staffId: "" };
+			const { staffId } = data;
 			setStaffId(staffId.nmEn);
-			message("Ready to delete");
 		}
 		catch (err) {
 			console.log(err);
@@ -22,14 +21,12 @@ const Delete = ({ message, id, data }) => {
 
 	const closeDeleteForm = () => {
 		setShow(false);
-		message("Data ready");
 	}
 
 
 	const deleteYesClick = async () => {
 		try {
-			const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary/${id}`;
-			const msg = await deleteDataFromAPI(apiUrl);
+			const msg = await deleteDataFromAPI("unitsalary",id);
 			message(msg);
 		} catch (error) {
 			console.log(error);

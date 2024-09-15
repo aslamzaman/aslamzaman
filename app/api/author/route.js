@@ -6,7 +6,7 @@ import { AuthorModel } from '@/lib/Models';
 export const GET = async () => {
   try {
     await Connect();
-    const authors = await AuthorModel.find({}).populate('postId').sort({_id:'desc'});
+    const authors = await AuthorModel.find({isDeleted:false}).populate('postId').sort({_id:'desc'});
     return NextResponse.json( authors );
   } catch (error) {
     console.error('GET Error:', error);

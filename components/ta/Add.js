@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, postDataToAPI } from "@/lib/utils";
 
 
 const Add = ({ message }) => {
@@ -14,7 +15,6 @@ const Add = ({ message }) => {
 
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setUnitId('660adf93825d0610471e2707');
         setTk('');
         setUnitIdChange('660adf93825d0610471e2707');
@@ -25,7 +25,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseUnit = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+            const responseUnit = await fetchDataFromAPI("unit");
             setUnits(responseUnit);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -35,7 +35,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -51,18 +50,8 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/ta`;
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Ta is created!");
-            } else {
-                throw new Error("Failed to create ta");
-            }
+            const msg = postDataToAPI("ta",newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving ta data:", error);
             message("Error saving ta data.");

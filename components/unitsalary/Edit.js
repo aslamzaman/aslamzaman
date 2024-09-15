@@ -15,8 +15,7 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
-        const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+        const responseStaff = await fetchDataFromAPI("staff");
         console.log(responseStaff)
         setStaffs(responseStaff);
 
@@ -36,7 +35,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -55,8 +53,7 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary/${id}`;
-            const msg = await putDataToAPI(apiUrl, newObject);
+            const msg = putDataToAPI("unitsalary",id,newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving unitsalary data:", error);

@@ -28,7 +28,7 @@ const Delete = ({ message, id, data }) => {
 
     const softDeleteClick = async () => {
         try {
-            const msg = await patchDataToAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit/${id}`);
+            const msg = await patchDataToAPI("unit", id);
             message(msg);
         } catch (error) {
             console.log(error);

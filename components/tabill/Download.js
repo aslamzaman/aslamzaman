@@ -1,12 +1,13 @@
 import React from "react";
 import { saveAs } from "file-saver";
+import { localStorageGetItem } from "@/lib/utils";
 
 
 const Download = ({ Msg }) => {
 
 
   const downloadHandler = () => {
-    let taData = localStorage.getItem("tabill");
+    let taData = localStorageGetItem("tabill");
     if (taData) {
       const blob = new Blob([taData], { type: "application/json" });
       saveAs(blob, `${new Date().toISOString()}-ta-bill.js`);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn } from "@/components/Form";
 import { fetchData } from "@/lib/utils/FetchData";
+import { fetchDataFromAPI, putDataToAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
@@ -13,13 +14,12 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = async () => {
         setShow(true);
-        message("Ready to edit");
         try {
-            const responseUnit = await fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`);
+            const responseUnit = await fetchDataFromAPI("unit");
             setUnits(responseUnit);
             //-----------------------------------------------
             console.log(data)
-            const { unitId, tk } = data.find(ta => ta._id === id) || { unitId: '', tk: '' };
+            const { unitId, tk } = data;
             setUnitId(unitId._id);
             setTk(tk);
             //------------------------------------------------
@@ -33,7 +33,6 @@ const Edit = ({ message, id, data }) => {
 
     const closeEditForm = () => {
         setShow(false);
-        message("Data ready.");
     };
 
 
@@ -49,18 +48,8 @@ const Edit = ({ message, id, data }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/ta/${id}`;
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newObject)
-            };
-            const response = await fetch(apiUrl, requestOptions);
-            if (response.ok) {
-                message("Updated successfully completed");
-            } else {
-                throw new Error("Failed to create ta");
-            }
+            const msg = putDataToAPI('ta',id,newObject);
+            message(msg);
         } catch (error) {
             console.error("Error saving ta data:", error);
             message("Error saving ta data.");

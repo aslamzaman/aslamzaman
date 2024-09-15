@@ -3,12 +3,10 @@ import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt, TextBn, TextareaBn } from "@/components/Form";
 
-import { inwordBn } from "@/lib/InwordBn";
 require("@/lib/fonts/SUTOM_MJ-normal");
 require("@/lib/fonts/SUTOM_MJ-bold");
-import { dateDifference } from "@/lib/DateDifference";
-import { dateDot } from "@/lib/DateDot";
-import { dateDifferenceInDays, fetchDataFromAPI, formatedDate,  formatedDateDot } from "@/lib/utils";
+
+import { dateDifferenceInDays, fetchDataFromAPI, formatedDate,  formatedDateDot, inwordBangla } from "@/lib/utils";
 
 
 
@@ -91,18 +89,18 @@ const LeavePage = () => {
 
 
   const daylast = () => {
-    let l1 = dateDifference(new Date(), dt1, false);
-    let l2 = dateDifference(new Date(), dt2, false);
-    const diff = dateDifference(dt1, dt2, true);
+    let l1 = dateDifferenceInDays(new Date(), dt1, false);
+    let l2 = dateDifferenceInDays(new Date(), dt2, false);
+    const diff = dateDifferenceInDays(dt1, dt2, true);
     let st = "";
     if (l1 === 0 && l2 === 0) {
-      st = `AvR ${dateDot(dt1,true)} ZvwiL  1(GK) ) w\`b Awd‡m Dcw¯’Z _vK‡Z cviwQ bv |`;
+      st = `AvR ${formatedDateDot(dt1,true)} ZvwiL  1(GK) ) w\`b Awd‡m Dcw¯’Z _vK‡Z cviwQ bv |`;
     } else if (l1 < 0 && l2 < 0) {
-      st = `MZ ${dateDot(dt1, true)} ZvwiL n‡Z ${dateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBn(diff)}) w\`b Awd‡m Dcw¯’Z n‡Z cvwi bvB|`;
+      st = `MZ ${formatedDateDot(dt1, true)} ZvwiL n‡Z ${formatedDateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBangla(diff)}) w\`b Awd‡m Dcw¯’Z n‡Z cvwi bvB|`;
     } else if (l1 < 0 && l2 > 0) {
-      st = `MZ ${dateDot(dt1, true)} ZvwiL n‡Z AvMvgx ${dateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBn(diff)}) w\`b Awd‡m Dcw¯’Z _vK‡Z cvi‡ev bv |`
+      st = `MZ ${formatedDateDot(dt1, true)} ZvwiL n‡Z AvMvgx ${formatedDateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBangla(diff)}) w\`b Awd‡m Dcw¯’Z _vK‡Z cvi‡ev bv |`
     } else if (l1 > 0 && l2 > 0) {
-      st = `AvMvgx ${dateDot(dt1, true)} ZvwiL n‡Z ${dateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBn(diff)}) w\`b Awd‡m Dcw¯’Z _vK‡Z cvi‡ev bv |`
+      st = `AvMvgx ${formatedDateDot(dt1, true)} ZvwiL n‡Z ${formatedDateDot(dt2, true)} ZvwiL ch©šÍ †gvU ${diff}(${inwordBangla(diff)}) w\`b Awd‡m Dcw¯’Z _vK‡Z cvi‡ev bv |`
     } else {
       st = '';
     }
@@ -111,11 +109,11 @@ const LeavePage = () => {
 
 
   const createApplication = () => {
-    const diff = dateDifference(dt1, dt2, true);
+    const diff = dateDifferenceInDays(dt1, dt2, true);
     let ss = daylast();
     const appText = `webxZ wb‡e\`b GB †h, ${cause} ${ss}
        
-AZGe, Dc‡iv³ welqwU we‡ePbv K‡i Avgv‡K ${diff}(${inwordBn(diff)}) w\`‡bi QywU gbRyi K‡i evwaZ Ki‡eb|
+AZGe, Dc‡iv³ welqwU we‡ePbv K‡i Avgv‡K ${diff}(${inwordBangla(diff)}) w\`‡bi QywU gbRyi K‡i evwaZ Ki‡eb|
 `;
     setDescription(appText);
     setWaitMsg("Ok! Ready to create pdf");

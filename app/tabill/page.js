@@ -7,16 +7,10 @@ import Edit from "@/components/tabill/Edit";
 import Delete from "@/components/tabill/Delete";
 
 
-import { fetchData } from "@/lib/utils/FetchData";
-import { getItems } from "@/lib/utils/LocalDatabase";
-
 
 import { DropdownEn, TextDt, BtnSubmit } from "@/components/Form";
 
-import { inwordBn } from "@/lib/InwordBn";
-import { numberWithComma } from "@/lib/NumberWithComma";
-import { dateDot } from "@/lib/DateDot";
-import { dateDifference } from "@/lib/DateDifference";
+import { fetchDataFromAPI, formatedDateDot, inwordBangla, numberWithComma, dateDifferenceInDays,localStorageGetItem } from "@/lib/utils";
 
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 require("@/lib/fonts/SUTOM_MJ-normal");
@@ -53,12 +47,12 @@ const Tabill = () => {
             setWaitMsg('Please Wait...');
             try {
                 const [staffs, projects, places, units, tas, das] = await Promise.all([
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/project`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/place`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ta`),
-                    fetchData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/da`)
+                    fetchDataFromAPI("staff"),
+                    fetchDataFromAPI("project"),
+                    fetchDataFromAPI("place"),
+                    fetchDataFromAPI("unit"),
+                    fetchDataFromAPI("ta"),
+                    fetchDataFromAPI("da")
                 ]);
 
                 const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
@@ -93,7 +87,7 @@ const Tabill = () => {
         getData();
 
         const load = () => {
-            let response = getItems("tabill");
+            let response = localStorageGetItem("tabill");
             let data = response.data;
             setTabills(data);
             const result = data.reduce((t, c) => t + parseFloat(c.taka), 0);
@@ -160,7 +154,7 @@ const Tabill = () => {
                     expanse = tabills[i].taka
                 }
 
-                doc.text(`${dateDot(tabills[i].dt,false)}`, 19.8, y + 1.5, null, null, "center");
+                doc.text(`${formatedDateDot(tabills[i].dt, false)}`, 19.8, y + 1.5, null, null, "center");
                 // doc.text(`${TaDtFormat(tabills[i].dt)[1]}`, 18.5, y + 3, null, null, "center");
                 doc.text(`${tabills[i].place1}`, 37.6, y + 1.5, null, null, "center");
                 doc.text(`${tabills[i].tm1}`, 53.5, y + 1.5, null, null, "center");
@@ -189,9 +183,9 @@ const Tabill = () => {
             const f3 = f1 - f2; // 7 -12 = -5
             let tourDays = 0;
             if (f3 < 0) {
-                tourDays = dateDifference(date1,date2,false);
+                tourDays = dateDifferenceInDays(date1, date2, false);
             } else {
-                tourDays = dateDifference(date1,date2,false) - 0.5;
+                tourDays = dateDifferenceInDays(date1, date2, false) - 0.5;
             }
 
             const t1 = new Date(`January 01, 2000 ${lastDayTime}`).getTime();
@@ -211,15 +205,15 @@ const Tabill = () => {
             const gt = parseInt(totalDa) + parseInt(total);
 
 
-            doc.text(`${dateDot(date1, false)} †_‡K ${dateDot(date2, false)} ZvwiL = ${tourDays} w\`b * ${daTaka} `, 66.5, 228, null, null, "left");
+            doc.text(`${formatedDateDot(date1, false)} †_‡K ${formatedDateDot(date2, false)} ZvwiL = ${tourDays} w\`b * ${daTaka} `, 66.5, 228, null, null, "left");
             doc.text(`${numberWithComma(totalDa)}`, 181, 228, null, null, "right");
 
             doc.text(`${numberWithComma(gt)}`, 181, 235, null, null, "right");
 
 
             // let t = parseInt(total).toString();
-            doc.text(`${inwordBn(gt)} UvKv gvÎ`, 47.5, 235, null, null, "left");
-            doc.text(`${dateDot(dt1, false)}`, 177.5, 271, null, null, "left");
+            doc.text(`${inwordBangla(gt)} UvKv gvÎ`, 47.5, 235, null, null, "left");
+            doc.text(`${formatedDateDot(dt1, false)}`, 177.5, 271, null, null, "left");
 
             //------------------------------------------------------
             doc.save(new Date().toISOString() + "_TA_Bill.pdf");
@@ -235,7 +229,7 @@ const Tabill = () => {
     // let stf = s.nm_bn + "," + s.post + "," + s.place + "," + s.post_id;
     return (
         <>
-             <div className="w-full mb-3 mt-8">
+            <div className="w-full mb-3 mt-8">
                 <h1 className='text-center text-2xl font-bold'>TA Bill</h1>
                 <p className="text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>
@@ -298,7 +292,7 @@ const Tabill = () => {
                                                         <td className="text-center py-2 px-4 font-sutonnyN">{ta.taka}</td>
                                                         <td className="text-center py-2 px-4 font-sutonnyN">{ta.cause}</td>
                                                         <td className="flex justify-end items-center mt-1">
-                                                            <Edit message={msgHandler} Id={ta.id} data={tabills} />
+                                                            <Edit message={msgHandler} Id={ta.id} data={ta} />
                                                             <Delete message={msgHandler} Id={ta.id} />
                                                         </td>
                                                     </tr>

@@ -14,7 +14,6 @@ const Add = ({ message }) => {
     const [staffs, setStaffs] = useState([]);
 
     const resetVariables = () => {
-        message("Ready to make new additions");
         setStaffId('');
         setArear('');
         setSal1('');
@@ -27,7 +26,7 @@ const Add = ({ message }) => {
         setShow(true);
         resetVariables();
         try {
-            const responseStaff = await fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/staff`);
+            const responseStaff = await fetchDataFromAPI("staff");
             const sortStaff = responseStaff.sort((a,b)=>parseInt(a.empId) < parseInt(b.empId)?-1:1);
             console.log(responseStaff)
             setStaffs(sortStaff);
@@ -39,7 +38,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -58,8 +56,7 @@ const Add = ({ message }) => {
         e.preventDefault();
         try {
             const newObject = createObject();
-            const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`;
-            const msg = await postDataToAPI(url, newObject);
+            const msg = await postDataToAPI("unitsalary", newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving unitsalary data:", error);

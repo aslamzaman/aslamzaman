@@ -25,7 +25,7 @@ const Staff = () => {
             try {
                 const data = await fetchDataFromAPI("staff");
                 const sortData = data.sort((a, b) => parseInt(a.empId) < parseInt(b.empId) ? -1 : 1)
-                console.log(sortData);
+                // console.log(sortData);
                 setStaffs(sortData);
                 setWaitMsg('');
             } catch (error) {
@@ -48,7 +48,8 @@ const Staff = () => {
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Staff</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>
-  
+           
+
             <div className="px-4 lg:px-6">
                 <p className="w-full text-sm text-red-700">{msg}</p>
                 <div className="p-2 overflow-auto">

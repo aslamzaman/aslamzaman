@@ -20,9 +20,9 @@ const Unitsalary = () => {
             setWaitMsg('Please Wait...');
             try {
                 const [unitsalaryResponse, unitResponse, postResponse] = await Promise.all([
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unitsalary`),
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/unit`),
-                    fetchDataFromAPI(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
+                    fetchDataFromAPI("unitsalary"),
+                    fetchDataFromAPI("unit"),
+                    fetchDataFromAPI("post")
                 ]);
                 console.log(unitsalaryResponse, unitResponse, postResponse);
 
@@ -95,8 +95,8 @@ const Unitsalary = () => {
                                         <td className="text-center py-2 px-4">{unitsalary.sal2}</td>
                                         <td className="text-center py-2 px-4 font-sutonnyN">{unitsalary.remarks}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={unitsalary._id} data={unitsalarys} />
-                                            <Delete message={messageHandler} id={unitsalary._id} data={unitsalarys} />
+                                            <Edit message={messageHandler} id={unitsalary._id} data={unitsalary} />
+                                            <Delete message={messageHandler} id={unitsalary._id} data={unitsalary} />
                                         </td>
                                     </tr>
                                 ))

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/ta/Add";
 import Edit from "@/components/ta/Edit";
 import Delete from "@/components/ta/Delete";
+import { fetchDataFromAPI } from "@/lib/utils";
 
 
 const Ta = () => {
@@ -15,17 +16,7 @@ const Ta = () => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ta`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
-                console.log(data);
+                const data = await fetchDataFromAPI("ta");
                 setTas(data);
                 setWaitMsg('');
             } catch (error) {
@@ -72,8 +63,8 @@ const Ta = () => {
                                         <td className="text-start py-2 px-4">{i+1}. {ta.unitId.nmEn}</td>
                                         <td className="text-center py-2 px-4">{ta.tk}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
-                                            <Edit message={messageHandler} id={ta._id} data={tas} />
-                                            <Delete message={messageHandler} id={ta._id} data={tas} />
+                                            <Edit message={messageHandler} id={ta._id} data={ta} />
+                                            <Delete message={messageHandler} id={ta._id} data={ta} />
                                         </td>
                                     </tr>
                                 ))

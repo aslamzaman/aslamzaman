@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextDt, TextTm, TextBn, BtnEn, TextNum, BtnSubmit, DropdownBn, TextEnDisabled } from "@/components/Form";
 import { addItem, getItems } from "@/lib/utils/LocalDatabase";
+import { localStorageAddItem } from "@/lib/utils";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 
 
@@ -36,7 +37,6 @@ const Add = ({ message }) => {
 
 
     const resetStateVariables = () => {
-        message("Ready to add new");
         setDt(date_format(new Date()));
         setPlace1("");
         setTm1("");
@@ -51,7 +51,6 @@ const Add = ({ message }) => {
 
     const closeAddForm = () => {
         setShow(false);
-        message("Data ready");
     }
 
 
@@ -89,11 +88,11 @@ const Add = ({ message }) => {
         }
         try {
             const tabillObject = createLocaltaObject();
-            const ta = addItem("tabill", tabillObject);
-            message(ta.message);
+            const msg = localStorageAddItem('tabill',tabillObject);
+            message(msg);
         } catch (error) {
             console.log(`Error saveing houserent data: ${error}`);
-            message(ta.message);
+            message(msg);
         }
         setShow(false);
     }
