@@ -141,8 +141,7 @@ const Delete = (tbl, datas) => {
 
 
 
-    const str = `
-import React, { useState } from "react";
+    const str = `import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { patchDataToAPI, deleteDataFromAPI } from "@/lib/utils";
 

@@ -24,7 +24,7 @@ const RouteDynamicPage = (tbl, datas) => {
   });
 
   let str = `    import { NextResponse } from 'next/server';
-    import { Connect } from '@/lib/utils/Db';
+    import { Connect } from '@/lib/Db';
     import { ${titleCase(tbl)}Model } from '@/lib/Models';
 
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MenuData } from '@/lib/MenuData';
+import { getSessionStorageSize } from '@/lib/utils';
 
 
 
@@ -31,19 +32,33 @@ const MenuItem = ({ Href, Title, Menu }) => {
 
 const Layout = ({ children }) => {
     const [menu, setMenu] = useState(false);
+    const [useSize, setUseSize] = useState("0");
 
     const router = useRouter();
+
+    const getSessionStorageSize = () => {
+        let totalSize = 0;
+        for (let key in sessionStorage) {
+            if (sessionStorage.hasOwnProperty(key)) {
+                totalSize += sessionStorage.getItem(key).length;
+            }
+        }
+        return totalSize / (1024 * 1024); // Returns size in characters (MB)
+    }
+
 
     useEffect(() => {
         const user = sessionStorage.getItem('log');
         if (!user) {
             router.push('/');
         }
+        setUseSize(getSessionStorageSize());
+
     }, [router]);
 
 
     const logOutHandler = () => {
-        sessionStorage.clear();
+        sessionStorage.removeItem('log');
         router.push('/');
     }
 
@@ -57,12 +72,18 @@ const Layout = ({ children }) => {
 
 
 
+
+
+
+
+
     return (
         <>
             <header id="top" className="fixed h-[60px] top-0 left-0 right-0 px-4 lg:px-6 bg-gray-100 border-b-2 border-white flex justify-between items-center shadow-lg z-10">
                 <div className="text-lg font-bold">
                     {menu ? (<h1>Menu</h1>) : (<Link href="/dashboard">ASLAM</Link>)}
                 </div>
+                <p className='font-[xs] text-gray-400'>{parseFloat(useSize).toFixed(3)} MB</p>
                 <button onClick={() => menu ? setMenu(false) : setMenu(true)}>
                     {menu ? (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

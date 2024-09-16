@@ -4,8 +4,8 @@ import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
 import { numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib//fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);

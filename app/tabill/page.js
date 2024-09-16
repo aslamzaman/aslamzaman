@@ -13,8 +13,8 @@ import { DropdownEn, TextDt, BtnSubmit } from "@/components/Form";
 import { fetchDataFromAPI, formatedDateDot, inwordBangla, numberWithComma, dateDifferenceInDays,localStorageGetItem } from "@/lib/utils";
 
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib//fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 const dtAr = [
     "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"

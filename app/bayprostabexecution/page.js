@@ -9,10 +9,8 @@ import Download from "@/components/bayprostabexecution/Download";
 import Upload from "@/components/bayprostabexecution/Upload";
 
 import { localStorageGetItem, fetchDataFromAPI, numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";
-
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
-
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 
 const Bayprostabexecution = () => {

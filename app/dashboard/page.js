@@ -8,8 +8,7 @@ const Item = () => {
     const [items, setItems] = useState([]);
     const [msg, setMsg] = useState("Data ready");
 
-
-    
+   
     return (
         <>
             <div className="w-full my-6 lg:my-8">

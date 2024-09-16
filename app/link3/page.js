@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { TextDt, TextNum, DropdownEn, BtnSubmit } from "@/components/Form";
 import { jsPDF } from "jspdf";
-import { titleCamelCase, inwordEnglish, fetchDataFromAPI, formatedDate, formatedDateDot } from "@/lib/utils";
+import { titleCamelCase, inwordEnglish, formatedDate, formatedDateDot } from "@/lib/utils";
 
 const montsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -13,36 +13,12 @@ const Link3 = () => {
     const [msg, setMsg] = useState("Data ready");
 
     const [dt, setDt] = useState('');
-    const [taka, setTaka] = useState('1932');
+    const [taka, setTaka] = useState('1764');
     const [months, setMonths] = useState('');
     const [yr, setYr] = useState('');
-    const [staffName, setStaffName] = useState('');
-    const [projectName, setProjectName] = useState('');
-
-    const [staffs, setStaffs] = useState([]);
-    const [projects, setProjects] = useState([]);
-
-
 
 
     useEffect(() => {
-        const loadData = async () => {
-            setMsg('Please Wait...');
-            try {
-                const [responseStaff, responseProject, response] = await Promise.all([
-                    fetchDataFromAPI("staff"),
-                    fetchDataFromAPI("project")
-                ]);
-                const scStaff = responseStaff.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
-                setStaffs(scStaff);
-                setProjects(responseProject);
-                setMsg('');
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                setMsg("Failed to fetch data");
-            }
-        };
-        loadData();
         setDt(formatedDate(new Date()));
         setYr(new Date().getFullYear());
         setMonths(montsArray[new Date().getMonth()]);
@@ -67,35 +43,22 @@ const Link3 = () => {
 
                 //--------------------------------------------------------------------
 
-                doc.addImage("/images/formats/link3internetbill.jpg", "JPG", 0, 0, 210, 297);
-                doc.setFontSize(13);
+                doc.addImage("/images/formats/link3.png", "PNG", 0, 0, 210, 297);
+                doc.setFontSize(12);
                 doc.setFont("times", "normal");
-                doc.text(`${projectName}`, 102, 48, null, null, "left");
-                doc.text(`${formatedDateDot(dt,true)}`, 102, 54, null, null, "left");
-
-                doc.setFont("times", "normal");
-                doc.text(`${months} ${yr}`, 113, 77, null, null, "left");
-                doc.text("1932/-", 180, 77, null, null, "right");
+                doc.text(`${formatedDateDot(dt, true)}`, 100, 54, null, null, "left");
+               
+                doc.text(`${months} ${yr}`, 114, 77, null, null, "left");
                 //-------------------------------------------------------------
-
-                doc.text("1680.00", 100, 82, null, null, "right");
-                doc.text("84.00", 100, 87, null, null, "right");
-                doc.text("168.00", 100, 92, null, null, "right");
+                doc.text(`- ${1764 - parseFloat(taka)}.00`, 175.3, 97.1, null, null, "right");
                 //-------------------------------------------------------------
-                doc.text(`- ${1764 - parseFloat(taka)}/-`, 179.5, 97, null, null, "right");
-                //-------------------------------------------------------------
-
-
 
                 doc.setFont("times", "bold");
-                doc.text(`${1932 - (1764 - parseInt(taka))}/-`, 180, 180, null, null, "right"); // Total Taka
+                doc.text(`${1932 - (1764 - parseInt(taka))}.00`, 175.3, 179.3, null, null, "right"); // Total Taka
                 let total = `${1932 - (1764 - parseInt(taka))}`;
                 doc.setFont("times", "normal");
                 let t = inwordEnglish(parseInt(total));
-                doc.text(`${titleCamelCase(t)}Taka Only`, 42, 188, null, null, "left"); // Inword
-                doc.text(`${staffName.split(",")[0]}`, 25, 216, null, null, "left");
-                doc.text(`${staffName.split(",")[1]}`, 25, 222, null, null, "left");
-
+                doc.text(`${titleCamelCase(t)} Taka Only`, 40, 188, null, null, "left"); // Inword
                 //--------------------------------------------------------------------
 
                 doc.save(new Date().toISOString() + "-Link3-Bill.pdf");
@@ -121,13 +84,6 @@ const Link3 = () => {
                     <form onSubmit={pdfCreateHandler}>
                         <div className="grid grid-cols-2 gap-4">
                             <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
-                            <DropdownEn Title="Staff" Id="staffName" Change={e=>setStaffName(e.target.value)} Value={staffName}>
-                                {staffs.length ? staffs.map(staff => <option value={`${staff.nmEn},${staff.postId.nmEn}`} key={staff._id}>{staff.nmEn}</option>) : null}
-                            </DropdownEn>
-                            <DropdownEn Title="Project" Id="projectName" Change={e=>setProjectName(e.target.value)} Value={projectName}>
-                                {projects.length ? projects.map(project => <option value={project.name} key={project._id}>{project.name}</option>) : null}
-                            </DropdownEn>
-
                             <DropdownEn Title="Month" Id="months" Change={e => setMonths(e.target.value)} Value={months}>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -164,7 +120,8 @@ const Link3 = () => {
                             </DropdownEn>
                             <TextNum Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} />
                         </div>
-                        <BtnSubmit Title="Create Electric Bill" Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnSubmit Title="Create Electric Bill" Class="bg-blue-600 hover:bg-blue-800 text-white" />
+
                     </form>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { BtnSubmit, TextEn, TextPw } from "@/components/Form";
 import { useRouter } from "next/navigation";
-import { fetchDataFromAPI } from "@/lib/utils";
+
 
 
 export default function Home() {
@@ -20,7 +20,17 @@ export default function Home() {
     const loadUser = async () => {
       setMsg("Please wait....");
       try {
-        const data = await fetchDataFromAPI("user");
+
+        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/user`;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+        }
+        const data = await response.json();
         setUserData(data);
         setMsg("Ready to login.");
       } catch (error) {

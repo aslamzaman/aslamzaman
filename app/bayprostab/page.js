@@ -9,8 +9,8 @@ import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
 import { fetchDataFromAPI, localStorageGetItem, inwordBangla, numberWithComma, formatedDate, formatedDateDot, localStorageSetItem } from '@/lib/utils';
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 
 

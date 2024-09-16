@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
 import { localStorageDeleteItem } from "@/lib/utils";
 
 

@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 import { TextNum, DropdownEn, BtnSubmit, TextDt } from "@/components/Form";
 import { numberWithComma, inwordBangla, formatedDate, formatedDateDot } from "@/lib/utils";

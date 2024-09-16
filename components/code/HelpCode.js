@@ -351,6 +351,31 @@ const fileChangeHandlerImage = async (e) => {
     }
 
 
+    *** compressed binary
+    const encodedData = btoa("Hello, world"); // encode a string
+    const decodedData = atob(encodedData); // decode the string
+
+
+
+    *** storage size monitor
+    function getSessionStorageSize() {
+        let totalSize = 0;
+        for (let key in sessionStorage) {
+            if (sessionStorage.hasOwnProperty(key)) {
+                totalSize += sessionStorage.getItem(key).length;
+            }
+        }
+        return totalSize; // Returns size in characters (bytes)
+    }
+
+    // Helper function to convert characters (bytes) to MB
+    function bytesToMB(bytes) {
+        return bytes / (1024 * 1024);
+}
+
+
+
+
       `;
 
   return str;

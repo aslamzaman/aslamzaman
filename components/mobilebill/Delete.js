@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
-import { deleteItem } from "@/lib/utils/LocalDatabase";
 import { localStorageDeleteItem } from "@/lib/utils";
+
 
 const Delete = ({ message, id, data }) => {
     const [name, setName] = useState("");

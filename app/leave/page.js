@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import { BtnSubmit, DropdownEn, TextDt, TextBn, TextareaBn } from "@/components/Form";
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 import { dateDifferenceInDays, fetchDataFromAPI, formatedDate,  formatedDateDot, inwordBangla } from "@/lib/utils";
 

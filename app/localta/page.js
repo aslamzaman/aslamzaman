@@ -9,8 +9,8 @@ import { DropdownEn, TextDt, TextBn, BtnSubmit, TextNum } from "@/components/For
 
 import { fetchDataFromAPI, formatedDate, inwordBangla, localStorageGetItem } from "@/lib/utils";
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 const LocalTaCreation = ({ doc }, data) => {
     const localtas = data.localtas;

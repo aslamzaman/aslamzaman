@@ -29,8 +29,7 @@ const Print = (tbl, datas) => {
 
 
 
-    const str = `
-import React, { useState, useRef } from "react";
+    const str = `import React, { useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 // import { Tiro_Bangla } from 'next/font/google';
 // const tiro = Tiro_Bangla({ subsets: ['bengali'], weight: "400" });

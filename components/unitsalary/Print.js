@@ -4,8 +4,8 @@ import { Close } from "@/components/Icons";
 import { DropdownEn, BtnSubmit } from "@/components/Form";
 import { numberWithComma, formatedDate, formatedDateDot } from "@/lib/utils";
 
-require("@/lib/fonts/SUTOM_MJ-normal");
-require("@/lib/fonts/SUTOM_MJ-bold");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 const shortDt = (dt) => {
     const d = new Date(dt);

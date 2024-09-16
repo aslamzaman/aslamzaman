@@ -143,8 +143,7 @@ const res1 = sowFormMongoData + ret1;
     //----------------------------------------------------------------
 
 
-    const str = `
-import React, { useState } from "react";
+    const str = `import React, { useState } from "react";
 import { TextEn, BtnSubmit } from "@/components/Form";
 import { putDataToAPI } from "@/lib/utils";
 

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
-require("@/lib/fonts/Lobster-Regular-normal");
-require("@/lib/fonts/OpenSansCondensed-Light-normal");
+require("@/app/fonts/Lobster-Regular-normal");
+require("@/app/fonts/OpenSansCondensed-Light-normal");
 import { BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
 import { formatedDateSlash, formatedDate, jsonDataFromExcelSheet } from "@/lib/utils";
 

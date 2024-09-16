@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
-import { fetchData } from "@/lib/utils/FetchData";
 import { putDataToAPI } from "@/lib/utils";
 
 

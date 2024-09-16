@@ -108,8 +108,7 @@ const Add = (tbl, datas) => {
     //----------------------------------------------------------------
 
 
-    const str = `  
-import React, { useState } from "react";
+    const str = `import React, { useState } from "react";
 import { TextEn, BtnSubmit } from "@/components/Form";
 import { postDataToAPI } from "@/lib/utils";
 

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Close } from "../Icons";
 import { fetchAll, clearTable, insertBulk } from "../DexieDatabase";
 
-import { Lib } from "../../utils/Lib";
 require("../../utils/fonts/SUTOM_MJ-bold");
 require("../../utils/fonts/SUTOM_MJ-normal");
 

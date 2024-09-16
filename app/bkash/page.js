@@ -6,8 +6,8 @@ import Edit from "@/components/bkash/Edit";
 import Delete from "@/components/bkash/Delete";
 import { jsPDF } from "jspdf";
 import { formatedDate, formatedDateDot, localStorageGetItem, fetchDataFromAPI, inwordBangla } from "@/lib/utils";
-require("@/lib/fonts/SUTOM_MJ-bold");
-require("@/lib/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 
 
 

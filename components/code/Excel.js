@@ -4,8 +4,7 @@ const ab = "`attachment; filename=${filename}`";
 const api = "`${process.env.NEXT_PUBLIC_BASE_URL}/api/attendance`";
 
 
-  const str = `
-// Upload an excel file and convert into JSON file ------------------------------------
+  const str = `// Upload an excel file and convert into JSON file ------------------------------------
 import * as XLSX from 'xlsx';
 
 const processExcelData = (readerResult, headerArray) => {

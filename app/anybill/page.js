@@ -6,8 +6,8 @@ import Edit from "@/components/anybill/Edit";
 import Delete from "@/components/anybill/Delete";
 import { jsPDF } from "jspdf";
 
-require("@/lib/fonts/SUTOM_MJ-bold");
-require("@/lib/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-normal");
+require("@/app/fonts/SUTOM_MJ-bold");
 import { localStorageGetItem, fetchDataFromAPI, inwordBangla, numberWithComma, formatedDate, formatedDateDot } from "@/lib/utils";
 
 
