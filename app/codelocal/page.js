@@ -26,15 +26,15 @@ const CodeLocal = () => {
     const [isCopied, setIsCopied] = useState(false);
 
     useEffect(() => {
-        const newTbl = localStorage.getItem('tbl');
-        const newFld = localStorage.getItem('fld');
+        const newTbl = localStorage.getItem('localTbl');
+        const newFld = localStorage.getItem('localFld');
         setTbl(newTbl ? newTbl : "post");
-        setFld(newFld ? newFld : "id, name, shortname");
+        setFld(newFld ? newFld : "id, name, fname, age");
     }, []);
 
     const local = () => {
-        localStorage.setItem('tbl', tbl);
-        localStorage.setItem('fld', fld);
+        localStorage.setItem('localTbl', tbl);
+        localStorage.setItem('localFld', fld);
     }
 
 

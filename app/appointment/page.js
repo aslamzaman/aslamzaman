@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { TextDt, BtnSubmit, TextEn, TextareaEn, BtnInput } from "@/components/Form";
+import { TextDt, BtnSubmit, TextEn, TextareaEn, BtnInput, TextareaUn, TextUn } from "@/components/Form";
 import { formatedDate, localStorageGetItem, localStorageSetItem } from "@/lib/utils";
 
 
@@ -61,7 +61,7 @@ const Appointment = () => {
     }
 
     const getInitialValue = () => {
-        setRefNo('2021-77');
+        setRefNo('২০২১-৭৭');
         setDt(formatedDate(new Date()));
         setName(initialName);
         setSubject(initialSubject);
@@ -82,11 +82,12 @@ const Appointment = () => {
                             <div className="flex space-x-4">
                                 <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
 
-                                <TextEn Title="Ref No:" Id="refNo" Change={e => setRefNo(e.target.value)} Value={refNo} Chr="250" />
+                                <TextUn Title="Ref No:" Id="refNo" Change={e => setRefNo(e.target.value)} Value={refNo} Chr="250" />
                             </div>
-                            <TextEn Title="Name (Separated by ;)" Id="name" Change={e => setName(e.target.value)} Value={name} Chr="250" />
-                            <TextEn Title="Subject" Id="subject" Change={e => setSubject(e.target.value)} Value={subject} Chr="250" />
-                            <TextareaEn Title="Detail (Separated by ;)" Id="detail" Rows="6" Change={e => setDetail(e.target.value)} Value={detail} Chr="250" />
+                            <TextUn Title="Name (Separated by ;)" Id="name" Change={e => setName(e.target.value)} Value={name} Chr="250" />
+                            <TextUn Title="Subject" Id="subject" Change={e => setSubject(e.target.value)} Value={subject} Chr="250" />
+                
+                            <TextareaUn Title="Detail (Separated by ;)" Id="detail" Rows="6" Change={e => setDetail(e.target.value)} Value={detail} Chr="250" />
                         </div>
                         <BtnSubmit Title="Create Letter" Class="bg-green-600 hover:bg-green-800 text-white mr-1" />
                         <BtnInput Title="Get Initial Value" Click={getInitialValue} Class="bg-blue-600 hover:bg-blue-800 text-white mr-1" />

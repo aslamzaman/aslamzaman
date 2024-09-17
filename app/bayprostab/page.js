@@ -14,7 +14,6 @@ require("@/app/fonts/SUTOM_MJ-bold");
 
 
 
-
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
@@ -462,7 +461,7 @@ const Bayprostab = () => {
           fetchDataFromAPI('project')
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
-        console.log(scStaff)
+       // console.log(scStaff)
         setStaffData(scStaff);
         setProjectData(projects);
         setWaitMsg('');
@@ -477,7 +476,7 @@ const Bayprostab = () => {
     getData();
 
     const locaData = localStorageGetItem("bayprostab");
-    console.log(locaData)
+   // console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = numberWithComma(Math.round(totalTaka));

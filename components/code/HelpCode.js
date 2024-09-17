@@ -344,7 +344,7 @@ const fileChangeHandlerImage = async (e) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'hello.js';
+        a.download = 'hello.json';
         document.body.appendChild(a);
         a.click();
         a.remove();

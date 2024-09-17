@@ -19,23 +19,26 @@ const Upload = ({ Msg }) => {
 
 	const uploadHandler = async () => {
 		try {
-			const data = await jsonDataFromExcelSheet(file, ['id', 'item', 'nos', 'taka']);
-			const checkNos = parseFloat(data[1].nos);
-			const checkTaka = parseFloat(data[1].taka);
-		
-			if (checkNos && checkTaka) {
-				console.log(checkNos, checkTaka);
-				localStorageSetItem("bayprostab", data);
-				Msg("Uploaded data successfully.");
-			} else {
-				console.log("dfsdf",checkNos, checkTaka);
-				Msg("Data not matching!");
+			if (!file) {
+				Msg("No file selected.");
+				return;
 			}
-			
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				try {
+					const result = JSON.parse(reader.result);
+					localStorageSetItem("bayprostab", result);
+					Msg("Uploaded data successfully.");
+				} catch (parseError) {
+					console.error('Error parsing JSON:', parseError);
+				}
+			}
+			reader.readAsText(file);
 		} catch (error) {
 			console.error("Faild upload data" + error);
 			console.log('Fail upload data.')
-		}finally{
+		} finally {
 			setShow(false);
 		}
 	}
@@ -51,7 +54,7 @@ const Upload = ({ Msg }) => {
 					</div>
 
 					<div className="p-6 text-black">
-						<input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+						<input type="file" onChange={(e) => { setFile(e.target.files[0]); }} className="w-full px-4 py-1.5 text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" accept="application/json" />
 					</div>
 
 					<div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">

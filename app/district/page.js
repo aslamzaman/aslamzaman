@@ -59,7 +59,7 @@ const District = () => {
                                 districts.map(district => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={district._id}>    
                                         <td className="text-start py-1 px-4">{district.nmEn}</td>
-                                        <td className="text-center py-1 px-4">{district.nmBn}</td>
+                                        <td className="text-center py-1 px-4 font-tiroN">{district.nmBn}</td>
                                         <td className="text-center py-1">
                                             <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
                                                 <Edit message={messageHandler} id={district._id} data={district} />

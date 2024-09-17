@@ -56,6 +56,16 @@ export const TextBn = ({ Title, Id, Change, Value, Chr }) => {
   )
 }
 
+
+export const TextUn = ({ Title, Id, Change, Value, Chr }) => {
+  return (
+    <div className="w-full flex flex-col items-start">
+      <label className='text-xs font-semibold mb-1 opacity-50' htmlFor={Id}>{Title}</label>
+      <input onChange={Change} value={Value} type="text" id={Id} name={Id} required maxLength={Chr} className="w-full px-4 py-1.5 font-tiroN text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" />
+    </div>
+  )
+}
+
 //----------------------------------------------------------------------------
 
 
@@ -180,3 +190,14 @@ export const TextareaBn = ({ Title, Id, Rows, Change, Value }) => {
     </div>
   )
 }
+
+
+export const TextareaUn = ({ Title, Id, Rows, Change, Value }) => {
+  return (
+    <div className="w-full flex flex-col items-start">
+      <label className='text-xs font-semibold mb-1 opacity-50' htmlFor={Id}>{Title}</label>
+      <textarea rows={Rows} onChange={Change} value={Value} id={Id} name={Id} maxLength={400} className="w-full px-4 py-1.5 font-tiroN text-gray-600 ring-1 focus:ring-4 ring-blue-300 outline-none rounded duration-300" />
+    </div>
+  )
+}
+

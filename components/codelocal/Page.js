@@ -82,8 +82,8 @@ ${thead}
                                         <tr className="border-b border-gray-200 hover:bg-gray-100" key={${tbl}.id}>
 ${td}                                            
                                             <td className="flex justify-end items-center mt-1">
-                                                <Edit message={messageHandler} id={${tbl}.id} data={${tbl}s} />
-                                                <Delete message={messageHandler} id={${tbl}.id} data={${tbl}s} />
+                                                <Edit message={messageHandler} id={${tbl}.id} data={${tbl}} />
+                                                <Delete message={messageHandler} id={${tbl}.id} data={${tbl}} />
                                             </td>
                                         </tr>
                                     )

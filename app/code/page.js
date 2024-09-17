@@ -52,7 +52,7 @@ const Code = () => {
         const newTbl = localStorage.getItem('tbl');
         const newFld = localStorage.getItem('fld');
         setTbl(newTbl ? newTbl : "post");
-        setFld(newFld ? newFld : "_id, name, shortname");
+        setFld(newFld ? newFld : "_id, name, address, isDeleted");
     }, []);
 
 
