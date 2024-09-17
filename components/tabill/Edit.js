@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextDt, TextTm, TextBn, BtnEn, TextNum, BtnSubmit, DropdownBn, TextEnDisabled } from "@/components/Form";
+import { TextDt, TextTm, TextBn, TextNum, BtnSubmit, DropdownBn, TextEnDisabled } from "@/components/Form";
 import { Close } from "@/components/Icons";
 import { localStorageUpdateItem } from "@/lib/utils";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
@@ -43,7 +43,7 @@ const Edit = ({ message, Id, data }) => {
     const editHandler = () => {
         setShow(true);
         try {
-            console.log(data)
+         //   console.log(data)
             const findData = data;
             if (findData) {
                 const { dt, place1, tm1, place2, tm2, vehicle, taka, cause } = findData;

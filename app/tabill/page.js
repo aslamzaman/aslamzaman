@@ -64,7 +64,7 @@ const Tabill = () => {
                     }
                 })
 
-                console.log(scStaff, projects, places, units, tas, das);
+              //  console.log(scStaff, projects, places, units, tas, das);
 
                 const unitResult = units.map(unit => {
                     const matchTa = tas.find(ta => ta.unitId._id === unit._id);
@@ -87,8 +87,7 @@ const Tabill = () => {
         getData();
 
         const load = () => {
-            let response = localStorageGetItem("tabill");
-            let data = response.data;
+            let data = localStorageGetItem("tabill");
             setTabills(data);
             const result = data.reduce((t, c) => t + parseFloat(c.taka), 0);
             setTotal(result)
@@ -128,7 +127,7 @@ const Tabill = () => {
             dt1: dt1
         }
         setWaitMsg('Please Wait...');
-        console.log(data);
+       // console.log(data);
         setTimeout(() => {
             //------------------------------------------------------
             doc.addImage("/images/formats/tabill.png", "PNG", 0, 0, 210, 297);

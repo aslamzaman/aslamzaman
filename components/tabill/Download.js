@@ -10,7 +10,7 @@ const Download = ({ Msg }) => {
     let taData = localStorageGetItem("tabill");
     if (taData) {
       const blob = new Blob([taData], { type: "application/json" });
-      saveAs(blob, `${new Date().toISOString()}-ta-bill.js`);
+      saveAs(blob, `${new Date().toISOString()}-ta-bill.json`);
       Msg("Data download successfully.");
     } else {
       Msg("Data not available.");

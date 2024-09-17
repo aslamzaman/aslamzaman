@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextDt, TextTm, TextBn, BtnEn, TextNum, BtnSubmit, DropdownBn, TextEnDisabled } from "@/components/Form";
-import { localStorageAddItem } from "@/lib/utils";
+import { localStorageAddItem, localStorageGetItem } from "@/lib/utils";
 const date_format = dt => new Date(dt).toISOString().split('T')[0];
 
 
@@ -79,15 +79,17 @@ const Add = ({ message }) => {
 
     const saveHandler = (e) => {
         e.preventDefault();
-        const data = getItems("tabill");
-        if (data.length >= 26) {
-            message("You can no longer enter new data.");
-            setShow(false);
-            return false;
-        }
         try {
+            const data = localStorageGetItem("tabill");
+            if (data.length >= 26) {
+                message("You can no longer enter new data.");
+                setShow(false);
+                return false;
+            }
+
+
             const tabillObject = createLocaltaObject();
-            const msg = localStorageAddItem('tabill',tabillObject);
+            const msg = localStorageAddItem('tabill', tabillObject);
             message(msg);
         } catch (error) {
             console.log(`Error saveing houserent data: ${error}`);

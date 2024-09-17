@@ -12,7 +12,6 @@ const Upload = ({ Msg }) => {
 
   const showModal = () => {
     setShow(true);
-    Msg("Ready to upload");
   }
 
 
@@ -20,13 +19,6 @@ const Upload = ({ Msg }) => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (() => {
-        let checkData = JSON.parse(reader.result)[0];
-        if (!checkData.place1) {
-          Msg("Data not match!");
-          setShow(false);
-          return false;
-        };
-
         localStorage.setItem("tabill", reader.result);
         Msg("Data loaded successfully");
         setShow(false);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../../components/Form";
 import { Close } from "../Icons";
+import { localStorageSetItem } from "@/lib/utils";
 
 
 const Upload = ({ Msg }) => {
@@ -20,14 +21,7 @@ const Upload = ({ Msg }) => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (() => {
-        let checkData = JSON.parse(reader.result)[0];
-        if (!checkData.place1) {
-          Msg("Data not match!");
-          setShow(false);
-          return false;
-        };
-
-        localStorage.setItem("localta", reader.result);
+       localStorageSetItem("localta", reader.result);
         Msg("Data loaded successfully");
         setShow(false);
       })

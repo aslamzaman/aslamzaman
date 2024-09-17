@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { Close } from "../Icons";
 import { fetchAll, clearTable, insertBulk } from "../DexieDatabase";
 
-require("../../utils/fonts/SUTOM_MJ-bold");
-require("../../utils/fonts/SUTOM_MJ-normal");
+
 
 const Load = ({ Msg }) => {
     const [allData, setAllData] = useState([]);
@@ -47,7 +46,7 @@ const Load = ({ Msg }) => {
         try {
             await clearTable("localta");
             const dataId = await insertBulk("localta", matchingData);
-            console.log(dataId);
+          //  console.log(dataId);
             Msg("Clear data");
         } catch (err) {
             console.log(err);

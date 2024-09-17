@@ -19,7 +19,7 @@ const Delete = ({ message, Id }) => {
             let msg = localStorageDeleteItem("tabill", Id);
             message(msg);
         } catch (error) {
-            message(deletedItem.message);
+            message(error);
             console.log(`Error deleting data: ${error}`);
         }
         setShow(false);
