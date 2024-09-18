@@ -1,5 +1,5 @@
 import React from "react";
-import { excelSheetFromJsonData, formatedDate, localStorageGetItem } from "@/lib/utils";
+import {  sessionStorageGetItem } from "@/lib/utils";
 
 
 const Download = ({ Msg }) => {
@@ -7,7 +7,7 @@ const Download = ({ Msg }) => {
 
   const downloadHandler = () => {
     try {
-      const locaData = localStorageGetItem("bayprostab");
+      const locaData = sessionStorageGetItem("bayprostab");
 
       const blob = new Blob([JSON.stringify(locaData)], { type: "application/json"});
       const url = URL.createObjectURL(blob);

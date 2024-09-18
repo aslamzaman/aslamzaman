@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { localStorageDeleteItem } from "@/lib/utils";
+import {  sessionStorageDeleteItem } from "@/lib/utils";
 
 
-const Delete = ({ Msg, Id, data }) => {
+const Delete = ({ Msg, id, data }) => {
     const [show, setShow] = useState(false);
+    const [name, setName] = useState(false);
 
 
     const deleteHandler = () => {
+        const {item}=data;
+        setName(item)
         setShow(true);
     }
 
     const removeHandler = () => {
-        const message = localStorageDeleteItem("bayprostab", Id);
+        const message = sessionStorageDeleteItem("bayprostab",id);
         Msg(message);
         setShow(false);
     }
@@ -29,7 +32,7 @@ const Delete = ({ Msg, Id, data }) => {
                     </div>
 
                     <div className="p-6 text-black">
-                        <p className="text-left text-md text-red-400">Are you sure delete?</p>
+                        <p className="text-left text-md text-red-400">Are you sure delete?<br /><span className="font-bold">{name}</span></p>
                     </div>
 
                     <div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import { jsonDataFromExcelSheet, localStorageSetItem } from "@/lib/utils";
+import {  localStorageSetItem, sessionStorageSetItem } from "@/lib/utils";
 
 
 const Upload = ({ Msg }) => {
@@ -27,8 +27,8 @@ const Upload = ({ Msg }) => {
 			const reader = new FileReader();
 			reader.onload = () => {
 				try {
-					const result = JSON.parse(reader.result);
-					localStorageSetItem("bayprostab", result);
+					const obj = JSON.parse(reader.result);
+					sessionStorageSetItem("bayprostab",  obj);
 					Msg("Uploaded data successfully.");
 				} catch (parseError) {
 					console.error('Error parsing JSON:', parseError);

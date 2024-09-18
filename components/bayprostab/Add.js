@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { localStorageAddItem } from "@/lib/utils";
+import { sessionStorageAddItem } from "@/lib/utils";
 
 
 const Add = ({ Msg }) => {
@@ -13,7 +13,7 @@ const Add = ({ Msg }) => {
     const [check, setCheck] = useState(false);
 
 
-    const addtHandler = () => {
+    const addShowHandler = () => {
         setShow(true);
         setItem("");
         setNos("");
@@ -34,7 +34,7 @@ const Add = ({ Msg }) => {
             nos: check ? 0 : nos,
             taka: check ? 0 : taka
         }
-        const data = localStorageAddItem("bayprostab", obj);
+        const data = sessionStorageAddItem("bayprostab", obj);
         Msg(data);
         setShow(false);
     }
@@ -73,7 +73,7 @@ const Add = ({ Msg }) => {
 
                 </div>
             </div>
-            <button onClick={addtHandler} className="w-8 h-8 rounded-full hover:bg-gray-50 mr-1 flex justify-center items-center">
+            <button onClick={addShowHandler} className="w-8 h-8 rounded-full hover:bg-gray-50 mr-1 flex justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

@@ -48,6 +48,7 @@ ${use_state}
 
 
   const showEditForm = () => {
+        message("Ready to edit");
         setShow(true);
         try {
             const {${strMap} } = data;

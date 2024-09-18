@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { localStorageUpdateItem } from "@/lib/utils";
+import { sessionStorageUpdateItem } from "@/lib/utils";
 
 
-const Edit = ({ Msg, Id, data }) => {
+const Edit = ({ Msg, id, data }) => {
     const [item, setItem] = useState("");
     const [nos, setNos] = useState("");
     const [taka, setTaka] = useState("");
@@ -14,6 +14,7 @@ const Edit = ({ Msg, Id, data }) => {
 
     const editHandler = () => {
         setShow(true);
+        Msg("Ready to edit.")
         if (data) {
             const { item, nos, taka } = data;
             setItem(item);
@@ -35,13 +36,13 @@ const Edit = ({ Msg, Id, data }) => {
     const saveHandler = (e) => {
         e.preventDefault();
         let obj = {
-            id: Id,
+            id: id,
             item: item,
             nos: nos,
             taka: taka
         }
 
-        const message = localStorageUpdateItem("bayprostab", Id, obj);
+        const message = sessionStorageUpdateItem("bayprostab", id, obj);
         Msg(message);
         setShow(false);
     }
