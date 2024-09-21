@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { BtnSubmit, TextNum } from "@/components/Form";
+import { BtnSubmit, TextEn, TextNum } from "@/components/Form";
 
 
 const Bkash = () => {
@@ -13,7 +13,7 @@ const Bkash = () => {
     const handleCreate = async (e) => {
         e.preventDefault();
         const bkashCharge = charge / 1000;
-        const taka = parseFloat(tk) * bkashCharge;
+        const taka = parseFloat(eval(tk)) * bkashCharge;
         const fifth = Math.floor(taka / 5); // 25
         const restTaka = taka % 5; // 2.9
 
@@ -50,7 +50,7 @@ const Bkash = () => {
                 <div className="w-full md:w-8/12 mx-auto border-2 p-4 shadow-md rounded-md">
                     <form onSubmit={handleCreate}>
                         <div className="grid grid-cols-1 gap-2 my-2 gap-4">
-                            <TextNum Title="Taka" Id="tk" Change={e => setTk(e.target.value)} Value={tk} />
+                            <TextEn Title="Taka" Id="tk" Change={e => setTk(e.target.value)} Value={tk} />
                             <TextNum Title="Charge (per thousand)" Id="charge" Change={e => setCharge(e.target.value)} Value={charge} />
                         </div>
                         <div className="w-full flex justify-start">

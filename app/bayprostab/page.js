@@ -8,282 +8,17 @@ import Delete from "@/components/bayprostab/Delete";
 import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
-import { fetchDataFromAPI, inwordBangla, numberWithComma, formatedDate, formatedDateDot,  sessionStorageGetItem } from '@/lib/utils';
+import { fetchDataFromAPI, formatedDate, formatedDateDot, sessionStorageGetItem } from '@/lib/utils';
 require("@/app/fonts/SUTOM_MJ-normal");
 require("@/app/fonts/SUTOM_MJ-bold");
+import { BayprostabPreparation } from '@/lib/BayprostabPreparation';
 
 
-  
 const dtAdd15Days = (d1) => {
   const dt1 = new Date(d1);
   const dt2 = dt1.getTime() + (15 * 24 * 60 * 60 * 1000);
   return formatedDateDot(new Date(dt2), true);
 }
-
-
-
-
-const BayprostabFormat = ({ doc }, data) => {
-  let m = data.db;
-  let hd1 = "";
-  let hd2 = "";
-
-  let chequeString = '';
-  let chequeEnglihName = '';
-  let payment = data.payment;
-  if (payment === 'ace') {
-    chequeString = `bv‡g GKvD›U †cÕ †PK n‡e|`;
-    chequeEnglihName = `'${data.nmEn}'`;
-  } else if (payment === 'acb') {
-    chequeString = `'${data.nmBn}' bv‡g GKvD›U †cÕ †PK n‡e|`;
-  } else if (payment === 'br') {
-    chequeString = `µq m¤úv\`‡Ki bv‡g †eqvivi †PK n‡e|`;
-  } else {
-    chequeString = ``;
-  }
-
-
-
-  for (let i = 0; i < m.length; i++) {
-    if (parseInt(m[i].taka) === 0) {
-      hd1 = hd1 + m[i].item + ", ";
-      hd2 = hd2 + m[i].item + "\n";
-    }
-  }
-  hd1 = hd1.substring(0, hd1.length - 2);
-  hd2 = hd2.substring(0, hd2.length - 1);
-
-  doc.addImage("/images/formats/bayprostab1.png", "PNG", 0, 0, 210, 297);
-
-  doc.setFont("SutonnyMJ", "normal");
-
-  doc.setFontSize(18);
-  doc.setFont("times", "normal");
-  doc.text(` ${data.project}`, 167, 26, null, null, "left");
-  doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
-
-  doc.setFont("SutonnyMJ", "normal");
-  doc.setFontSize(14);
-
-  doc.text(`${data.name}`, 50, 40.5, null, null, "left");
-  doc.setFont("times", "normal");
-  doc.text(` ${hd1}`, 22, 47, null, null, "left");
-
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${data.subject}`, 25, 53.5, null, null, "left");
-
-  doc.text(`${formatedDateDot(data.dt, true)}`, 157, 40.5, null, null, "left");
-
-  let x1 = data.db;
-  const godata = x1.filter(g => parseFloat(g.taka) !== 0);
-  let y = 100;
-  let dbTotal = 0;
-  for (let i = 0; i < x1.length; i++) {
-    const itemLen = x1[i].item;
-    let tk = parseFloat(x1[i].taka);
-
-    if (tk === 0) {
-      y = y + 2;
-      doc.setFont("times", "normal");
-      doc.text(`${x1[i].item}`, 16, y, null, null, "left");
-    } else {
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 52, align: 'left' });
-      const evalTaka = eval(x1[i].taka);
-      doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 91, y, null, null, "right");
-      doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
-      const subTotal = parseFloat(evalTaka) * parseFloat(x1[i].nos);
-      doc.text(`${numberWithComma(subTotal)}/-`, 133, y, null, null, "right");
-      dbTotal = dbTotal + Math.round(subTotal);
-    }
-
-    if (itemLen.length > 28) {
-      y = y + 12;
-    } else {
-      y = y + 6;
-    }
-  }
-
-  doc.text(data.note, 174.347, 100, { maxWidth: 45, align: 'center' });
-
-  if (payment === 'ace') {
-    doc.setFont("times", "normal");
-    doc.text(`${chequeEnglihName}`, 174.347, 182, null, null, 'center');
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${chequeString}`, 174.347, 188, { maxWidth: 60, align: 'center' });
-  } else {
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${chequeString}`, 174.347, 190, { maxWidth: 60, align: 'center' });
-  }
-
-
-  doc.text(`${numberWithComma(dbTotal)}/-`, 122.844, 218, null, null, "center");
-  let inwordTak = inwordBangla(parseInt(dbTotal));
-  doc.text(`${inwordTak} UvKv gvÎ`, 60, 226.144, null, null, "left");
-
-
-  /* ** *************************2nd Page Sompurno ***************************** */
-  doc.addPage("a4", "p");
-
-  doc.addImage("/images/formats/bayprostab3.png", "PNG", 0, 0, 210, 297);
-
-  doc.setFontSize(18);
-  doc.setFont("times", "normal");
-  doc.text(`${data.project}`, 168, 26, null, null, "left");
-  doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
-  doc.setFont("SutonnyMJ", "normal");
-
-  doc.setFontSize(14);
-  doc.text(`${data.name}`, 42, 35.173, null, null, "left");
-  doc.text(`${formatedDateDot(data.dt, true)}`, 173, 35.173, null, null, "left");
-
-  doc.setFont("times", "normal");
-  doc.text(`${hd1}`, 23, 47.188, null, null, "left");
-  doc.setFont("SutonnyMJ", "normal");
-  doc.text(`${data.subject}`, 27, 53.246, null, null, "left");
-
-  doc.text(`${formatedDateDot(data.dt, true)}`, 47, 59.2, null, null, "left");
-  doc.text(`${formatedDateDot(dtAdd15Days(data.dt))}`, 145, 59.2, null, null, "center");
-
-
-  y = 105;
-  for (let i = 0; i < x1.length; i++) {
-    const itemLen = x1[i].item;
-    let tk = parseFloat(x1[i].taka);
-    if (tk === 0) {
-      y = y + 2;
-      doc.setFont("times", "normal");
-      doc.text(`${x1[i].item}`, 16, y, null, null, "left");
-    } else {
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${x1[i].item}`, 16, y, { maxWidth: 55, align: 'left' });
-      const evalTaka = eval(x1[i].taka);
-      doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
-      doc.text(`${parseFloat(x1[i].nos).toFixed(2)}`, 101.641, y, null, null, "center");
-      const subTotal2ndPage = parseFloat(evalTaka) * parseFloat(x1[i].nos);
-      doc.text(`${numberWithComma(Math.round(subTotal2ndPage))}/-`, 133, y, null, null, "right");
-    }
-    if (itemLen.length > 30) {
-      y = y + 12;
-    } else {
-      y = y + 6;
-    }
-  }
-
-
-  doc.text(data.note, 167, 107, { maxWidth: 60, align: 'center' });
-
-  if (payment === 'ace') {
-    doc.setFont("times", "normal");
-    doc.text(`${chequeEnglihName}`, 167, 190, null, null, 'center');
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${chequeString}`, 167, 196, { maxWidth: 60, align: 'center' });
-  } else {
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${chequeString}`, 167, 190, { maxWidth: 60, align: 'center' });
-  }
-
-
-
-  doc.text(`${numberWithComma(dbTotal)}/-`, 122.844, 226.803, null, null, "center");
-  doc.text(`${inwordTak} UvKv gvÎ`, 38, 239.429, null, null, "left");
-
-
-  /*************************** GO format ************************************************** */
-  if (data.project === 'GO') {
-    doc.addPage("a4", "p");
-    doc.addImage("/images/formats/go.png", "PNG", 0, 0, 210, 297);
-    doc.setFontSize(18);
-    doc.setFont("times", "normal");
-    doc.text(`${payment === 'ft' ? 'Fund Transfer' : ''}`, 165, 13, null, null, 'left');
-
-    doc.setFont("SutonnyMJ", "normal");
-    doc.setFontSize(16);
-    doc.text(`${formatedDateDot(data.dt, true)}`, 175, 42, null, null, "left");
-    doc.text(`${inwordTak} UvKv gvÎ`, 55, 196, null, null, "left");
-    doc.text("**", 19, 68, null, null, "center");
-    doc.text(`${data.subject}`, 28, 68, { maxWidth: 78, align: 'left' });
-    doc.line(25, 76, 105, 76) // underline
-
-    y = 82;
-
-
-
-    for (let i = 0; i < godata.length; i++) {
-      const itemLen = godata[i].item;
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text("-", 19, y, null, null, "center");
-      doc.text(`${godata[i].item}`, 28, y, { maxWidth: 68, align: 'left' });
-      const goTotal = parseFloat(eval(godata[i].taka)) * parseFloat(godata[i].nos);
-      doc.text(`${numberWithComma(Math.round(goTotal))}/-`, 130, y, null, null, "right");
-      if (itemLen.length > 38) {
-        y = y + 12;
-      } else {
-        y = y + 6;
-      }
-    }
-
-    doc.text(`${numberWithComma(dbTotal)}/-`, 122, 187, null, null, "center");
-    doc.setFontSize(13);
-    doc.setFont("times", "normal");
-    doc.text(`${hd2}`, 146.5, 68, null, null, "center");
-    doc.setFontSize(14);
-    doc.setFont("SutonnyMJ", "normal");
-    doc.text(`${data.dpt}`, 180, 68, null, null, "center");
-
-  }
-
-  /**************************** Bearer check ************************************************* */
-  if (payment === 'br') {
-    if (payment !== 'ace') {
-      doc.addPage("a4", "p");
-      doc.addImage("/images/formats/bearer.png", "PNG", 0, 0, 210, 297);
-
-      doc.setFont("times", "normal");
-      doc.setFontSize(14);
-      doc.text(`${data.project}`, 103, 41.5, null, null, "left");
-
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${formatedDateDot(data.dt, true)}`, 165, 49.5, null, null, "left");
-      doc.setFont("times", "normal");
-
-
-      doc.setFont("SutonnyMJ", "normal");
-
-      doc.text("**", 25, 120, null, null, "center");
-      doc.text(`${data.subject}`, 32, 120, { maxWidth: 70, align: 'left' });
-
-      doc.line(30, 128, 105, 128) // underline
-
-      y = 134;
-      for (let i = 0; i < godata.length; i++) {
-        const itemLen = godata[i].item;
-        doc.setFont("SutonnyMJ", "normal");
-        doc.text("-", 25, y, null, null, "center");
-        doc.text(`${godata[i].item}`, 34, y, { maxWidth: 65, align: 'left' });
-        const totalBearar = parseFloat(eval(godata[i].taka)) * parseFloat(godata[i].nos);
-        doc.text(`${numberWithComma(Math.round(totalBearar))}/-`, 129, y, null, null, "right");
-
-        if (itemLen.length > 38) {
-          y = y + 12;
-        } else {
-          y = y + 6;
-        }
-      }
-
-
-
-      doc.setFont("times", "normal");
-      doc.text(`${hd2}`, 162.5, 120, null, null, "center");
-
-      doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${numberWithComma(dbTotal)}/-`, 120, 248, null, null, "center");
-
-      doc.text(`${inwordTak} UvKv gvÎ`, 40, 255, null, null, "left");
-    }
-  }
-}
-
 
 
 
@@ -296,21 +31,16 @@ const Bayprostab = () => {
   const [staffData, setStaffData] = useState([]);
   const [projectData, setProjectData] = useState([]);
 
-
   const [staff, setStaff] = useState("Avmjvg Rvgvb");
   const [project, setProject] = useState("GO");
   const [dt, setDt] = useState("2023-01-12");
   const [dpt, setDpt] = useState("ms¯’vcb");
   const [subject, setSubject] = useState("mvwf©m †m›Uv‡ii Mvwoi R¡vjvwb (AK‡Ub) µq");
- 
-  const [payment, setPayment] = useState("");
-  const [nmEn, setNmEn] = useState("");
-  const [nmBn, setNmBn] = useState("");
-  const [nmBr, setNmBr] = useState("");
-
   const [note, setNote] = useState(`Mvwoi R¡vjvwb (AK‡Ub) cÖ‡qvRb Abyhvqx wewfbœ cv¤ú †_‡K µq Kiv n‡e`);
   const [total, setTotal] = useState("");
-
+  const [budgetHead, setBudgetHead] = useState("");
+  const [payType, setPayType] = useState("");
+  const [cheque, setCheque] = useState("");
 
   useEffect(() => {
     setDt(formatedDate(new Date()));
@@ -323,14 +53,10 @@ const Bayprostab = () => {
           fetchDataFromAPI('project')
         ]);
         const scStaff = staffs.filter(staff => staff.placeId._id === "660ae2d4825d0610471e272d");
-       // console.log(scStaff)
         setStaffData(scStaff);
         setProjectData(projects);
+        setPayType('');
         setWaitMsg('');
-        setPayment('br');
-        setNmEn('Sun Moon Ad & Printers');
-        setNmBn('mvb gyb GW Ges wc«›Uvm©');
-        setNmBr('Avmjvg Rvgvb');
       } catch (err) {
         console.log(err);
       }
@@ -338,17 +64,26 @@ const Bayprostab = () => {
     getData();
 
     const locaData = sessionStorageGetItem("bayprostab");
-   // console.log(locaData)
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
-    const totalRound = numberWithComma(Math.round(totalTaka));
+    const totalRound = Math.round(totalTaka);
     setTotal(totalRound);
+
+    const x = [];
+    for (let i = 0; i < locaData.length; i++) {
+      if (parseInt(locaData[i].taka) === 0) {
+        x.push(locaData[i].item);
+      }
+    }
+    const bhead = x.join(", ");
+    setBudgetHead(bhead);
   }, [msg])
 
 
   const msgHandler = (data) => {
     setMsg(data);
   }
+
 
 
   const handleCreate = (e) => {
@@ -367,33 +102,48 @@ const Bayprostab = () => {
       floatPrecision: 16 // or "smart", default is 16
     });
 
-    let hd = bayprostabs.find(t => parseInt(t.taka) === 0);
-    if (bayprostabs.length < 2 || hd === undefined) {
-      setMsg("No data or budget head!");
-      return false;
-    }
-
     const data = {
       name: staff,
       project: project,
       dt: dt,
+      dateStart: dt,
+      dateEnd: dtAdd15Days(dt),
       dpt: dpt,
       subject: subject,
-      payment: payment,
-      nmEn: nmEn,
-      nmBn: nmBn,
-      nmBr: nmBr,
       note: note,
       total: total,
-      db: bayprostabs
+      budgetHead: budgetHead,
+      payType: payType,
+      cheque: cheque
     }
+    const db = sessionStorageGetItem("bayprostab");
 
     setTimeout(() => {
-      BayprostabFormat({ doc }, data);
+      BayprostabPreparation.central({ doc, data });
+      BayprostabPreparation.tableOne({ doc, db }, 14.3, 90.5, 102, 131.5, 97, 55);
+      BayprostabPreparation.payment({ doc, data }, 174.7, 172, 49, payType);
+      doc.addPage("a4", "p");
+      BayprostabPreparation.completePlan({ doc, data });
+      BayprostabPreparation.tableOne({ doc, db }, 15, 90.5, 102, 131.5, 103, 53);
+      BayprostabPreparation.payment({ doc, data }, 166, 172, 64.5, payType);
+
+      if (project === 'GO') {
+        doc.addPage("a4", "p");
+        BayprostabPreparation.go({ doc, data });
+        BayprostabPreparation.tableTwo({ doc, db }, 19, 30, 131, 75, 74);
+      }
+      if (payType === 'br') {
+        doc.addPage("a4", "p");
+        BayprostabPreparation.bearer({ doc, data });
+        BayprostabPreparation.tableTwo({ doc, db }, 25, 33, 131, 117, 71);
+      }
+
       doc.save(new Date().toISOString() + "-Bayprostab.pdf");
       setWaitMsg("");
-    }, 500);
+    }, 100);
+
   }
+
 
 
 
@@ -435,7 +185,7 @@ const Bayprostab = () => {
                 </div>
 
                 <div className="w-full col-span-2">
-                  <DropdownEn Title="Payment" Id="payment" Change={e => setPayment(e.target.value)} Value={payment}>
+                  <DropdownEn Title="Payment Type" Id="payType" Change={e => setPayType(e.target.value)} Value={payType}>
                     <option value="ft">Fund Transfer</option>
                     <option value="ace">A/C Pay English</option>
                     <option value="acb">A/C Pay Bangla</option>
@@ -445,11 +195,11 @@ const Bayprostab = () => {
                 <div className="w-full col-span-2">
 
                   {
-                    payment === '' ? ' '
-                      : payment === 'ft' ? ' '
-                        : payment === 'ace' ? <TextEn Title="Name" Id="nmEn" Change={e => setNmEn(e.target.value)} Value={nmEn} Chr="100" />
-                          : payment === 'acb' ? <TextBn Title="Name" Id="nmBn" Change={e => setNmBn(e.target.value)} Value={nmBn} Chr="100" />
-                            : <TextBn Title="Name" Id="nmBr" Change={e => setNmBr(e.target.value)} Value={nmBr} Chr="100" />
+                    payType === '' ? null
+                      : payType === 'ft' ? null
+                        : payType === 'ace' ? <TextEn Title="Name (English)" Id="cheque" Change={e => setCheque(e.target.value)} Value={cheque} Chr="100" />
+                          : payType === 'acb' ? <TextBn Title="Name (SutonnyMJ)" Id="cheque" Change={e => setCheque(e.target.value)} Value={cheque} Chr="100" />
+                            : null
                   }
                 </div>
 
