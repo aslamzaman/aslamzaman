@@ -124,7 +124,7 @@ const Bayprostab = () => {
       BayprostabPreparation.payment({ doc, data }, 174.7, 172, 49, payType);
       doc.addPage("a4", "p");
       BayprostabPreparation.completePlan({ doc, data });
-      BayprostabPreparation.tableOne({ doc, db }, 15, 90.5, 102, 131.5, 103, 53);
+      BayprostabPreparation.tableOne({ doc, db }, 14.3, 90.5, 102, 131.5, 103, 55);
       BayprostabPreparation.payment({ doc, data }, 166, 172, 64.5, payType);
 
       if (project === 'GO') {
