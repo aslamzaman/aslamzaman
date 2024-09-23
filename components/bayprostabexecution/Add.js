@@ -72,7 +72,7 @@ const Add = ({ message }) => {
 							</div>
 							<form onSubmit={saveHandler}>
 								<div className="grid grid-cols-1 gap-4 my-4">
-									{ckd ? <TextEn Title="Item (English)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" /> : <TextBn Title="Item (Bangla)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" />}
+									{ckd ? <TextEn Title="Item (English)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" /> : <TextBn Title="Item (Bangla)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="150" />}
 									<TextNum Title="Nos" Id="nos" Change={e => setNos(e.target.value)} Value={nos} />
 									<TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr={200} />
 								</div>

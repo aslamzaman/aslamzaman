@@ -102,13 +102,17 @@ const Bayprostabexecution = () => {
         const itemLen = x[i].item.length;
         let tk = parseFloat(x[i].taka);
 
-        if (tk === 0) {
-          y = y + 2;
+        if (parseInt(tk) === 0) {
+          y +=  2;
           doc.setFont("times", "normal");
           doc.text(`${x[i].item}`, 17, y, null, null, "left");
+          y += 6;
         } else {
           doc.setFont("SutonnyMJ", "normal");
-          doc.text(`${x[i].item}`, 17, y, { maxWidth: 50, align: 'left' });
+          const line = doc.splitTextToSize(`${x[i].item}`, 50);
+          doc.text(line, 17, y, { maxWidth: 50, align: 'left' });
+
+        //  doc.text(`${x[i].item}`, 17, y, { maxWidth: 50, align: 'left' });
 
           const evalTaka = eval(x[i].taka);
           doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
@@ -116,12 +120,13 @@ const Bayprostabexecution = () => {
           let subTotal = parseFloat(evalTaka) * parseFloat(x[i].nos);
           doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 132, y, null, null, "right");
           gt = gt + Math.round(subTotal);
+
+          const lineNumber = line.length;
+          y += lineNumber * 6;
+
         }
-        if (itemLen > 28) {
-          y = y + 12;
-        } else {
-          y = y + 6;
-        }
+       
+
       }
 
       doc.setFont("SutonnyMJ", "normal");

@@ -10,13 +10,19 @@ const Bkash = () => {
     const [msg1, setMsg1] = useState("");
 
 
+
+
+
+
     const handleCreate = async (e) => {
         e.preventDefault();
-        const bkashCharge = charge / 1000;
-        const taka = parseFloat(eval(tk)) * bkashCharge;
-        const fifth = Math.floor(taka / 5); // 25
-        const restTaka = taka % 5; // 2.9
+        const bill = parseFloat(eval(tk));
+        const bCharge = bill * (charge / 1000);
+        const sendCharge = 5;
 
+        const total = bill + bCharge + sendCharge; // 1023.5
+        const restTaka = total % 5;
+  
         let x = 0;
         if (restTaka > 0) {
             x = 5;
@@ -24,17 +30,13 @@ const Bkash = () => {
             x = 0;
         }
 
-        const finalTaka = (fifth * 5) + x + 5;
-        let bkashResult = 0;
-        if (taka === 0) {
-            bkashResult = 0;
-        } else {
-            bkashResult = finalTaka;
-        }
-        console.log(taka, fifth, restTaka, x, bkashResult);
-        const st = `${parseFloat(taka).toFixed(2)}, Sending charge = 5.00; Total = ${(parseFloat(taka)+5).toFixed(2)}`;
+        const totalTaka = total - restTaka + x;
+        const withOutSendMoney = totalTaka - sendCharge;
+
+        const st = `Bill= ${bill}, Bkash Charge= ${bCharge.toFixed(3)}, Sending charge =${sendCharge}; Total = ${total.toFixed(3)} -> ${totalTaka}`;
         setMsg(st);
-        setMsg1(bkashResult.toFixed(2));
+        console.log(totalTaka)
+        setMsg1(`Bkash Bill= ${parseInt(totalTaka) - parseInt(bill)}; Send Taka = ${withOutSendMoney}`)
     }
 
 
@@ -42,11 +44,11 @@ const Bkash = () => {
         <>
             <div className="w-full mb-3 mt-8">
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-gray-400">Send Money Bkash Charge</h1>
-                <p className="text-center text-md md:text-xl font-bold text-blue-700 mt-4">{msg} &#9871; {msg1}</p>
+                <p className="text-center text-md text-gray-600 mt-4">{msg}<br /><span className="text-lg font-bold text-blue-700">{msg1}</span></p>
+
             </div>
 
             <div className="px-4 lg:px-6">
-
                 <div className="w-full md:w-8/12 mx-auto border-2 p-4 shadow-md rounded-md">
                     <form onSubmit={handleCreate}>
                         <div className="grid grid-cols-1 gap-2 my-2 gap-4">
