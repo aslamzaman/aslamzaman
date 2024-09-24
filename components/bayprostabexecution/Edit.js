@@ -15,8 +15,8 @@ const Edit = ({ message, id, data }) => {
 
     const showEditForm = () => {
         setShow(true);
-        const findData = data;
-        const { item, nos, taka } = findData;
+        message("Ready to edit.")
+        const { item, nos, taka } = data;
         setItem(item);
         setNos(nos);
         setTaka(taka);

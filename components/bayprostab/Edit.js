@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { sessionStorageUpdateItem } from "@/lib/utils";
+import { localStorageUpdateItem } from "@/lib/utils";
 
 
 const Edit = ({ Msg, id, data }) => {
@@ -42,7 +42,7 @@ const Edit = ({ Msg, id, data }) => {
             taka: taka
         }
 
-        const message = sessionStorageUpdateItem("bayprostab", id, obj);
+        const message = localStorageUpdateItem("bayprostab", id, obj);
         Msg(message);
         setShow(false);
     }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import { sessionStorageAddItem } from "@/lib/utils";
+import { localStorageAddItem } from "@/lib/utils";
 
 
 const Add = ({ Msg }) => {
@@ -34,7 +34,7 @@ const Add = ({ Msg }) => {
             nos: check ? 0 : nos,
             taka: check ? 0 : taka
         }
-        const data = sessionStorageAddItem("bayprostab", obj);
+        const data = localStorageAddItem("bayprostab", obj);
         Msg(data);
         setShow(false);
     }

@@ -8,6 +8,10 @@ import { LayoutPage } from "@/components/codelocal/LayoutPage";
 import { Add } from "@/components/codelocal/Add";
 import { Edit } from "@/components/codelocal/Edit";
 import { Delete } from "@/components/codelocal/Delete";
+import {Upload} from "@/components/codelocal/Upload";
+import {Download} from "@/components/codelocal/Download";
+
+
 
 const saira = Bree_Serif({
     subsets: ['latin'],
@@ -70,6 +74,18 @@ const CodeLocal = () => {
         setTitleTxt(`components/${tbl}/Delete.js`);
     }
 
+    const uploadCreateHandler = () => {
+        local();
+        setPageText(Upload(tbl));
+        setTitleTxt(`components/${tbl}/Upload.js`);
+    }
+    const downloadCreateHandler = () => {
+        local();
+        setPageText(Download(tbl));
+        setTitleTxt(`components/${tbl}/Dowload.js`);
+    }
+
+
     const copyPageHandler = () => {
         setIsCopied(true);
         navigator.clipboard.writeText(pageText);
@@ -96,6 +112,8 @@ const CodeLocal = () => {
                 <BtnEn Title="Add" Click={addCreateHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-sm" />
                 <BtnEn Title="Edit" Click={editCreateHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-sm" />
                 <BtnEn Title="Delete" Click={deleteCreateHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-sm" />
+                <BtnEn Title="Upload" Click={uploadCreateHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-sm" />
+                <BtnEn Title="Download" Click={downloadCreateHandler} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-sm" />
             </div>
 
             <div className="w-full p-4 overflow-auto">

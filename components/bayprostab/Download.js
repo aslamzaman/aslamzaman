@@ -1,5 +1,5 @@
 import React from "react";
-import {  sessionStorageGetItem } from "@/lib/utils";
+import {  localStorageGetItem } from "@/lib/utils";
 
 
 const Download = ({ Msg }) => {
@@ -7,7 +7,7 @@ const Download = ({ Msg }) => {
 
   const downloadHandler = () => {
     try {
-      const locaData = sessionStorageGetItem("bayprostab");
+      const locaData = localStorageGetItem("bayprostab");
 
       const blob = new Blob([JSON.stringify(locaData)], { type: "application/json"});
       const url = URL.createObjectURL(blob);

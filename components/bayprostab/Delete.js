@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
 import { Close } from "@/components/Icons";
-import {  sessionStorageDeleteItem } from "@/lib/utils";
+import { localStorageDeleteItem } from "@/lib/utils";
 
 
 const Delete = ({ Msg, id, data }) => {
     const [show, setShow] = useState(false);
-    const [name, setName] = useState(false);
+    const [name, setName] = useState("");
+    const [taka, setTaka] = useState("");
 
 
     const deleteHandler = () => {
-        const {item}=data;
-        setName(item)
+        const { item, taka } = data;
+        setName(item);
+        setTaka(taka);
         setShow(true);
     }
 
     const removeHandler = () => {
-        const message = sessionStorageDeleteItem("bayprostab",id);
+        const message = localStorageDeleteItem("bayprostab", id);
         Msg(message);
         setShow(false);
     }
@@ -32,7 +34,7 @@ const Delete = ({ Msg, id, data }) => {
                     </div>
 
                     <div className="p-6 text-black">
-                        <p className="text-left text-md text-red-400">Are you sure delete?<br /><span className="font-bold">{name}</span></p>
+                        <p className="text-left text-md text-red-400">Are you sure delete?<br /><span className={`text-lg ${parseInt(taka) > 0 ? 'font-sutonnyN' : 'font-serif'} text-black`}>{name}</span></p>
                     </div>
 
                     <div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">

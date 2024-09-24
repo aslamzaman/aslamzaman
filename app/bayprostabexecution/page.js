@@ -36,8 +36,8 @@ const Bayprostabexecution = () => {
 
     const getLocalData = localStorageGetItem("bayprostabexecution");
     setBayprostabexecutions(getLocalData);
-    const result = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
-    setTotal(result)
+    const total = getLocalData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
+    setTotal(total)
     setDt2(formatedDate(new Date()));
 
     const getData = async () => {
@@ -81,7 +81,7 @@ const Bayprostabexecution = () => {
       setMsg("No data!!");
       return false;
     }
-
+    const totalTaka = x.reduce((t, c) => t + parseFloat(eval(c.taka)) * parseFloat(c.nos), 0);
 
     setWaitMsg("Please wait...");
     setTimeout(() => {
@@ -98,43 +98,41 @@ const Bayprostabexecution = () => {
       let gt = 0;
 
       for (let i = 0; i < x.length; i++) {
+        const total = parseFloat(x[i].nos) * parseFloat(eval(x[i].taka));
+        const no = parseFloat(x[i].nos);
+        const tk = parseFloat(eval(x[i].taka));
+        const line = doc.splitTextToSize(`${x[i].item}`, 50);
 
-        const itemLen = x[i].item.length;
-        let tk = parseFloat(x[i].taka);
-
-        if (parseInt(tk) === 0) {
-          y +=  2;
+        if (tk === 0) {
+          y += 2;
           doc.setFont("times", "normal");
           doc.text(`${x[i].item}`, 17, y, null, null, "left");
           y += 6;
         } else {
           doc.setFont("SutonnyMJ", "normal");
-          const line = doc.splitTextToSize(`${x[i].item}`, 50);
           doc.text(line, 17, y, { maxWidth: 50, align: 'left' });
-
-        //  doc.text(`${x[i].item}`, 17, y, { maxWidth: 50, align: 'left' });
-
-          const evalTaka = eval(x[i].taka);
-          doc.text(`${parseFloat(evalTaka).toFixed(2)}`, 90, y, null, null, "right");
-          doc.text(`${parseFloat(x[i].nos).toFixed(2)}`, 101.408, y, null, null, "center");
-          let subTotal = parseFloat(evalTaka) * parseFloat(x[i].nos);
-          doc.text(`${numberWithComma(Math.round(subTotal))}/-`, 132, y, null, null, "right");
-          gt = gt + Math.round(subTotal);
-
+          if (no > 1) {
+            doc.text(`${tk.toFixed(2)}`, 90, y, null, null, "right");
+            doc.text(`${no.toFixed(2)}`, 101.408, y, null, null, "center");
+          } else {
+            doc.text("-", 81, y, null, null, "center");
+            doc.text("-", 101.408, y, null, null, "center");
+          }
+          doc.text(`${numberWithComma(total)}/-`, 132, y, null, null, "right");
           const lineNumber = line.length;
           y += lineNumber * 6;
 
         }
-       
+
 
       }
 
       doc.setFont("SutonnyMJ", "normal");
-      doc.text(`${numberWithComma(parseInt(gt))}/-`, 65, 53, null, null, "right");
-      doc.text(`${numberWithComma(parseFloat(advance) - parseInt(gt))}/-`, 65, 61, null, null, "right");
+      doc.text(`${numberWithComma(parseInt(totalTaka))}/-`, 65, 53, null, null, "right");
+      doc.text(`${numberWithComma(parseFloat(advance) - parseInt(totalTaka))}/-`, 65, 61, null, null, "right");
       doc.text(`${note ? note : ""}`, 174.347, 100, { maxWidth: 45, align: 'center' });
-      doc.text(`${numberWithComma(parseInt(gt))}/-`, 132, 235, null, null, "right");
-      doc.text(`${inwordBangla(parseInt(gt))} UvKv gvÎ`, 45, 241.5, null, null, "left");
+      doc.text(`${numberWithComma(parseInt(totalTaka))}/-`, 132, 235, null, null, "right");
+      doc.text(`${inwordBangla(parseInt(totalTaka))} UvKv gvÎ`, 45, 241.5, null, null, "left");
       doc.text(`${formatedDateDot(dt2)}`, 60, 247.5, null, null, "left");
       doc.save(new Date().toISOString() + "Bayprostab-Execution.pdf");
       setWaitMsg("");

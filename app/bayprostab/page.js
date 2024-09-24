@@ -8,7 +8,7 @@ import Delete from "@/components/bayprostab/Delete";
 import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
-import { fetchDataFromAPI, formatedDate, formatedDateDot, sessionStorageGetItem } from '@/lib/utils';
+import { fetchDataFromAPI, formatedDate, formatedDateDot, localStorageGetItem } from '@/lib/utils';
 require("@/app/fonts/SUTOM_MJ-normal");
 require("@/app/fonts/SUTOM_MJ-bold");
 import { BayprostabPreparation } from '@/lib/BayprostabPreparation';
@@ -63,7 +63,7 @@ const Bayprostab = () => {
     }
     getData();
 
-    const locaData = sessionStorageGetItem("bayprostab");
+    const locaData = localStorageGetItem("bayprostab");
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = Math.round(totalTaka);

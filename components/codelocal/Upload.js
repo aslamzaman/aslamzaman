@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+
+export const Upload = (tbl) => {
+ 
+  const x = "`fixed inset-0 py-16 bg-gray-900 ${show ? 'block' : 'hidden'}  bg-opacity-60 overflow-auto`";
+
+  const str = `import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import {  localStorageSetItem } from "@/lib/utils";
+import { localStorageSetItem } from "@/lib/utils";
 
 
-const Upload = ({ Msg }) => {
+const Upload = ({ message }) => {
 	const [file, setFile] = useState(null);
 
 
@@ -13,32 +18,21 @@ const Upload = ({ Msg }) => {
 
 	const showModal = () => {
 		setShow(true);
-		Msg("Ready to upload");
-	}
+    }
 
 
-	const uploadHandler = async () => {
-		try {
-			if (!file) {
-				Msg("No file selected.");
-				return;
-			}
-
+	const uploadHandler = (e) => {
+		if (file) {
 			const reader = new FileReader();
-			reader.onload = () => {
-				try {
-					const obj = JSON.parse(reader.result);
-					localStorageSetItem("bayprostab",  obj);
-					Msg("Uploaded data successfully.");
-				} catch (parseError) {
-					console.error('Error parsing JSON:', parseError);
-				}
-			}
+			reader.onload = (() => {
+				let jsonData = JSON.parse(reader.result);
+				localStorageSetItem("${tbl}", jsonData);
+				message("Data loaded successfully");
+				setShow(false);
+			})
 			reader.readAsText(file);
-		} catch (error) {
-			console.error("Faild upload data" + error);
-			console.log('Fail upload data.')
-		} finally {
+		} else {
+			message("Please select a file.");
 			setShow(false);
 		}
 	}
@@ -46,7 +40,7 @@ const Upload = ({ Msg }) => {
 
 	return (
 		<>
-			<div className={`fixed inset-0 py-16 bg-gray-900 ${show ? 'block' : 'hidden'}  bg-opacity-60 overflow-auto`}>
+			<div className={${x}}>
 				<div className="w-11/12 md:w-8/12 mx-auto mb-10 bg-white border-2 border-gray-300 rounded-md shadow-md duration-300">
 					<div className="px-6 md:px-6 py-2 flex justify-between items-center border-b border-gray-300">
 						<h1 className="text-xl font-bold text-blue-600">Upload File</h1>
@@ -58,7 +52,7 @@ const Upload = ({ Msg }) => {
 					</div>
 
 					<div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">
-						<BtnEn Title="Close" Click={() => { setShow(false); Msg("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
+						<BtnEn Title="Close" Click={() => { setShow(false); message("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
 						<BtnEn Title="Upload" Click={uploadHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
 					</div>
 				</div>
@@ -72,3 +66,10 @@ const Upload = ({ Msg }) => {
 	)
 }
 export default Upload;
+
+      `;
+
+  return str;
+
+}
+

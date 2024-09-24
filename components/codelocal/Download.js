@@ -1,4 +1,8 @@
-import React from "react";
+export const Download = (tbl) => {
+ 
+  const x = "`${new Date().toISOString()}-registration.json`";
+
+  const str = `import React from "react";
 import { localStorageGetItem } from "@/lib/utils";
 
 
@@ -6,13 +10,13 @@ const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    let localData = localStorageGetItem("bayprostabexecution");
+    let localData = localStorageGetItem("${tbl}");
     if (localData) {
       const blob = new Blob([JSON.stringify(localData)], { type: "application/json"});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${new Date().toISOString()}-backup-bayprostabexecution.json`;
+      a.download = \`\${new Date().toISOString()}-backup-${tbl}.json\`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -35,4 +39,9 @@ const Download = ({ message }) => {
 };
 export default Download;
 
-      
+      `;
+
+  return str;
+
+}
+
