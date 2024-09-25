@@ -8,7 +8,7 @@ import Delete from "@/components/bayprostab/Delete";
 import Download from '@/components/bayprostab/Download';
 import Upload from '@/components/bayprostab/Upload';
 
-import { fetchDataFromAPI, formatedDate, formatedDateDot, localStorageGetItem } from '@/lib/utils';
+import { fetchDataFromAPI, formatedDate, formatedDateDot, sessionStorageGetItem } from '@/lib/utils';
 require("@/app/fonts/SUTOM_MJ-normal");
 require("@/app/fonts/SUTOM_MJ-bold");
 import { BayprostabPreparation } from '@/lib/BayprostabPreparation';
@@ -63,7 +63,7 @@ const Bayprostab = () => {
     }
     getData();
 
-    const locaData = localStorageGetItem("bayprostab");
+    const locaData = sessionStorageGetItem("bayprostab");
     setBayprostabs(locaData);
     const totalTaka = locaData.reduce((t, c) => t + (parseFloat(eval(c.taka)) * parseFloat(c.nos)), 0);
     const totalRound = Math.round(totalTaka);
@@ -80,7 +80,7 @@ const Bayprostab = () => {
   }, [msg])
 
 
-  const msgHandler = (data) => {
+  const messageHandler = (data) => {
     setMsg(data);
   }
 
@@ -222,50 +222,59 @@ const Bayprostab = () => {
               <p className="w-full text-sm text-red-700">{msg}</p>
               <div className='flex justify-end'>
                 <div className='flex space-x-1'>
-                  <Download Msg={msgHandler} />
-                  <Upload Msg={msgHandler} />
+                  <Download message={messageHandler} />
+                  <Upload message={messageHandler} />
                 </div>
               </div>
-              <table className="w-full border border-gray-200">
-                <thead>
-                  <tr className="w-full bg-gray-200">
-                    <th className="text-start border-b border-gray-200 py-2 pl-6">Item</th>
-                    <th className="text-center border-b border-gray-200 py-2">Nos</th>
-                    <th className="text-center border-b border-gray-200 py-2">Taka</th>
-                    <th className="text-normal flex justify-end mt-1 font-normal text-start">
-                      <span className="w-full flex justify-end">
-                        <Add Msg={msgHandler} />
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    bayprostabs.length ? bayprostabs.map((bayprostab, i) => {
-                      return (
-                        <tr className="border-b border-gray-200 hover:bg-gray-100" key={bayprostab.id}>
-                          <td className={`text-left py-2 pl-6 ${parseFloat(bayprostab.taka) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{i + 1}. {bayprostab.item}</td>
-                          <td className="text-center py-2 px-4">{bayprostab.nos}</td>
-                          <td className="text-center py-2 px-4" title={parseFloat(eval(bayprostab.taka)) * parseFloat(bayprostab.nos)}>{bayprostab.taka}</td>
-                          <td className="flex justify-end items-center space-x-1 mt-1">
-                            <Edit Msg={msgHandler} id={bayprostab.id} data={bayprostab} />
-                            <Delete Msg={msgHandler} id={bayprostab.id} data={bayprostab} />
-                          </td>
-                        </tr>
-                      )
-                    })
-                      : null
-                  }
 
-                  <tr className="border-b border-gray-200 font-bold">
-                    <td className="text-start py-2 px-4"> Total</td>
-                    <td className="text-center py-2 px-4"></td>
-                    <td className="text-center py-2 px-4">{total}</td>
-                    <td className="flex justify-end items-center mt-1">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+
+
+              <div className="overflow-auto">
+                <table className="w-full border border-gray-200">
+                  <thead>
+                    <tr className="w-full bg-gray-200">
+                      <th className="text-center border-b border-gray-200 px-4 py-2">Item</th>
+                      <th className="text-center border-b border-gray-200 px-4 py-2">Nos</th>
+                      <th className="text-center border-b border-gray-200 px-4 py-2">Taka</th>
+                      <th className="w-[100px] font-normal">
+                        <div className="w-full flex justify-end mt-1 pr-[3px] lg:pr-2">
+                          <Add message={messageHandler} />
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      bayprostabs.length ? bayprostabs.map(bayprostab => {
+                        const subTotal = parseFloat(bayprostab.nos) * parseFloat(eval(bayprostab.taka));
+                        return (
+                          <tr className="border-b border-gray-200 hover:bg-gray-100" key={bayprostab.id}>
+                            <td className={`text-center py-2 px-4 ${parseInt(eval(bayprostab.taka)) === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{bayprostab.item}</td>
+                            <td className="text-center py-2 px-4">{bayprostab.nos}</td>
+                            <td title={subTotal} className="text-center py-2 px-4">{bayprostab.taka}</td>
+                            <td className="flex justify-end items-center mt-1">
+                              <Edit message={messageHandler} id={bayprostab.id} data={bayprostab} />
+                              <Delete message={messageHandler} id={bayprostab.id} data={bayprostab} />
+                            </td>
+                          </tr>
+                        )
+                      })
+                        : null
+                    }
+
+                    <tr className="border-b border-gray-200 hover:bg-gray-100">
+                      <td className="font-bold"></td>
+                      <td></td>
+                      <td className="text-center py-2 px-4 font-bold">{total}</td>
+                      <td></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+
+
             </div>
           </div>
         </div>

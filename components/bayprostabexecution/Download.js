@@ -1,14 +1,14 @@
 import React from "react";
-import { localStorageGetItem } from "@/lib/utils";
+import { sessionStorageGetItem } from "@/lib/utils";
 
 
 const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    let localData = localStorageGetItem("bayprostabexecution");
+    let localData = sessionStorageGetItem("bayprostabexecution");
     if (localData) {
-      const blob = new Blob([JSON.stringify(localData)], { type: "application/json"});
+      const blob = new Blob([JSON.stringify(localData)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -35,4 +35,3 @@ const Download = ({ message }) => {
 };
 export default Download;
 
-      

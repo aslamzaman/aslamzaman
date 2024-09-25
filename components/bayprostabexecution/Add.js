@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { TextNum, TextEn, TextBn, BtnSubmit } from "@/components/Form";
-import { localStorageAddItem } from "@/lib/utils";
+import { BtnSubmit, TextBn, TextEn, TextNum } from "@/components/Form";
+import { sessionStorageAddItem } from "@/lib/utils";
 
 const Add = ({ message }) => {
 	const [item, setItem] = useState('');
 	const [nos, setNos] = useState('');
 	const [taka, setTaka] = useState('');
-
 	const [show, setShow] = useState(false);
-	const [ckd, setCkd] = useState(false);
+	const [check, setCheck] = useState(false);
 
 
 	const resetVariables = () => {
@@ -17,31 +16,33 @@ const Add = ({ message }) => {
 		setTaka('');
 	}
 
+
 	const showAddForm = () => {
 		setShow(true);
 		resetVariables();
 	}
 
+
 	const closeAddForm = () => {
 		setShow(false);
 	}
+
 
 	const createObject = () => {
 		return {
 			id: Date.now(),
 			item: item,
-			nos: ckd ? 0 : nos,
-			taka: ckd ? 0 : taka
+			nos: check ? 0 : nos,
+			taka: check ? 0 : taka
 		}
 	}
 
 
-
-	const saveHandler = async (e) => {
+	const saveHandler = (e) => {
 		e.preventDefault();
 		try {
 			const newObject = createObject();
-			const msg = localStorageAddItem('bayprostabexecution', newObject);
+			const msg = sessionStorageAddItem('bayprostabexecution', newObject);
 			message(msg);
 		} catch (error) {
 			console.error("Error saving bayprostabexecution data:", error);
@@ -50,7 +51,6 @@ const Add = ({ message }) => {
 			setShow(false);
 		}
 	}
-
 
 
 	return (
@@ -67,14 +67,18 @@ const Add = ({ message }) => {
 							</button>
 						</div>
 						<div className="px-6 pb-6 text-black">
-							<div className="flex items-center space-x-3">
-								<input type="checkbox" onChange={() => setCkd(!ckd)} checked={ckd} /> <p>English</p>
+							<div className="flex justify-start space-x-2">
+								<input onChange={e => setCheck(e.target.checked)} type="checkbox" checked={check} /> <span>English</span>
 							</div>
 							<form onSubmit={saveHandler}>
 								<div className="grid grid-cols-1 gap-4 my-4">
-									{ckd ? <TextEn Title="Item (English)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="50" /> : <TextBn Title="Item (Bangla)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="150" />}
+									{check ?
+										<TextEn Title="Item (English)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr={150} />
+										:
+										<TextBn Title="Item (Bangla)" Id="item" Change={e => setItem(e.target.value)} Value={item} Chr="150" />
+									}
 									<TextNum Title="Nos" Id="nos" Change={e => setNos(e.target.value)} Value={nos} />
-									<TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr={200} />
+									<TextEn Title="Taka" Id="taka" Change={e => setTaka(e.target.value)} Value={taka} Chr={150} />
 								</div>
 								<div className="w-full flex justify-start">
 									<input type="button" onClick={closeAddForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
@@ -94,3 +98,4 @@ const Add = ({ message }) => {
 	)
 }
 export default Add;
+

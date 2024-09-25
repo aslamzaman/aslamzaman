@@ -1,12 +1,14 @@
 
-export const Upload = (tbl) => {
+export const Upload = (tbl, isSession) => {
  
   const x = "`fixed inset-0 py-16 bg-gray-900 ${show ? 'block' : 'hidden'}  bg-opacity-60 overflow-auto`";
+
+  const storageType = isSession?'sessionStorageSetItem':'localStorageSetItem';
 
   const str = `import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import { localStorageSetItem } from "@/lib/utils";
+import {  ${storageType} } from "@/lib/utils";
 
 
 const Upload = ({ message }) => {
@@ -26,7 +28,7 @@ const Upload = ({ message }) => {
 			const reader = new FileReader();
 			reader.onload = (() => {
 				let jsonData = JSON.parse(reader.result);
-				localStorageSetItem("${tbl}", jsonData);
+				 ${storageType}("${tbl}", jsonData);
 				message("Data loaded successfully");
 				setShow(false);
 			})

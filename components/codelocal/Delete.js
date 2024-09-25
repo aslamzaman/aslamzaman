@@ -1,15 +1,17 @@
 import { titleCamelCase } from "@/lib/utils";
-export const Delete = (tbl, datas) => {
+export const Delete = (tbl, datas, isSession) => {
 
     const replaceQutation = datas.replaceAll('`', '');
     const splitData = replaceQutation.split(",");
     const data = splitData.map(s => s.trim());
 
 
+    const storageType = isSession?'sessionStorageDeleteItem':'localStorageDeleteItem';
+
 
     const str = `import React, { useState, id, data } from "react";
 import { BtnEn } from "@/components/Form";
-import { localStorageDeleteItem } from "@/lib/utils";
+import { ${storageType} } from "@/lib/utils";
 
 const Delete = ({ message, id, data }) => {
     const [${data[1]}, set${titleCamelCase(data[1])}] = useState("");
@@ -34,7 +36,7 @@ const Delete = ({ message, id, data }) => {
 
     const deleteYesClick = async () => {
         try {
-            const msg = localStorageDeleteItem('${tbl}', id);
+            const msg = ${storageType}('${tbl}', id);
             message(msg);
         } catch (error) {
             console.log(error);

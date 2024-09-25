@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import {  localStorageSetItem } from "@/lib/utils";
+import { sessionStorageSetItem } from "@/lib/utils";
 
 
-const Upload = ({ Msg }) => {
+const Upload = ({ message }) => {
 	const [file, setFile] = useState(null);
 
 
@@ -13,32 +13,21 @@ const Upload = ({ Msg }) => {
 
 	const showModal = () => {
 		setShow(true);
-		Msg("Ready to upload");
 	}
 
 
-	const uploadHandler = async () => {
-		try {
-			if (!file) {
-				Msg("No file selected.");
-				return;
-			}
-
+	const uploadHandler = (e) => {
+		if (file) {
 			const reader = new FileReader();
-			reader.onload = () => {
-				try {
-					const obj = JSON.parse(reader.result);
-					localStorageSetItem("bayprostab",  obj);
-					Msg("Uploaded data successfully.");
-				} catch (parseError) {
-					console.error('Error parsing JSON:', parseError);
-				}
-			}
+			reader.onload = (() => {
+				let jsonData = JSON.parse(reader.result);
+				sessionStorageSetItem("bayprostab", jsonData);
+				message("Data loaded successfully");
+				setShow(false);
+			})
 			reader.readAsText(file);
-		} catch (error) {
-			console.error("Faild upload data" + error);
-			console.log('Fail upload data.')
-		} finally {
+		} else {
+			message("Please select a file.");
 			setShow(false);
 		}
 	}
@@ -58,7 +47,7 @@ const Upload = ({ Msg }) => {
 					</div>
 
 					<div className="px-6 py-6 flex justify-end items-center border-t border-gray-300">
-						<BtnEn Title="Close" Click={() => { setShow(false); Msg("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
+						<BtnEn Title="Close" Click={() => { setShow(false); message("Data ready") }} Class="bg-red-600 hover:bg-red-800 text-white mr-1" />
 						<BtnEn Title="Upload" Click={uploadHandler} Class="bg-blue-600 hover:bg-blue-800 text-white" />
 					</div>
 				</div>
@@ -72,3 +61,4 @@ const Upload = ({ Msg }) => {
 	)
 }
 export default Upload;
+

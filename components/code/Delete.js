@@ -149,6 +149,8 @@ import { patchDataToAPI, deleteDataFromAPI } from "@/lib/utils";
 const Delete = ({ message, id, data }) => {
     const [${data[1]}, set${titleCamelCase(data[1])}] = useState("");
     const [show, setShow] = useState(false);
+    const [pointerEvent, setPointerEvent] = useState(true);
+
 
 
     const showDeleteForm = () => {
@@ -182,13 +184,16 @@ ${sowFormMongoData}
 
     const hardDeleteClick = async () => {
         try {
+            setPointerEvent(false);
             const msg = await deleteDataFromAPI('${tbl}',id);
             message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");
+        } finally {
+            setPointerEvent(true);
+            setShow(false);
         }
-        setShow(false);
     }
 
 
@@ -219,7 +224,7 @@ ${sowFormMongoData}
                                     Are you sure to proceed with the deletion?</h1>
                                 <h1 className="text-center text-gray-600 font-bold">{${data[1]}}</h1>
                             </div>
-                            <div className="w-full flex justify-start">
+                            <div className={\`w-full mt-4 flex justify-start \${pointerEvent ? 'pointer-events-auto' : 'pointer-events-none'}\`}>
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
                                 <BtnEn Title="Yes Delete" Click={hardDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>

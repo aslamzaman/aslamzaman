@@ -1,15 +1,14 @@
 import React from "react";
-import {  localStorageGetItem } from "@/lib/utils";
+import { sessionStorageGetItem } from "@/lib/utils";
 
 
-const Download = ({ Msg }) => {
+const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    try {
-      const locaData = localStorageGetItem("bayprostab");
-
-      const blob = new Blob([JSON.stringify(locaData)], { type: "application/json"});
+    let localData = sessionStorageGetItem("bayprostab");
+    if (localData) {
+      const blob = new Blob([JSON.stringify(localData)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -17,13 +16,9 @@ const Download = ({ Msg }) => {
       document.body.appendChild(a);
       a.click();
       a.remove();
-
-
-     // const msg = excelSheetFromJsonData(locaData, 'Sheet-1', [14, 18, 5, 16], `${formatedDate(new Date())}-backup-bayprostab`);
-     // Msg(msg);
-    } catch (error) {
-      console.error("Faild download data" + error);
-      console.log('Fail download data.')
+      message("Data download successfully.");
+    } else {
+      message("Data not available.");
     }
   }
 
@@ -39,3 +34,4 @@ const Download = ({ Msg }) => {
 
 };
 export default Download;
+

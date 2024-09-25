@@ -1,16 +1,19 @@
-export const Download = (tbl) => {
+export const Download = (tbl, isSession) => {
  
   const x = "`${new Date().toISOString()}-registration.json`";
 
+
+  const storageType = isSession?'sessionStorageGetItem':'localStorageGetItem';
+
   const str = `import React from "react";
-import { localStorageGetItem } from "@/lib/utils";
+import {  ${storageType} } from "@/lib/utils";
 
 
 const Download = ({ message }) => {
 
 
   const downloadHandler = () => {
-    let localData = localStorageGetItem("${tbl}");
+    let localData =  ${storageType}("${tbl}");
     if (localData) {
       const blob = new Blob([JSON.stringify(localData)], { type: "application/json"});
       const url = URL.createObjectURL(blob);

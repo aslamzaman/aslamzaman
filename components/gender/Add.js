@@ -1,4 +1,4 @@
-  
+
 import React, { useState } from "react";
 import { TextEn, BtnSubmit } from "@/components/Form";
 import { postDataToAPI } from "@/lib/utils";
@@ -8,6 +8,7 @@ const Add = ({ message }) => {
     const [name, setName] = useState('');
 
     const [show, setShow] = useState(false);
+    const [pointerEvent, setPointerEvent] = useState(true);
 
 
     const showAddForm = () => {
@@ -22,13 +23,13 @@ const Add = ({ message }) => {
 
 
     const resetVariables = () => {
-          setName('');
+        setName('');
     }
 
 
     const createObject = () => {
         return {
-              name: name
+            name: name
         }
     }
 
@@ -36,6 +37,7 @@ const Add = ({ message }) => {
     const saveHandler = async (e) => {
         e.preventDefault();
         try {
+            setPointerEvent(false);
             const newObject = createObject();
             const msg = await postDataToAPI("gender", newObject);
             message(msg);
@@ -44,6 +46,7 @@ const Add = ({ message }) => {
             message("Error saving gender data.");
         } finally {
             setShow(false);
+            setPointerEvent(true);
         }
     }
 
@@ -66,9 +69,9 @@ const Add = ({ message }) => {
                                 <div className="p-4">
                                     <form onSubmit={saveHandler}>
                                         <div className="grid grid-cols-1 gap-4">
-                                            <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={50} />                                    
+                                            <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={50} />
                                         </div>
-                                        <div className="w-full mt-4 flex justify-start">
+                                        <div className={`w-full mt-4 flex justify-start ${pointerEvent ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                                             <input type="button" onClick={closeAddForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
                                             <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                                         </div>
@@ -88,4 +91,4 @@ const Add = ({ message }) => {
     )
 }
 export default Add;
-  
+

@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, id, data } from "react";
 import { BtnEn } from "@/components/Form";
-import { localStorageDeleteItem } from "@/lib/utils";
-
+import { sessionStorageDeleteItem } from "@/lib/utils";
 
 const Delete = ({ message, id, data }) => {
     const [item, setItem] = useState("");
+    const [taka, setTaka] = useState("");
     const [show, setShow] = useState(false);
-
-    const [ckd, setCkd] = useState(false);
-
 
     const showDeleteForm = () => {
         setShow(true);
         try {
             const { item, taka } = data;
             setItem(item);
-            setCkd(parseInt(taka) === 0 ? true : false);
+            setTaka(parseInt(eval(taka)));
         }
         catch (err) {
             console.log(err);
@@ -28,16 +25,15 @@ const Delete = ({ message, id, data }) => {
     }
 
 
-    const deleteYesClick = () => {
+    const deleteYesClick = async () => {
         try {
-            const msg = localStorageDeleteItem("bayprostabexecution", id);
+            const msg = sessionStorageDeleteItem('bayprostabexecution', id);
             message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");
-        } finally {
-            setShow(false);
         }
+        setShow(false);
     }
 
 
@@ -65,7 +61,7 @@ const Delete = ({ message, id, data }) => {
 
                                 <h1 className="text-sm text-center text-gray-600 mt-4">
                                     Are you sure to proceed with the deletion?</h1>
-                                <h1 className={`text-center text-gray-600 font-bold ${ckd ? 'font-sans' : 'font-sutonnyN'}`}>{item}</h1>
+                                <h1 className={`text-center text-gray-600 font-bold ${taka === 0 ? 'font-sans' : 'font-sutonnyN'}`}>{item}</h1>
                             </div>
                             <div className="w-full flex justify-start">
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
@@ -84,5 +80,4 @@ const Delete = ({ message, id, data }) => {
     )
 }
 export default Delete;
-
 

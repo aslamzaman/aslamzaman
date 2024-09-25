@@ -1,5 +1,5 @@
 import { titleCamelCase } from "@/lib/utils";
-export const Edit = (tbl, datas) => {
+export const Edit = (tbl, datas, isSession) => {
 
     const replaceQutation = datas.replaceAll('`', '');
     const splitData = replaceQutation.split(",");
@@ -36,11 +36,11 @@ for (let i = 1; i < data.length; i++) {
 }
 
 
-
+const storageType = isSession?'sessionStorageUpdateItem':'localStorageUpdateItem';
 
     const str = `import React, { useState } from "react";
 import { BtnSubmit, TextEn } from "@/components/Form";
-import { localStorageUpdateItem } from "@/lib/utils";
+import { ${storageType} } from "@/lib/utils";
 
 const Edit = ({ message, id, data  }) => {
 ${use_state}   
@@ -76,7 +76,7 @@ ${objectText}
         e.preventDefault();
         try {
             const newObject = createObject();
-            const msg = localStorageUpdateItem('${tbl}', id, newObject);
+            const msg = ${storageType}('${tbl}', id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error updating ${tbl} data:", error);

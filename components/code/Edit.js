@@ -151,7 +151,7 @@ import { putDataToAPI } from "@/lib/utils";
 const Edit = ({ message, id, data }) => {
 ${stateVar}
     const [show, setShow] = useState(false);
-
+    const [pointerEvent, setPointerEvent] = useState(true);
 
     const showEditForm = () => {
         setShow(true);
@@ -178,6 +178,7 @@ ${getValue}
     const saveHandler = async (e) => {
         e.preventDefault();
         try {
+            setPointerEvent(false);
             const newObject = createObject();
             const msg = await putDataToAPI("${tbl}",id, newObject);
             message(msg);
@@ -185,6 +186,7 @@ ${getValue}
             console.error("Error saving ${tbl} data:", error);
             message("Error saving ${tbl} data.");
         } finally {
+            setPointerEvent(true);
             setShow(false);
         }
     }
@@ -209,7 +211,7 @@ ${getValue}
                                 <div className="grid grid-cols-1 gap-4 my-4">
 ${dd}                                    
                                 </div>
-                                <div className="w-full flex justify-start">
+                                <div className={\`w-full mt-4 flex justify-start \${pointerEvent ? 'pointer-events-auto' : 'pointer-events-none'}\`}>
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
                                     <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                                 </div>

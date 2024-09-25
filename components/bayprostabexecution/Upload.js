@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BtnEn } from "../Form";
 import { Close } from "../Icons";
-import { localStorageSetItem } from "@/lib/utils";
+import { sessionStorageSetItem } from "@/lib/utils";
 
 
 const Upload = ({ message }) => {
@@ -13,7 +13,7 @@ const Upload = ({ message }) => {
 
 	const showModal = () => {
 		setShow(true);
-    }
+	}
 
 
 	const uploadHandler = (e) => {
@@ -21,7 +21,7 @@ const Upload = ({ message }) => {
 			const reader = new FileReader();
 			reader.onload = (() => {
 				let jsonData = JSON.parse(reader.result);
-				localStorageSetItem("bayprostabexecution", jsonData);
+				sessionStorageSetItem("bayprostabexecution", jsonData);
 				message("Data loaded successfully");
 				setShow(false);
 			})
@@ -62,4 +62,3 @@ const Upload = ({ message }) => {
 }
 export default Upload;
 
-      
