@@ -7,7 +7,6 @@ import Add from "@/components/code/Add";
 import Edit from "@/components/code/Edit";
 import Delete from "@/components/code/Delete";
 import Print from "@/components/code/Print";
-import LocalDatabase from "@/components/code/LocalDatabase";
 import LayoutPage from "@/components/code/LayoutPage";
 import Help_code from "@/components/code/HelpCode";
 import TwoPart from "@/components/code/TowPart";
@@ -15,11 +14,7 @@ import OnePage from "@/components/code/OnePage";
 import ModelPage from "@/components/code/ModelPage";
 import RoutePage from "@/components/code/RoutePage";
 import RouteDynamicPage from "@/components/code/RouteDynamicPage";
-import Upload from "@/components/code/Upload";
-import Download from "@/components/code/Download";
 import Excle from "@/components/code/Excel";
-
-import { utilsLibrary } from "@/components/code/utilsLibrary";
 
 
 
@@ -56,19 +51,6 @@ const Code = () => {
     }, []);
 
 
-    const UtilsGenerate = () => {
-        const data = utilsLibrary();
-        const blob = new Blob([data], {
-            type: "application/json",
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'utils.js';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    }
 
 
     const PageGenerate = () => {
@@ -98,18 +80,7 @@ const Code = () => {
         setTitleText(`components/${tbl}/Print.js`);
         setResult(Print(tbl, fld));
     }    
-    
-    const LocalDatabaseGenerate = () => {
-        setTitleText(`lib/LocalDatabase.js`);
-        setResult(LocalDatabase());
-    }
 
-
-    const UnitqueIdGenerator = () => {
-        setTitleText(`Unique Id`);
-        const str = `${Date.now()}\n\n${new Date().toISOString()}`;
-        setResult(str);
-    }
 
     const LayoutPageGenerate = () => {
         setTitleText(`app/${tbl}/layout.js`);
@@ -130,99 +101,6 @@ const Code = () => {
     const OnePartHandle = () => {
         setTitleText(`app/${tbl}/page.js`);
         setResult(OnePage(tbl, fld));
-    }
-
-    const PromiseGenerate = () => {
-        const tbls = prompt("Tables name");
-        if (tbls === null || tbls === '') return false;
-        const sp = tbls.split(',');
-
-        const tbName = sp.map(t => ' ' + t.trim() + 'Response').toString();
-
-        let str = "";
-
-        let s4 = "";
-        for (let i = 0; i < sp.length; i++) {
-            s4 = s4 + `    const [${sp[i].trim()}s, set${titleCase(sp[i].trim())}s] = useState([]);\n`;
-        }
-        str = str + s4;
-
-        str = str + "\n";
-
-        let s6 = "";
-        for (let i = 0; i < sp.length; i++) {
-            s6 = s6 + `    const [${sp[i].trim()}_id, set${titleCase(sp[i].trim())}_id] = useState("");\n`;
-        }
-        str = str + s6;
-
-        str = str + "\n";
-
-
-
-        str = str + "    const fetchData = async (callback) => {\n";
-        str = str + "        try {\n";
-        str = str + "            const [" + tbName + " ] = await Promise.all([\n";
-        let s1 = "";
-        for (let i = 0; i < sp.length - 1; i++) {
-            s1 = s1 + '                fetchAll("' + sp[i].trim() + '"),\n';
-        }
-
-        s1 = s1 + '                fetchAll("' + sp[sp.length - 1].trim() + '")\n';
-        str = str + s1;
-        str = str + "            ]);\n\n"
-
-
-        str = str + "            callback({\n";
-
-        let s3 = "";
-        for (let i = 0; i < sp.length - 1; i++) {
-            s3 = s3 + `                ${sp[i].trim()}: ${sp[i].trim() + 'Response'}.data,\n`;
-        }
-
-        s3 = s3 + `                ${sp[sp.length - 1].trim()}: ${sp[sp.length - 1].trim() + 'Response'}.data\n`;
-        str = str + s3;
-
-
-
-
-        str = str + "            });\n";
-        str = str + "        } catch (error) {\n";
-        str = str + '            console.error("Error fetching data:", error);\n';
-        str = str + "        }\n";
-
-        str = str + "    };\n";
-
-        str = str + "\n";
-
-
-
-        str = str + "    const getData = async () => {\n";
-        str = str + "        try{\n";
-        str = str + "            await fetchData(data => {\n";
-        let s5 = "";
-        for (let i = 0; i < sp.length; i++) {
-            s5 = s5 + `                set${titleCase(sp[i].trim())}s(data.${sp[i].trim()});\n`;
-        }
-        str = str + s5;
-
-        str = str + "            });\n";
-        str = str + "        }catch(error){\n";
-        str = str + "            console.log(error);\n";
-        str = str + "        };\n";
-        str = str + "    };\n\n";
-
-
-        let s7 = "";
-        for (let i = 0; i < sp.length; i++) {
-            s7 = s7 + `                                    <DropdownEn Title="${titleCase(sp[i].trim())}" Id="${sp[i].trim()}_id" Change={e => set${titleCase(sp[i].trim())}_id(e.target.value)} Value={${sp[i].trim()}_id}>\n`;
-            s7 = s7 + `                                        {${sp[i].trim()}s.length?${sp[i].trim()}s.map(${sp[i].trim()}=><option value={${sp[i].trim()}.id} key={${sp[i].trim()}.id}>{${sp[i].trim()}.name}</option>):null}\n`;
-            s7 = s7 + `                                    </DropdownEn>\n`;
-        }
-        str = str + s7;
-
-
-        setResult(str);
-
     }
 
 
@@ -367,17 +245,6 @@ const Code = () => {
         setResult(RouteDynamicPage(tbl, fld));
     }
 
-
-    const UploadGenerate = () => {
-        setTitleText(`components/${tbl}/Upload.js`);
-        setResult(Upload());
-    }
-
-    const DownloadGenerate = () => {
-        setTitleText(`components/${tbl}/Download.js`);
-        setResult(Download());
-    }
-
     const ExcelGenerate = () => {
         setTitleText(`components/${tbl}/Excel.js`);
         setResult(Excle());
@@ -415,16 +282,10 @@ const Code = () => {
 
                         <BtnEn Title="Two Part" Click={TwoPartHandle} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="One Page" Click={OnePartHandle} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="LocalDatabase" Click={LocalDatabaseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Unique Id" Click={UnitqueIdGenerator} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Promise All" Click={PromiseGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="DropdownById" Click={DropdownById} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Joint Table" Click={JonGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Upload" Click={UploadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Download" Click={DownloadGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Excel" Click={ExcelGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                         <BtnEn Title="Help" Click={HelpPageGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
-                        <BtnEn Title="Utils" Click={UtilsGenerate} Class="bg-indigo-700 hover:bg-indigo-900 text-white mr-1 text-xs" />
                     </div>
                 </div>
                 <div className="col-span-2 py-4 max-h-[800px] overflow-auto">

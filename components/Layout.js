@@ -38,10 +38,10 @@ const Layout = ({ children }) => {
 
     const getSessionStorageSize = () => {
         let totalSize = 0;
-        for (let key in sessionStorage) {
-            if (sessionStorage.hasOwnProperty(key)) {
-                totalSize += sessionStorage.getItem(key).length;
-            }
+        const keys = Object.keys(sessionStorage);
+        for (let i = 0; i < keys.length; i++) {
+            let key = keys[i];
+            totalSize += sessionStorage[key].length;
         }
         return totalSize / (1024 * 1024); // Returns size in characters (MB)
     }
