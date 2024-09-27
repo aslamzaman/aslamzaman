@@ -100,7 +100,7 @@ const ${titleCase(tbl)} = () => {
                         <thead>
                             <tr className="w-full bg-gray-200">
 ${thead_string}                                <th className="w-[95px] border-b border-gray-200 px-4 py-2">
-                                    <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
+                                    <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1 font-normal">
                                         {/* <Print data={${tbl}s} /> */}
                                         <Add message={messageHandler} />
                                     </div>
