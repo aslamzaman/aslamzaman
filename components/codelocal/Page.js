@@ -69,7 +69,7 @@ const ${titleCamelCase(tbl)} = () => {
                             <tr className="w-full bg-gray-200">
 ${thead}
                                 <th className="w-[100px] font-normal">
-                                    <div className="w-full flex justify-end mt-1 pr-[3px] lg:pr-2">
+                                    <div className="w-full flex justify-end mt-1 pr-[3px] lg:pr-2 font-normal">
                                         <Add message={messageHandler} />
                                     </div>
                                 </th>
