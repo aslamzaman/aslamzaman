@@ -3,25 +3,34 @@ import React, { useState, useEffect } from "react";
 import Add from "@/components/honda/Add";
 import Edit from "@/components/honda/Edit";
 import Delete from "@/components/honda/Delete";
+import History from "@/components/honda/history";
 import { fetchDataFromAPI, localStorageSetItem } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { jsPDF } from "jspdf";
+
 
 
 const Honda = () => {
     const [hondas, setHondas] = useState([]);
+    const [hondahistoris, setHondahistoris] = useState([]);
     const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
-    const router = useRouter();
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
             setWaitMsg('Please Wait...');
             try {
 
-                const data = await fetchDataFromAPI("honda");
+                const [data, hondahistory] = await Promise.all([
+                    fetchDataFromAPI("honda"),
+                    fetchDataFromAPI("hondahistory")
+                ]);
                 const sortData = data.sort((a, b) => (a.unitId.nmEn).toUpperCase() < (b.unitId.nmEn).toUpperCase() ? -1 : 1)
-                console.log(sortData);
+                console.log(sortData, hondahistory);
                 setHondas(sortData);
+                setHondahistoris(hondahistory);
                 setWaitMsg('');
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -37,10 +46,50 @@ const Honda = () => {
     }
 
 
-    const goToDetail = (id) => {
-        localStorageSetItem('hondaId', id);
-        router.push('hondahistory')
+    const printHandler = () => {
+        const joinHonda = hondas.map(honda => {
+            const matchHistory = hondahistoris.find(history => history.hondaId._id === honda._id);
+            return {
+                ...honda,
+                history: matchHistory ? matchHistory : {}
+            }
+        })
+
+
+        const doc = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true
+        });
+
+        let y = 40;
+
+        doc.setFontSize(10);
+        for (let i = 0; i < joinHonda.length; i++) {
+
+            const sp = doc.splitTextToSize(`${joinHonda[i].history.name ? joinHonda[i].history.name : '-'}`, 45);
+            const unitProject =`${joinHonda[i].history.unit} - ${joinHonda[i].history.project}`;
+            doc.text(`${i + 1}`, 15, y, null, null, 'center');
+            doc.text(`${joinHonda[i].unitId.nmEn}`, 20, y, null, null, 'left');
+            doc.text(`${joinHonda[i].regNo}`, 65, y, null, null, 'center');
+            doc.text(`${joinHonda[i].projectId.name}`, 102, y, null, null, 'center');
+            doc.text(sp, 115, y, null, null, 'left');
+         //   doc.text(`${joinHonda[i].history.unit ? joinHonda[i].history.unit : '-'}`, 160, y, null, null, 'left');
+            doc.text(`${unitProject}`, 160, y, null, null, 'left');
+
+            const lineNumber = sp.length;
+            const lineHeight = doc.getLineHeightFactor();
+
+            y += lineNumber * 5 * lineHeight;
+
+        }
+        doc.save("honda_summary.pdf");
+
+        console.log(joinHonda);
+
     }
+
 
 
     return (
@@ -49,8 +98,10 @@ const Honda = () => {
                 <h1 className="w-full text-xl lg:text-3xl font-bold text-center text-blue-700">Honda</h1>
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
             </div>
+
             <div className="px-4 lg:px-6">
                 <p className="w-full text-sm text-red-700">{msg}</p>
+                <button onClick={printHandler}>Print</button>
                 <div className="p-2 overflow-auto">
                     <table className="w-full border border-gray-200">
                         <thead>
@@ -66,6 +117,7 @@ const Honda = () => {
                                 <th className="text-center border-b border-gray-200 px-4 py-2">Remarks</th>
                                 <th className="w-[100px] font-normal">
                                     <div className="w-full flex justify-end py-0.5 pr-4">
+
                                         <Add message={messageHandler} />
                                     </div>
                                 </th>
@@ -87,12 +139,7 @@ const Honda = () => {
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
                                             <Edit message={messageHandler} id={honda._id} data={honda} />
                                             <Delete message={messageHandler} id={honda._id} data={honda} />
-
-                                            <button title="Detail" onClick={() => goToDetail(honda._id)} className="w-7 h-7 p-0.5 bg-gray-50 hover:bg-gray-300 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full p-[1px] stroke-black">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                                </svg>
-                                            </button>
+                                            <History message={messageHandler} id={honda._id} />
                                         </td>
                                     </tr>
                                 ))

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 
 
-const Hondahistory = () => {
+const Hondahistory = ({id}) => {
     const [hondahistorys, setHondahistorys] = useState([]);
     const [waitMsg, setWaitMsg] = useState("");
     const [msg, setMsg] = useState("Data ready");
@@ -75,6 +75,7 @@ const Hondahistory = () => {
                                     <th className="text-center border border-gray-600">Remarks</th>
                                     <th className="w-[95px] font-normal border border-gray-600">
                                         <div className="w-[90px] h-[45px] flex justify-end space-x-2 p-1">
+                                            
                                             <Add message={messageHandler} />
                                         </div>
                                     </th>
