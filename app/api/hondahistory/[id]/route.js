@@ -8,8 +8,8 @@ export const PUT = async (Request,{ params }) => {
   try {
     await Connect();
     const {id} = params;
-    const { dt, hondaId, staffId, pageNo, remarks } = await Request.json();
-    const hondahistorys = await HondahistoryModel.findOneAndUpdate({ _id: id }, { dt, hondaId, staffId, pageNo, remarks });
+    const { dt, name, mobile, post, unit, project, hondaId, regCertificate, helmet, taxCertificate, insurance, remarks } = await Request.json();
+    const hondahistorys = await HondahistoryModel.findOneAndUpdate({ _id: id }, { dt, name, mobile, post, unit, project, hondaId, regCertificate, helmet, taxCertificate, insurance, remarks });
     return NextResponse.json(hondahistorys);
   } catch (err) {
     return NextResponse.json({ message: "PUT Error", err }, { status: 500 });

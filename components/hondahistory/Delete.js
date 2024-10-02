@@ -1,19 +1,20 @@
-
 import React, { useState } from "react";
 import { BtnEn } from "@/components/Form";
-import { patchDataToAPI, deleteDataFromAPI, formatedDateDot } from "@/lib/utils";
+import { patchDataToAPI, deleteDataFromAPI } from "@/lib/utils";
 
 
 const Delete = ({ message, id, data }) => {
     const [dt, setDt] = useState("");
     const [show, setShow] = useState(false);
+    const [pointerEvent, setPointerEvent] = useState(true);
+
 
 
     const showDeleteForm = () => {
         setShow(true);
         try {
             const { dt } = data;
-            setDt(formatedDateDot(dt, true));
+            setDt(dt);        
         }
         catch (err) {
             console.log(err);
@@ -25,19 +26,32 @@ const Delete = ({ message, id, data }) => {
         setShow(false);
     }
 
-
-
-
-
-    const hardDeleteClick = async () => {
+/*
+    const softDeleteClick = async () => {
         try {
-            const msg = await deleteDataFromAPI("hondahistory", id);
+            const msg = await patchDataToAPI('hondahistory',id);
             message(msg);
         } catch (error) {
             console.log(error);
             message("Data deleting error");
         }
         setShow(false);
+    }
+*/
+
+
+    const hardDeleteClick = async () => {
+        try {
+            setPointerEvent(false);
+            const msg = await deleteDataFromAPI('hondahistory',id);
+            message(msg);
+        } catch (error) {
+            console.log(error);
+            message("Data deleting error");
+        } finally {
+            setPointerEvent(true);
+            setShow(false);
+        }
     }
 
 
@@ -68,9 +82,9 @@ const Delete = ({ message, id, data }) => {
                                     Are you sure to proceed with the deletion?</h1>
                                 <h1 className="text-center text-gray-600 font-bold">{dt}</h1>
                             </div>
-                            <div className="w-full flex justify-start">
+                            <div className={`w-full mt-4 flex justify-start ${pointerEvent ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                                 <BtnEn Title="Close" Click={closeDeleteForm} Class="bg-pink-700 hover:bg-pink-900 text-white mr-1" />
-                                <BtnEn Title="Yes Delete" Click={hardDeleteClick} Class="bg-blue-600 hover:bg-blue-800 text-white" />
+                                <BtnEn Title="Yes Delete" Click={hardDeleteClick } Class="bg-blue-600 hover:bg-blue-800 text-white" />
                             </div>
                         </div>
                     </div>
@@ -85,5 +99,6 @@ const Delete = ({ message, id, data }) => {
     )
 }
 export default Delete;
+    
 
-
+    

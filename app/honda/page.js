@@ -4,8 +4,10 @@ import Add from "@/components/honda/Add";
 import Edit from "@/components/honda/Edit";
 import Delete from "@/components/honda/Delete";
 import History from "@/components/honda/history";
-import { fetchDataFromAPI, localStorageSetItem } from "@/lib/utils";
+import { fetchDataFromAPI, formatedDateDot, sessionStorageSetItem } from "@/lib/utils";
 import { jsPDF } from "jspdf";
+import { useRouter } from "next/navigation";
+
 
 
 
@@ -14,7 +16,7 @@ const Honda = () => {
     const [hondahistoris, setHondahistoris] = useState([]);
     const [msg, setMsg] = useState("Data ready");
     const [waitMsg, setWaitMsg] = useState("");
-
+    const router = useRouter();
 
 
 
@@ -65,17 +67,22 @@ const Honda = () => {
 
         let y = 40;
 
-        doc.setFontSize(10);
-        for (let i = 0; i < joinHonda.length; i++) {
+        doc.setFontSize(14);
+        doc.text("Centre for Mass Education in Science(CMES)", 105, 20, null, null, 'center');
+        doc.text(`${formatedDateDot(new Date(), true)}`, 105, 26, null, null, 'center');
 
+        doc.setFontSize(10);
+        doc.text("Origin", 66, 35, null, null, 'center');
+        doc.text("Present", 160, 35, null, null, 'center');
+        for (let i = 0; i < joinHonda.length; i++) {
             const sp = doc.splitTextToSize(`${joinHonda[i].history.name ? joinHonda[i].history.name : '-'}`, 45);
-            const unitProject =`${joinHonda[i].history.unit} - ${joinHonda[i].history.project}`;
+            const unitProject = `${joinHonda[i].history.unit} - ${joinHonda[i].history.project}`;
             doc.text(`${i + 1}`, 15, y, null, null, 'center');
             doc.text(`${joinHonda[i].unitId.nmEn}`, 20, y, null, null, 'left');
             doc.text(`${joinHonda[i].regNo}`, 65, y, null, null, 'center');
             doc.text(`${joinHonda[i].projectId.name}`, 102, y, null, null, 'center');
             doc.text(sp, 115, y, null, null, 'left');
-         //   doc.text(`${joinHonda[i].history.unit ? joinHonda[i].history.unit : '-'}`, 160, y, null, null, 'left');
+            //   doc.text(`${joinHonda[i].history.unit ? joinHonda[i].history.unit : '-'}`, 160, y, null, null, 'left');
             doc.text(`${unitProject}`, 160, y, null, null, 'left');
 
             const lineNumber = sp.length;
@@ -84,10 +91,20 @@ const Honda = () => {
             y += lineNumber * 5 * lineHeight;
 
         }
+        doc.line(20,36, 111, 36);
+        doc.line(115, 36, 203, 36);
+
+        doc.line(113.5, 37, 113.5, 219);
         doc.save("honda_summary.pdf");
 
         console.log(joinHonda);
 
+    }
+
+
+    const goToHistoryPage = (id) => {
+        sessionStorageSetItem('hondaId', id);
+        router.push('/hondahistory');
     }
 
 
@@ -137,6 +154,7 @@ const Honda = () => {
                                         <td className="text-center py-2 px-4">{honda.projectId.name}</td>
                                         <td className="text-center py-2 px-4">{honda.remarks}</td>
                                         <td className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
+                                            <button onClick={() => goToHistoryPage(honda._id)}>GO TO</button>
                                             <Edit message={messageHandler} id={honda._id} data={honda} />
                                             <Delete message={messageHandler} id={honda._id} data={honda} />
                                             <History message={messageHandler} id={honda._id} />

@@ -1,34 +1,45 @@
-
 import React, { useState } from "react";
 import { TextEn, BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
-import { putDataToAPI, fetchDataFromAPI, formatedDate, localStorageGetItem, postDataToAPI } from "@/lib/utils";
-
-
+import { formatedDate, putDataToAPI,fetchDataFromAPI } from "@/lib/utils";
 
 
 const Edit = ({ message, id, data }) => {
-    const [staffs, setStaffs] = useState([]);
     const [dt, setDt] = useState('');
-    const [staffId, setStaffId] = useState('');
-    const [pageNo, setPageNo] = useState('');
+    const [name, setName] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [post, setPost] = useState('');
+    const [unit, setUnit] = useState('');
+    const [project, setProject] = useState('');
+    const [hondaId, setHondaId] = useState('');
+    const [regCertificate, setRegCertificate] = useState('');
+    const [helmet, setHelmet] = useState('');
+    const [taxCertificate, setTaxCertificate] = useState('');
+    const [insurance, setInsurance] = useState('');
     const [remarks, setRemarks] = useState('');
     const [show, setShow] = useState(false);
+    const [pointerEvent, setPointerEvent] = useState(true);
+
+    const [hondas, setHondas] = useState([]);
 
 
     const showEditForm = async () => {
         setShow(true);
         try {
+            const responseData = await fetchDataFromAPI("honda");
+            setHondas(responseData);
 
-            const hondaData = await fetchDataFromAPI("staff");
-            const sortData = hondaData.sort((a, b) => parseInt(a.empId) < parseInt(b.empId) ? -1 : 1);
-            console.log(hondaData);
-            setStaffs(sortData);
-
-
-            const { dt, staffId, pageNo, remarks } = data;
+             const { dt, name, mobile, post, unit, project, hondaId, regCertificate, helmet, taxCertificate, insurance, remarks } = data;
             setDt(formatedDate(dt));
-            setStaffId(staffId._id);
-            setPageNo(pageNo);
+            setName(name);
+            setMobile(mobile);
+            setPost(post);
+            setUnit(unit);
+            setProject(project);
+            setHondaId(hondaId._id);
+            setRegCertificate(regCertificate);
+            setHelmet(helmet);
+            setTaxCertificate(taxCertificate);
+            setInsurance(insurance);
             setRemarks(remarks);
         } catch (err) {
             console.log(err);
@@ -42,13 +53,19 @@ const Edit = ({ message, id, data }) => {
 
 
     const createObject = () => {
-        const hId = localStorageGetItem('hondaId');
         return {
-            dt: dt,
-            hondaId: hId,
-            staffId: staffId,
-            pageNo: pageNo,
-            remarks: remarks
+              dt: dt,
+              name: name,
+              mobile: mobile,
+              post: post,
+              unit: unit,
+              project: project,
+              hondaId: hondaId,
+              regCertificate: regCertificate,
+              helmet: helmet,
+              taxCertificate: taxCertificate,
+              insurance: insurance,
+              remarks: remarks
         }
     }
 
@@ -56,13 +73,15 @@ const Edit = ({ message, id, data }) => {
     const saveHandler = async (e) => {
         e.preventDefault();
         try {
+            setPointerEvent(false);
             const newObject = createObject();
-            const msg = await putDataToAPI("hondahistory", id, newObject);
+            const msg = await putDataToAPI("hondahistory",id, newObject);
             message(msg);
         } catch (error) {
             console.error("Error saving hondahistory data:", error);
             message("Error saving hondahistory data.");
         } finally {
+            setPointerEvent(true);
             setShow(false);
         }
     }
@@ -84,16 +103,44 @@ const Edit = ({ message, id, data }) => {
                         </div>
                         <div className="px-6 pb-6 text-black">
                             <form onSubmit={saveHandler} >
-                                <div className="grid grid-cols-1 gap-4 my-4">
-                                    <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
-                                    <DropdownEn Title="Staff" Id="staffId" Change={e => setStaffId(e.target.value)} Value={staffId}>
-                                        {staffs.length ? staffs.map(staff => <option value={staff._id} key={staff._id}>{staff.nmEn}({staff.empId})-{staff.postId.nmEn}</option>) : null}
-                                    </DropdownEn>
-                                    <TextEn Title="Page No" Id="pageNo" Change={e => setPageNo(e.target.value)} Value={pageNo} Chr={50} />
+                                <div className="grid grid-cols-2 gap-4 my-4">
+                                <TextDt Title="Date" Id="dt" Change={e => setDt(e.target.value)} Value={dt} />
+                                            <TextEn Title="Name" Id="name" Change={e => setName(e.target.value)} Value={name} Chr={50} />
+                                            <TextEn Title="Mobile" Id="mobile" Change={e => setMobile(e.target.value)} Value={mobile} Chr={50} />
+                                            <TextEn Title="Designation (Post)" Id="post" Change={e => setPost(e.target.value)} Value={post} Chr={50} />
+                                            <TextEn Title="Unit" Id="unit" Change={e => setUnit(e.target.value)} Value={unit} Chr={50} />
+                                            <TextEn Title="Project" Id="project" Change={e => setProject(e.target.value)} Value={project} Chr={50} />
 
-                                    <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={50} />
+                                            <DropdownEn Title="Honda" Id="hondaId" Change={e => setHondaId(e.target.value)} Value={hondaId}>
+                                                {hondas.length ? hondas.map(honda => <option value={honda._id} key={honda._id}>{honda.regNo}</option>) : null}
+                                            </DropdownEn>
+
+
+                                            <DropdownEn Title="Registration Certificate" Id="regCertificate" Change={e => setRegCertificate(e.target.value)} Value={regCertificate}>
+                                                <option value="BRTA Original Registration">BRTA Original Registration</option>
+                                                <option value="Photocopy">Photocopy</option>
+                                                <option value="BRTA Acknowledgement Main Copy">BRTA Acknowledgement Main Copy</option>
+                                            </DropdownEn>
+
+
+                                            <DropdownEn Title="Helmet" Id="helmet" Change={e => setHelmet(e.target.value)} Value={helmet}>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </DropdownEn>
+
+                                            <DropdownEn Title="Tax Certificate" Id="taxCertificate" Change={e => setTaxCertificate(e.target.value)} Value={taxCertificate}>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </DropdownEn>
+
+                                            <DropdownEn Title="Insurance" Id="insurance" Change={e => setInsurance(e.target.value)} Value={insurance}>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </DropdownEn>
+
+                                            <TextEn Title="Remarks" Id="remarks" Change={e => setRemarks(e.target.value)} Value={remarks} Chr={300} />                                   
                                 </div>
-                                <div className="w-full flex justify-start">
+                                <div className={`w-full mt-4 flex justify-start ${pointerEvent ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                                     <input type="button" onClick={closeEditForm} value="Close" className="bg-pink-600 hover:bg-pink-800 text-white text-center mt-3 mx-0.5 px-4 py-2 font-semibold rounded-md focus:ring-1 ring-blue-200 ring-offset-2 duration-300 cursor-pointer" />
                                     <BtnSubmit Title="Save" Class="bg-blue-600 hover:bg-blue-800 text-white" />
                                 </div>
@@ -117,3 +164,4 @@ export default Edit;
 
 
 
+    
