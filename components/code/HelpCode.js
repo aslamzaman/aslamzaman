@@ -374,6 +374,51 @@ const fileChangeHandlerImage = async (e) => {
 }
 
 
+ *** Excel
+ // import * as XLSX from 'xlsx';
+ /**
+ * Get json data from an excel file
+ * @param {string} file - From input file
+ * @param {Array} headerArray - Excel sheet table header
+ * @returns
+ */
+  const jsonDataFromExcelSheet = (file, headerArray) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const workbook = XLSX.read(event.target.result, { type: "binary" });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: headerArray });
+            resolve(jsonData.slice(1));
+        }
+        reader.onerror = (error) => reject(error);
+        reader.readAsArrayBuffer(file);
+    })
+  }
+
+
+/**
+ * Exports JSON data to an Excel sheet.
+ * @param {Array} jsonData - The JSON data to export.
+ * @param {String} sheetName - The name of the sheet.
+ * @param {Array} columnWidthArray - The columns width in character. Say [20, 10, 15, ...]
+ * @param {String} fileName - The desired file name (without extension).
+ */
+  const excelSheetFromJsonData = (jsonData, sheetName, columnWidthArray, fileName) => {
+      try {
+          let cols = columnWidthArray.map(item => ({ wch: item }));
+          const workbook = XLSX.utils.book_new();
+          const worksheet = XLSX.utils.json_to_sheet(jsonData);
+          worksheet["!cols"] = cols; // set column width
+          XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+          XLSX.writeFile(workbook, \`\${fileName}.xlsx\`);
+          return \`Excel file has been successfully created.\`;
+      } catch (error) {
+          console.error('Error exporting data to Excel:', error);
+      }
+  }
+
 
 
       `;

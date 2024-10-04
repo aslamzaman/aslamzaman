@@ -1,11 +1,27 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
+import * as XLSX from 'xlsx';
 require("@/app/fonts/Lobster-Regular-normal");
 require("@/app/fonts/OpenSansCondensed-Light-normal");
 import { BtnSubmit, DropdownEn, TextDt } from "@/components/Form";
-import { formatedDateSlash, formatedDate, jsonDataFromExcelSheet } from "@/lib/utils";
+import { formatedDateSlash, formatedDate } from "@/lib/utils";
 
+
+const jsonDataFromExcelSheet = (file, headerArray) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const workbook = XLSX.read(event.target.result, { type: "binary" });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: headerArray });
+            resolve(jsonData.slice(1));
+        }
+        reader.onerror = (error) => reject(error);
+        reader.readAsArrayBuffer(file);
+    })
+  }
 
 
 

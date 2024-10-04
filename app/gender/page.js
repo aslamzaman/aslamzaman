@@ -18,7 +18,9 @@ const Gender = () => {
             setWaitMsg('Please Wait...');
             try {
                 const data = await fetchDataFromAPI("gender");
-                setGenders(data);
+                const sort = data.sort((a, b) => a._id < b._id ? 1 : -1);
+                console.log(sort);
+                setGenders(sort);
                 setWaitMsg('');
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -32,7 +34,12 @@ const Gender = () => {
         setMsg(data);
     }
 
-
+    const dd = () => {
+        const data1 = { _id: 5, age: 60, name: "aslam" };
+        const data2 = { age: 90 };
+        const result = { ...data1, ...data2 };
+        console.log(result);
+    }
     return (
         <>
             <div className="w-full mb-3 mt-8">
@@ -40,6 +47,7 @@ const Gender = () => {
                 <p className="w-full text-center text-blue-300">&nbsp;{waitMsg}&nbsp;</p>
                 <p className="w-full text-sm text-center text-pink-600">&nbsp;{msg}&nbsp;</p>
             </div>
+            <button onClick={dd}>Click Me</button>
             <div className="px-4 lg:px-6">
                 <div className="p-4 overflow-auto">
                     <table className="w-full border border-gray-200">
@@ -57,7 +65,7 @@ const Gender = () => {
                         <tbody>
                             {genders.length ? (
                                 genders.map(gender => (
-                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={gender._id}>    
+                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={gender._id}>
                                         <td className="text-center py-1 px-4">{gender.name}</td>
                                         <td className="text-center py-2">
                                             <div className="h-8 flex justify-end items-center space-x-1 mt-1 mr-2">
