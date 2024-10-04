@@ -33,6 +33,7 @@ const MenuItem = ({ Href, Title, Menu }) => {
 const Layout = ({ children }) => {
     const [menu, setMenu] = useState(false);
     const [useSize, setUseSize] = useState("0");
+    const [readSize, setReadSize] = useState("0");
 
     const router = useRouter();
 
@@ -52,6 +53,15 @@ const Layout = ({ children }) => {
         if (!user) {
             router.push('/');
         }
+
+        const readingLength = localStorage.getItem('readinglen');
+        if (readingLength) {
+            const jsonLen = JSON.parse(readingLength);
+            setReadSize(jsonLen.len);
+        }else{
+            setReadSize("0"); 
+        }
+
         setUseSize(getSessionStorageSize());
 
     }, [router]);
@@ -83,7 +93,7 @@ const Layout = ({ children }) => {
                 <div className="text-lg font-bold">
                     {menu ? (<h1>Menu</h1>) : (<Link href="/dashboard">ASLAM</Link>)}
                 </div>
-                <p className='font-[xs] text-gray-400'>{parseFloat(useSize).toFixed(3)} MB</p>
+                <p className='font-[xs] text-gray-400'>{parseFloat(useSize).toFixed(3)} MB/{readSize}</p>
                 <button onClick={() => menu ? setMenu(false) : setMenu(true)}>
                     {menu ? (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
